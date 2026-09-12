@@ -16,6 +16,32 @@
             align-items: center;
         }
         
+        /* Seletor de Idiomas no topo */
+        .top-bar {
+            width: 100%;
+            max-width: 900px;
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 20px;
+        }
+
+        .lang-selector {
+            background: #1e293b;
+            border: 1px solid #475569;
+            color: #bae6fd;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .lang-selector:hover {
+            border-color: #38bdf8;
+        }
+        
         .header {
             text-align: center;
             margin-bottom: 50px;
@@ -34,7 +60,6 @@
             margin: 0;
         }
 
-        /* Grid que organiza os aplicativos */
         .apps-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -43,7 +68,6 @@
             max-width: 900px;
         }
 
-        /* Estilo padrão de cada "Cartão" de App */
         .app-card {
             background: #1e293b;
             border: 1px solid #334155;
@@ -83,11 +107,8 @@
             margin-bottom: 15px;
         }
 
-        /* =========================================
-           O SEGREDO DO DESTAQUE ESTÁ AQUI
-           ========================================= */
         .app-card.featured {
-            grid-column: 1 / -1; /* Faz o cartão ocupar a largura total */
+            grid-column: 1 / -1;
             background: linear-gradient(145deg, #1e293b 0%, #0f172a 100%);
             border: 2px solid #38bdf8;
             flex-direction: row;
@@ -105,7 +126,6 @@
             font-size: 28px;
         }
 
-        /* Selos indicadores (Novo, Em Alta) */
         .badge {
             position: absolute;
             top: 20px;
@@ -120,7 +140,6 @@
         .badge.hot { background: #ef4444; color: white; }
         .badge.new { background: #10b981; color: white; }
 
-        /* Responsividade para o card em destaque não quebrar no celular */
         @media (max-width: 600px) {
             .app-card.featured {
                 flex-direction: column;
@@ -140,43 +159,109 @@
 </head>
 <body>
 
+    <div class="top-bar">
+        <select class="lang-selector" id="langMenu" onchange="changeLanguage(this.value)">
+            <option value="pt">🇧🇷 Português</option>
+            <option value="en">🇺🇸 English</option>
+            <option value="es">🇪🇸 Español</option>
+        </select>
+    </div>
+
     <div class="header">
-        <h1>OXYLABZ TOOLKIT</h1>
-        <p>Eletrônica | Áudio</p>
+        <h1>OXY TOOLKIT</h1>
+        <p data-i18n="subtitle">Soluções para Eletrônica e Áudio</p>
     </div>
 
     <div class="apps-grid">
         
-        <!-- APLICATIVO 1 (Com a classe "featured", ele ganha total destaque na tela) -->
+        <!-- APLICATIVO 1 -->
         <a href="resistores.html" class="app-card featured">
-            <span class="badge hot">Em Alta</span>
+            <span class="badge hot" data-i18n="badge_hot">Em Alta</span>
             <div class="icon">⚡</div>
             <div>
-                <h2>Calculadora de Resistores</h2>
-                <p>Identifique valores, simule tolerâncias, verifique coeficientes de temperatura e gere guias visuais em PNG de alta resolução para bancada.</p>
+                <h2 data-i18n="app1_title">Calculadora de Resistores</h2>
+                <p data-i18n="app1_desc">Identifique valores, simule tolerâncias, verifique coeficientes de temperatura e gere guias visuais em PNG de alta resolução para bancada.</p>
             </div>
         </a>
 
-        <!-- APLICATIVO 2 (Formato normal) -->
+        <!-- APLICATIVO 2 -->
         <a href="acordes.html" class="app-card">
-            <span class="badge new">Novo</span>
+            <span class="badge new" data-i18n="badge_new">Novo</span>
             <div class="icon">🎹</div>
             <div>
-                <h2>Gerador de Acordes</h2>
-                <p>Crie e exporte progressões harmônicas rapidamente para integrar no seu software de produção de áudio e instrumentos virtuais.</p>
+                <h2 data-i18n="app2_title">Gerador de Acordes</h2>
+                <p data-i18n="app2_desc">Crie e exporte progressões harmônicas rapidamente para integrar no seu software de produção de áudio e instrumentos virtuais.</p>
             </div>
         </a>
 
-        <!-- Futuro Aplicativo 3 (Formato normal, apenas como exemplo para você ver como a grade se ajusta) -->
+        <!-- Futuro Aplicativo 3 -->
         <a href="#" class="app-card" style="opacity: 0.5; cursor: not-allowed;">
             <div class="icon">🛠️</div>
             <div>
-                <h2>Em breve...</h2>
-                <p>Mais ferramentas estão sendo desenvolvidas para compor o ecossistema OXY.</p>
+                <h2 data-i18n="app3_title">Em breve...</h2>
+                <p data-i18n="app3_desc">Mais ferramentas estão sendo desenvolvidas para compor o ecossistema OXY.</p>
             </div>
         </a>
 
     </div>
 
+    <script>
+        // Dicionário de Idiomas
+        const translations = {
+            pt: {
+                subtitle: "Soluções para Eletrônica e Áudio",
+                badge_hot: "Em Alta",
+                badge_new: "Novo",
+                app1_title: "Calculadora de Resistores",
+                app1_desc: "Identifique valores, simule tolerâncias, verifique coeficientes de temperatura e gere guias visuais em PNG de alta resolução para bancada.",
+                app2_title: "Gerador de Acordes",
+                app2_desc: "Crie e exporte progressões harmônicas rapidamente para integrar no seu software de produção de áudio e instrumentos virtuais.",
+                app3_title: "Em breve...",
+                app3_desc: "Mais ferramentas estão sendo desenvolvidas para compor o ecossistema OXY."
+            },
+            en: {
+                subtitle: "Electronics & Audio Solutions",
+                badge_hot: "Trending",
+                badge_new: "New",
+                app1_title: "Resistor Calculator",
+                app1_desc: "Identify values, simulate tolerances, check temp coefficients, and generate high-res PNG visual guides for your workbench.",
+                app2_title: "Chord Generator",
+                app2_desc: "Quickly create and export harmonic progressions to integrate into your DAW and virtual instruments.",
+                app3_title: "Coming soon...",
+                app3_desc: "More tools are currently being developed to build the OXY ecosystem."
+            },
+            es: {
+                subtitle: "Soluciones para Electrónica y Audio",
+                badge_hot: "Tendencia",
+                badge_new: "Nuevo",
+                app1_title: "Calculadora de Resistencias",
+                app1_desc: "Identifica valores, simula tolerancias, verifica coeficientes de temperatura y genera guías visuales PNG de alta resolución para el taller.",
+                app2_title: "Generador de Acordes",
+                app2_desc: "Crea y exporta progresiones armónicas rápidamente para integrarlas en tu software de producción y sintetizadores virtuales.",
+                app3_title: "Próximamente...",
+                app3_desc: "Se están desarrollando más herramientas para expandir el ecosistema OXY."
+            }
+        };
+
+        // Função que troca os textos baseados nos atributos data-i18n
+        function changeLanguage(lang) {
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if(translations[lang][key]) {
+                    element.innerText = translations[lang][key];
+                }
+            });
+            // Salva a escolha do usuário no navegador
+            localStorage.setItem('oxy_language', lang);
+            document.documentElement.lang = lang; // Atualiza a tag <html> para acessibilidade
+        }
+
+        // Ao carregar a página, verifica se o usuário já tinha escolhido um idioma antes
+        window.onload = () => {
+            const savedLang = localStorage.getItem('oxy_language') || 'pt';
+            document.getElementById('langMenu').value = savedLang;
+            changeLanguage(savedLang);
+        };
+    </script>
 </body>
 </html>
