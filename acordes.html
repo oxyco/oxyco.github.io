@@ -1,1 +1,555 @@
-hell o
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estúdio de Progressões, Acordes e Partitura</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vexflow@4.2.2/build/cjs/vexflow.js"></script>
+    
+    <style>
+        :root {
+            --bg: #09090b;
+            --surface: #18181b;
+            --border: #27272a;
+            --text: #f4f4f5;
+            --text-muted: #a1a1aa;
+            --accent: #3b82f6; 
+            --accent-hover: #2563eb;
+            --key-white: #f8fafc;
+            --key-black: #0f172a;
+            --active-white: #93c5fd;
+            --active-black: #3b82f6;
+            --chord-bg: #1e1e24;
+        }
+
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            text-align: center; padding: 30px 10px; background: var(--bg); color: var(--text); margin: 0; 
+        }
+
+        h1 { font-size: 28px; font-weight: 600; margin-bottom: 25px; color: #fff; letter-spacing: -0.5px;}
+
+        .tabs { display: flex; justify-content: center; margin-bottom: 25px; gap: 15px; }
+        .tab-btn {
+            background: var(--surface); color: var(--text-muted); padding: 12px 24px; font-size: 15px;
+            border: 1px solid var(--border); border-radius: 8px; cursor: pointer; font-weight: 600; transition: 0.2s;
+        }
+        .tab-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+        .controls { 
+            background: var(--surface); padding: 25px; border-radius: 12px; 
+            display: flex; flex-wrap: wrap; justify-content: center; gap: 12px;
+            border: 1px solid var(--border); margin-bottom: 30px; max-width: 1000px; margin-left: auto; margin-right: auto;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+        }
+
+        .control-group {
+            display: flex; flex-direction: column; text-align: left; gap: 5px;
+        }
+        .control-group label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; font-weight: bold; letter-spacing: 0.5px;}
+
+        select, button { 
+            padding: 12px 16px; font-size: 14px; border-radius: 8px; border: 1px solid var(--border); 
+            outline: none; background: var(--bg); color: var(--text); cursor: pointer; transition: all 0.2s;
+            min-width: 140px;
+        }
+        select:hover { border-color: var(--accent); }
+
+        button.primary-btn { background: var(--accent); color: #fff; font-weight: bold; border: none; font-size: 15px; margin-top: 20px;}
+        button.primary-btn:hover { background: var(--accent-hover); transform: translateY(-2px); box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);}
+        button.primary-btn:disabled { background: var(--border); color: var(--text-muted); cursor: not-wait; transform: none; box-shadow: none;}
+
+        .progression-container { display: flex; justify-content: center; gap: 15px; margin-bottom: 30px; min-height: 100px; flex-wrap: wrap;}
+        
+        .chord-box {
+            background: var(--surface); border: 1px solid var(--border);
+            border-radius: 12px; width: 140px; padding: 20px 5px; transition: all 0.2s; position: relative;
+        }
+        .chord-box.playing {
+            background: var(--chord-bg); border-color: var(--accent);
+            transform: translateY(-8px); box-shadow: 0 8px 25px rgba(59, 130, 246, 0.25);
+        }
+        .chord-name { font-size: 30px; font-weight: 700; letter-spacing: -1px; margin-top: 5px;}
+        .chord-voicing { font-size: 12px; color: var(--text-muted); margin-top: 5px; }
+        .chord-duration { position: absolute; top: 8px; right: 12px; font-size: 10px; color: var(--accent); font-weight: bold;}
+
+        /* Estilo da Partitura */
+        #score-container { margin: 0 auto 30px auto; width: 100%; max-width: 800px; overflow-x: auto; background: var(--surface); border-radius: 12px; border: 1px solid var(--border); padding: 10px 0;}
+        #score svg path { stroke: #d4d4d8; fill: #d4d4d8; }
+        #score svg rect { fill: #d4d4d8; }
+        #score svg text { fill: #f4f4f5; font-family: 'Segoe UI', sans-serif !important; stroke: none;}
+
+        /* Teclado Visual */
+        .piano-wrapper { width: 100%; max-width: 1000px; margin: 0 auto; overflow-x: auto; padding-bottom: 15px; background: #000; border-radius: 8px; box-shadow: inset 0 0 10px rgba(0,0,0,0.8); }
+        #piano { position: relative; height: 140px; width: 1260px; margin: 0 auto; }
+        .key { position: absolute; top: 0; border-radius: 0 0 4px 4px; transition: background 0.1s; box-sizing: border-box; }
+        .key.white { width: 36px; height: 140px; background: var(--key-white); z-index: 1; border: 1px solid #ccc; }
+        .key.black { width: 22px; height: 85px; background: var(--key-black); z-index: 2; border: 1px solid #000;}
+        .key.white.active { background: var(--active-white); border-color: var(--accent); z-index: 3;}
+        .key.black.active { background: var(--active-black); z-index: 4;}
+
+        #drag-pad {
+            display: none; margin: 20px auto; padding: 15px 40px; width: fit-content;
+            background: rgba(59, 130, 246, 0.1); border: 1px dashed var(--accent);
+            border-radius: 8px; color: var(--text); font-size: 14px; font-weight: 500; cursor: grab; transition: 0.2s;
+        }
+        #drag-pad:hover { background: rgba(59, 130, 246, 0.2); }
+    </style>
+</head>
+<body>
+    <h1>🎹 Estúdio de Partituras e Progressões</h1>
+
+    <div class="tabs">
+        <button class="tab-btn active" id="tab-scale" onclick="switchMode('scale')">Escala Livre</button>
+        <button class="tab-btn" id="tab-style" onclick="switchMode('style')">Arranjo por Estilo</button>
+    </div>
+    
+    <div class="controls">
+        <div class="control-group">
+            <label>Tônica</label>
+            <select id="root-note">
+                <option value="0">C</option><option value="1">C# / Db</option><option value="2">D</option>
+                <option value="3">D# / Eb</option><option value="4">E</option><option value="5">F</option>
+                <option value="6">F# / Gb</option><option value="7">G</option><option value="8">G# / Ab</option>
+                <option value="9">A</option><option value="10">A# / Bb</option><option value="11">B</option>
+            </select>
+        </div>
+        
+        <div class="control-group">
+            <label>Escala / Modo</label>
+            <select id="scale-type">
+                <optgroup label="Tradicionais">
+                    <option value="major">Maior (Jônio)</option>
+                    <option value="minor" selected>Menor (Eólio)</option>
+                    <option value="harmonic_minor">Menor Harmônica</option>
+                    <option value="melodic_minor">Menor Melódica</option>
+                </optgroup>
+                <optgroup label="Modos Gregos">
+                    <option value="dorian">Dórico</option>
+                    <option value="phrygian">Frígio</option>
+                    <option value="lydian">Lídio</option>
+                    <option value="mixolydian">Mixolídio</option>
+                    <option value="locrian">Lócrio</option>
+                </optgroup>
+            </select>
+        </div>
+
+        <div class="control-group" id="group-style" style="display: none;">
+            <label>Estilo Musical</label>
+            <select id="music-style">
+                <option value="pop">Pop</option>
+                <option value="acoustic_pop">Acoustic Pop</option>
+                <option value="alt_rock">Alt Rock</option>
+                <option value="hiphop_rb">Hip-Hop / R&B</option>
+                <option value="soul_jazz">Soul / Jazz</option>
+                <option value="edm">EDM / House</option>
+            </select>
+        </div>
+
+        <div class="control-group">
+            <label>Ritmo / Tempo</label>
+            <select id="rhythm-control">
+                <option value="auto">Automático (Por Estilo)</option>
+                <option value="4">Semibreve (4 Tempos)</option>
+                <option value="2">Mínima (2 Tempos)</option>
+                <option value="1">Semínima (1 Tempo)</option>
+            </select>
+        </div>
+
+        <div class="control-group">
+            <label>Oitava Base</label>
+            <select id="octave-select">
+                <option value="36">Oitava 2</option>
+                <option value="48" selected>Oitava 3</option>
+                <option value="60">Oitava 4</option>
+            </select>
+        </div>
+
+        <button id="btn-generate" class="primary-btn" onclick="generateAndPlay()" disabled>Carregando Amostras...</button>
+    </div>
+
+    <!-- Área da Partitura com Clave de Sol/Fá e Armadura -->
+    <div id="score-container"><div id="score"></div></div>
+
+    <div class="progression-container" id="progression-display"></div>
+    <div class="piano-wrapper"><div id="piano"></div></div>
+    <div id="drag-pad" draggable="true">↓ Arraste o MIDI para a sua DAW</div>
+
+    <script>
+        const VF = Vex.Flow;
+        const NOTES = ['C', 'C#', 'D', 'Eb', 'E', 'F', 'F#', 'G', 'Ab', 'A', 'Bb', 'B'];
+        const VEX_KEYS = ['C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B'];
+        
+        const SCALES = {
+            'major':          [0, 2, 4, 5, 7, 9, 11],
+            'minor':          [0, 2, 3, 5, 7, 8, 10],
+            'harmonic_minor': [0, 2, 3, 5, 7, 8, 11],
+            'melodic_minor':  [0, 2, 3, 5, 7, 9, 11],
+            'dorian':         [0, 2, 3, 5, 7, 9, 10],
+            'phrygian':       [0, 1, 3, 5, 7, 8, 10],
+            'lydian':         [0, 2, 4, 6, 7, 9, 11],
+            'mixolydian':     [0, 2, 4, 5, 7, 9, 10],
+            'locrian':        [0, 1, 3, 5, 6, 8, 10]
+        };
+
+        // Calcula a Armadura de Clave (Relativa Maior da Escala/Modo selecionado)
+        function getVexFlowKeySignature(rootIdx, scaleType) {
+            const offsets = {
+                'major': 0, 'minor': 3, 'harmonic_minor': 3, 'melodic_minor': 3,
+                'dorian': -2, 'phrygian': -4, 'lydian': -5, 'mixolydian': 5, 'locrian': 1
+            };
+            let relMajorIdx = (rootIdx + offsets[scaleType] + 12) % 12;
+            return VEX_KEYS[relMajorIdx];
+        }
+
+        // Configurações e Progressões de Hits por Estilo
+        const STYLES_CONFIG = {
+            'pop': {
+                delayMs: 15,
+                templates: [
+                    { degrees: [0, 4, 5, 3], voicings: ['add9', 'triad', 'seventh', 'sus2'], beats: [4, 4, 2, 2], labels: ["I", "V", "vi", "IV"] }, // Hit Pop (Adele, Ed Sheeran)
+                    { degrees: [5, 3, 0, 4], voicings: ['seventh', 'add9', 'add9', 'triad'], beats: [2, 2, 2, 2], labels: ["vi", "IV", "I", "V"] }
+                ]
+            },
+            'acoustic_pop': {
+                delayMs: 35,
+                templates: [
+                    { degrees: [0, 5, 3, 4], voicings: ['add9', 'm9', 'add9', 'sus4'], beats: [2, 2, 2, 2], labels: ["I", "vi", "IV", "V"] }, // John Mayer Vibe
+                    { degrees: [0, 3, 0, 4], voicings: ['add9', 'sus2', 'add9', 'seventh'], beats: [4, 2, 2, 4], labels: ["I", "IV", "I", "V"] }
+                ]
+            },
+            'alt_rock': {
+                delayMs: 5,
+                templates: [
+                    { degrees: [5, 3, 0, 4], voicings: ['sus2', 'power', 'power', 'sus4'], beats: [4, 2, 2, 4], labels: ["vi", "IV", "I", "V"] }, // Paramore / Evanescence
+                    { degrees: [0, 5, 3, 4], voicings: ['power', 'power', 'sus2', 'power'], beats: [2, 2, 2, 2], labels: ["I", "VI", "IV", "V"] }
+                ]
+            },
+            'hiphop_rb': { // Rihanna, Nas, 50 Cent, Ne-Yo, Chris Brown, Noga Erez
+                delayMs: 10,
+                templates: [
+                    { degrees: [1, 4, 0, 5], voicings: ['ninth', 'ninth', 'ninth', 'seventh'], beats: [2, 2, 4, 4], labels: ["ii9", "V13", "Imaj9", "vi7"] }, // R&B Neo-Soul (Chris Brown)
+                    { degrees: [0, 5, 3, 4], voicings: ['m9', 'seventh', 'm9', 'seventh'], beats: [4, 4, 2, 2], labels: ["i", "VI", "iv", "V7"] }, // Trap Clássico (50 Cent, Nas)
+                    { degrees: [5, 6, 0, 0], voicings: ['add9', 'add9', 'm9', 'm9'], beats: [2, 2, 2, 2], labels: ["VI", "VII", "i", "i"] }, // Epic Pop/R&B (Rihanna)
+                    { degrees: [0, 3, 4, 0], voicings: ['m9', 'm9', 'seventh', 'eleventh'], beats: [2, 2, 2, 2], labels: ["i", "iv", "V", "i"] } // Dark Hip-Hop (Noga Erez)
+                ]
+            },
+            'soul_jazz': {
+                delayMs: 25,
+                templates: [
+                    { degrees: [1, 4, 0, 5], voicings: ['ninth', 'eleventh', 'ninth', 'seventh'], beats: [2, 2, 4, 4], labels: ["ii9", "V11", "Imaj9", "VI7"] }, // Norah Jones, Joss Stone
+                    { degrees: [0, 5, 1, 4], voicings: ['ninth', 'seventh', 'ninth', 'eleventh'], beats: [2, 2, 2, 2], labels: ["Imaj9", "vi7", "ii9", "V11"] }
+                ]
+            },
+            'edm': {
+                delayMs: 0,
+                templates: [
+                    { degrees: [5, 3, 0, 4], voicings: ['sus2', 'triad', 'triad', 'sus4'], beats: [1, 1, 1, 1], labels: ["vi", "IV", "I", "V"] }, // Avicii / Calvin Harris
+                    { degrees: [0, 5, 3, 4], voicings: ['power', 'sus2', 'triad', 'triad'], beats: [2, 2, 2, 2], labels: ["I", "vi", "IV", "V"] }
+                ]
+            }
+        };
+
+        let currentMode = 'scale'; 
+        let currentBlobUrl = null;
+        let playTimeouts = [];
+
+        const sampler = new Tone.Sampler({
+            urls: {
+                "C3": "C3.mp3", "D#3": "Ds3.mp3", "F#3": "Fs3.mp3", "A3": "A3.mp3",
+                "C4": "C4.mp3", "D#4": "Ds4.mp3", "F#4": "Fs4.mp3", "A4": "A4.mp3",
+                "C5": "C5.mp3", "D#5": "Ds5.mp3"
+            },
+            release: 1.5,
+            baseUrl: "https://tonejs.github.io/audio/salamander/",
+            onload: () => {
+                const btn = document.getElementById('btn-generate');
+                btn.disabled = false; btn.innerText = "Compor Sequência e Partitura";
+                buildPiano();
+            }
+        }).toDestination();
+        sampler.volume.value = -3;
+
+        function switchMode(mode) {
+            currentMode = mode;
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(`tab-${mode}`).classList.add('active');
+            document.getElementById('group-style').style.display = mode === 'scale' ? 'none' : 'flex';
+        }
+
+        function buildPiano() {
+            const piano = document.getElementById('piano');
+            piano.innerHTML = ''; 
+            const isBlack = [false, true, false, true, false, false, true, false, true, false, true, false];
+            let whiteIndex = 0;
+            for (let i = 36; i <= 96; i++) {
+                const noteIdx = i % 12;
+                const el = document.createElement('div');
+                el.className = 'key ' + (isBlack[noteIdx] ? 'black' : 'white');
+                el.id = 'note-' + i;
+                if (!isBlack[noteIdx]) { el.style.left = `${whiteIndex * 36}px`; whiteIndex++; } 
+                else { el.style.left = `${(whiteIndex * 36) - 11}px`; }
+                piano.appendChild(el);
+            }
+        }
+
+        function getDiatonicVoicing(scaleIntervals, rootDegree, voicingType) {
+            const getInterval = (offset) => {
+                const idx = (rootDegree + offset) % 7;
+                const octave = Math.floor((rootDegree + offset) / 7);
+                return scaleIntervals[idx] + (octave * 12);
+            };
+            const r = getInterval(0), s = getInterval(1), t = getInterval(2), 
+                  f = getInterval(3), fi = getInterval(4), se = getInterval(6), n = getInterval(8), el = getInterval(10);
+
+            switch(voicingType) {
+                case 'power': return [r, fi, r + 12];
+                case 'sus2': return [r, s, fi];
+                case 'sus4': return [r, f, fi];
+                case 'add9': return [r, t, fi, n];
+                case 'seventh': return [r, t, fi, se];
+                case 'ninth': return [r, t, fi, se, n];
+                case 'eleventh': return [r, t, fi, se, n, el];
+                case 'triad': default: return [r, t, fi];
+            }
+        }
+
+        // Desenha a Partitura com Armadura de Clave
+        function renderScore(progressionData, keySignatureString) {
+            const div = document.getElementById("score");
+            div.innerHTML = ""; 
+            
+            const renderer = new VF.Renderer(div, VF.Renderer.Backends.SVG);
+            renderer.resize(780, 260);
+            const context = renderer.getContext();
+            
+            // Adicionando Armadura de Clave (.addKeySignature)
+            const topStave = new VF.Stave(30, 20, 710).addClef("treble").addKeySignature(keySignatureString).setContext(context).draw();
+            const bottomStave = new VF.Stave(30, 120, 710).addClef("bass").addKeySignature(keySignatureString).setContext(context).draw();
+
+            new VF.StaveConnector(topStave, bottomStave).setType(VF.StaveConnector.type.BRACE).setContext(context).draw();
+            new VF.StaveConnector(topStave, bottomStave).setType(VF.StaveConnector.type.SINGLE_LEFT).setContext(context).draw();
+
+            let trebleNotes = [], bassNotes = [];
+            const keysMap = ['c', 'c', 'd', 'e', 'e', 'f', 'f', 'g', 'a', 'a', 'b', 'b']; // Simplificado p/ visual
+            const accMap = ['', '#', '', 'b', '', '', '#', '', 'b', '', 'b', ''];
+            const beatToDur = { 4: "w", 2: "h", 1: "q" };
+
+            progressionData.forEach(chord => {
+                let tKeys = [], bKeys = [], tAcc = [], bAcc = [];
+
+                chord.midiNotes.forEach(m => {
+                    const noteIdx = m % 12;
+                    const oct = Math.floor(m / 12) - 1;
+                    const key = `${keysMap[noteIdx]}/${oct}`;
+                    const hasAcc = accMap[noteIdx] !== '';
+
+                    if (m >= 60) { // Clave de Sol
+                        tKeys.push(key);
+                        if (hasAcc) tAcc.push({ index: tKeys.length - 1, type: accMap[noteIdx] });
+                    } else { // Clave de Fá
+                        bKeys.push(key);
+                        if (hasAcc) bAcc.push({ index: bKeys.length - 1, type: accMap[noteIdx] });
+                    }
+                });
+
+                const durStr = beatToDur[chord.beats] || "q";
+
+                // Adiciona Acidentes Explicitos para clareza visual no estudo
+                if (tKeys.length === 0) trebleNotes.push(new VF.StaveNote({ keys: ["b/4"], duration: durStr + "r", clef: "treble" }));
+                else {
+                    let n = new VF.StaveNote({ keys: tKeys, duration: durStr, clef: "treble" });
+                    tAcc.forEach(a => n.addModifier(new VF.Accidental(a.type), a.index));
+                    trebleNotes.push(n);
+                }
+
+                if (bKeys.length === 0) bassNotes.push(new VF.StaveNote({ keys: ["d/3"], duration: durStr + "r", clef: "bass" }));
+                else {
+                    let n = new VF.StaveNote({ keys: bKeys, duration: durStr, clef: "bass" });
+                    bAcc.forEach(a => n.addModifier(new VF.Accidental(a.type), a.index));
+                    bassNotes.push(n);
+                }
+            });
+
+            const trebleVoice = new VF.Voice({ num_beats: 32, beat_value: 4 }).setStrict(false);
+            const bassVoice = new VF.Voice({ num_beats: 32, beat_value: 4 }).setStrict(false);
+            trebleVoice.addTickables(trebleNotes);
+            bassVoice.addTickables(bassNotes);
+
+            new VF.Formatter().joinVoices([trebleVoice]).joinVoices([bassVoice]).format([trebleVoice, bassVoice], 600);
+            trebleVoice.draw(context, topStave);
+            bassVoice.draw(context, bottomStave);
+        }
+
+        function createMidiBlob(progressionData, strumDelayMs) {
+            const track = [];
+            track.push(0x00, 0xFF, 0x51, 0x03, 0x07, 0xA1, 0x20); 
+
+            function vlq(n) {
+                if (n === 0) return [0]; let res = [];
+                while (n > 0) { res.unshift(n & 0x7F); n >>= 7; }
+                for (let i = 0; i < res.length - 1; i++) res[i] |= 0x80;
+                return res;
+            }
+
+            for (let c = 0; c < progressionData.length; c++) {
+                const chordNotes = progressionData[c].midiNotes;
+                const totalDurationTicks = progressionData[c].beats * 480; 
+                
+                track.push(0x00); 
+                track.push(0x90, chordNotes[0], 85); 
+                for (let i = 1; i < chordNotes.length; i++) {
+                    track.push(...vlq(strumDelayMs)); track.push(0x90, chordNotes[i], 70); 
+                }
+                
+                const usedTicks = (chordNotes.length - 1) * strumDelayMs;
+                const remainingTicks = totalDurationTicks - usedTicks;
+                
+                track.push(...vlq(remainingTicks));
+                track.push(0x80, chordNotes[0], 0x00);
+                for (let i = 1; i < chordNotes.length; i++) {
+                    track.push(0x00); track.push(0x80, chordNotes[i], 0x00);
+                }
+            }
+            
+            track.push(0x00, 0xFF, 0x2F, 0x00);
+            const header = [0x4D, 0x54, 0x68, 0x64, 0x00, 0x00, 0x00, 0x06, 0x00, 0x00, 0x00, 0x01, 0x01, 0xE0];
+            const mtrk = [0x4D, 0x54, 0x72, 0x6B];
+            const len = track.length;
+            mtrk.push((len >> 24) & 0xFF, (len >> 16) & 0xFF, (len >> 8) & 0xFF, len & 0xFF);
+            
+            const midiBytes = new Uint8Array(header.length + mtrk.length + track.length);
+            midiBytes.set(header, 0); midiBytes.set(mtrk, header.length); midiBytes.set(track, header.length + mtrk.length);
+            return new Blob([midiBytes], { type: 'audio/midi' });
+        }
+
+        async function generateAndPlay() {
+            if (Tone.context.state !== 'running') await Tone.start();
+            document.getElementById('btn-generate').disabled = true;
+
+            playTimeouts.forEach(clearTimeout); playTimeouts = [];
+            document.querySelectorAll('.key').forEach(k => k.classList.remove('active'));
+
+            const rootIdx = parseInt(document.getElementById('root-note').value);
+            const scaleType = document.getElementById('scale-type').value;
+            const baseOctaveMidi = parseInt(document.getElementById('octave-select').value);
+            const rhythmOverride = document.getElementById('rhythm-control').value;
+            const scaleIntervals = SCALES[scaleType];
+            
+            const progressionData = [];
+            const container = document.getElementById('progression-display');
+            container.innerHTML = '';
+
+            let delayMs = 15;
+
+            // Define ritmos e templates dependendo do Modo (Livre vs Estilo)
+            if (currentMode === 'scale') {
+                const voicings = ['triad', 'add9', 'seventh', 'ninth'];
+                const autoBeats = [4, 2, 2, 4]; 
+                for (let i = 0; i < 4; i++) {
+                    const degree = Math.floor(Math.random() * 7);
+                    const voicing = voicings[Math.floor(Math.random() * voicings.length)];
+                    const intervals = getDiatonicVoicing(scaleIntervals, degree, voicing);
+                    const beats = rhythmOverride !== 'auto' ? parseInt(rhythmOverride) : autoBeats[i];
+                    
+                    const rootName = NOTES[(rootIdx + intervals[0]) % 12];
+                    const midiNotes = intervals.map(interv => baseOctaveMidi + rootIdx + interv);
+                    progressionData.push({ chordName: rootName, midiNotes, functionLabel: `Grau ${degree+1}`, voicing, beats });
+                }
+            } else {
+                const styleId = document.getElementById('music-style').value;
+                const config = STYLES_CONFIG[styleId];
+                delayMs = config.delayMs;
+                const template = config.templates[Math.floor(Math.random() * config.templates.length)];
+
+                for (let i = 0; i < template.degrees.length; i++) {
+                    const degree = template.degrees[i];
+                    const voicing = template.voicings[i];
+                    const intervals = getDiatonicVoicing(scaleIntervals, degree, voicing);
+                    const beats = rhythmOverride !== 'auto' ? parseInt(rhythmOverride) : template.beats[i];
+
+                    let chordName = NOTES[(rootIdx + intervals[0]) % 12];
+                    if (voicing === 'power') chordName += '5';
+                    if (voicing === 'sus2') chordName += 'sus2';
+
+                    const midiNotes = intervals.map(interv => baseOctaveMidi + rootIdx + interv);
+                    progressionData.push({ chordName, midiNotes, functionLabel: template.labels[i], voicing, beats });
+                }
+            }
+
+            // Calcula a Armadura e Desenha
+            const keySigString = getVexFlowKeySignature(rootIdx, scaleType);
+            renderScore(progressionData, keySigString);
+
+            // Interface Visual (HTML)
+            progressionData.forEach((data, i) => {
+                const durText = data.beats === 4 ? 'Semibreve (4T)' : data.beats === 2 ? 'Mínima (2T)' : 'Semínima (1T)';
+                const box = document.createElement('div');
+                box.className = 'chord-box';
+                box.id = `chord-box-${i}`;
+                box.innerHTML = `
+                    <div class="chord-duration">${durText}</div>
+                    <div class="chord-name">${data.chordName}</div>
+                    <div class="chord-voicing">${data.voicing}</div>
+                    <div class="chord-function">${data.functionLabel}</div>
+                `;
+                container.appendChild(box);
+            });
+
+            // Reprodução de Áudio e Animação
+            const now = Tone.now();
+            let cumulativeTimeS = 0;
+
+            progressionData.forEach((data, index) => {
+                // Conversão de Beats para Segundos (120 BPM -> 1 beat = 0.5s)
+                const durationSeconds = data.beats * 0.5; 
+                const currentDelay = cumulativeTimeS;
+
+                data.midiNotes.forEach((midiVal, noteIdx) => {
+                    const freq = Tone.Frequency(midiVal, "midi").toNote();
+                    const strumOffset = noteIdx * (delayMs / 1000);
+                    sampler.triggerAttackRelease(freq, durationSeconds, now + currentDelay + strumOffset);
+                });
+
+                const timeoutId = setTimeout(() => {
+                    document.querySelectorAll('.chord-box').forEach(b => b.classList.remove('playing'));
+                    document.querySelectorAll('.key').forEach(k => k.classList.remove('active'));
+                    
+                    document.getElementById(`chord-box-${index}`).classList.add('playing');
+                    data.midiNotes.forEach(m => {
+                        const keyEl = document.getElementById(`note-${m}`);
+                        if(keyEl) keyEl.classList.add('active');
+                    });
+
+                    // Finalização após o último acorde
+                    if (index === progressionData.length - 1) {
+                        setTimeout(() => {
+                            document.getElementById(`chord-box-${index}`).classList.remove('playing');
+                            document.querySelectorAll('.key').forEach(k => k.classList.remove('active'));
+                            document.getElementById('btn-generate').disabled = false;
+                        }, durationSeconds * 1000);
+                    }
+                }, currentDelay * 1000);
+                
+                playTimeouts.push(timeoutId);
+                cumulativeTimeS += durationSeconds;
+            });
+
+            // Exportação MIDI
+            if (currentBlobUrl) URL.revokeObjectURL(currentBlobUrl);
+            const blob = createMidiBlob(progressionData, delayMs);
+            currentBlobUrl = URL.createObjectURL(blob);
+            const fileString = progressionData.map(d => d.chordName.replace(/#/g, 's')).join('-');
+            const dragPad = document.getElementById('drag-pad');
+            dragPad.style.display = 'block';
+            dragPad.setAttribute('data-downloadurl', `audio/midi:Progressao_${fileString}.mid:${currentBlobUrl}`);
+        }
+
+        document.getElementById('drag-pad').addEventListener('dragstart', function(e) {
+            const url = this.getAttribute('data-downloadurl');
+            if (url) e.dataTransfer.setData('DownloadURL', url);
+        });
+    </script>
+</body>
+</html>
