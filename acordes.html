@@ -62,16 +62,15 @@
         
         .chord-box {
             background: var(--surface); border: 1px solid var(--border);
-            border-radius: 12px; width: 140px; padding: 20px 5px; transition: all 0.2s; position: relative;
+            border-radius: 12px; width: 140px; padding: 25px 5px 20px 5px; transition: all 0.2s; position: relative;
         }
         .chord-box.playing {
             background: var(--chord-bg); border-color: var(--accent);
             transform: translateY(-8px); box-shadow: 0 8px 25px rgba(139, 92, 246, 0.3);
         }
-        .chord-name { font-size: 30px; font-weight: 700; letter-spacing: -1px; margin-top: 5px;}
-        .chord-voicing { font-size: 12px; color: var(--text-muted); margin-top: 5px; }
-        .chord-duration { position: absolute; top: 8px; right: 12px; font-size: 10px; color: var(--accent); font-weight: bold;}
-        .chord-inspiration { font-size: 10px; color: #fbbf24; margin-top: 10px; font-style: italic; line-height: 1.2; padding: 0 5px;}
+        .chord-name { font-size: 32px; font-weight: 700; letter-spacing: -1px; margin-top: 5px;}
+        .chord-voicing { font-size: 13px; color: var(--text-muted); margin-top: 5px; }
+        .chord-duration { position: absolute; top: 8px; right: 12px; font-size: 11px; color: var(--accent); font-weight: bold;}
 
         /* Estilo da Partitura */
         #score-container { margin: 0 auto 30px auto; width: 100%; max-width: 800px; overflow-x: auto; background: var(--surface); border-radius: 12px; border: 1px solid var(--border); padding: 10px 0;}
@@ -226,56 +225,56 @@
             return VEX_KEYS[relMajorIdx];
         }
 
-        // Progressões Famosas Expandidas (Com inspirações e extensões)
+        // Progressões sem menções a artistas/músicas
         const STYLES_CONFIG = {
             'pop': {
                 delayMs: 15,
                 templates: [
-                    { degrees: [0, 4, 5, 3], voicings: ['add9', 'triad', 'seventh', 'sus2'], beats: [4, 4, 2, 2], labels: ["I", "V", "vi", "IV"], insp: "Let It Be / Someone Like You" },
-                    { degrees: [5, 3, 0, 4], voicings: ['seventh', 'add9', 'add9', 'triad'], beats: [2, 2, 2, 2], labels: ["vi", "IV", "I", "V"], insp: "Despacito / Zombie" },
-                    { degrees: [0, 5, 3, 4], voicings: ['triad', 'm9', 'sus2', 'seventh'], beats: [2, 2, 2, 2], labels: ["I", "vi", "IV", "V"], insp: "Stand By Me (50s Vibe)" },
-                    { degrees: [3, 0, 4, 5], voicings: ['add9', 'triad', 'sus4', 'm9'], beats: [2, 2, 2, 2], labels: ["IV", "I", "V", "vi"], insp: "Viva La Vida" }
+                    { degrees: [0, 4, 5, 3], voicings: ['add9', 'triad', 'seventh', 'sus2'], beats: [4, 4, 2, 2], labels: ["I", "V", "vi", "IV"] },
+                    { degrees: [5, 3, 0, 4], voicings: ['seventh', 'add9', 'add9', 'triad'], beats: [2, 2, 2, 2], labels: ["vi", "IV", "I", "V"] },
+                    { degrees: [0, 5, 3, 4], voicings: ['triad', 'm9', 'sus2', 'seventh'], beats: [2, 2, 2, 2], labels: ["I", "vi", "IV", "V"] },
+                    { degrees: [3, 0, 4, 5], voicings: ['add9', 'triad', 'sus4', 'm9'], beats: [2, 2, 2, 2], labels: ["IV", "I", "V", "vi"] }
                 ]
             },
             'acoustic_pop': {
-                delayMs: 40, // Dedilhado maior
+                delayMs: 40,
                 templates: [
-                    { degrees: [0, 5, 3, 4], voicings: ['add9', 'm9', 'add9', 'sus4'], beats: [2, 2, 2, 2], labels: ["I", "vi", "IV", "V"], insp: "John Mayer / Ed Sheeran" },
-                    { degrees: [0, 3, 0, 4], voicings: ['add9', 'sus2', 'add9', 'seventh'], beats: [4, 2, 2, 4], labels: ["I", "IV", "I", "V"], insp: "Classic Singer-Songwriter" },
-                    { degrees: [5, 4, 3, 3], voicings: ['seventh', 'triad', 'add9', 'add9'], beats: [2, 2, 2, 2], labels: ["vi", "V", "IV", "IV"], insp: "Melancholic Descent" }
+                    { degrees: [0, 5, 3, 4], voicings: ['add9', 'm9', 'add9', 'sus4'], beats: [2, 2, 2, 2], labels: ["I", "vi", "IV", "V"] },
+                    { degrees: [0, 3, 0, 4], voicings: ['add9', 'sus2', 'add9', 'seventh'], beats: [4, 2, 2, 4], labels: ["I", "IV", "I", "V"] },
+                    { degrees: [5, 4, 3, 3], voicings: ['seventh', 'triad', 'add9', 'add9'], beats: [2, 2, 2, 2], labels: ["vi", "V", "IV", "IV"] }
                 ]
             },
             'alt_rock': {
                 delayMs: 5,
                 templates: [
-                    { degrees: [5, 3, 0, 4], voicings: ['sus2', 'power', 'power', 'sus4'], beats: [4, 2, 2, 4], labels: ["vi", "IV", "I", "V"], insp: "Paramore / Linkin Park" },
-                    { degrees: [0, 5, 3, 4], voicings: ['power', 'power', 'sus2', 'power'], beats: [2, 2, 2, 2], labels: ["I", "VI", "IV", "V"], insp: "Nirvana / Foo Fighters" },
-                    { degrees: [0, 6, 3, 0], voicings: ['power', 'power', 'sus2', 'power'], beats: [2, 2, 2, 2], labels: ["I", "bVII", "IV", "I"], insp: "Sweet Child O' Mine Feel" }
+                    { degrees: [5, 3, 0, 4], voicings: ['sus2', 'power', 'power', 'sus4'], beats: [4, 2, 2, 4], labels: ["vi", "IV", "I", "V"] },
+                    { degrees: [0, 5, 3, 4], voicings: ['power', 'power', 'sus2', 'power'], beats: [2, 2, 2, 2], labels: ["I", "VI", "IV", "V"] },
+                    { degrees: [0, 6, 3, 0], voicings: ['power', 'power', 'sus2', 'power'], beats: [2, 2, 2, 2], labels: ["I", "bVII", "IV", "I"] }
                 ]
             },
             'hiphop_rb': { 
                 delayMs: 10,
                 templates: [
-                    { degrees: [1, 4, 0, 5], voicings: ['ninth', 'ninth', 'ninth', 'seventh'], beats: [2, 2, 4, 4], labels: ["ii9", "V13", "Imaj9", "vi7"], insp: "Neo-Soul (Chris Brown / Ne-Yo)" },
-                    { degrees: [3, 2, 5, 0], voicings: ['ninth', 'seventh', 'm9', 'ninth'], beats: [2, 2, 2, 2], labels: ["IV", "III", "vi", "I"], insp: "Just The Two Of Us Vibe" },
-                    { degrees: [0, 5, 4, 0], voicings: ['m9', 'seventh', 'seventh', 'm9'], beats: [4, 2, 2, 4], labels: ["i", "VI", "V7", "i"], insp: "Dark Trap (50 Cent / Nas)" },
-                    { degrees: [0, 3, 4, 0], voicings: ['m9', 'm9', 'seventh', 'eleventh'], beats: [2, 2, 2, 2], labels: ["i", "iv", "V", "i"], insp: "Edgy Hip-Hop (Noga Erez / Rihanna)" }
+                    { degrees: [1, 4, 0, 5], voicings: ['ninth', 'ninth', 'ninth', 'seventh'], beats: [2, 2, 4, 4], labels: ["ii9", "V13", "Imaj9", "vi7"] },
+                    { degrees: [3, 2, 5, 0], voicings: ['ninth', 'seventh', 'm9', 'ninth'], beats: [2, 2, 2, 2], labels: ["IV", "III", "vi", "I"] },
+                    { degrees: [0, 5, 4, 0], voicings: ['m9', 'seventh', 'seventh', 'm9'], beats: [4, 2, 2, 4], labels: ["i", "VI", "V7", "i"] },
+                    { degrees: [0, 3, 4, 0], voicings: ['m9', 'm9', 'seventh', 'eleventh'], beats: [2, 2, 2, 2], labels: ["i", "iv", "V", "i"] }
                 ]
             },
             'soul_jazz': {
                 delayMs: 25,
                 templates: [
-                    { degrees: [1, 4, 0, 5], voicings: ['ninth', 'eleventh', 'ninth', 'seventh'], beats: [2, 2, 4, 4], labels: ["ii9", "V11", "Imaj9", "VI7"], insp: "Classic Jazz (Norah Jones / Joss Stone)" },
-                    { degrees: [0, 5, 1, 4], voicings: ['ninth', 'seventh', 'ninth', 'eleventh'], beats: [2, 2, 2, 2], labels: ["Imaj9", "vi7", "ii9", "V11"], insp: "Rhythm Changes Turnaround" },
-                    { degrees: [0, 3, 2, 5], voicings: ['ninth', 'ninth', 'm9', 'seventh'], beats: [2, 2, 2, 2], labels: ["Imaj9", "IV9", "iii9", "vi7"], insp: "Smooth Soul Walkdown" }
+                    { degrees: [1, 4, 0, 5], voicings: ['ninth', 'eleventh', 'ninth', 'seventh'], beats: [2, 2, 4, 4], labels: ["ii9", "V11", "Imaj9", "VI7"] },
+                    { degrees: [0, 5, 1, 4], voicings: ['ninth', 'seventh', 'ninth', 'eleventh'], beats: [2, 2, 2, 2], labels: ["Imaj9", "vi7", "ii9", "V11"] },
+                    { degrees: [0, 3, 2, 5], voicings: ['ninth', 'ninth', 'm9', 'seventh'], beats: [2, 2, 2, 2], labels: ["Imaj9", "IV9", "iii9", "vi7"] }
                 ]
             },
             'edm': {
                 delayMs: 0,
                 templates: [
-                    { degrees: [5, 3, 0, 4], voicings: ['sus2', 'triad', 'triad', 'sus4'], beats: [1, 1, 1, 1], labels: ["vi", "IV", "I", "V"], insp: "Avicii / Calvin Harris" },
-                    { degrees: [0, 5, 3, 4], voicings: ['power', 'sus2', 'triad', 'triad'], beats: [2, 2, 2, 2], labels: ["I", "vi", "IV", "V"], insp: "Progressive House Anthem" },
-                    { degrees: [3, 0, 4, 5], voicings: ['sus2', 'triad', 'sus4', 'sus2'], beats: [1, 1, 1, 1], labels: ["IV", "I", "V", "vi"], insp: "Modern Dance Pop" }
+                    { degrees: [5, 3, 0, 4], voicings: ['sus2', 'triad', 'triad', 'sus4'], beats: [1, 1, 1, 1], labels: ["vi", "IV", "I", "V"] },
+                    { degrees: [0, 5, 3, 4], voicings: ['power', 'sus2', 'triad', 'triad'], beats: [2, 2, 2, 2], labels: ["I", "vi", "IV", "V"] },
+                    { degrees: [3, 0, 4, 5], voicings: ['sus2', 'triad', 'sus4', 'sus2'], beats: [1, 1, 1, 1], labels: ["IV", "I", "V", "vi"] }
                 ]
             }
         };
@@ -415,7 +414,6 @@
                         acc.setStyle({fillStyle: a.color, strokeStyle: a.color});
                         n.addModifier(acc, a.index);
                     });
-                    // Aplica as cores em cada cabeça de nota
                     n.keyProps.forEach((_, idx) => n.setKeyStyle(idx, { fillStyle: tColors[idx], strokeStyle: tColors[idx] }));
                     trebleNotes.push(n);
                 }
@@ -520,7 +518,7 @@
                     
                     const rootName = NOTES[(rootIdx + intervals[0]) % 12];
                     const midiNotes = intervals.map(interv => baseOctaveMidi + rootIdx + interv);
-                    progressionData.push({ chordName: rootName, midiNotes, functionLabel: `Grau ${degree+1}`, voicing, beats, insp: "Aleatório" });
+                    progressionData.push({ chordName: rootName, midiNotes, functionLabel: `Grau ${degree+1}`, voicing, beats });
                 }
             } else {
                 const styleId = document.getElementById('music-style').value;
@@ -539,7 +537,7 @@
                     if (voicing === 'sus2') chordName += 'sus2';
 
                     const midiNotes = intervals.map(interv => baseOctaveMidi + rootIdx + interv);
-                    progressionData.push({ chordName, midiNotes, functionLabel: template.labels[i], voicing, beats, insp: template.insp });
+                    progressionData.push({ chordName, midiNotes, functionLabel: template.labels[i], voicing, beats });
                 }
             }
 
@@ -558,7 +556,6 @@
                     <div class="chord-name">${data.chordName}</div>
                     <div class="chord-voicing">${data.voicing}</div>
                     <div class="chord-function">${data.functionLabel}</div>
-                    <div class="chord-inspiration">${data.insp}</div>
                 `;
                 container.appendChild(box);
             });
