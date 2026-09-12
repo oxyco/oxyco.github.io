@@ -1,1 +1,418 @@
-hello
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>CALCULADORA DE RESISTORES</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #0f172a; color: #f8fafc; text-align: center; padding: 20px; margin: 0; padding-bottom: 80px; }
+        .container { background: #1e293b; padding: 30px; border-radius: 12px; max-width: 900px; margin: auto; box-shadow: 0 10px 25px rgba(0,0,0,0.5); position: relative; }
+        .band-selector { margin-bottom: 25px; background: #334155; padding: 15px; border-radius: 8px; display: inline-block; }
+        .band-selector label { font-weight: bold; font-size: 16px; margin: 0 15px; cursor: pointer; color: #bae6fd; }
+        .band-selector input[type="radio"] { transform: scale(1.2); margin-right: 5px; }
+        .resistor-display { margin: 20px 0 40px 0; display: flex; justify-content: center; }
+        .controls { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; text-align: left; }
+        .control-group { display: flex; flex-direction: column; }
+        .control-group label { font-weight: bold; font-size: 14px; color: #94a3b8; margin-bottom: 5px; }
+        select { width: 100%; padding: 10px; border-radius: 6px; border: none; background: #0f172a; color: white; font-size: 15px; outline: none; border: 1px solid #475569; }
+        .results { margin-top: 30px; padding: 25px; background: #0f172a; border-radius: 8px; border: 1px solid #334155; }
+        .results h2 { margin: 0 0 5px 0; color: #38bdf8; font-size: 28px; }
+        .ppm-result { color: #94a3b8; font-size: 16px; margin-bottom: 15px; min-height: 20px; }
+        .ohmmeter-btn { background: #10b981; color: white; border: none; padding: 12px 24px; border-radius: 6px; font-size: 16px; cursor: pointer; margin-top: 10px; font-weight: bold; width: 100%; transition: background 0.2s; }
+        .ohmmeter-btn:hover { background: #059669; }
+        #ohmmeter-display { font-family: monospace; font-size: 24px; color: #a7f3d0; margin-top: 15px; background: #022c22; padding: 10px; border-radius: 6px; border: 1px solid #047857; }
+        .download-section { margin-top: 50px; padding-top: 30px; border-top: 2px dashed #334155; }
+        .download-section h3 { color: #cbd5e1; margin-bottom: 20px; font-size: 22px; }
+        .guide-preview { max-width: 100%; margin: 0 auto 20px auto; background: #f8fafc; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.6); border: 2px solid #475569; }
+        .download-btn { display: inline-block; background: #0284c7; color: white; border: none; padding: 14px 28px; border-radius: 6px; font-weight: bold; font-size: 16px; transition: background 0.2s; cursor: pointer; box-shadow: 0 4px 12px rgba(2,132,199,0.4); }
+        .download-btn:hover { background: #0369a1; }
+
+        /* Link do GitHub Limpo (Fica abaixo da linha pontilhada) */
+        .github-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #94a3b8;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 16px;
+            transition: color 0.2s;
+            margin-top: 25px;
+        }
+        .github-link:hover {
+            color: #38bdf8;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>CALCULADORA DE RESISTORES</h1>
+    <div class="band-selector">
+        <label><input type="radio" name="bandCount" value="4" onchange="updateMode()" checked> 4 Faixas</label>
+        <label><input type="radio" name="bandCount" value="5" onchange="updateMode()"> 5 Faixas</label>
+        <label><input type="radio" name="bandCount" value="6" onchange="updateMode()"> 6 Faixas</label>
+    </div>
+    <div class="resistor-display">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 100" width="100%" height="100">
+            <defs>
+                <clipPath id="body-clip"><rect x="91" y="16" width="218" height="68" rx="19"/></clipPath>
+            </defs>
+            <line x1="20" y1="50" x2="380" y2="50" stroke="#64748b" stroke-width="8"/>
+            <rect x="90" y="15" width="220" height="70" rx="20" fill="#fcd34d" stroke="#d97706" stroke-width="2"/>
+            <g clip-path="url(#body-clip)">
+                <rect id="svg-b1" x="110" y="15" width="14" height="70" fill="#78350f"/>
+                <rect id="svg-b2" x="160" y="15" width="14" height="70" fill="#18181b"/>
+                <rect id="svg-b3" x="185" y="15" width="14" height="70" fill="#18181b" display="none"/>
+                <rect id="svg-mul" x="210" y="15" width="14" height="70" fill="#dc2626"/>
+                <rect id="svg-tol" x="270" y="15" width="14" height="70" fill="#d97706"/>
+                <rect id="svg-ppm" x="285" y="15" width="14" height="70" fill="#78350f" display="none"/>
+            </g>
+        </svg>
+    </div>
+    <div class="controls">
+        <div class="control-group">
+            <label>1º Dígito</label>
+            <select id="sel-d1" onchange="calculate()">
+                <optgroup label="PMV (0, 1, 2)"><option value="0" data-color="#18181b">Preto (0)</option><option value="1" data-color="#78350f" selected>Marrom (1)</option><option value="2" data-color="#dc2626">Vermelho (2)</option></optgroup>
+                <optgroup label="LAVA (3, 4, 5, 6)"><option value="3" data-color="#ea580c">Laranja (3)</option><option value="4" data-color="#eab308">Amarelo (4)</option><option value="5" data-color="#16a34a">Verde (5)</option><option value="6" data-color="#2563eb">Azul (6)</option></optgroup>
+                <optgroup label="RCB (7, 8, 9)"><option value="7" data-color="#7e22ce">Roxo (7)</option><option value="8" data-color="#64748b">Cinza (8)</option><option value="9" data-color="#ffffff">Branco (9)</option></optgroup>
+            </select>
+        </div>
+        <div class="control-group">
+            <label>2º Dígito</label>
+            <select id="sel-d2" onchange="calculate()">
+                <optgroup label="PMV (0, 1, 2)"><option value="0" data-color="#18181b" selected>Preto (0)</option><option value="1" data-color="#78350f">Marrom (1)</option><option value="2" data-color="#dc2626">Vermelho (2)</option></optgroup>
+                <optgroup label="LAVA (3, 4, 5, 6)"><option value="3" data-color="#ea580c">Laranja (3)</option><option value="4" data-color="#eab308">Amarelo (4)</option><option value="5" data-color="#16a34a">Verde (5)</option><option value="6" data-color="#2563eb">Azul (6)</option></optgroup>
+                <optgroup label="RCB (7, 8, 9)"><option value="7" data-color="#7e22ce">Roxo (7)</option><option value="8" data-color="#64748b">Cinza (8)</option><option value="9" data-color="#ffffff">Branco (9)</option></optgroup>
+            </select>
+        </div>
+        <div class="control-group" id="container-d3" style="display: none;">
+            <label>3º Dígito</label>
+            <select id="sel-d3" onchange="calculate()">
+                <optgroup label="PMV (0, 1, 2)"><option value="0" data-color="#18181b" selected>Preto (0)</option><option value="1" data-color="#78350f">Marrom (1)</option><option value="2" data-color="#dc2626">Vermelho (2)</option></optgroup>
+                <optgroup label="LAVA (3, 4, 5, 6)"><option value="3" data-color="#ea580c">Laranja (3)</option><option value="4" data-color="#eab308">Amarelo (4)</option><option value="5" data-color="#16a34a">Verde (5)</option><option value="6" data-color="#2563eb">Azul (6)</option></optgroup>
+                <optgroup label="RCB (7, 8, 9)"><option value="7" data-color="#7e22ce">Roxo (7)</option><option value="8" data-color="#64748b">Cinza (8)</option><option value="9" data-color="#ffffff">Branco (9)</option></optgroup>
+            </select>
+        </div>
+        <div class="control-group">
+            <label>Multiplicador</label>
+            <select id="sel-mul" onchange="calculate()">
+                <optgroup label="PMV"><option value="1" data-color="#18181b">Preto (x1)</option><option value="10" data-color="#78350f">Marrom (x10)</option><option value="100" data-color="#dc2626" selected>Vermelho (x100)</option></optgroup>
+                <optgroup label="LAVA"><option value="1000" data-color="#ea580c">Laranja (x1k)</option><option value="10000" data-color="#eab308">Amarelo (x10k)</option><option value="100000" data-color="#16a34a">Verde (x100k)</option><option value="1000000" data-color="#2563eb">Azul (x1M)</option></optgroup>
+                <optgroup label="RCB"><option value="10000000" data-color="#7e22ce">Roxo (x10M)</option><option value="100000000" data-color="#64748b">Cinza (x100M)</option><option value="1000000000" data-color="#ffffff">Branco (x1G)</option></optgroup>
+                <optgroup label="Especiais"><option value="0.1" data-color="#d97706">Ouro (x0.1)</option><option value="0.01" data-color="#94a3b8">Prata (x0.01)</option></optgroup>
+            </select>
+        </div>
+        <div class="control-group">
+            <label>Tolerância</label>
+            <select id="sel-tol" onchange="calculate()">
+                <option value="1" data-color="#78350f">Marrom (±1%)</option>
+                <option value="2" data-color="#dc2626">Vermelho (±2%)</option>
+                <option value="0.5" data-color="#16a34a">Verde (±0.5%)</option>
+                <option value="0.25" data-color="#2563eb">Azul (±0.25%)</option>
+                <option value="0.1" data-color="#7e22ce">Roxo (±0.1%)</option>
+                <option value="0.05" data-color="#64748b">Cinza (±0.05%)</option>
+                <option value="5" data-color="#d97706" selected>Ouro (±5%)</option>
+                <option value="10" data-color="#94a3b8">Prata (±10%)</option>
+            </select>
+        </div>
+        <div class="control-group" id="container-ppm" style="display: none;">
+            <label>Coef. Temp. (PPM)</label>
+            <select id="sel-ppm" onchange="calculate()">
+                <option value="100" data-color="#78350f" selected>Marrom (100 ppm/K)</option>
+                <option value="50" data-color="#dc2626">Vermelho (50 ppm/K)</option>
+                <option value="15" data-color="#ea580c">Laranja (15 ppm/K)</option>
+                <option value="25" data-color="#eab308">Amarelo (25 ppm/K)</option>
+                <option value="10" data-color="#2563eb">Azul (10 ppm/K)</option>
+                <option value="5" data-color="#7e22ce">Roxo (5 ppm/K)</option>
+            </select>
+        </div>
+    </div>
+    <div class="results">
+        <h2><span id="nominal-value">1 kΩ</span> <span id="tolerance-value">±5%</span></h2>
+        <div class="ppm-result" id="ppm-display"></div>
+        <button class="ohmmeter-btn" onclick="simulateOhmmeter()">Simular Leitura no Ohmímetro</button>
+        <div id="ohmmeter-display">--- Ω</div>
+    </div>
+
+    <div class="download-section">
+        <h3>Guia Visual de Resistores (PMV LAVA RCB)</h3>
+        <div class="guide-preview">
+            <svg id="resistorSvg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 630" width="100%" height="auto" style="background:#f8fafc; font-family:Arial, Helvetica, sans-serif; display:block;">
+              <rect x="120" y="12" width="760" height="42" rx="8" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+              <text x="500" y="40" text-anchor="middle" font-size="20" font-weight="bold" fill="#0f172a">GUIA VALOR DE RESISTORES PMV LAVA RCB</text>
+              <rect x="15" y="65" width="305" height="395" rx="10" fill="#eff6ff" stroke="#93c5fd" stroke-width="2"/>
+              <text x="167" y="88" text-anchor="middle" font-size="14" font-weight="bold" fill="#1e3a8a">P  M  V (0, 1, 2)</text>
+              <rect x="25" y="98" width="85" height="62" rx="6" fill="#18181b"/>
+              <text x="67" y="116" text-anchor="middle" font-size="11" font-weight="bold" fill="#ffffff">PRETO (P)</text>
+              <text x="67" y="133" text-anchor="middle" font-size="10" fill="#e4e4e7">Dígito 0</text>
+              <text x="67" y="149" text-anchor="middle" font-size="10" fill="#e4e4e7">x1 (10⁰)</text>
+              <rect x="125" y="98" width="85" height="62" rx="6" fill="#78350f"/>
+              <text x="167" y="116" text-anchor="middle" font-size="11" font-weight="bold" fill="#ffffff">MARROM (M)</text>
+              <text x="167" y="133" text-anchor="middle" font-size="10" fill="#fef3c7">Dígito 1</text>
+              <text x="167" y="149" text-anchor="middle" font-size="10" fill="#fef3c7">x10 (10¹)</text>
+              <rect x="225" y="98" width="85" height="62" rx="6" fill="#dc2626"/>
+              <text x="267" y="116" text-anchor="middle" font-size="11" font-weight="bold" fill="#ffffff">VERMELHO (V)</text>
+              <text x="267" y="133" text-anchor="middle" font-size="10" fill="#fee2e2">Dígito 2</text>
+              <text x="267" y="149" text-anchor="middle" font-size="10" fill="#fee2e2">x100 (10²)</text>
+              <line x1="25" y1="210" x2="310" y2="210" stroke="#64748b" stroke-width="4"/>
+              <rect x="65" y="192" width="205" height="36" rx="10" fill="#fed7aa" stroke="#d97706" stroke-width="2"/>
+              <rect x="90" y="192" width="14" height="36" fill="#78350f"/>
+              <rect x="120" y="192" width="14" height="36" fill="#18181b"/>
+              <rect x="150" y="192" width="14" height="36" fill="#dc2626"/>
+              <rect x="225" y="192" width="14" height="36" fill="#d97706"/>
+              <path d="M 67 160 V 180 H 127 V 192" fill="none" stroke="#18181b" stroke-width="2"/>
+              <path d="M 167 160 V 175 H 97 V 192" fill="none" stroke="#78350f" stroke-width="2"/>
+              <path d="M 267 160 V 180 H 157 V 192" fill="none" stroke="#dc2626" stroke-width="2"/>
+              <text x="167" y="244" text-anchor="middle" font-size="14" font-weight="bold" fill="#0f172a">1 kΩ ±5%</text>
+              <rect x="23" y="254" width="289" height="196" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+              <text x="167" y="270" text-anchor="middle" font-size="11" font-weight="bold" fill="#0f172a">MULTIPLICADORES</text>
+              <text x="32" y="289" font-size="9.5" font-weight="bold" fill="#18181b">0 | PRETO</text>
+              <text x="100" y="289" font-size="9.5" fill="#334155">= 10⁰ (x1)</text>
+              <text x="32" y="306" font-size="9.5" font-weight="bold" fill="#78350f">1 | MARROM</text>
+              <text x="100" y="306" font-size="9.5" fill="#334155">= 10¹ (x10)</text>
+              <text x="32" y="323" font-size="9.5" font-weight="bold" fill="#dc2626">2 | VERMELHO</text>
+              <text x="100" y="323" font-size="9.5" fill="#334155">= 10² (x100)</text>
+              <text x="32" y="340" font-size="9.5" font-weight="bold" fill="#ea580c">3 | LARANJA</text>
+              <text x="100" y="340" font-size="9.5" fill="#334155">= 10³ (x1k)</text>
+              <text x="32" y="357" font-size="9.5" font-weight="bold" fill="#ca8a04">4 | AMARELO</text>
+              <text x="100" y="357" font-size="9.5" fill="#334155">= 10⁴ (x10k)</text>
+              <text x="172" y="289" font-size="9.5" font-weight="bold" fill="#16a34a">5 | VERDE</text>
+              <text x="238" y="289" font-size="9.5" fill="#334155">= 10⁵ (x100k)</text>
+              <text x="172" y="306" font-size="9.5" font-weight="bold" fill="#2563eb">6 | AZUL</text>
+              <text x="238" y="306" font-size="9.5" fill="#334155">= 10⁶ (x1M)</text>
+              <text x="172" y="323" font-size="9.5" font-weight="bold" fill="#7e22ce">7 | ROXO</text>
+              <text x="238" y="323" font-size="9.5" fill="#334155">= 10⁷ (x10M)</text>
+              <text x="172" y="340" font-size="9.5" font-weight="bold" fill="#64748b">8 | CINZA</text>
+              <text x="238" y="340" font-size="9.5" fill="#334155">= 10⁸ (x100M)</text>
+              <text x="172" y="357" font-size="9.5" font-weight="bold" fill="#0f172a">9 | BRANCO</text>
+              <text x="238" y="357" font-size="9.5" fill="#334155">= 10⁹ (x1G)</text>
+              <line x1="28" y1="370" x2="307" y2="370" stroke="#e2e8f0" stroke-width="1.5"/>
+              <text x="167" y="385" text-anchor="middle" font-size="9.5" font-weight="bold" fill="#0f172a">MULTIPLICADORES ESPECIAIS (SUB-OHM)</text>
+              <text x="32" y="405" font-size="9" font-weight="bold" fill="#b45309">OURO:</text>
+              <text x="75" y="405" font-size="9" fill="#334155">x0,1 (10⁻¹)</text>
+              <text x="180" y="405" font-size="9" font-weight="bold" fill="#b45309">Tolerância: ±5%</text>
+              <text x="32" y="425" font-size="9" font-weight="bold" fill="#64748b">PRATA:</text>
+              <text x="75" y="425" font-size="9" fill="#334155">x0,01 (10⁻²)</text>
+              <text x="180" y="425" font-size="9" font-weight="bold" fill="#64748b">Tolerância: ±10%</text>
+              <rect x="330" y="65" width="335" height="395" rx="10" fill="#f0fdf4" stroke="#86efac" stroke-width="2"/>
+              <text x="497" y="88" text-anchor="middle" font-size="14" font-weight="bold" fill="#166534">L A V A (3, 4, 5, 6)</text>
+              <rect x="340" y="98" width="72" height="62" rx="6" fill="#ea580c"/>
+              <text x="376" y="116" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#ffffff">LARANJA (L)</text>
+              <text x="376" y="133" text-anchor="middle" font-size="10" fill="#ffedd5">Dígito 3</text>
+              <text x="376" y="149" text-anchor="middle" font-size="10" fill="#ffedd5">x1k (10³)</text>
+              <rect x="420" y="98" width="72" height="62" rx="6" fill="#eab308"/>
+              <text x="456" y="116" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#ffffff">AMARELO (A)</text>
+              <text x="456" y="133" text-anchor="middle" font-size="10" fill="#fefce8">Dígito 4</text>
+              <text x="456" y="149" text-anchor="middle" font-size="10" fill="#fefce8">x10k (10⁴)</text>
+              <rect x="500" y="98" width="72" height="62" rx="6" fill="#16a34a"/>
+              <text x="536" y="116" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#ffffff">VERDE (V)</text>
+              <text x="536" y="133" text-anchor="middle" font-size="10" fill="#f0fdf4">Dígito 5</text>
+              <text x="536" y="149" text-anchor="middle" font-size="10" fill="#f0fdf4">x100k (10⁵)</text>
+              <rect x="580" y="98" width="75" height="62" rx="6" fill="#2563eb"/>
+              <text x="617" y="116" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#ffffff">AZUL (A)</text>
+              <text x="617" y="133" text-anchor="middle" font-size="10" fill="#eff6ff">Dígito 6</text>
+              <text x="617" y="149" text-anchor="middle" font-size="10" fill="#eff6ff">x1M (10⁶)</text>
+              <line x1="340" y1="210" x2="655" y2="210" stroke="#64748b" stroke-width="4"/>
+              <rect x="380" y="192" width="235" height="36" rx="10" fill="#a7f3d0" stroke="#059669" stroke-width="2"/>
+              <rect x="405" y="192" width="14" height="36" fill="#ea580c"/>
+              <rect x="435" y="192" width="14" height="36" fill="#eab308"/>
+              <rect x="465" y="192" width="14" height="36" fill="#16a34a"/>
+              <rect x="530" y="192" width="14" height="36" fill="#2563eb"/>
+              <rect x="580" y="192" width="14" height="36" fill="#dc2626"/>
+              <path d="M 376 160 V 180 H 412 V 192" fill="none" stroke="#ea580c" stroke-width="2"/>
+              <path d="M 456 160 V 180 H 442 V 192" fill="none" stroke="#eab308" stroke-width="2"/>
+              <path d="M 536 160 V 180 H 472 V 192" fill="none" stroke="#16a34a" stroke-width="2"/>
+              <path d="M 617 160 V 180 H 537 V 192" fill="none" stroke="#2563eb" stroke-width="2"/>
+              <text x="497" y="244" text-anchor="middle" font-size="14" font-weight="bold" fill="#0f172a">345 MΩ ±2%</text>
+              <path d="M 530 290 H 587 V 238" fill="none" stroke="#dc2626" stroke-width="2"/>
+              <text x="520" y="294" text-anchor="end" font-size="11" font-weight="bold" fill="#dc2626">Tolerância: Vermelho = ±2%</text>
+              <rect x="675" y="65" width="310" height="395" rx="10" fill="#faf5ff" stroke="#d8b4fe" stroke-width="2"/>
+              <text x="830" y="88" text-anchor="middle" font-size="14" font-weight="bold" fill="#6b21a8">R C B (7, 8, 9)</text>
+              <rect x="685" y="98" width="60" height="62" rx="6" fill="#7e22ce"/>
+              <text x="715" y="116" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#ffffff">ROXO (R)</text>
+              <text x="715" y="133" text-anchor="middle" font-size="10" fill="#f3e8ff">Dígito 7</text>
+              <text x="715" y="149" text-anchor="middle" font-size="10" fill="#f3e8ff">x10M</text>
+              <rect x="755" y="98" width="60" height="62" rx="6" fill="#64748b"/>
+              <text x="785" y="116" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#ffffff">CINZA (C)</text>
+              <text x="785" y="133" text-anchor="middle" font-size="10" fill="#f1f5f9">Dígito 8</text>
+              <text x="785" y="149" text-anchor="middle" font-size="10" fill="#f1f5f9">x100M</text>
+              <rect x="825" y="98" width="65" height="62" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+              <text x="857" y="116" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#0f172a">BRANCO (B)</text>
+              <text x="857" y="133" text-anchor="middle" font-size="10" fill="#334155">Dígito 9</text>
+              <text x="857" y="149" text-anchor="middle" font-size="10" fill="#334155">x1G</text>
+              <rect x="900" y="98" width="75" height="145" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+              <text x="937" y="116" text-anchor="middle" font-size="10" font-weight="bold" fill="#78350f">OURO</text>
+              <text x="937" y="130" text-anchor="middle" font-size="9" fill="#92400e">x0,1</text>
+              <text x="937" y="144" text-anchor="middle" font-size="9" font-weight="bold" fill="#92400e">±5%</text>
+              <line x1="905" y1="154" x2="970" y2="154" stroke="#d97706"/>
+              <text x="937" y="172" text-anchor="middle" font-size="10" font-weight="bold" fill="#475569">PRATA</text>
+              <text x="937" y="186" text-anchor="middle" font-size="9" fill="#475569">x0,01</text>
+              <text x="937" y="200" text-anchor="middle" font-size="9" font-weight="bold" fill="#475569">±10%</text>
+              <line x1="685" y1="210" x2="890" y2="210" stroke="#64748b" stroke-width="4"/>
+              <rect x="710" y="192" width="175" height="36" rx="10" fill="#f3e8ff" stroke="#9333ea" stroke-width="2"/>
+              <rect x="730" y="192" width="14" height="36" fill="#7e22ce"/>
+              <rect x="760" y="192" width="14" height="36" fill="#64748b"/>
+              <rect x="790" y="192" width="14" height="36" fill="#ffffff" stroke="#64748b"/>
+              <rect x="845" y="192" width="14" height="36" fill="#d97706"/>
+              <path d="M 715 160 V 180 H 737 V 192" fill="none" stroke="#7e22ce" stroke-width="2"/>
+              <path d="M 785 160 V 180 H 767 V 192" fill="none" stroke="#64748b" stroke-width="2"/>
+              <path d="M 857 160 V 180 H 797 V 192" fill="none" stroke="#94a3b8" stroke-width="2"/>
+              <text x="795" y="244" text-anchor="middle" font-size="14" font-weight="bold" fill="#0f172a">78 GΩ ±5%</text>
+              <rect x="15" y="475" width="970" height="142" rx="10" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+              <line x1="35" y1="535" x2="310" y2="535" stroke="#64748b" stroke-width="4"/>
+              <rect x="65" y="515" width="215" height="38" rx="10" fill="#99f6e4" stroke="#0d9488" stroke-width="2"/>
+              <rect x="90" y="515" width="15" height="38" fill="#16a34a"/>
+              <rect x="120" y="515" width="15" height="38" fill="#2563eb"/>
+              <rect x="150" y="515" width="15" height="38" fill="#18181b"/>
+              <rect x="190" y="515" width="15" height="38" fill="#dc2626"/>
+              <rect x="240" y="515" width="15" height="38" fill="#d97706"/>
+              <text x="315" y="518" font-size="17" font-weight="bold" fill="#0f172a">56 kΩ ±5%</text>
+              <text x="315" y="540" font-size="12" fill="#334155">1º Dígito: <tspan font-weight="bold" fill="#16a34a">VERDE = 5</tspan> | 2º Dígito: <tspan font-weight="bold" fill="#2563eb">AZUL = 6</tspan> | 3º Dígito: <tspan font-weight="bold" fill="#18181b">PRETO = 0</tspan></text>
+              <text x="315" y="560" font-size="12" fill="#334155">Multiplicador: <tspan font-weight="bold" fill="#dc2626">VERMELHO = x100 (10²)</tspan> | Tolerância: <tspan font-weight="bold" fill="#d97706">OURO = ±5%</tspan></text>
+              <text x="315" y="582" font-size="12" font-weight="bold" fill="#059669">Cálculo: 560 × 100 = 56.000 Ω (56 kΩ)</text>
+              <rect x="715" y="488" width="255" height="115" rx="8" fill="#f8fafc" stroke="#e2e8f0"/>
+              <text x="842" y="512" text-anchor="middle" font-size="12" font-weight="bold" fill="#0f172a">OUTRAS TOLERÂNCIAS</text>
+              <text x="842" y="527" text-anchor="middle" font-size="10" fill="#64748b">(Resistores de 5ª Bandas)</text>
+              <text x="842" y="555" text-anchor="middle" font-size="14" font-weight="bold" fill="#78350f">MARROM (±1%)</text>
+              <text x="842" y="582" text-anchor="middle" font-size="14" font-weight="bold" fill="#dc2626">VERMELHO (±2%)</text>
+
+              <!-- Assinatura do GitHub Limpa -->
+              <g transform="translate(870, 595)">
+                <g transform="translate(0, 0) scale(0.8)">
+                    <path fill="#64748b" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                </g>
+                <text x="25" y="15" font-family="Arial" font-size="15" font-weight="bold" fill="#64748b">/oxyco</text>
+              </g>
+
+            </svg>
+        </div>
+
+        <button id="btnDownloadGuia" class="download-btn">📥 Baixar Guia em Alta Resolução (PNG)</button>
+        <br>
+
+        <!-- Link do GitHub na UI (Abaixo da linha pontilhada) -->
+        <a href="https://github.com/oxyco" target="_blank" class="github-link">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+            </svg>
+            /oxyco
+        </a>
+    </div>
+</div>
+
+<script>
+    let currentResistance = 1000;
+    let currentTolerance = 5;
+    let currentBands = 4;
+    function updateMode() {
+        const radios = document.getElementsByName('bandCount');
+        for (let radio of radios) { if (radio.checked) { currentBands = parseInt(radio.value); break; } }
+        const d3Container = document.getElementById('container-d3');
+        const ppmContainer = document.getElementById('container-ppm');
+        const svgB1 = document.getElementById('svg-b1');
+        const svgB2 = document.getElementById('svg-b2');
+        const svgB3 = document.getElementById('svg-b3');
+        const svgMul = document.getElementById('svg-mul');
+        const svgTol = document.getElementById('svg-tol');
+        const svgPpm = document.getElementById('svg-ppm');
+
+        if (currentBands === 4) {
+            d3Container.style.display = 'none'; ppmContainer.style.display = 'none';
+            svgB1.setAttribute('x', '110'); svgB2.setAttribute('x', '160'); svgB3.setAttribute('display', 'none');
+            svgMul.setAttribute('x', '210'); svgTol.setAttribute('x', '270'); svgPpm.setAttribute('display', 'none');
+        } else if (currentBands === 5) {
+            d3Container.style.display = 'flex'; ppmContainer.style.display = 'none';
+            svgB1.setAttribute('x', '105'); svgB2.setAttribute('x', '145'); svgB3.setAttribute('display', 'block');
+            svgB3.setAttribute('x', '185'); svgMul.setAttribute('x', '225'); svgTol.setAttribute('x', '275'); svgPpm.setAttribute('display', 'none');
+        } else if (currentBands === 6) {
+            d3Container.style.display = 'flex'; ppmContainer.style.display = 'flex';
+            svgB1.setAttribute('x', '100'); svgB2.setAttribute('x', '135'); svgB3.setAttribute('display', 'block');
+            svgB3.setAttribute('x', '170'); svgMul.setAttribute('x', '205'); svgTol.setAttribute('x', '240');
+            svgPpm.setAttribute('display', 'block'); svgPpm.setAttribute('x', '280');
+        }
+        calculate();
+    }
+
+    function formatResistance(ohms) {
+        if (ohms >= 1000000000) return (ohms / 1000000000).toFixed(2).replace(/\.00$/, '') + ' GΩ';
+        if (ohms >= 1000000) return (ohms / 1000000).toFixed(2).replace(/\.00$/, '') + ' MΩ';
+        if (ohms >= 1000) return (ohms / 1000).toFixed(2).replace(/\.00$/, '') + ' kΩ';
+        return ohms.toFixed(2).replace(/\.00$/, '') + ' Ω';
+    }
+
+    function calculate() {
+        const b1 = document.getElementById("sel-d1"); const b2 = document.getElementById("sel-d2");
+        const b3 = document.getElementById("sel-d3"); const mul = document.getElementById("sel-mul");
+        const tol = document.getElementById("sel-tol"); const ppm = document.getElementById("sel-ppm");
+        document.getElementById("svg-b1").setAttribute("fill", b1.options[b1.selectedIndex].dataset.color);
+        document.getElementById("svg-b2").setAttribute("fill", b2.options[b2.selectedIndex].dataset.color);
+        document.getElementById("svg-b3").setAttribute("fill", b3.options[b3.selectedIndex].dataset.color);
+        document.getElementById("svg-mul").setAttribute("fill", mul.options[mul.selectedIndex].dataset.color);
+        document.getElementById("svg-tol").setAttribute("fill", tol.options[tol.selectedIndex].dataset.color);
+        document.getElementById("svg-ppm").setAttribute("fill", ppm.options[ppm.selectedIndex].dataset.color);
+        const d1_val = parseFloat(b1.value); const d2_val = parseFloat(b2.value);
+        const d3_val = parseFloat(b3.value); const mul_val = parseFloat(mul.value);
+        currentTolerance = parseFloat(tol.value);
+        if (currentBands === 4) {
+            currentResistance = ((d1_val * 10) + d2_val) * mul_val;
+            document.getElementById("ppm-display").innerText = "";
+        } else {
+            currentResistance = ((d1_val * 100) + (d2_val * 10) + d3_val) * mul_val;
+            if (currentBands === 6) document.getElementById("ppm-display").innerText = "Coeficiente de Temperatura: " + ppm.value + " ppm/K";
+            else document.getElementById("ppm-display").innerText = "";
+        }
+        document.getElementById("nominal-value").innerText = formatResistance(currentResistance);
+        document.getElementById("tolerance-value").innerText = "±" + currentTolerance + "%";
+        document.getElementById("ohmmeter-display").innerText = "--- Ω";
+    }
+
+    function simulateOhmmeter() {
+        const maxVariation = currentTolerance / 100;
+        const randomNoise = (Math.random() * 2 - 1) * maxVariation; 
+        let measured = currentResistance + (currentResistance * randomNoise);
+        document.getElementById("ohmmeter-display").innerText = formatResistance(measured) + " (Medido)";
+    }
+
+    document.getElementById('btnDownloadGuia').addEventListener('click', function() {
+        const btn = this;
+        btn.innerText = "⏳ Gerando Arquivo...";
+        btn.disabled = true;
+
+        const svg = document.getElementById('resistorSvg');
+        const svgData = new XMLSerializer().serializeToString(svg);
+        const canvas = document.createElement('canvas'); 
+        const ctx = canvas.getContext('2d'); 
+        const img = new Image();
+
+        canvas.width = 2400; 
+        canvas.height = 1512;
+
+        const svgBlob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' });
+        const URL = window.URL || window.webkitURL || window; 
+        const blobURL = URL.createObjectURL(svgBlob);
+
+        img.onload = function() {
+            ctx.fillStyle = '#f8fafc'; 
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height); 
+            URL.revokeObjectURL(blobURL);
+
+            const dataUrl = canvas.toDataURL('image/png');
+
+            const a = document.createElement('a'); 
+            a.download = 'guia_cores_resistores_pmv_lava_rcb.png';
+            a.href = dataUrl; 
+            document.body.appendChild(a); 
+            a.click(); 
+            document.body.removeChild(a);
+
+            btn.innerText = "📥 Baixar Guia em Alta Resolução (PNG)";
+            btn.disabled = false;
+        }; 
+        img.src = blobURL;
+    });
+    updateMode();
+</script>
+</body>
+</html>
