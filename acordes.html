@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Acordes,Progressões e Partituras</title>
+    <title>ACORDES, PROGRESSÕES E PARTITURAS</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vexflow@4.2.2/build/cjs/vexflow.js"></script>
     
@@ -14,13 +14,13 @@
             --border: #27272a;
             --text: #f4f4f5;
             --text-muted: #a1a1aa;
-            --accent: #3b82f6; 
-            --accent-hover: #2563eb;
+            --accent: #8b5cf6; 
+            --accent-hover: #7c3aed;
             --key-white: #f8fafc;
             --key-black: #0f172a;
-            --active-white: #93c5fd;
-            --active-black: #3b82f6;
-            --chord-bg: #1e1e24;
+            --active-white: #ddd6fe;
+            --active-black: #8b5cf6;
+            --chord-bg: #2e1065;
         }
 
         body { 
@@ -28,7 +28,7 @@
             text-align: center; padding: 30px 10px; background: var(--bg); color: var(--text); margin: 0; 
         }
 
-        h1 { font-size: 28px; font-weight: 600; margin-bottom: 25px; color: #fff; letter-spacing: -0.5px;}
+        h1 { font-size: 28px; font-weight: 700; margin-bottom: 25px; color: #fff; letter-spacing: -0.5px; text-transform: uppercase;}
 
         .tabs { display: flex; justify-content: center; margin-bottom: 25px; gap: 15px; }
         .tab-btn {
@@ -44,9 +44,7 @@
             box-shadow: 0 10px 40px rgba(0,0,0,0.5);
         }
 
-        .control-group {
-            display: flex; flex-direction: column; text-align: left; gap: 5px;
-        }
+        .control-group { display: flex; flex-direction: column; text-align: left; gap: 5px; }
         .control-group label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; font-weight: bold; letter-spacing: 0.5px;}
 
         select, button { 
@@ -57,7 +55,7 @@
         select:hover { border-color: var(--accent); }
 
         button.primary-btn { background: var(--accent); color: #fff; font-weight: bold; border: none; font-size: 15px; margin-top: 20px;}
-        button.primary-btn:hover { background: var(--accent-hover); transform: translateY(-2px); box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);}
+        button.primary-btn:hover { background: var(--accent-hover); transform: translateY(-2px); box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);}
         button.primary-btn:disabled { background: var(--border); color: var(--text-muted); cursor: not-wait; transform: none; box-shadow: none;}
 
         .progression-container { display: flex; justify-content: center; gap: 15px; margin-bottom: 30px; min-height: 100px; flex-wrap: wrap;}
@@ -68,17 +66,22 @@
         }
         .chord-box.playing {
             background: var(--chord-bg); border-color: var(--accent);
-            transform: translateY(-8px); box-shadow: 0 8px 25px rgba(59, 130, 246, 0.25);
+            transform: translateY(-8px); box-shadow: 0 8px 25px rgba(139, 92, 246, 0.3);
         }
         .chord-name { font-size: 30px; font-weight: 700; letter-spacing: -1px; margin-top: 5px;}
         .chord-voicing { font-size: 12px; color: var(--text-muted); margin-top: 5px; }
         .chord-duration { position: absolute; top: 8px; right: 12px; font-size: 10px; color: var(--accent); font-weight: bold;}
+        .chord-inspiration { font-size: 10px; color: #fbbf24; margin-top: 10px; font-style: italic; line-height: 1.2; padding: 0 5px;}
 
         /* Estilo da Partitura */
         #score-container { margin: 0 auto 30px auto; width: 100%; max-width: 800px; overflow-x: auto; background: var(--surface); border-radius: 12px; border: 1px solid var(--border); padding: 10px 0;}
         #score svg path { stroke: #d4d4d8; fill: #d4d4d8; }
         #score svg rect { fill: #d4d4d8; }
         #score svg text { fill: #f4f4f5; font-family: 'Segoe UI', sans-serif !important; stroke: none;}
+
+        /* Display da Escala */
+        #scale-display { margin: 15px auto 30px auto; display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; max-width: 800px; padding: 15px; background: var(--surface); border-radius: 8px; border: 1px solid var(--border);}
+        .scale-note-pill { padding: 6px 12px; border-radius: 20px; font-weight: bold; font-size: 14px; color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.2);}
 
         /* Teclado Visual */
         .piano-wrapper { width: 100%; max-width: 1000px; margin: 0 auto; overflow-x: auto; padding-bottom: 15px; background: #000; border-radius: 8px; box-shadow: inset 0 0 10px rgba(0,0,0,0.8); }
@@ -91,14 +94,14 @@
 
         #drag-pad {
             display: none; margin: 20px auto; padding: 15px 40px; width: fit-content;
-            background: rgba(59, 130, 246, 0.1); border: 1px dashed var(--accent);
+            background: rgba(139, 92, 246, 0.1); border: 1px dashed var(--accent);
             border-radius: 8px; color: var(--text); font-size: 14px; font-weight: 500; cursor: grab; transition: 0.2s;
         }
-        #drag-pad:hover { background: rgba(59, 130, 246, 0.2); }
+        #drag-pad:hover { background: rgba(139, 92, 246, 0.2); }
     </style>
 </head>
 <body>
-    <h1>🎹 Estúdio de Partituras e Progressões</h1>
+    <h1>ACORDES, PROGRESSÕES E PARTITURAS</h1>
 
     <div class="tabs">
         <button class="tab-btn active" id="tab-scale" onclick="switchMode('scale')">Escala Livre</button>
@@ -140,7 +143,7 @@
             <select id="music-style">
                 <option value="pop">Pop</option>
                 <option value="acoustic_pop">Acoustic Pop</option>
-                <option value="alt_rock">Alt Rock</option>
+                <option value="alt_rock">Rock Alternativo</option>
                 <option value="hiphop_rb">Hip-Hop / R&B</option>
                 <option value="soul_jazz">Soul / Jazz</option>
                 <option value="edm">EDM / House</option>
@@ -169,11 +172,16 @@
         <button id="btn-generate" class="primary-btn" onclick="generateAndPlay()" disabled>Carregando Amostras...</button>
     </div>
 
-    <!-- Área da Partitura com Clave de Sol/Fá e Armadura -->
+    <!-- Área da Partitura Colorida com Clave de Sol/Fá e Armadura -->
     <div id="score-container"><div id="score"></div></div>
 
     <div class="progression-container" id="progression-display"></div>
+    
     <div class="piano-wrapper"><div id="piano"></div></div>
+    
+    <!-- Display da Escala com Cores -->
+    <div id="scale-display"></div>
+
     <div id="drag-pad" draggable="true">↓ Arraste o MIDI para a sua DAW</div>
 
     <script>
@@ -181,6 +189,22 @@
         const NOTES = ['C', 'C#', 'D', 'Eb', 'E', 'F', 'F#', 'G', 'Ab', 'A', 'Bb', 'B'];
         const VEX_KEYS = ['C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B'];
         
+        // Mapeamento de Cores por Classe de Pitch (0 a 11)
+        const NOTE_COLORS = [
+            "#ef4444", // 0: C (Vermelho)
+            "#f97316", // 1: C# (Laranja)
+            "#f59e0b", // 2: D (Âmbar)
+            "#eab308", // 3: D# (Amarelo)
+            "#84cc16", // 4: E (Lima)
+            "#22c55e", // 5: F (Verde)
+            "#10b981", // 6: F# (Esmeralda)
+            "#06b6d4", // 7: G (Ciano)
+            "#3b82f6", // 8: G# (Azul)
+            "#6366f1", // 9: A (Índigo)
+            "#a855f7", // 10: A# (Roxo)
+            "#ec4899"  // 11: B (Rosa)
+        ];
+
         const SCALES = {
             'major':          [0, 2, 4, 5, 7, 9, 11],
             'minor':          [0, 2, 3, 5, 7, 8, 10],
@@ -193,7 +217,6 @@
             'locrian':        [0, 1, 3, 5, 6, 8, 10]
         };
 
-        // Calcula a Armadura de Clave (Relativa Maior da Escala/Modo selecionado)
         function getVexFlowKeySignature(rootIdx, scaleType) {
             const offsets = {
                 'major': 0, 'minor': 3, 'harmonic_minor': 3, 'melodic_minor': 3,
@@ -203,50 +226,56 @@
             return VEX_KEYS[relMajorIdx];
         }
 
-        // Configurações e Progressões de Hits por Estilo
+        // Progressões Famosas Expandidas (Com inspirações e extensões)
         const STYLES_CONFIG = {
             'pop': {
                 delayMs: 15,
                 templates: [
-                    { degrees: [0, 4, 5, 3], voicings: ['add9', 'triad', 'seventh', 'sus2'], beats: [4, 4, 2, 2], labels: ["I", "V", "vi", "IV"] }, // Hit Pop (Adele, Ed Sheeran)
-                    { degrees: [5, 3, 0, 4], voicings: ['seventh', 'add9', 'add9', 'triad'], beats: [2, 2, 2, 2], labels: ["vi", "IV", "I", "V"] }
+                    { degrees: [0, 4, 5, 3], voicings: ['add9', 'triad', 'seventh', 'sus2'], beats: [4, 4, 2, 2], labels: ["I", "V", "vi", "IV"], insp: "Let It Be / Someone Like You" },
+                    { degrees: [5, 3, 0, 4], voicings: ['seventh', 'add9', 'add9', 'triad'], beats: [2, 2, 2, 2], labels: ["vi", "IV", "I", "V"], insp: "Despacito / Zombie" },
+                    { degrees: [0, 5, 3, 4], voicings: ['triad', 'm9', 'sus2', 'seventh'], beats: [2, 2, 2, 2], labels: ["I", "vi", "IV", "V"], insp: "Stand By Me (50s Vibe)" },
+                    { degrees: [3, 0, 4, 5], voicings: ['add9', 'triad', 'sus4', 'm9'], beats: [2, 2, 2, 2], labels: ["IV", "I", "V", "vi"], insp: "Viva La Vida" }
                 ]
             },
             'acoustic_pop': {
-                delayMs: 35,
+                delayMs: 40, // Dedilhado maior
                 templates: [
-                    { degrees: [0, 5, 3, 4], voicings: ['add9', 'm9', 'add9', 'sus4'], beats: [2, 2, 2, 2], labels: ["I", "vi", "IV", "V"] }, // John Mayer Vibe
-                    { degrees: [0, 3, 0, 4], voicings: ['add9', 'sus2', 'add9', 'seventh'], beats: [4, 2, 2, 4], labels: ["I", "IV", "I", "V"] }
+                    { degrees: [0, 5, 3, 4], voicings: ['add9', 'm9', 'add9', 'sus4'], beats: [2, 2, 2, 2], labels: ["I", "vi", "IV", "V"], insp: "John Mayer / Ed Sheeran" },
+                    { degrees: [0, 3, 0, 4], voicings: ['add9', 'sus2', 'add9', 'seventh'], beats: [4, 2, 2, 4], labels: ["I", "IV", "I", "V"], insp: "Classic Singer-Songwriter" },
+                    { degrees: [5, 4, 3, 3], voicings: ['seventh', 'triad', 'add9', 'add9'], beats: [2, 2, 2, 2], labels: ["vi", "V", "IV", "IV"], insp: "Melancholic Descent" }
                 ]
             },
             'alt_rock': {
                 delayMs: 5,
                 templates: [
-                    { degrees: [5, 3, 0, 4], voicings: ['sus2', 'power', 'power', 'sus4'], beats: [4, 2, 2, 4], labels: ["vi", "IV", "I", "V"] }, // Paramore / Evanescence
-                    { degrees: [0, 5, 3, 4], voicings: ['power', 'power', 'sus2', 'power'], beats: [2, 2, 2, 2], labels: ["I", "VI", "IV", "V"] }
+                    { degrees: [5, 3, 0, 4], voicings: ['sus2', 'power', 'power', 'sus4'], beats: [4, 2, 2, 4], labels: ["vi", "IV", "I", "V"], insp: "Paramore / Linkin Park" },
+                    { degrees: [0, 5, 3, 4], voicings: ['power', 'power', 'sus2', 'power'], beats: [2, 2, 2, 2], labels: ["I", "VI", "IV", "V"], insp: "Nirvana / Foo Fighters" },
+                    { degrees: [0, 6, 3, 0], voicings: ['power', 'power', 'sus2', 'power'], beats: [2, 2, 2, 2], labels: ["I", "bVII", "IV", "I"], insp: "Sweet Child O' Mine Feel" }
                 ]
             },
-            'hiphop_rb': { // Rihanna, Nas, 50 Cent, Ne-Yo, Chris Brown, Noga Erez
+            'hiphop_rb': { 
                 delayMs: 10,
                 templates: [
-                    { degrees: [1, 4, 0, 5], voicings: ['ninth', 'ninth', 'ninth', 'seventh'], beats: [2, 2, 4, 4], labels: ["ii9", "V13", "Imaj9", "vi7"] }, // R&B Neo-Soul (Chris Brown)
-                    { degrees: [0, 5, 3, 4], voicings: ['m9', 'seventh', 'm9', 'seventh'], beats: [4, 4, 2, 2], labels: ["i", "VI", "iv", "V7"] }, // Trap Clássico (50 Cent, Nas)
-                    { degrees: [5, 6, 0, 0], voicings: ['add9', 'add9', 'm9', 'm9'], beats: [2, 2, 2, 2], labels: ["VI", "VII", "i", "i"] }, // Epic Pop/R&B (Rihanna)
-                    { degrees: [0, 3, 4, 0], voicings: ['m9', 'm9', 'seventh', 'eleventh'], beats: [2, 2, 2, 2], labels: ["i", "iv", "V", "i"] } // Dark Hip-Hop (Noga Erez)
+                    { degrees: [1, 4, 0, 5], voicings: ['ninth', 'ninth', 'ninth', 'seventh'], beats: [2, 2, 4, 4], labels: ["ii9", "V13", "Imaj9", "vi7"], insp: "Neo-Soul (Chris Brown / Ne-Yo)" },
+                    { degrees: [3, 2, 5, 0], voicings: ['ninth', 'seventh', 'm9', 'ninth'], beats: [2, 2, 2, 2], labels: ["IV", "III", "vi", "I"], insp: "Just The Two Of Us Vibe" },
+                    { degrees: [0, 5, 4, 0], voicings: ['m9', 'seventh', 'seventh', 'm9'], beats: [4, 2, 2, 4], labels: ["i", "VI", "V7", "i"], insp: "Dark Trap (50 Cent / Nas)" },
+                    { degrees: [0, 3, 4, 0], voicings: ['m9', 'm9', 'seventh', 'eleventh'], beats: [2, 2, 2, 2], labels: ["i", "iv", "V", "i"], insp: "Edgy Hip-Hop (Noga Erez / Rihanna)" }
                 ]
             },
             'soul_jazz': {
                 delayMs: 25,
                 templates: [
-                    { degrees: [1, 4, 0, 5], voicings: ['ninth', 'eleventh', 'ninth', 'seventh'], beats: [2, 2, 4, 4], labels: ["ii9", "V11", "Imaj9", "VI7"] }, // Norah Jones, Joss Stone
-                    { degrees: [0, 5, 1, 4], voicings: ['ninth', 'seventh', 'ninth', 'eleventh'], beats: [2, 2, 2, 2], labels: ["Imaj9", "vi7", "ii9", "V11"] }
+                    { degrees: [1, 4, 0, 5], voicings: ['ninth', 'eleventh', 'ninth', 'seventh'], beats: [2, 2, 4, 4], labels: ["ii9", "V11", "Imaj9", "VI7"], insp: "Classic Jazz (Norah Jones / Joss Stone)" },
+                    { degrees: [0, 5, 1, 4], voicings: ['ninth', 'seventh', 'ninth', 'eleventh'], beats: [2, 2, 2, 2], labels: ["Imaj9", "vi7", "ii9", "V11"], insp: "Rhythm Changes Turnaround" },
+                    { degrees: [0, 3, 2, 5], voicings: ['ninth', 'ninth', 'm9', 'seventh'], beats: [2, 2, 2, 2], labels: ["Imaj9", "IV9", "iii9", "vi7"], insp: "Smooth Soul Walkdown" }
                 ]
             },
             'edm': {
                 delayMs: 0,
                 templates: [
-                    { degrees: [5, 3, 0, 4], voicings: ['sus2', 'triad', 'triad', 'sus4'], beats: [1, 1, 1, 1], labels: ["vi", "IV", "I", "V"] }, // Avicii / Calvin Harris
-                    { degrees: [0, 5, 3, 4], voicings: ['power', 'sus2', 'triad', 'triad'], beats: [2, 2, 2, 2], labels: ["I", "vi", "IV", "V"] }
+                    { degrees: [5, 3, 0, 4], voicings: ['sus2', 'triad', 'triad', 'sus4'], beats: [1, 1, 1, 1], labels: ["vi", "IV", "I", "V"], insp: "Avicii / Calvin Harris" },
+                    { degrees: [0, 5, 3, 4], voicings: ['power', 'sus2', 'triad', 'triad'], beats: [2, 2, 2, 2], labels: ["I", "vi", "IV", "V"], insp: "Progressive House Anthem" },
+                    { degrees: [3, 0, 4, 5], voicings: ['sus2', 'triad', 'sus4', 'sus2'], beats: [1, 1, 1, 1], labels: ["IV", "I", "V", "vi"], insp: "Modern Dance Pop" }
                 ]
             }
         };
@@ -265,7 +294,7 @@
             baseUrl: "https://tonejs.github.io/audio/salamander/",
             onload: () => {
                 const btn = document.getElementById('btn-generate');
-                btn.disabled = false; btn.innerText = "Compor Sequência e Partitura";
+                btn.disabled = false; btn.innerText = "Gerar e Tocar";
                 buildPiano();
             }
         }).toDestination();
@@ -315,7 +344,24 @@
             }
         }
 
-        // Desenha a Partitura com Armadura de Clave
+        // --- Renderização da Escala Colorida ---
+        function renderScale(rootIdx, scaleIntervals) {
+            const container = document.getElementById('scale-display');
+            container.innerHTML = `<span style="color:var(--text-muted); font-size: 14px; margin-top:5px;">Escala Ativa: </span>`;
+            
+            scaleIntervals.forEach(interv => {
+                const absNote = (rootIdx + interv) % 12;
+                const noteName = NOTES[absNote];
+                const color = NOTE_COLORS[absNote];
+                const pill = document.createElement('div');
+                pill.className = 'scale-note-pill';
+                pill.style.backgroundColor = color;
+                pill.innerText = noteName;
+                container.appendChild(pill);
+            });
+        }
+
+        // --- Desenha a Partitura Colorida ---
         function renderScore(progressionData, keySignatureString) {
             const div = document.getElementById("score");
             div.innerHTML = ""; 
@@ -324,7 +370,6 @@
             renderer.resize(780, 260);
             const context = renderer.getContext();
             
-            // Adicionando Armadura de Clave (.addKeySignature)
             const topStave = new VF.Stave(30, 20, 710).addClef("treble").addKeySignature(keySignatureString).setContext(context).draw();
             const bottomStave = new VF.Stave(30, 120, 710).addClef("bass").addKeySignature(keySignatureString).setContext(context).draw();
 
@@ -332,42 +377,60 @@
             new VF.StaveConnector(topStave, bottomStave).setType(VF.StaveConnector.type.SINGLE_LEFT).setContext(context).draw();
 
             let trebleNotes = [], bassNotes = [];
-            const keysMap = ['c', 'c', 'd', 'e', 'e', 'f', 'f', 'g', 'a', 'a', 'b', 'b']; // Simplificado p/ visual
+            const keysMap = ['c', 'c', 'd', 'e', 'e', 'f', 'f', 'g', 'a', 'a', 'b', 'b'];
             const accMap = ['', '#', '', 'b', '', '', '#', '', 'b', '', 'b', ''];
             const beatToDur = { 4: "w", 2: "h", 1: "q" };
 
             progressionData.forEach(chord => {
                 let tKeys = [], bKeys = [], tAcc = [], bAcc = [];
+                let tColors = [], bColors = [];
 
                 chord.midiNotes.forEach(m => {
                     const noteIdx = m % 12;
                     const oct = Math.floor(m / 12) - 1;
                     const key = `${keysMap[noteIdx]}/${oct}`;
                     const hasAcc = accMap[noteIdx] !== '';
+                    const color = NOTE_COLORS[noteIdx];
 
-                    if (m >= 60) { // Clave de Sol
+                    if (m >= 60) {
                         tKeys.push(key);
-                        if (hasAcc) tAcc.push({ index: tKeys.length - 1, type: accMap[noteIdx] });
-                    } else { // Clave de Fá
+                        tColors.push(color);
+                        if (hasAcc) tAcc.push({ index: tKeys.length - 1, type: accMap[noteIdx], color: color });
+                    } else {
                         bKeys.push(key);
-                        if (hasAcc) bAcc.push({ index: bKeys.length - 1, type: accMap[noteIdx] });
+                        bColors.push(color);
+                        if (hasAcc) bAcc.push({ index: bKeys.length - 1, type: accMap[noteIdx], color: color });
                     }
                 });
 
                 const durStr = beatToDur[chord.beats] || "q";
 
-                // Adiciona Acidentes Explicitos para clareza visual no estudo
-                if (tKeys.length === 0) trebleNotes.push(new VF.StaveNote({ keys: ["b/4"], duration: durStr + "r", clef: "treble" }));
-                else {
+                // Clave Sol
+                if (tKeys.length === 0) {
+                    trebleNotes.push(new VF.StaveNote({ keys: ["b/4"], duration: durStr + "r", clef: "treble" }));
+                } else {
                     let n = new VF.StaveNote({ keys: tKeys, duration: durStr, clef: "treble" });
-                    tAcc.forEach(a => n.addModifier(new VF.Accidental(a.type), a.index));
+                    tAcc.forEach(a => {
+                        let acc = new VF.Accidental(a.type);
+                        acc.setStyle({fillStyle: a.color, strokeStyle: a.color});
+                        n.addModifier(acc, a.index);
+                    });
+                    // Aplica as cores em cada cabeça de nota
+                    n.keyProps.forEach((_, idx) => n.setKeyStyle(idx, { fillStyle: tColors[idx], strokeStyle: tColors[idx] }));
                     trebleNotes.push(n);
                 }
 
-                if (bKeys.length === 0) bassNotes.push(new VF.StaveNote({ keys: ["d/3"], duration: durStr + "r", clef: "bass" }));
-                else {
+                // Clave Fá
+                if (bKeys.length === 0) {
+                    bassNotes.push(new VF.StaveNote({ keys: ["d/3"], duration: durStr + "r", clef: "bass" }));
+                } else {
                     let n = new VF.StaveNote({ keys: bKeys, duration: durStr, clef: "bass" });
-                    bAcc.forEach(a => n.addModifier(new VF.Accidental(a.type), a.index));
+                    bAcc.forEach(a => {
+                        let acc = new VF.Accidental(a.type);
+                        acc.setStyle({fillStyle: a.color, strokeStyle: a.color});
+                        n.addModifier(acc, a.index);
+                    });
+                    n.keyProps.forEach((_, idx) => n.setKeyStyle(idx, { fillStyle: bColors[idx], strokeStyle: bColors[idx] }));
                     bassNotes.push(n);
                 }
             });
@@ -443,7 +506,9 @@
 
             let delayMs = 15;
 
-            // Define ritmos e templates dependendo do Modo (Livre vs Estilo)
+            // Renderiza Escala Atual
+            renderScale(rootIdx, scaleIntervals);
+
             if (currentMode === 'scale') {
                 const voicings = ['triad', 'add9', 'seventh', 'ninth'];
                 const autoBeats = [4, 2, 2, 4]; 
@@ -455,7 +520,7 @@
                     
                     const rootName = NOTES[(rootIdx + intervals[0]) % 12];
                     const midiNotes = intervals.map(interv => baseOctaveMidi + rootIdx + interv);
-                    progressionData.push({ chordName: rootName, midiNotes, functionLabel: `Grau ${degree+1}`, voicing, beats });
+                    progressionData.push({ chordName: rootName, midiNotes, functionLabel: `Grau ${degree+1}`, voicing, beats, insp: "Aleatório" });
                 }
             } else {
                 const styleId = document.getElementById('music-style').value;
@@ -474,15 +539,15 @@
                     if (voicing === 'sus2') chordName += 'sus2';
 
                     const midiNotes = intervals.map(interv => baseOctaveMidi + rootIdx + interv);
-                    progressionData.push({ chordName, midiNotes, functionLabel: template.labels[i], voicing, beats });
+                    progressionData.push({ chordName, midiNotes, functionLabel: template.labels[i], voicing, beats, insp: template.insp });
                 }
             }
 
-            // Calcula a Armadura e Desenha
+            // Partitura
             const keySigString = getVexFlowKeySignature(rootIdx, scaleType);
             renderScore(progressionData, keySigString);
 
-            // Interface Visual (HTML)
+            // Interface Visual HTML
             progressionData.forEach((data, i) => {
                 const durText = data.beats === 4 ? 'Semibreve (4T)' : data.beats === 2 ? 'Mínima (2T)' : 'Semínima (1T)';
                 const box = document.createElement('div');
@@ -493,17 +558,17 @@
                     <div class="chord-name">${data.chordName}</div>
                     <div class="chord-voicing">${data.voicing}</div>
                     <div class="chord-function">${data.functionLabel}</div>
+                    <div class="chord-inspiration">${data.insp}</div>
                 `;
                 container.appendChild(box);
             });
 
-            // Reprodução de Áudio e Animação
+            // Reprodução de Áudio
             const now = Tone.now();
             let cumulativeTimeS = 0;
 
             progressionData.forEach((data, index) => {
-                // Conversão de Beats para Segundos (120 BPM -> 1 beat = 0.5s)
-                const durationSeconds = data.beats * 0.5; 
+                const durationSeconds = data.beats * 0.5; // 120 BPM
                 const currentDelay = cumulativeTimeS;
 
                 data.midiNotes.forEach((midiVal, noteIdx) => {
@@ -522,7 +587,6 @@
                         if(keyEl) keyEl.classList.add('active');
                     });
 
-                    // Finalização após o último acorde
                     if (index === progressionData.length - 1) {
                         setTimeout(() => {
                             document.getElementById(`chord-box-${index}`).classList.remove('playing');
@@ -536,7 +600,7 @@
                 cumulativeTimeS += durationSeconds;
             });
 
-            // Exportação MIDI
+            // Exportação
             if (currentBlobUrl) URL.revokeObjectURL(currentBlobUrl);
             const blob = createMidiBlob(progressionData, delayMs);
             currentBlobUrl = URL.createObjectURL(blob);
