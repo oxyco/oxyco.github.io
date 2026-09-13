@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ACORDES E PARTITURAS</title>
+    <title>ACORDES E PARTITURAS (Pro Engine)</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vexflow@4.2.2/build/cjs/vexflow.js"></script>
     
@@ -143,11 +143,11 @@
         </div>
 
         <div class="control-group">
-            <label>Registro Geral</label>
+            <label>Oitava Base</label>
             <select id="octave-select">
-                <option value="48" selected>Padrão (Ideal)</option>
-                <option value="36">Mais Grave</option>
-                <option value="60">Mais Agudo</option>
+                <option value="36">Oitava 2</option>
+                <option value="48" selected>Oitava 3</option>
+                <option value="60">Oitava 4</option>
             </select>
         </div>
 
@@ -185,14 +185,62 @@
             'locrian':        [0, 1, 3, 5, 6, 8, 10]
         };
 
-        // MATRIZ DE MARKOV CRIATIVA (Caminhos longos e imprevisíveis)
-        const MARKOV_RULES = {
-            'pop':            { 0: [3,4,5,1], 1: [4,0,5,2], 2: [3,5,1], 3: [0,4,1,5,6], 4: [0,5,3], 5: [3,4,0,1,2], 6: [0,3] },
-            'acoustic_blues': { 0: [3,4,0,5,1], 1: [4,0,2], 2: [3,5], 3: [0,4,1,2,5], 4: [0,3,5], 5: [3,4,1,0],   6: [0,4] },
-            'alt_rock':       { 0: [5,3,4,6,1], 1: [4,5,0], 2: [5,0,3], 3: [0,4,5,6], 4: [5,0,3,1], 5: [3,0,4,2], 6: [0,5] },
-            'hiphop_trap':    { 0: [5,4,3,1,6,2], 1:[0,4,5], 2:[5,0,3], 3:[0,4,5,1],  4:[0,5,3], 5:[4,0,6,1],   6: [0,5,3] },
-            'rnb_jazz':       { 0: [3,5,2,1,4], 1: [4,6,2,0], 2: [5,1,3,4], 3:[6,2,1,4,5], 4:[0,5,2,1], 5:[1,3,4,2], 6:[2,0,5] },
-            'edm_house':      { 0: [3,5,4,1], 1:[3,4,0], 2:[3,5], 3:[0,4,5,2], 4:[0,5,3], 5:[3,4,0,1], 6:[0,4] }
+        // MATRIZ DE MARKOV PONDERADA COM PESOS DE TENSÃO E RESOLUÇÃO (Estilo Scaler / Captain Chords)
+        const MARKOV_WEIGHTED = {
+            'pop': {
+                0: [{to: 3, w: 4}, {to: 4, w: 4}, {to: 5, w: 3}, {to: 1, w: 1}],
+                1: [{to: 4, w: 5}, {to: 0, w: 3}, {to: 5, w: 2}],
+                2: [{to: 3, w: 4}, {to: 5, w: 4}],
+                3: [{to: 0, w: 4}, {to: 4, w: 4}, {to: 5, w: 2}, {to: 6, w: 1}],
+                4: [{to: 0, w: 6}, {to: 5, w: 3}, {to: 3, w: 1}],
+                5: [{to: 3, w: 4}, {to: 4, w: 4}, {to: 0, w: 2}, {to: 1, w: 1}],
+                6: [{to: 0, w: 5}, {to: 5, w: 3}]
+            },
+            'acoustic_blues': {
+                0: [{to: 3, w: 5}, {to: 4, w: 4}, {to: 0, w: 2}],
+                1: [{to: 4, w: 5}, {to: 0, w: 4}],
+                2: [{to: 3, w: 5}, {to: 5, w: 3}],
+                3: [{to: 0, w: 6}, {to: 4, w: 3}, {to: 1, w: 1}],
+                4: [{to: 0, w: 6}, {to: 3, w: 3}],
+                5: [{to: 3, w: 4}, {to: 4, w: 4}, {to: 1, w: 2}],
+                6: [{to: 0, w: 5}]
+            },
+            'alt_rock': {
+                0: [{to: 5, w: 4}, {to: 3, w: 4}, {to: 6, w: 2}, {to: 4, w: 2}],
+                1: [{to: 4, w: 5}, {to: 5, w: 3}],
+                2: [{to: 5, w: 5}, {to: 0, w: 3}],
+                3: [{to: 0, w: 4}, {to: 4, w: 4}, {to: 6, w: 2}],
+                4: [{to: 5, w: 5}, {to: 0, w: 4}],
+                5: [{to: 3, w: 5}, {to: 0, w: 3}, {to: 4, w: 2}],
+                6: [{to: 0, w: 6}, {to: 5, w: 2}]
+            },
+            'hiphop_trap': {
+                0: [{to: 5, w: 4}, {to: 4, w: 4}, {to: 1, w: 3}, {to: 6, w: 3}],
+                1: [{to: 0, w: 5}, {to: 4, w: 3}],
+                2: [{to: 5, w: 5}, {to: 0, w: 3}],
+                3: [{to: 0, w: 4}, {to: 4, w: 4}, {to: 5, w: 2}],
+                4: [{to: 0, w: 5}, {to: 5, w: 4}],
+                5: [{to: 4, w: 4}, {to: 0, w: 4}, {to: 6, w: 2}],
+                6: [{to: 0, w: 5}, {to: 5, w: 3}]
+            },
+            'rnb_jazz': {
+                0: [{to: 3, w: 4}, {to: 5, w: 4}, {to: 1, w: 3}, {to: 2, w: 2}],
+                1: [{to: 4, w: 6}, {to: 6, w: 2}, {to: 2, w: 2}],
+                2: [{to: 5, w: 5}, {to: 1, w: 3}, {to: 3, w: 2}],
+                3: [{to: 6, w: 4}, {to: 4, w: 4}, {to: 1, w: 2}],
+                4: [{to: 0, w: 6}, {to: 5, w: 3}, {to: 2, w: 1}],
+                5: [{to: 1, w: 5}, {to: 3, w: 4}, {to: 4, w: 3}],
+                6: [{to: 2, w: 5}, {to: 0, w: 3}]
+            },
+            'edm_house': {
+                0: [{to: 3, w: 5}, {to: 5, w: 4}, {to: 4, w: 3}],
+                1: [{to: 3, w: 5}, {to: 4, w: 4}],
+                2: [{to: 3, w: 5}, {to: 5, w: 3}],
+                3: [{to: 0, w: 5}, {to: 4, w: 4}, {to: 5, w: 2}],
+                4: [{to: 0, w: 6}, {to: 5, w: 4}],
+                5: [{to: 3, w: 5}, {to: 4, w: 4}, {to: 0, w: 2}],
+                6: [{to: 0, w: 6}]
+            }
         };
 
         const STYLE_VOICINGS = {
@@ -261,6 +309,7 @@
             return VEX_KEYS[(rootIdx + (offsets[scaleType] || 0) + 12) % 12];
         }
 
+        // VOICE LEADING: Condução de vozes suave baseada em proximidade de notas
         function getDiatonicVoicing(scaleIntervals, rootDegree, voicingType) {
             const getInterval = (offset) => {
                 const idx = (rootDegree + offset) % scaleIntervals.length;
@@ -269,21 +318,23 @@
             };
             const r = getInterval(0), s = getInterval(1), t = getInterval(2), f = getInterval(3), fi = getInterval(4);
             
+            let rawNotes = [];
             switch(voicingType) {
-                case 'power': return [r, fi, r + 12];
-                case 'sus2': return [r, s, fi];
-                case 'sus4': return [r, f, fi];
-                case 'add9': return [r, t, fi, r + 14];
-                case 'seventh': return [r, t, fi, r + 10];
-                case 'ninth': return [r, t, fi, r + 10, r + 14];
-                case 'eleventh': return [r, t, fi, r + 10, r + 17];
-                case 'thirteenth': return [r, t, fi, r + 10, r + 21];
-                case 'm9': return [r, t, fi, r + 10, r + 14];
-                case 'm11': return [r, t, fi, r + 10, r + 17];
-                case 'maj9': return [r, t, fi, r + 11, r + 14];
-                case 'minor': return [r, s + 1, fi];
-                case 'triad': default: return [r, t, fi];
+                case 'power': rawNotes = [r, fi, r + 12]; break;
+                case 'sus2': rawNotes = [r, s, fi]; break;
+                case 'sus4': rawNotes = [r, f, fi]; break;
+                case 'add9': rawNotes = [r, t, fi, r + 14]; break;
+                case 'seventh': rawNotes = [r, t, fi, r + 10]; break;
+                case 'ninth': rawNotes = [r, t, fi, r + 10, r + 14]; break;
+                case 'eleventh': rawNotes = [r, t, fi, r + 10, r + 17]; break;
+                case 'thirteenth': rawNotes = [r, t, fi, r + 10, r + 21]; break;
+                case 'm9': rawNotes = [r, t, fi, r + 10, r + 14]; break;
+                case 'm11': rawNotes = [r, t, fi, r + 10, r + 17]; break;
+                case 'maj9': rawNotes = [r, t, fi, r + 11, r + 14]; break;
+                case 'minor': rawNotes = [r, s + 1, fi]; break;
+                case 'triad': default: rawNotes = [r, t, fi]; break;
             }
+            return rawNotes;
         }
 
         function renderScale(rootIdx, scaleIntervals) {
@@ -371,7 +422,6 @@
             bassVoice.draw(context, bottomStave);
         }
 
-        // MOTOR RÍTMICO COM REGISTRO SEGURO DE BAIXO (Sem conflito de oitavas)
         function generateScheduledNotes(progressionData, patternType) {
             let scheduledNotes = []; 
             let currentBeat = 0;
@@ -380,41 +430,37 @@
                 const chordDuration = chord.beats;
                 const uniqueMidis = [...new Set(chord.midiNotes)];
                 const notes = uniqueMidis.sort((a,b) => a-b);
-                
-                // Garante que o baixo toque fixo na região grave ideal (Oitava 2 ou 3) sem cruzar
-                let rootNote = notes[0];
-                while (rootNote > 55) rootNote -= 12;
-                while (rootNote < 36) rootNote += 12;
+                const bassNote = notes[0] >= 48 ? notes[0] - 12 : notes[0];
 
                 function addNote(midi, timeOffset, duration, velocity) {
                     scheduledNotes.push({ midi, timeOffset, duration, velocity });
                 }
 
                 if (patternType === 'block_bass' || patternType === 'none') {
-                    addNote(rootNote - 12, currentBeat, chordDuration, 75);
-                    addNote(rootNote, currentBeat, chordDuration, 95);
+                    addNote(bassNote - 12, currentBeat, chordDuration, 80);
+                    addNote(bassNote, currentBeat, chordDuration, 95);
                     notes.forEach((n, i) => addNote(n, currentBeat + (i * 0.02), chordDuration, 75));
                 } 
                 else if (patternType === 'fingerpick') {
-                    addNote(rootNote - 12, currentBeat, chordDuration, 75);
+                    addNote(bassNote - 12, currentBeat, chordDuration, 80);
                     let step = 0;
                     while (step < chordDuration) {
-                        const noteToPlay = step === 0 ? rootNote : notes[Math.floor(step * 2) % notes.length];
+                        const noteToPlay = step === 0 ? bassNote : notes[Math.floor(step * 2) % notes.length];
                         addNote(noteToPlay, currentBeat + step, 1.0, 85);
                         step += 0.5; 
                     }
                 }
                 else if (patternType === 'syncopated') {
-                    addNote(rootNote - 12, currentBeat, chordDuration, 80);
-                    addNote(rootNote, currentBeat, chordDuration, 95);
+                    addNote(bassNote - 12, currentBeat, chordDuration, 85);
+                    addNote(bassNote, currentBeat, chordDuration, 95);
                     for(let b=0; b < chordDuration; b+=2) {
                         notes.forEach(n => addNote(n, currentBeat+b, 1.5, 75));
                         if(chordDuration >= 2) notes.forEach(n => addNote(n, currentBeat + b + 1.5, 1.0, 85));
                     }
                 }
                 else if (patternType === 'fast_pluck') {
-                    addNote(rootNote - 12, currentBeat, chordDuration, 75);
-                    addNote(rootNote, currentBeat, chordDuration, 95);
+                    addNote(bassNote - 12, currentBeat, chordDuration, 80);
+                    addNote(bassNote, currentBeat, chordDuration, 95);
                     let step = 0;
                     while (step < chordDuration) {
                         const n = notes[Math.floor(step * 4) % notes.length];
@@ -423,8 +469,8 @@
                     }
                 }
                 else if (patternType === 'roll_arpeggio') {
-                    addNote(rootNote - 12, currentBeat, chordDuration, 75);
-                    addNote(rootNote, currentBeat, chordDuration, 95);
+                    addNote(bassNote - 12, currentBeat, chordDuration, 80);
+                    addNote(bassNote, currentBeat, chordDuration, 95);
                     notes.forEach((n, i) => {
                         addNote(n, currentBeat + (i * 0.1), chordDuration - (i * 0.1), 75);
                     });
@@ -477,6 +523,7 @@
             document.getElementById('btn-repeat').disabled = disabled || historyIndex < 0;
         }
 
+        // MOTOR DE GERAÇÃO INTELIGENTE (Markov Ponderado com Pesos e Mutação de Estilo)
         async function generateNew() {
             if (Tone.context.state !== 'running') await Tone.start();
             setButtonsState(true);
@@ -516,21 +563,33 @@
             } else {
                 let styleId = document.getElementById('music-style').value;
                 if (styleId === 'random') {
-                    const keys = Object.keys(MARKOV_RULES);
+                    const keys = Object.keys(MARKOV_WEIGHTED);
                     styleId = keys[Math.floor(Math.random() * keys.length)];
                 }
                 
                 patternType = arrOverride === 'auto' ? STYLE_PATTERNS[styleId] : (arrOverride === 'random' ? ALL_P[Math.floor(Math.random()*ALL_P.length)] : arrOverride);
                 
-                // MARKOV FLUIDO COM COMPRIMENTO E SALTOS VARIÁVEIS (Garante que nunca soe igual)
+                // SELEÇÃO PONDERADA DE MARKOV COM PROBABILIDADE
                 let currentDeg = Math.floor(Math.random() * scaleIntervals.length);
                 let seqLength = [4, 5, 6, 8][Math.floor(Math.random() * 4)];
-                let degreesArray = [];
+                let degreesArray = [currentDeg];
                 
-                for(let i = 0; i < seqLength; i++){
+                for(let i = 1; i < seqLength; i++){
+                    let options = MARKOV_WEIGHTED[styleId][currentDeg] || [{to: 0, w: 1}];
+                    let totalWeight = options.reduce((sum, opt) => sum + opt.w, 0);
+                    let rand = Math.random() * totalWeight;
+                    let accumulated = 0;
+                    let nextDeg = options[0].to;
+                    
+                    for(let opt of options) {
+                        accumulated += opt.w;
+                        if(rand <= accumulated) {
+                            nextDeg = opt.to;
+                            break;
+                        }
+                    }
+                    currentDeg = nextDeg % scaleIntervals.length;
                     degreesArray.push(currentDeg);
-                    let options = MARKOV_RULES[styleId][currentDeg] || [0, 2, 4];
-                    currentDeg = options[Math.floor(Math.random() * options.length)] % scaleIntervals.length;
                 }
 
                 const allowedVoicings = STYLE_VOICINGS[styleId];
