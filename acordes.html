@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ACORDES E PARTITURAS (Pro Edition)</title>
+    <title>ACORDES E PARTITURAS (Pro Studio)</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vexflow@4.2.2/build/cjs/vexflow.js"></script>
     
@@ -110,12 +110,12 @@
         <div class="control-group" id="group-style" style="display: none;">
             <label>Gênero Base</label>
             <select id="music-style">
-                <option value="random">Misto Aleatório</option>
+                <option value="random">🎲 Misto Aleatório</option>
                 <option value="pop">Pop & Indie</option>
                 <option value="acoustic_blues">Acoustic & Blues</option>
-                <option value="alt_rock">Alt Rock</option>
-                <option value="hiphop_trap">Hip-Hop & Trap Club</option>
-                <option value="rnb_jazz">R&B, Soul & Jazz Vibes</option>
+                <option value="alt_rock">Rock Alternativo</option>
+                <option value="hiphop_trap">Hip-Hop & Trap</option>
+                <option value="rnb_jazz">R&B, Soul & Jazz</option>
                 <option value="edm_house">Electro House & Dubstep</option>
             </select>
         </div>
@@ -124,21 +124,21 @@
             <label>Arranjo (Como Tocar)</label>
             <select id="arrangement-pattern">
                 <option value="auto">Auto (Estilo Base)</option>
-                <option value="random">Padrão Aleatório</option>
+                <option value="random">🎲 Padrão Aleatório</option>
                 <option value="block_bass">Blocos (Mínimas/Semibreves)</option>
                 <option value="fingerpick">Dedilhado (Colcheias)</option>
                 <option value="fast_pluck">Pluck (Semicolcheias)</option>
                 <option value="syncopated">Sincopado (Trap/R&B)</option>
-                <option value="roll_arpeggio">Arpejo Longo (Jazz/Soul)</option>
+                <option value="roll_arpeggio">Arpejo Longo (Soul)</option>
             </select>
         </div>
 
         <div class="control-group">
-            <label>Duração (Dinâmica)</label>
+            <label>Duração (Ritmo)</label>
             <select id="rhythm-control">
-                <option value="auto">Dinâmico (Mistura Automática)</option>
-                <option value="4">Longo (4 Tempos / Compasso Inteiro)</option>
-                <option value="2">Curto (2 Tempos / Meio Compasso)</option>
+                <option value="auto">Dinâmico (Automático)</option>
+                <option value="4">Longo (4 Tempos)</option>
+                <option value="2">Curto (2 Tempos)</option>
             </select>
         </div>
 
@@ -153,18 +153,18 @@
 
         <div class="playback-controls">
             <button id="btn-prev" class="secondary-btn" onclick="playPrevious()" disabled>⏮ Anterior</button>
-            <button id="btn-generate" class="primary-btn" onclick="generateNew()" disabled>Carregando Piano...</button>
+            <button id="btn-generate" class="primary-btn" onclick="generateNew()" disabled>Carregando Grand Piano...</button>
             <button id="btn-repeat" class="secondary-btn" onclick="repeatCurrent()" disabled>🔁 Repetir</button>
         </div>
     </div>
 
-    <div class="score-header">Leitura Harmônica Simplificada (Acordes Base da Partitura)</div>
+    <div class="score-header">Leitura Harmônica Simplificada (Blocos Base)</div>
     <div id="score-container"><div id="score"></div></div>
     
     <div class="progression-container" id="progression-display"></div>
     <div id="scale-display"></div>
     <div class="piano-wrapper"><div id="piano"></div></div>
-    <div id="drag-pad" draggable="true" title="Arraste para a Timeline do Ableton/Reaper/FL Studio">↓ Arraste o MIDI Exato para a sua DAW</div>
+    <div id="drag-pad" draggable="true" title="Arraste para a Timeline da sua DAW">↓ Arraste o MIDI Exato para a sua DAW</div>
 
     <script>
         const VF = Vex.Flow;
@@ -185,7 +185,6 @@
             'locrian':        [0, 1, 3, 5, 6, 8, 10]
         };
 
-        // NOVO MOTOR DE PROGRESSÕES C/ MAIS DE 100 VARIAÇÕES REAIS (Inspirado nos Datasets)
         const BASE_PROGRESSIONS = {
             'pop': [
                 [0,4,5,3], [5,3,0,4], [0,5,3,4], [3,0,4,5], [0,3,5,4], [0,3,0,4], [1,4,0,5], 
@@ -214,10 +213,7 @@
             ]
         };
 
-        // Padrões de duração mistos para acabar com o "som de robô"
-        const DYNAMIC_RHYTHMS = [
-            [4, 4, 4, 4], [2, 2, 4, 4], [4, 2, 2, 4], [4, 4, 2, 2], [2, 2, 2, 2], [2, 4, 2, 4]
-        ];
+        const DYNAMIC_RHYTHMS = [[4,4,4,4], [2,2,4,4], [4,2,2,4], [4,4,2,2], [2,2,2,2], [2,4,2,4]];
 
         const STYLE_VOICINGS = {
             'pop': ['triad', 'add9', 'sus2', 'sus4', 'seventh'],
@@ -240,21 +236,26 @@
         let playTimeouts = [];
         let progressionHistory = [];
         let historyIndex = -1;
-        let lastProgressionKey = ""; // Sistema forte anti-repetição
+        let lastProgressionKey = ""; 
 
+        // O SEGREDO DO SOM CHEIO: Amostras restauradas e Volume +2
         const sampler = new Tone.Sampler({
             urls: {
-                "C3": "C3.mp3", "D#3": "Ds3.mp3", "F#3": "Fs3.mp3", "A3": "A3.mp3",
-                "C4": "C4.mp3", "D#4": "Ds4.mp3", "F#4": "Fs4.mp3", "A4": "A4.mp3"
+                "C2": "C2.mp3", "F#2": "Fs2.mp3",
+                "C3": "C3.mp3", "F#3": "Fs3.mp3",
+                "C4": "C4.mp3", "F#4": "Fs4.mp3",
+                "C5": "C5.mp3", "F#5": "Fs5.mp3",
+                "C6": "C6.mp3"
             },
             release: 1.5,
             baseUrl: "https://tonejs.github.io/audio/salamander/",
             onload: () => {
-                document.getElementById('btn-generate').disabled = false;
-                document.getElementById('btn-generate').innerText = "Gerar Sequência 🎲";
+                const btn = document.getElementById('btn-generate');
+                btn.disabled = false;
+                btn.innerText = "Gerar Sequência 🎲";
             }
         }).toDestination();
-        sampler.volume.value = -3;
+        sampler.volume.value = 2; // Volume master reforçado!
 
         function switchMode(mode) {
             currentMode = mode;
@@ -321,7 +322,7 @@
             });
         }
 
-        // --- PARTITURA LIMPA E LEGÍVEL ---
+        // --- PARTITURA DE BLOCOS (LEITURA LIMPA E FLUIDA) ---
         function renderScore(progressionData, keySignatureString) {
             const div = document.getElementById("score");
             div.innerHTML = ""; 
@@ -392,7 +393,7 @@
             bassVoice.draw(context, bottomStave);
         }
 
-        // MOTOR RÍTMICO PARA ÁUDIO E MIDI
+        // --- MOTOR DE ARRANJOS (O BASS DUPLO QUE RESOLVE O SOM RALO) ---
         function generateScheduledNotes(progressionData, patternType) {
             let scheduledNotes = []; 
             let currentBeat = 0;
@@ -400,40 +401,49 @@
             progressionData.forEach(chord => {
                 const chordDuration = chord.beats;
                 const notes = chord.midiNotes.sort((a,b) => a-b);
-                const bassNote = notes[0] - 12; 
+                
+                // MÁGICA AQUI: O Sub-grave! (Cria peso monstruoso e realista)
+                const rootNote = notes[0];
+                const bassNote = rootNote - 12; 
+                const subBassNote = rootNote - 24; 
 
                 if (patternType === 'block_bass' || patternType === 'none') {
-                    scheduledNotes.push({ midi: bassNote, timeOffset: currentBeat, duration: chordDuration, velocity: 90 });
-                    notes.forEach((n, i) => { scheduledNotes.push({ midi: n, timeOffset: currentBeat + (i * 0.03), duration: chordDuration, velocity: 75 }); });
+                    scheduledNotes.push({ midi: subBassNote, timeOffset: currentBeat, duration: chordDuration, velocity: 85 });
+                    scheduledNotes.push({ midi: bassNote, timeOffset: currentBeat, duration: chordDuration, velocity: 105 });
+                    notes.forEach((n, i) => { scheduledNotes.push({ midi: n, timeOffset: currentBeat + (i * 0.02), duration: chordDuration, velocity: 85 }); });
                 } 
                 else if (patternType === 'fingerpick') {
+                    scheduledNotes.push({ midi: subBassNote, timeOffset: currentBeat, duration: chordDuration, velocity: 80 });
                     let step = 0;
                     while (step < chordDuration) {
                         const noteToPlay = step === 0 ? bassNote : notes[Math.floor(step * 2) % notes.length];
-                        scheduledNotes.push({ midi: noteToPlay, timeOffset: currentBeat + step, duration: 1.0, velocity: 80 });
+                        scheduledNotes.push({ midi: noteToPlay, timeOffset: currentBeat + step, duration: 1.0, velocity: 90 });
                         step += 0.5; 
                     }
                 }
                 else if (patternType === 'syncopated') {
-                    scheduledNotes.push({ midi: bassNote, timeOffset: currentBeat, duration: chordDuration, velocity: 95 });
+                    scheduledNotes.push({ midi: subBassNote, timeOffset: currentBeat, duration: chordDuration, velocity: 90 });
+                    scheduledNotes.push({ midi: bassNote, timeOffset: currentBeat, duration: chordDuration, velocity: 105 });
                     for(let b=0; b < chordDuration; b+=2) {
-                        notes.forEach(n => scheduledNotes.push({ midi: n, timeOffset: currentBeat+b, duration: 1.5, velocity: 70 }));
-                        if(chordDuration >= 2) notes.forEach(n => scheduledNotes.push({ midi: n, timeOffset: currentBeat + b + 1.5, duration: 1.0, velocity: 80 }));
+                        notes.forEach(n => scheduledNotes.push({ midi: n, timeOffset: currentBeat+b, duration: 1.5, velocity: 80 }));
+                        if(chordDuration >= 2) notes.forEach(n => scheduledNotes.push({ midi: n, timeOffset: currentBeat + b + 1.5, duration: 1.0, velocity: 95 }));
                     }
                 }
                 else if (patternType === 'fast_pluck') {
+                    scheduledNotes.push({ midi: subBassNote, timeOffset: currentBeat, duration: chordDuration, velocity: 80 });
+                    scheduledNotes.push({ midi: bassNote, timeOffset: currentBeat, duration: chordDuration, velocity: 100 });
                     let step = 0;
-                    scheduledNotes.push({ midi: bassNote, timeOffset: currentBeat, duration: chordDuration, velocity: 90 });
                     while (step < chordDuration) {
                         const n = notes[Math.floor(step * 4) % notes.length];
-                        scheduledNotes.push({ midi: n, timeOffset: currentBeat + step, duration: 0.25, velocity: 85 });
+                        scheduledNotes.push({ midi: n, timeOffset: currentBeat + step, duration: 0.25, velocity: 95 });
                         step += 0.25;
                     }
                 }
                 else if (patternType === 'roll_arpeggio') {
-                    scheduledNotes.push({ midi: bassNote, timeOffset: currentBeat, duration: chordDuration, velocity: 85 });
+                    scheduledNotes.push({ midi: subBassNote, timeOffset: currentBeat, duration: chordDuration, velocity: 85 });
+                    scheduledNotes.push({ midi: bassNote, timeOffset: currentBeat, duration: chordDuration, velocity: 100 });
                     notes.forEach((n, i) => {
-                        scheduledNotes.push({ midi: n, timeOffset: currentBeat + (i * 0.1), duration: chordDuration - (i * 0.1), velocity: 70 });
+                        scheduledNotes.push({ midi: n, timeOffset: currentBeat + (i * 0.1), duration: chordDuration - (i * 0.1), velocity: 80 });
                     });
                 }
                 currentBeat += chordDuration;
@@ -441,7 +451,6 @@
             return { notes: scheduledNotes, totalBeats: currentBeat };
         }
 
-        // MIDI EXPORT PERFEITO
         function createMidiBlob(scheduledNotesArr, totalBeats) {
             const track = [];
             track.push(0x00, 0xFF, 0x51, 0x03, 0x07, 0xA1, 0x20); 
@@ -504,8 +513,6 @@
                 const numChords = Math.random() > 0.4 ? 4 : (Math.random() > 0.5 ? 3 : 5); 
                 
                 patternType = arrOverride === 'auto' ? 'block_bass' : (arrOverride === 'random' ? ALL_P[Math.floor(Math.random()*ALL_P.length)] : arrOverride);
-
-                // Sorteia um ritmo mestre dinâmico para essa geração (ex: 4-2-2-4)
                 let rhythmMaster = DYNAMIC_RHYTHMS[Math.floor(Math.random() * DYNAMIC_RHYTHMS.length)];
 
                 for (let i = 0; i < numChords; i++) {
@@ -533,7 +540,6 @@
                     styleId = keys[Math.floor(Math.random() * keys.length)];
                 }
                 
-                // SISTEMA FORTE ANTI-REPETIÇÃO
                 let pIndex = Math.floor(Math.random() * BASE_PROGRESSIONS[styleId].length);
                 let currentKey = styleId + "-" + pIndex;
                 if (currentKey === lastProgressionKey) {
@@ -550,7 +556,6 @@
 
                 for (let i = 0; i < degreesArray.length; i++) {
                     const degree = degreesArray[i];
-                    // Varia as aberturas dentro da mesma música
                     const voicing = allowedVoicings[Math.floor(Math.random() * allowedVoicings.length)];
                     const intervals = getDiatonicVoicing(scaleIntervals, degree, voicing);
                     
@@ -595,10 +600,10 @@
         }
 
         function executeState(state) {
-            // CORTE IMEDIATO DE ÁUDIO E TIMEOUTS (Sem encavalar)
+            // CORTE IMEDIATO E TOTAL (Fim da Cacofonia)
             playTimeouts.forEach(clearTimeout); 
             playTimeouts = [];
-            sampler.releaseAll();
+            sampler.releaseAll(Tone.now());
             document.querySelectorAll('.key').forEach(k => k.classList.remove('active'));
 
             setButtonsState(true);
@@ -624,9 +629,8 @@
             });
 
             const schedule = generateScheduledNotes(state.progressionData, state.patternType);
-            const beatToSeconds = 0.5; // 120 BPM
+            const beatToSeconds = 0.5; 
 
-            // AGENDAMENTO PRECISO
             schedule.notes.forEach(noteData => {
                 const freq = Tone.Frequency(noteData.midi, "midi").toNote();
                 const delayMs = noteData.timeOffset * beatToSeconds * 1000;
@@ -644,7 +648,6 @@
                 }, delayMs + (durSeconds * 1000)));
             });
 
-            // FEEDBACK VISUAL DAS CAIXAS
             let cumulativeBeats = 0;
             state.progressionData.forEach((chord, index) => {
                 const delayMs = cumulativeBeats * beatToSeconds * 1000;
@@ -655,13 +658,11 @@
                 cumulativeBeats += chord.beats;
             });
             
-            // FIM DA MÚSICA
             playTimeouts.push(setTimeout(() => {
                 document.querySelectorAll('.chord-box').forEach(b => b.classList.remove('playing'));
                 setButtonsState(false);
             }, schedule.totalBeats * beatToSeconds * 1000));
 
-            // CRIAÇÃO DO MIDI PARA ARRASTAR
             if (currentBlobUrl) URL.revokeObjectURL(currentBlobUrl);
             const blob = createMidiBlob(schedule.notes, schedule.totalBeats);
             currentBlobUrl = URL.createObjectURL(blob);
