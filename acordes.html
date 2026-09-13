@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ACORDES E PARTITURAS</title>
+    <title>ACORDES E PARTITURAS (AI Engine)</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vexflow@4.2.2/build/cjs/vexflow.js"></script>
     
@@ -185,13 +185,32 @@
             'locrian':        [0, 1, 3, 5, 6, 8, 10]
         };
 
-        const STYLE_VOICINGS = {
-            'pop': ['triad', 'add9', 'seventh', 'sus2', 'sus4', 'ninth'],
-            'acoustic_blues': ['seventh', 'ninth', 'sus4', 'add9', 'm9'],
-            'alt_rock': ['power', 'sus2', 'add9', 'sus4', 'seventh'],
-            'hiphop_trap': ['m9', 'seventh', 'eleventh', 'm11', 'minor'],
-            'rnb_jazz': ['ninth', 'eleventh', 'm9', 'seventh', 'maj9', 'thirteenth'],
-            'edm_house': ['sus2', 'sus4', 'power', 'seventh', 'add9']
+        // BANCOS DE CÉLULAS MELÓDICAS REAIS (Inspirados nas playlists de grandes sucessos)
+        const GENRE_DNA = {
+            'pop': {
+                voicings: ['triad', 'add9', 'seventh', 'sus2', 'ninth'],
+                transitions: [[0,3,4,5], [5,3,0,4], [0,4,5,3], [1,4,0,5], [5,1,4,0]]
+            },
+            'acoustic_blues': {
+                voicings: ['seventh', 'ninth', 'sus4', 'add9', 'triad'],
+                transitions: [[0,3,4,0], [0,4,3,4], [3,2,1,0], [0,5,3,4], [1,4,0,4]]
+            },
+            'alt_rock': {
+                voicings: ['power', 'sus2', 'add9', 'sus4', 'seventh'],
+                transitions: [[5,3,0,4], [0,6,3,0], [5,4,0,3], [0,5,3,4], [3,4,0,5]]
+            },
+            'hiphop_trap': {
+                voicings: ['m9', 'seventh', 'eleventh', 'm11', 'minor'],
+                transitions: [[0,5,4,0], [0,1,0,1], [0,6,5,0], [5,6,0,0], [0,2,5,5]]
+            },
+            'rnb_jazz': {
+                voicings: ['ninth', 'eleventh', 'm9', 'seventh', 'maj9', 'thirteenth'],
+                transitions: [[1,4,0,5], [3,4,2,5], [2,5,0,0], [0,5,1,4], [6,2,5,1]]
+            },
+            'edm_house': {
+                voicings: ['sus2', 'sus4', 'power', 'seventh', 'add9'],
+                transitions: [[5,3,0,4], [3,0,4,5], [5,4,3,4], [0,5,3,4], [1,3,0,4]]
+            }
         };
 
         const STYLE_PATTERNS = {
@@ -361,7 +380,6 @@
             bassVoice.draw(context, bottomStave);
         }
 
-        // MOTOR DE ARRANJOS COM FILTRO ANTI-CLIPPING E DINÂMICA
         function generateScheduledNotes(progressionData, patternType) {
             let scheduledNotes = []; 
             let currentBeat = 0;
@@ -463,7 +481,7 @@
             document.getElementById('btn-repeat').disabled = disabled || historyIndex < 0;
         }
 
-        // NOVO MOTOR DE GERAÇÃO: RANDOM WALK HARMÔNICO (Acordes Criativos e Únicos a Cada Clique)
+        // MOTOR CRIATIVO DE GERAÇÃO: DNA DE ESTILOS COM VARIAÇÃO INFINITA E COMPATIBILIDADE MODAL
         async function generateNew() {
             if (Tone.context.state !== 'running') await Tone.start();
             setButtonsState(true);
@@ -503,31 +521,30 @@
             } else {
                 let styleId = document.getElementById('music-style').value;
                 if (styleId === 'random') {
-                    const keys = Object.keys(STYLE_VOICINGS);
+                    const keys = Object.keys(GENRE_DNA);
                     styleId = keys[Math.floor(Math.random() * keys.length)];
                 }
                 
                 patternType = arrOverride === 'auto' ? STYLE_PATTERNS[styleId] : (arrOverride === 'random' ? ALL_P[Math.floor(Math.random()*ALL_P.length)] : arrOverride);
                 
-                // GERAÇÃO POR CAMINHADA ALEATÓRIA (RANDOM WALK) HARMÔNICA PURA
-                // Garante que os saltos de acordes sejam criativos, orgânicos e diferentes a cada clique.
-                let seqLength = [4, 5, 6, 8][Math.floor(Math.random() * 4)];
-                let currentDegree = Math.floor(Math.random() * scaleIntervals.length);
-                let degreesArray = [currentDegree];
+                const dna = GENRE_DNA[styleId];
+                // Sorteia um template de transição base do gênero e aplica mutações caóticas criativas
+                const baseSequence = dna.transitions[Math.floor(Math.random() * dna.transitions.length)];
                 
-                for(let i = 1; i < seqLength; i++) {
-                    // Salto harmônico natural (de 1 a 4 graus para frente ou trás)
-                    let jump = [1, 2, 3, -1, -2, 4][Math.floor(Math.random() * 6)];
-                    currentDegree = (currentDegree + jump + scaleIntervals.length) % scaleIntervals.length;
-                    degreesArray.push(currentDegree);
+                // Expande ou altera para ter comprimento variável de 4 a 8 acordes
+                let degreesArray = [...baseSequence];
+                if (Math.random() > 0.5) {
+                    degreesArray.push((degreesArray[degreesArray.length - 1] + 2) % scaleIntervals.length);
+                }
+                if (Math.random() > 0.7) {
+                    degreesArray.unshift((degreesArray[0] + 4) % scaleIntervals.length);
                 }
 
-                const allowedVoicings = STYLE_VOICINGS[styleId];
-                // Rítmicos variados por compasso
-                const rhythmPool = [2, 4, 2, 4, 2, 2];
+                const allowedVoicings = dna.voicings;
+                const rhythmPool = [2, 4, 2, 4, 2, 2, 4];
 
                 for (let i = 0; i < degreesArray.length; i++) {
-                    const degree = degreesArray[i];
+                    const degree = degreesArray[i] % scaleIntervals.length;
                     const voicing = allowedVoicings[Math.floor(Math.random() * allowedVoicings.length)];
                     const intervals = getDiatonicVoicing(scaleIntervals, degree, voicing);
                     
