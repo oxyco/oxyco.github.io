@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ACORDES, PROGRESSÕES E PARTITURAS</title>
+    <title>ACORDES E PARTITURAS</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vexflow@4.2.2/build/cjs/vexflow.js"></script>
     
@@ -27,7 +27,7 @@
         .tab-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
 
         .controls { background: var(--surface); padding: 20px; border-radius: 12px; display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-end; gap: 12px; border: 1px solid var(--border); margin-bottom: 25px; max-width: 950px; margin-left: auto; margin-right: auto; box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
-        .control-group { display: flex; flex-direction: column; text-align: left; gap: 5px; flex: 1 1 140px; min-width: 130px; }
+        .control-group { display: flex; flex-direction: column; text-align: left; gap: 5px; flex: 1 1 130px; min-width: 120px; }
         .control-group label { font-size: 10px; color: var(--text-muted); text-transform: uppercase; font-weight: 800; letter-spacing: 0.5px;}
         select { padding: 12px; font-size: 13px; border-radius: 8px; border: 1px solid var(--border); outline: none; background: var(--bg); color: var(--text); cursor: pointer; transition: all 0.2s; width: 100%; font-weight: 500;}
         select:hover { border-color: var(--accent); }
@@ -93,7 +93,7 @@
             <select id="scale-type">
                 <optgroup label="Tradicionais">
                     <option value="major">Maior (Jônio)</option>
-                    <option value="minor" selected>Menor (Eólio)</option>
+                    <option value="minor" selected>Menor Natural (Eólio)</option>
                     <option value="harmonic_minor">Menor Harmônica</option>
                     <option value="melodic_minor">Menor Melódica</option>
                 </optgroup>
@@ -108,27 +108,26 @@
         </div>
 
         <div class="control-group" id="group-style" style="display: none;">
-            <label>Harmonia (Acordes)</label>
+            <label>Gênero Base</label>
             <select id="music-style">
-                <option value="random">🎲 Surpresa (Aleatório)</option>
-                <option value="pop">Pop Mainstream</option>
+                <option value="pop">Pop & Indie</option>
                 <option value="acoustic_blues">Acoustic & Blues</option>
                 <option value="alt_emo">Alt Rock & Emo</option>
                 <option value="hiphop_trap">Hip-Hop & Trap</option>
                 <option value="rnb_jazz">R&B, Soul & Jazz</option>
-                <option value="edm_house">EDM & House</option>
+                <option value="edm_house">Electro House & Dubstep</option>
             </select>
         </div>
 
         <div class="control-group">
-            <label>Arranjo (Áudio / MIDI)</label>
+            <label>Arranjo (Ritmo/MIDI)</label>
             <select id="arrangement-pattern">
                 <option value="auto">Auto (Estilo Base)</option>
                 <option value="block_bass">Blocos (Mínimas/Semibreves)</option>
                 <option value="fingerpick">Dedilhado (Colcheias)</option>
                 <option value="fast_pluck">Pluck (Semicolcheias)</option>
                 <option value="syncopated">Sincopado (Trap/R&B)</option>
-                <option value="roll_arpeggio">Arpejo Longo (Soul)</option>
+                <option value="roll_arpeggio">Arpejo Longo (Jazz/Soul)</option>
             </select>
         </div>
 
@@ -142,9 +141,9 @@
         </div>
 
         <div class="playback-controls">
-            <button id="btn-prev" class="secondary-btn" onclick="playPrevious()" disabled>⏮ Anterior</button>
-            <button id="btn-generate" class="primary-btn" onclick="generateNew()" disabled>Carregando Piano...</button>
-            <button id="btn-repeat" class="secondary-btn" onclick="repeatCurrent()" disabled>🔁 Repetir</button>
+            <button id="btn-prev" class="secondary-btn" onclick="playPrevious()" disabled>Anterior</button>
+            <button id="btn-generate" class="primary-btn" onclick="generateNew()" disabled>Carregando...</button>
+            <button id="btn-repeat" class="secondary-btn" onclick="repeatCurrent()" disabled>Repetir</button>
         </div>
     </div>
 
@@ -175,7 +174,6 @@
             'locrian':        [0, 1, 3, 5, 6, 8, 10]
         };
 
-        // BANCO DE PROGRESSÕES GIGANTE
         const BASE_PROGRESSIONS = {
             'pop': [
                 [0,4,5,3], [5,3,0,4], [0,5,3,4], [3,0,4,5], [0,3,5,4], [0,3,0,4], [1,4,0,5], 
@@ -223,7 +221,6 @@
         let progressionHistory = [];
         let historyIndex = -1;
 
-        // TONE.JS SAMPLER
         const sampler = new Tone.Sampler({
             urls: {
                 "C3": "C3.mp3", "D#3": "Ds3.mp3", "F#3": "Fs3.mp3", "A3": "A3.mp3",
@@ -234,7 +231,7 @@
             onload: () => {
                 const btn = document.getElementById('btn-generate');
                 btn.disabled = false;
-                btn.innerText = "Gerar Sequência 🎲";
+                btn.innerText = "Gerar Sequência";
             }
         }).toDestination();
         sampler.volume.value = -3;
@@ -302,7 +299,6 @@
             });
         }
 
-        // --- PARTITURA REESCRITA (APENAS BLOCOS HARMONICOS SEMPRE) ---
         function renderScore(progressionData, keySignatureString) {
             const div = document.getElementById("score");
             div.innerHTML = ""; 
@@ -317,6 +313,7 @@
             new VF.StaveConnector(topStave, bottomStave).setType(VF.StaveConnector.type.SINGLE_LEFT).setContext(context).draw();
 
             let trebleNotes = [], bassNotes = [];
+            const keysMap = ['c', 'c', 'd', 'e', 'e', 'f', 'f', 'g', 'a', 'a', 'b', 'b'];
 
             progressionData.forEach(chord => {
                 let tKeys = [], bKeys = [], tAcc = [], bAcc = [];
@@ -325,7 +322,7 @@
                 chord.midiNotes.forEach(m => {
                     const noteIdx = m % 12;
                     const oct = Math.floor(m / 12) - 1;
-                    const key = `${['c', 'c', 'd', 'e', 'e', 'f', 'f', 'g', 'a', 'a', 'b', 'b'][noteIdx]}/${oct}`;
+                    const key = `${keysMap[noteIdx]}/${oct}`;
                     const color = NOTE_COLORS[noteIdx];
 
                     if (m >= 60) {
@@ -337,10 +334,8 @@
                     }
                 });
 
-                // SEMPRE força o bloco na pauta ignorando o arpejo do áudio
                 const bDur = chord.beats >= 4 ? "w" : chord.beats >= 2 ? "h" : "q";
 
-                // TREBLE
                 if (tKeys.length === 0) { 
                     trebleNotes.push(new VF.StaveNote({ keys: ["b/4"], duration: bDur+"r", clef: "treble" })); 
                 } else {
@@ -350,7 +345,6 @@
                     trebleNotes.push(tn);
                 }
 
-                // BASS
                 if (bKeys.length === 0) { 
                     bassNotes.push(new VF.StaveNote({ keys: ["d/3"], duration: bDur+"r", clef: "bass" })); 
                 } else {
@@ -361,20 +355,14 @@
                 }
             });
 
-            // Somamos os tempos para que o VexFlow alinhe tudo corretamente sem quebrar
-            const totalBeats = progressionData.reduce((acc, curr) => acc + curr.beats, 0);
-            const trebleVoice = new VF.Voice({ num_beats: totalBeats, beat_value: 4 }).setStrict(false);
-            const bassVoice = new VF.Voice({ num_beats: totalBeats, beat_value: 4 }).setStrict(false);
-            
-            trebleVoice.addTickables(trebleNotes); 
-            bassVoice.addTickables(bassNotes);
+            const trebleVoice = new VF.Voice({ num_beats: 32, beat_value: 4 }).setStrict(false);
+            const bassVoice = new VF.Voice({ num_beats: 32, beat_value: 4 }).setStrict(false);
+            trebleVoice.addTickables(trebleNotes); bassVoice.addTickables(bassNotes);
 
             new VF.Formatter().joinVoices([trebleVoice]).joinVoices([bassVoice]).format([trebleVoice, bassVoice], 600);
-            trebleVoice.draw(context, topStave); 
-            bassVoice.draw(context, bottomStave);
+            trebleVoice.draw(context, topStave); bassVoice.draw(context, bottomStave);
         }
 
-        // MOTOR DE ARRANJO RÍTMICO NO ÁUDIO
         function generateScheduledNotes(progressionData, patternType) {
             let scheduledNotes = []; 
             let currentBeat = 0;
@@ -507,7 +495,6 @@
                     styleId = keys[Math.floor(Math.random() * keys.length)];
                 }
                 
-                const config = STYLES_CONFIG[styleId];
                 const degreesArray = BASE_PROGRESSIONS[styleId][Math.floor(Math.random() * BASE_PROGRESSIONS[styleId].length)];
                 const allowedVoicings = STYLE_VOICINGS[styleId];
                 
@@ -561,7 +548,6 @@
         }
 
         function executeState(state) {
-            // CORTA O ÁUDIO E LIMPA OS EVENTOS VISUAIS/AGENDADOS
             playTimeouts.forEach(clearTimeout); 
             playTimeouts = [];
             sampler.releaseAll();
@@ -590,9 +576,9 @@
             });
 
             const schedule = generateScheduledNotes(state.progressionData, state.patternType);
+            const now = Tone.now();
             const beatToSeconds = 0.5; // 120 BPM
 
-            // AGENDAMENTO COM TIMEOUTS (Sincroniza Áudio e Visual Instantaneamente)
             schedule.notes.forEach(noteData => {
                 const freq = Tone.Frequency(noteData.midi, "midi").toNote();
                 const delayMs = noteData.timeOffset * beatToSeconds * 1000;
@@ -620,13 +606,11 @@
                 cumulativeBeats += chord.beats;
             });
             
-            // Reativa UI
             playTimeouts.push(setTimeout(() => {
                 document.querySelectorAll('.chord-box').forEach(b => b.classList.remove('playing'));
                 setButtonsState(false);
             }, schedule.totalBeats * beatToSeconds * 1000));
 
-            // MIDI Exportação Perfeita
             if (currentBlobUrl) URL.revokeObjectURL(currentBlobUrl);
             const blob = createMidiBlob(schedule.notes, schedule.totalBeats);
             currentBlobUrl = URL.createObjectURL(blob);
