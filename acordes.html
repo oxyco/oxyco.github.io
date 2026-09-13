@@ -129,14 +129,14 @@
                 <option value="fingerpick">Dedilhado (Colcheias)</option>
                 <option value="fast_pluck">Pluck (Semicolcheias)</option>
                 <option value="syncopated">Sincopado (Trap/R&B)</option>
-                <option value="roll_arpeggio">Arpejo Longo (Soul)</option>
+                <option value="roll_arpeggio">Arpejo Longo (Soul/Jazz)</option>
             </select>
         </div>
 
         <div class="control-group">
-            <label>Duração (Ritmo)</label>
+            <label>Duração (Dinâmica)</label>
             <select id="rhythm-control">
-                <option value="auto">Dinâmico (Automático)</option>
+                <option value="auto">Dinâmico (Mistura Automática)</option>
                 <option value="4">Longo (4 Tempos)</option>
                 <option value="2">Curto (2 Tempos)</option>
             </select>
@@ -158,7 +158,7 @@
         </div>
     </div>
 
-    <div class="score-header">Leitura Harmônica Simplificada (Blocos Base)</div>
+    <div class="score-header">Leitura Harmônica Simplificada (Acordes Base)</div>
     <div id="score-container"><div id="score"></div></div>
     
     <div class="progression-container" id="progression-display"></div>
@@ -238,24 +238,34 @@
         let historyIndex = -1;
         let lastProgressionKey = ""; 
 
-        // O SEGREDO DO SOM CHEIO: Amostras restauradas e Volume +2
+        // O SEGREDO DO SOM PROFISSIONAL E GORDO
+        // 1. Mais amostras de piano cobrindo graves e agudos para evitar distorção digital
+        // 2. Volume Master Boostado (+8 dB)
+        // 3. Reverb Studio de Espaço
+        
+        const reverb = new Tone.Freeverb({ roomSize: 0.7, dampening: 3000 }).toDestination();
+        reverb.wet.value = 0.18; // Efeito de ambiência de estúdio
+
         const sampler = new Tone.Sampler({
             urls: {
+                "C1": "C1.mp3", "F#1": "Fs1.mp3", // Notas subgraves para o peso
                 "C2": "C2.mp3", "F#2": "Fs2.mp3",
                 "C3": "C3.mp3", "F#3": "Fs3.mp3",
                 "C4": "C4.mp3", "F#4": "Fs4.mp3",
                 "C5": "C5.mp3", "F#5": "Fs5.mp3",
                 "C6": "C6.mp3"
             },
-            release: 1.5,
+            release: 2, // Deixa a nota "respirar" antes de cortar (acaba com o som seco)
             baseUrl: "https://tonejs.github.io/audio/salamander/",
             onload: () => {
                 const btn = document.getElementById('btn-generate');
                 btn.disabled = false;
                 btn.innerText = "Gerar Sequência 🎲";
             }
-        }).toDestination();
-        sampler.volume.value = 2; // Volume master reforçado!
+        }).connect(reverb);
+        
+        // AUMENTO MASSIVO DE VOLUME
+        sampler.volume.value = 8; 
 
         function switchMode(mode) {
             currentMode = mode;
@@ -322,7 +332,7 @@
             });
         }
 
-        // --- PARTITURA DE BLOCOS (LEITURA LIMPA E FLUIDA) ---
+        // --- PARTITURA LIMPA E LEGÍVEL (BLOCO BASE) ---
         function renderScore(progressionData, keySignatureString) {
             const div = document.getElementById("score");
             div.innerHTML = ""; 
@@ -393,7 +403,7 @@
             bassVoice.draw(context, bottomStave);
         }
 
-        // --- MOTOR DE ARRANJOS (O BASS DUPLO QUE RESOLVE O SOM RALO) ---
+        // --- MOTOR DE ARRANJOS COM SUB-GRAVE + VELOCITY ALTA (O Segredo da Dinâmica) ---
         function generateScheduledNotes(progressionData, patternType) {
             let scheduledNotes = []; 
             let currentBeat = 0;
@@ -402,48 +412,48 @@
                 const chordDuration = chord.beats;
                 const notes = chord.midiNotes.sort((a,b) => a-b);
                 
-                // MÁGICA AQUI: O Sub-grave! (Cria peso monstruoso e realista)
                 const rootNote = notes[0];
-                const bassNote = rootNote - 12; 
-                const subBassNote = rootNote - 24; 
+                const bassNote = rootNote - 12; // Baixo normal
+                const subBassNote = rootNote - 24; // A MÁGICA: Baixo profundo (Peso absurdo)
 
+                // Velocity aumentada de 75 pra 90-110 (Mão pesada nas teclas)
                 if (patternType === 'block_bass' || patternType === 'none') {
-                    scheduledNotes.push({ midi: subBassNote, timeOffset: currentBeat, duration: chordDuration, velocity: 85 });
-                    scheduledNotes.push({ midi: bassNote, timeOffset: currentBeat, duration: chordDuration, velocity: 105 });
+                    scheduledNotes.push({ midi: subBassNote, timeOffset: currentBeat, duration: chordDuration, velocity: 100 });
+                    scheduledNotes.push({ midi: bassNote, timeOffset: currentBeat, duration: chordDuration, velocity: 115 });
                     notes.forEach((n, i) => { scheduledNotes.push({ midi: n, timeOffset: currentBeat + (i * 0.02), duration: chordDuration, velocity: 85 }); });
                 } 
                 else if (patternType === 'fingerpick') {
-                    scheduledNotes.push({ midi: subBassNote, timeOffset: currentBeat, duration: chordDuration, velocity: 80 });
+                    scheduledNotes.push({ midi: subBassNote, timeOffset: currentBeat, duration: chordDuration, velocity: 95 });
                     let step = 0;
                     while (step < chordDuration) {
                         const noteToPlay = step === 0 ? bassNote : notes[Math.floor(step * 2) % notes.length];
-                        scheduledNotes.push({ midi: noteToPlay, timeOffset: currentBeat + step, duration: 1.0, velocity: 90 });
+                        scheduledNotes.push({ midi: noteToPlay, timeOffset: currentBeat + step, duration: 1.5, velocity: 95 });
                         step += 0.5; 
                     }
                 }
                 else if (patternType === 'syncopated') {
-                    scheduledNotes.push({ midi: subBassNote, timeOffset: currentBeat, duration: chordDuration, velocity: 90 });
-                    scheduledNotes.push({ midi: bassNote, timeOffset: currentBeat, duration: chordDuration, velocity: 105 });
+                    scheduledNotes.push({ midi: subBassNote, timeOffset: currentBeat, duration: chordDuration, velocity: 105 });
+                    scheduledNotes.push({ midi: bassNote, timeOffset: currentBeat, duration: chordDuration, velocity: 115 });
                     for(let b=0; b < chordDuration; b+=2) {
-                        notes.forEach(n => scheduledNotes.push({ midi: n, timeOffset: currentBeat+b, duration: 1.5, velocity: 80 }));
-                        if(chordDuration >= 2) notes.forEach(n => scheduledNotes.push({ midi: n, timeOffset: currentBeat + b + 1.5, duration: 1.0, velocity: 95 }));
+                        notes.forEach(n => scheduledNotes.push({ midi: n, timeOffset: currentBeat+b, duration: 1.5, velocity: 85 }));
+                        if(chordDuration >= 2) notes.forEach(n => scheduledNotes.push({ midi: n, timeOffset: currentBeat + b + 1.5, duration: 1.0, velocity: 100 }));
                     }
                 }
                 else if (patternType === 'fast_pluck') {
-                    scheduledNotes.push({ midi: subBassNote, timeOffset: currentBeat, duration: chordDuration, velocity: 80 });
-                    scheduledNotes.push({ midi: bassNote, timeOffset: currentBeat, duration: chordDuration, velocity: 100 });
+                    scheduledNotes.push({ midi: subBassNote, timeOffset: currentBeat, duration: chordDuration, velocity: 95 });
+                    scheduledNotes.push({ midi: bassNote, timeOffset: currentBeat, duration: chordDuration, velocity: 110 });
                     let step = 0;
                     while (step < chordDuration) {
                         const n = notes[Math.floor(step * 4) % notes.length];
-                        scheduledNotes.push({ midi: n, timeOffset: currentBeat + step, duration: 0.25, velocity: 95 });
+                        scheduledNotes.push({ midi: n, timeOffset: currentBeat + step, duration: 0.5, velocity: 100 });
                         step += 0.25;
                     }
                 }
                 else if (patternType === 'roll_arpeggio') {
-                    scheduledNotes.push({ midi: subBassNote, timeOffset: currentBeat, duration: chordDuration, velocity: 85 });
-                    scheduledNotes.push({ midi: bassNote, timeOffset: currentBeat, duration: chordDuration, velocity: 100 });
+                    scheduledNotes.push({ midi: subBassNote, timeOffset: currentBeat, duration: chordDuration, velocity: 95 });
+                    scheduledNotes.push({ midi: bassNote, timeOffset: currentBeat, duration: chordDuration, velocity: 110 });
                     notes.forEach((n, i) => {
-                        scheduledNotes.push({ midi: n, timeOffset: currentBeat + (i * 0.1), duration: chordDuration - (i * 0.1), velocity: 80 });
+                        scheduledNotes.push({ midi: n, timeOffset: currentBeat + (i * 0.1), duration: chordDuration, velocity: 85 });
                     });
                 }
                 currentBeat += chordDuration;
@@ -451,6 +461,7 @@
             return { notes: scheduledNotes, totalBeats: currentBeat };
         }
 
+        // MIDI EXPORT PERFEITO
         function createMidiBlob(scheduledNotesArr, totalBeats) {
             const track = [];
             track.push(0x00, 0xFF, 0x51, 0x03, 0x07, 0xA1, 0x20); 
@@ -600,12 +611,15 @@
         }
 
         function executeState(state) {
-            // CORTE IMEDIATO E TOTAL (Fim da Cacofonia)
+            // CORTE CIRÚRGICO DE ÁUDIO NO TONE.JS NATIVO (Transport)
             playTimeouts.forEach(clearTimeout); 
             playTimeouts = [];
-            sampler.releaseAll(Tone.now());
+            
+            Tone.Transport.stop();
+            Tone.Transport.cancel(0);
+            sampler.releaseAll();
+            
             document.querySelectorAll('.key').forEach(k => k.classList.remove('active'));
-
             setButtonsState(true);
 
             const container = document.getElementById('progression-display');
@@ -629,24 +643,32 @@
             });
 
             const schedule = generateScheduledNotes(state.progressionData, state.patternType);
-            const beatToSeconds = 0.5; 
+            const beatToSeconds = 0.5; // 120 BPM
 
+            // O AGENDAMENTO PERFEITO COM O TRANSPORT DO TONE.JS (Zero cacofonia, Zero Engasgo)
             schedule.notes.forEach(noteData => {
                 const freq = Tone.Frequency(noteData.midi, "midi").toNote();
-                const delayMs = noteData.timeOffset * beatToSeconds * 1000;
+                const timeInSeconds = noteData.timeOffset * beatToSeconds;
                 const durSeconds = noteData.duration * beatToSeconds;
                 
+                // O Áudio é agendado cirurgicamente na placa de som
+                Tone.Transport.schedule((time) => {
+                    sampler.triggerAttackRelease(freq, durSeconds, time, noteData.velocity / 127);
+                }, timeInSeconds);
+
+                // O visual obedece o relógio padrão
                 playTimeouts.push(setTimeout(() => {
-                    sampler.triggerAttackRelease(freq, durSeconds, Tone.now(), noteData.velocity / 127);
                     const keyEl = document.getElementById(`note-${noteData.midi}`);
                     if(keyEl) keyEl.classList.add('active');
-                }, delayMs));
+                }, timeInSeconds * 1000));
                 
                 playTimeouts.push(setTimeout(() => {
                     const keyEl = document.getElementById(`note-${noteData.midi}`);
                     if(keyEl) keyEl.classList.remove('active');
-                }, delayMs + (durSeconds * 1000)));
+                }, (timeInSeconds + durSeconds) * 1000));
             });
+
+            Tone.Transport.start();
 
             let cumulativeBeats = 0;
             state.progressionData.forEach((chord, index) => {
