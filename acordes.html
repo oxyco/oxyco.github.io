@@ -9,95 +9,65 @@
     
     <style>
         :root {
-            --bg: #09090b;
-            --surface: #18181b;
-            --border: #27272a;
-            --text: #f4f4f5;
-            --text-muted: #a1a1aa;
-            --accent: #8b5cf6; 
-            --accent-hover: #7c3aed;
-            --key-white: #f8fafc;
-            --key-black: #0f172a;
-            --active-white: #ddd6fe;
-            --active-black: #8b5cf6;
-            --chord-bg: #2e1065;
+            --bg: #09090b; --surface: #18181b; --border: #27272a; --text: #f4f4f5; --text-muted: #a1a1aa;
+            --accent: #8b5cf6; --accent-hover: #7c3aed; --key-white: #f8fafc; --key-black: #0f172a;
+            --active-white: #ddd6fe; --active-black: #8b5cf6; --chord-bg: #2e1065;
         }
 
-        body { 
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            text-align: center; padding: 30px 10px; background: var(--bg); color: var(--text); margin: 0; 
-        }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; text-align: center; padding: 20px 10px; background: var(--bg); color: var(--text); margin: 0; }
+        h1 { font-size: clamp(20px, 4vw, 28px); font-weight: 700; margin-bottom: 25px; color: #fff; letter-spacing: -0.5px; text-transform: uppercase;}
 
-        h1 { font-size: 28px; font-weight: 700; margin-bottom: 25px; color: #fff; letter-spacing: -0.5px;}
-
-        .tabs { display: flex; justify-content: center; margin-bottom: 25px; gap: 15px; }
-        .tab-btn {
-            background: var(--surface); color: var(--text-muted); padding: 12px 24px; font-size: 15px;
-            border: 1px solid var(--border); border-radius: 8px; cursor: pointer; font-weight: 600; transition: 0.2s;
-        }
+        .tabs { display: flex; justify-content: center; margin-bottom: 20px; gap: 10px; flex-wrap: wrap; }
+        .tab-btn { background: var(--surface); color: var(--text-muted); padding: 10px 20px; font-size: 14px; border: 1px solid var(--border); border-radius: 8px; cursor: pointer; font-weight: 600; transition: 0.2s; flex: 1 1 140px; max-width: 250px;}
         .tab-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
 
+        /* Ajustes Mobile-First para os Controles */
         .controls { 
-            background: var(--surface); padding: 25px; border-radius: 12px; 
-            display: flex; flex-wrap: wrap; justify-content: center; gap: 12px;
+            background: var(--surface); padding: 20px; border-radius: 12px; 
+            display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-end; gap: 12px;
             border: 1px solid var(--border); margin-bottom: 30px; max-width: 1000px; margin-left: auto; margin-right: auto;
             box-shadow: 0 10px 40px rgba(0,0,0,0.5);
         }
 
-        .control-group { display: flex; flex-direction: column; text-align: left; gap: 5px; }
-        .control-group label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; font-weight: bold; letter-spacing: 0.5px;}
+        .control-group { display: flex; flex-direction: column; text-align: left; gap: 5px; flex: 1 1 130px; min-width: 120px; }
+        .control-group label { font-size: 10px; color: var(--text-muted); text-transform: uppercase; font-weight: bold; letter-spacing: 0.5px;}
 
-        select, button { 
-            padding: 12px 16px; font-size: 14px; border-radius: 8px; border: 1px solid var(--border); 
-            outline: none; background: var(--bg); color: var(--text); cursor: pointer; transition: all 0.2s;
-            min-width: 140px;
-        }
+        select, button { padding: 12px; font-size: 13px; border-radius: 8px; border: 1px solid var(--border); outline: none; background: var(--bg); color: var(--text); cursor: pointer; transition: all 0.2s; width: 100%;}
         select:hover { border-color: var(--accent); }
 
-        /* Controles de Playback */
-        .playback-controls { width: 100%; display: flex; justify-content: center; align-items: center; gap: 15px; margin-top: 15px; }
-        .playback-controls button { margin: 0; min-width: 120px; font-weight: bold; }
+        .playback-controls { width: 100%; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 10px; }
+        .playback-controls button { flex: 1 1 120px; max-width: 250px; font-weight: bold; padding: 14px; font-size: 14px;}
         
-        button.primary-btn { background: var(--accent); color: #fff; font-size: 16px; padding: 14px 24px;}
-        button.primary-btn:hover { background: var(--accent-hover); transform: translateY(-2px); box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);}
+        button.primary-btn { background: var(--accent); color: #fff;}
+        button.primary-btn:hover:not(:disabled) { background: var(--accent-hover); transform: translateY(-2px); box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);}
         button.secondary-btn { background: var(--surface); color: var(--text); border: 1px solid var(--accent); }
         button.secondary-btn:hover:not(:disabled) { background: rgba(139, 92, 246, 0.2); transform: translateY(-2px); }
         button:disabled { background: var(--border); border-color: var(--border); color: var(--text-muted); cursor: not-allowed; transform: none; box-shadow: none;}
 
-        .progression-container { display: flex; justify-content: center; gap: 15px; margin-bottom: 30px; min-height: 100px; flex-wrap: wrap;}
-        
-        .chord-box {
-            background: var(--surface); border: 1px solid var(--border);
-            border-radius: 12px; width: 140px; padding: 20px 5px; transition: all 0.2s; position: relative;
-        }
-        .chord-box.playing {
-            background: var(--chord-bg); border-color: var(--accent);
-            transform: translateY(-8px); box-shadow: 0 8px 25px rgba(139, 92, 246, 0.3);
-        }
-        .chord-name { font-size: 30px; font-weight: 700; letter-spacing: -1px; margin-top: 5px;}
-        .chord-voicing { font-size: 12px; color: var(--text-muted); margin-top: 5px; }
-        .chord-duration { position: absolute; top: 8px; right: 12px; font-size: 10px; color: var(--accent); font-weight: bold;}
+        .progression-container { display: flex; justify-content: center; gap: 12px; margin-bottom: 25px; min-height: 100px; flex-wrap: wrap;}
+        .chord-box { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; width: 130px; padding: 20px 5px; transition: all 0.2s; position: relative;}
+        .chord-box.playing { background: var(--chord-bg); border-color: var(--accent); transform: translateY(-5px); box-shadow: 0 8px 25px rgba(139, 92, 246, 0.3);}
+        .chord-name { font-size: 26px; font-weight: 700; letter-spacing: -1px; margin-top: 5px;}
+        .chord-voicing { font-size: 11px; color: var(--text-muted); margin-top: 5px; }
+        .chord-duration { position: absolute; top: 8px; right: 8px; font-size: 9px; color: var(--accent); font-weight: bold;}
+        .chord-inspiration { font-size: 9px; color: #fbbf24; margin-top: 8px; font-style: italic; line-height: 1.2; padding: 0 5px;}
 
         #score-container { margin: 0 auto 30px auto; width: 100%; max-width: 800px; overflow-x: auto; background: var(--surface); border-radius: 12px; border: 1px solid var(--border); padding: 10px 0;}
         #score svg path, #score svg rect { stroke: #d4d4d8; fill: #d4d4d8; }
         #score svg text { fill: #f4f4f5; font-family: 'Segoe UI', sans-serif !important; stroke: none;}
 
-        #scale-display { margin: 15px auto 30px auto; display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; max-width: 800px; padding: 15px; background: var(--surface); border-radius: 8px; border: 1px solid var(--border);}
-        .scale-note-pill { padding: 6px 12px; border-radius: 20px; font-weight: bold; font-size: 14px; color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.2);}
+        #scale-display { margin: 15px auto; display: flex; justify-content: center; gap: 6px; flex-wrap: wrap; max-width: 800px; padding: 15px; background: var(--surface); border-radius: 8px; border: 1px solid var(--border);}
+        .scale-note-pill { padding: 4px 10px; border-radius: 15px; font-weight: bold; font-size: 12px; color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.2);}
 
         .piano-wrapper { width: 100%; max-width: 1000px; margin: 0 auto; overflow-x: auto; padding-bottom: 15px; background: #000; border-radius: 8px; box-shadow: inset 0 0 10px rgba(0,0,0,0.8); }
-        #piano { position: relative; height: 140px; width: 1260px; margin: 0 auto; }
+        #piano { position: relative; height: 120px; width: 1260px; margin: 0 auto; }
         .key { position: absolute; top: 0; border-radius: 0 0 4px 4px; transition: background 0.1s; box-sizing: border-box; }
-        .key.white { width: 36px; height: 140px; background: var(--key-white); z-index: 1; border: 1px solid #ccc; }
-        .key.black { width: 22px; height: 85px; background: var(--key-black); z-index: 2; border: 1px solid #000;}
+        .key.white { width: 36px; height: 120px; background: var(--key-white); z-index: 1; border: 1px solid #ccc; }
+        .key.black { width: 22px; height: 75px; background: var(--key-black); z-index: 2; border: 1px solid #000;}
         .key.white.active { background: var(--active-white); border-color: var(--accent); z-index: 3;}
         .key.black.active { background: var(--active-black); z-index: 4;}
 
-        #drag-pad {
-            display: none; margin: 20px auto; padding: 15px 40px; width: fit-content;
-            background: rgba(139, 92, 246, 0.1); border: 1px dashed var(--accent);
-            border-radius: 8px; color: var(--text); font-size: 14px; font-weight: 500; cursor: grab; transition: 0.2s;
-        }
+        #drag-pad { display: none; margin: 20px auto; padding: 15px 40px; width: fit-content; background: rgba(139, 92, 246, 0.1); border: 1px dashed var(--accent); border-radius: 8px; color: var(--text); font-size: 14px; font-weight: 500; cursor: grab; transition: 0.2s;}
         #drag-pad:hover { background: rgba(139, 92, 246, 0.2); }
     </style>
 </head>
@@ -142,19 +112,19 @@
         <div class="control-group" id="group-style" style="display: none;">
             <label>Estilo Musical</label>
             <select id="music-style">
-                <option value="pop">Pop</option>
-                <option value="acoustic_pop">Acoustic Pop</option>
-                <option value="alt_rock">Rock Alternativo</option>
-                <option value="hiphop_rb">Hip-Hop / R&B</option>
-                <option value="soul_jazz">Soul / Jazz</option>
-                <option value="edm">EDM / House</option>
+                <option value="pop">Pop (Blocos Mistas)</option>
+                <option value="acoustic_pop">Acoustic Pop (Dedilhados)</option>
+                <option value="alt_rock">Rock Alternativo (Power + Baixo)</option>
+                <option value="hiphop_rb">Hip-Hop / R&B (Syncopado)</option>
+                <option value="soul_jazz">Soul / Jazz (Arpejos Ricos)</option>
+                <option value="edm">EDM / House (Plucks Rápidos)</option>
             </select>
         </div>
 
         <div class="control-group">
             <label>Ritmo / Tempo</label>
             <select id="rhythm-control">
-                <option value="auto">Automático (Por Estilo)</option>
+                <option value="auto">Auto (Arranjo do Estilo)</option>
                 <option value="4">Semibreve (4 Tempos)</option>
                 <option value="2">Mínima (2 Tempos)</option>
                 <option value="1">Semínima (1 Tempo)</option>
@@ -171,20 +141,17 @@
         </div>
 
         <div class="playback-controls">
-            <button id="btn-prev" class="secondary-btn" onclick="playPrevious()" disabled>⏮ Anterior</button>
-            <button id="btn-generate" class="primary-btn" onclick="generateNew()" disabled>Gerar Nova Sequência 🎲</button>
-            <button id="btn-repeat" class="secondary-btn" onclick="repeatCurrent()" disabled>🔁 Repetir</button>
+            <button id="btn-prev" class="secondary-btn" onclick="playPrevious()" disabled>Anterior</button>
+            <button id="btn-generate" class="primary-btn" onclick="generateNew()" disabled>Gerar Nova Sequência</button>
+            <button id="btn-repeat" class="secondary-btn" onclick="repeatCurrent()" disabled>Repetir</button>
         </div>
     </div>
 
-    <!-- Partitura, Progressão, Teclado e Escala -->
     <div id="score-container"><div id="score"></div></div>
     <div class="progression-container" id="progression-display"></div>
     <div class="piano-wrapper"><div id="piano"></div></div>
     <div id="scale-display"></div>
-    
-    <!-- Drag-pad Original Restabelecido -->
-    <div id="drag-pad" draggable="true" title="Arraste direto para sua DAW (Ableton, FL, Studio One, etc)">↓ Arraste o MIDI para a sua DAW</div>
+    <div id="drag-pad" draggable="true" title="Arraste direto para sua DAW">↓ Arraste o MIDI para a sua DAW</div>
 
     <script>
         const VF = Vex.Flow;
@@ -204,64 +171,47 @@
             'locrian':        [0, 1, 3, 5, 6, 8, 10]
         };
 
-        // BIBLIOTECA EXPANDIDA DE PROGRESSÕES
         const STYLES_CONFIG = {
             'pop': {
-                delayMs: 15,
+                pattern: 'block_bass',
                 templates: [
                     { degrees: [0, 4, 5, 3], voicings: ['add9', 'triad', 'seventh', 'sus2'], beats: [4, 4, 2, 2], labels: ["I", "V", "vi", "IV"] },
-                    { degrees: [5, 3, 0, 4], voicings: ['seventh', 'add9', 'add9', 'triad'], beats: [2, 2, 2, 2], labels: ["vi", "IV", "I", "V"] },
-                    { degrees: [0, 5, 3, 4], voicings: ['triad', 'm9', 'sus2', 'seventh'], beats: [2, 2, 2, 2], labels: ["I", "vi", "IV", "V"] },
-                    { degrees: [3, 0, 4, 5], voicings: ['add9', 'triad', 'sus4', 'm9'], beats: [2, 2, 2, 2], labels: ["IV", "I", "V", "vi"] },
-                    { degrees: [0, 3, 5, 4], voicings: ['triad', 'add9', 'm9', 'sus4'], beats: [2, 2, 2, 2], labels: ["I", "IV", "vi", "V"] },
-                    { degrees: [1, 4, 0, 5], voicings: ['m9', 'triad', 'add9', 'm9'], beats: [2, 2, 4, 4], labels: ["ii", "V", "I", "vi"] }
+                    { degrees: [5, 3, 0, 4], voicings: ['seventh', 'add9', 'add9', 'triad'], beats: [2, 2, 2, 2], labels: ["vi", "IV", "I", "V"] }
                 ]
             },
             'acoustic_pop': {
-                delayMs: 40,
+                pattern: 'fingerpick',
                 templates: [
                     { degrees: [0, 5, 3, 4], voicings: ['add9', 'm9', 'add9', 'sus4'], beats: [2, 2, 2, 2], labels: ["I", "vi", "IV", "V"] },
-                    { degrees: [0, 3, 0, 4], voicings: ['add9', 'sus2', 'add9', 'seventh'], beats: [4, 2, 2, 4], labels: ["I", "IV", "I", "V"] },
-                    { degrees: [5, 4, 3, 3], voicings: ['seventh', 'triad', 'add9', 'add9'], beats: [2, 2, 2, 2], labels: ["vi", "V", "IV", "IV"] },
-                    { degrees: [0, 4, 5, 2], voicings: ['add9', 'sus4', 'seventh', 'm9'], beats: [2, 2, 2, 2], labels: ["I", "V", "vi", "iii"] }
+                    { degrees: [0, 3, 0, 4], voicings: ['add9', 'sus2', 'add9', 'seventh'], beats: [4, 2, 2, 4], labels: ["I", "IV", "I", "V"] }
                 ]
             },
             'alt_rock': {
-                delayMs: 5,
+                pattern: 'block_bass',
                 templates: [
                     { degrees: [5, 3, 0, 4], voicings: ['sus2', 'power', 'power', 'sus4'], beats: [4, 2, 2, 4], labels: ["vi", "IV", "I", "V"] },
-                    { degrees: [0, 5, 3, 4], voicings: ['power', 'power', 'sus2', 'power'], beats: [2, 2, 2, 2], labels: ["I", "VI", "IV", "V"] },
-                    { degrees: [0, 6, 3, 0], voicings: ['power', 'power', 'sus2', 'power'], beats: [2, 2, 2, 2], labels: ["I", "bVII", "IV", "I"] },
-                    { degrees: [5, 4, 0, 3], voicings: ['power', 'power', 'power', 'sus2'], beats: [2, 2, 4, 4], labels: ["vi", "V", "I", "IV"] }
+                    { degrees: [0, 5, 3, 4], voicings: ['power', 'power', 'sus2', 'power'], beats: [2, 2, 2, 2], labels: ["I", "VI", "IV", "V"] }
                 ]
             },
             'hiphop_rb': { 
-                delayMs: 10,
+                pattern: 'syncopated',
                 templates: [
                     { degrees: [1, 4, 0, 5], voicings: ['ninth', 'ninth', 'ninth', 'seventh'], beats: [2, 2, 4, 4], labels: ["ii9", "V13", "Imaj9", "vi7"] },
-                    { degrees: [3, 2, 5, 0], voicings: ['ninth', 'seventh', 'm9', 'ninth'], beats: [2, 2, 2, 2], labels: ["IV", "III", "vi", "I"] },
-                    { degrees: [0, 5, 4, 0], voicings: ['m9', 'seventh', 'seventh', 'm9'], beats: [4, 2, 2, 4], labels: ["i", "VI", "V7", "i"] },
-                    { degrees: [0, 3, 4, 0], voicings: ['m9', 'm9', 'seventh', 'eleventh'], beats: [2, 2, 2, 2], labels: ["i", "iv", "V", "i"] },
-                    { degrees: [5, 6, 0, 0], voicings: ['add9', 'add9', 'm9', 'm9'], beats: [2, 2, 2, 2], labels: ["VI", "VII", "i", "i"] },
-                    { degrees: [0, 6, 5, 5], voicings: ['m9', 'seventh', 'seventh', 'seventh'], beats: [2, 2, 2, 2], labels: ["i", "VII", "VI", "VI"] }
+                    { degrees: [0, 5, 4, 0], voicings: ['m9', 'seventh', 'seventh', 'm9'], beats: [4, 2, 2, 4], labels: ["i", "VI", "V7", "i"] }
                 ]
             },
             'soul_jazz': {
-                delayMs: 25,
+                pattern: 'roll_arpeggio',
                 templates: [
                     { degrees: [1, 4, 0, 5], voicings: ['ninth', 'eleventh', 'ninth', 'seventh'], beats: [2, 2, 4, 4], labels: ["ii9", "V11", "Imaj9", "VI7"] },
-                    { degrees: [0, 5, 1, 4], voicings: ['ninth', 'seventh', 'ninth', 'eleventh'], beats: [2, 2, 2, 2], labels: ["Imaj9", "vi7", "ii9", "V11"] },
-                    { degrees: [0, 3, 2, 5], voicings: ['ninth', 'ninth', 'm9', 'seventh'], beats: [2, 2, 2, 2], labels: ["Imaj9", "IV9", "iii9", "vi7"] },
-                    { degrees: [2, 5, 1, 4], voicings: ['m9', 'seventh', 'ninth', 'eleventh'], beats: [2, 2, 2, 2], labels: ["iii", "vi", "ii", "V"] }
+                    { degrees: [0, 5, 1, 4], voicings: ['ninth', 'seventh', 'ninth', 'eleventh'], beats: [2, 2, 2, 2], labels: ["Imaj9", "vi7", "ii9", "V11"] }
                 ]
             },
             'edm': {
-                delayMs: 0,
+                pattern: 'fast_pluck',
                 templates: [
                     { degrees: [5, 3, 0, 4], voicings: ['sus2', 'triad', 'triad', 'sus4'], beats: [1, 1, 1, 1], labels: ["vi", "IV", "I", "V"] },
-                    { degrees: [0, 5, 3, 4], voicings: ['power', 'sus2', 'triad', 'triad'], beats: [2, 2, 2, 2], labels: ["I", "vi", "IV", "V"] },
-                    { degrees: [3, 0, 4, 5], voicings: ['sus2', 'triad', 'sus4', 'sus2'], beats: [1, 1, 1, 1], labels: ["IV", "I", "V", "vi"] },
-                    { degrees: [5, 4, 3, 4], voicings: ['sus2', 'triad', 'sus2', 'triad'], beats: [2, 2, 2, 2], labels: ["vi", "V", "IV", "V"] }
+                    { degrees: [0, 5, 3, 4], voicings: ['power', 'sus2', 'triad', 'triad'], beats: [2, 2, 2, 2], labels: ["I", "vi", "IV", "V"] }
                 ]
             }
         };
@@ -269,8 +219,6 @@
         let currentMode = 'scale'; 
         let currentBlobUrl = null;
         let playTimeouts = [];
-
-        // SISTEMA DE HISTÓRICO
         let progressionHistory = [];
         let historyIndex = -1;
 
@@ -313,10 +261,7 @@
         }
 
         function getVexFlowKeySignature(rootIdx, scaleType) {
-            const offsets = {
-                'major': 0, 'minor': 3, 'harmonic_minor': 3, 'melodic_minor': 3,
-                'dorian': -2, 'phrygian': -4, 'lydian': -5, 'mixolydian': 5, 'locrian': 1
-            };
+            const offsets = { 'major': 0, 'minor': 3, 'harmonic_minor': 3, 'melodic_minor': 3, 'dorian': -2, 'phrygian': -4, 'lydian': -5, 'mixolydian': 5, 'locrian': 1 };
             let relMajorIdx = (rootIdx + offsets[scaleType] + 12) % 12;
             return VEX_KEYS[relMajorIdx];
         }
@@ -329,7 +274,6 @@
             };
             const r = getInterval(0), s = getInterval(1), t = getInterval(2), 
                   f = getInterval(3), fi = getInterval(4), se = getInterval(6), n = getInterval(8), el = getInterval(10);
-
             switch(voicingType) {
                 case 'power': return [r, fi, r + 12];
                 case 'sus2': return [r, s, fi];
@@ -345,15 +289,12 @@
         function renderScale(rootIdx, scaleIntervals) {
             const container = document.getElementById('scale-display');
             container.innerHTML = `<span style="color:var(--text-muted); font-size: 14px; margin-top:5px;">Escala Ativa: </span>`;
-            
             scaleIntervals.forEach(interv => {
                 const absNote = (rootIdx + interv) % 12;
-                const noteName = NOTES[absNote];
-                const color = NOTE_COLORS[absNote];
                 const pill = document.createElement('div');
                 pill.className = 'scale-note-pill';
-                pill.style.backgroundColor = color;
-                pill.innerText = noteName;
+                pill.style.backgroundColor = NOTE_COLORS[absNote];
+                pill.innerText = NOTES[absNote];
                 container.appendChild(pill);
             });
         }
@@ -361,13 +302,12 @@
         function renderScore(progressionData, keySignatureString) {
             const div = document.getElementById("score");
             div.innerHTML = ""; 
-            
             const renderer = new VF.Renderer(div, VF.Renderer.Backends.SVG);
-            renderer.resize(780, 260);
+            renderer.resize(780, 240);
             const context = renderer.getContext();
             
             const topStave = new VF.Stave(30, 20, 710).addClef("treble").addKeySignature(keySignatureString).setContext(context).draw();
-            const bottomStave = new VF.Stave(30, 120, 710).addClef("bass").addKeySignature(keySignatureString).setContext(context).draw();
+            const bottomStave = new VF.Stave(30, 110, 710).addClef("bass").addKeySignature(keySignatureString).setContext(context).draw();
 
             new VF.StaveConnector(topStave, bottomStave).setType(VF.StaveConnector.type.BRACE).setContext(context).draw();
             new VF.StaveConnector(topStave, bottomStave).setType(VF.StaveConnector.type.SINGLE_LEFT).setContext(context).draw();
@@ -390,37 +330,27 @@
 
                     if (m >= 60) {
                         tKeys.push(key); tColors.push(color);
-                        if (hasAcc) tAcc.push({ index: tKeys.length - 1, type: accMap[noteIdx], color: color });
+                        if (hasAcc) tAcc.push({ index: tKeys.length - 1, type: accMap[noteIdx], color });
                     } else {
                         bKeys.push(key); bColors.push(color);
-                        if (hasAcc) bAcc.push({ index: bKeys.length - 1, type: accMap[noteIdx], color: color });
+                        if (hasAcc) bAcc.push({ index: bKeys.length - 1, type: accMap[noteIdx], color });
                     }
                 });
 
                 const durStr = beatToDur[chord.beats] || "q";
 
-                if (tKeys.length === 0) {
-                    trebleNotes.push(new VF.StaveNote({ keys: ["b/4"], duration: durStr + "r", clef: "treble" }));
-                } else {
+                if (tKeys.length === 0) { trebleNotes.push(new VF.StaveNote({ keys: ["b/4"], duration: durStr + "r", clef: "treble" })); } 
+                else {
                     let n = new VF.StaveNote({ keys: tKeys, duration: durStr, clef: "treble" });
-                    tAcc.forEach(a => {
-                        let acc = new VF.Accidental(a.type);
-                        acc.setStyle({fillStyle: a.color, strokeStyle: a.color});
-                        n.addModifier(acc, a.index);
-                    });
+                    tAcc.forEach(a => { let acc = new VF.Accidental(a.type); acc.setStyle({fillStyle: a.color, strokeStyle: a.color}); n.addModifier(acc, a.index); });
                     n.keyProps.forEach((_, idx) => n.setKeyStyle(idx, { fillStyle: tColors[idx], strokeStyle: tColors[idx] }));
                     trebleNotes.push(n);
                 }
 
-                if (bKeys.length === 0) {
-                    bassNotes.push(new VF.StaveNote({ keys: ["d/3"], duration: durStr + "r", clef: "bass" }));
-                } else {
+                if (bKeys.length === 0) { bassNotes.push(new VF.StaveNote({ keys: ["d/3"], duration: durStr + "r", clef: "bass" })); } 
+                else {
                     let n = new VF.StaveNote({ keys: bKeys, duration: durStr, clef: "bass" });
-                    bAcc.forEach(a => {
-                        let acc = new VF.Accidental(a.type);
-                        acc.setStyle({fillStyle: a.color, strokeStyle: a.color});
-                        n.addModifier(acc, a.index);
-                    });
+                    bAcc.forEach(a => { let acc = new VF.Accidental(a.type); acc.setStyle({fillStyle: a.color, strokeStyle: a.color}); n.addModifier(acc, a.index); });
                     n.keyProps.forEach((_, idx) => n.setKeyStyle(idx, { fillStyle: bColors[idx], strokeStyle: bColors[idx] }));
                     bassNotes.push(n);
                 }
@@ -428,15 +358,71 @@
 
             const trebleVoice = new VF.Voice({ num_beats: 32, beat_value: 4 }).setStrict(false);
             const bassVoice = new VF.Voice({ num_beats: 32, beat_value: 4 }).setStrict(false);
-            trebleVoice.addTickables(trebleNotes);
-            bassVoice.addTickables(bassNotes);
+            trebleVoice.addTickables(trebleNotes); bassVoice.addTickables(bassNotes);
 
             new VF.Formatter().joinVoices([trebleVoice]).joinVoices([bassVoice]).format([trebleVoice, bassVoice], 600);
-            trebleVoice.draw(context, topStave);
-            bassVoice.draw(context, bottomStave);
+            trebleVoice.draw(context, topStave); bassVoice.draw(context, bottomStave);
         }
 
-        function createMidiBlob(progressionData, strumDelayMs) {
+        // MOTOR DE ARRANJOS RÍTMICOS E MELÓDICOS E EXPORTAÇÃO MIDI PERFEITA
+        function generateScheduledNotes(progressionData, patternType) {
+            let scheduledNotes = []; // { midi, timeOffset (beats), duration (beats), velocity }
+            let currentBeat = 0;
+
+            progressionData.forEach(chord => {
+                const chordDuration = chord.beats;
+                const notes = chord.midiNotes.sort((a,b) => a-b);
+                const bassNote = notes[0] - 12; // Linha de baixo (tônica uma oitava abaixo)
+
+                if (patternType === 'block_bass' || patternType === 'none') {
+                    // Baixo no tempo 1
+                    scheduledNotes.push({ midi: bassNote, timeOffset: currentBeat, duration: chordDuration, velocity: 90 });
+                    // Acorde no tempo 1 com leve dedilhado humano
+                    notes.forEach((n, i) => {
+                        scheduledNotes.push({ midi: n, timeOffset: currentBeat + (i * 0.03), duration: chordDuration, velocity: 75 });
+                    });
+                } 
+                else if (patternType === 'fingerpick') {
+                    // Dedilhado contínuo (0, 0.5, 1.0, 1.5...)
+                    let step = 0;
+                    while (step < chordDuration) {
+                        const noteToPlay = step === 0 ? bassNote : notes[Math.floor(step * 2) % notes.length];
+                        scheduledNotes.push({ midi: noteToPlay, timeOffset: currentBeat + step, duration: 1.0, velocity: 80 });
+                        step += 0.5; // Colcheias
+                    }
+                }
+                else if (patternType === 'syncopated') {
+                    // Ritmo R&B (Beat 1, e contra-tempo 2.5)
+                    scheduledNotes.push({ midi: bassNote, timeOffset: currentBeat, duration: chordDuration, velocity: 95 });
+                    notes.forEach(n => scheduledNotes.push({ midi: n, timeOffset: currentBeat, duration: 1.5, velocity: 70 }));
+                    if (chordDuration >= 3) {
+                        notes.forEach(n => scheduledNotes.push({ midi: n, timeOffset: currentBeat + 2.5, duration: 1.0, velocity: 80 }));
+                    }
+                }
+                else if (patternType === 'fast_pluck') {
+                    // Arpejo de Semicolcheias (EDM)
+                    let step = 0;
+                    scheduledNotes.push({ midi: bassNote, timeOffset: currentBeat, duration: chordDuration, velocity: 90 });
+                    while (step < chordDuration) {
+                        const n = notes[Math.floor(step * 4) % notes.length];
+                        scheduledNotes.push({ midi: n, timeOffset: currentBeat + step, duration: 0.25, velocity: 85 });
+                        step += 0.25;
+                    }
+                }
+                else if (patternType === 'roll_arpeggio') {
+                    // Arpejo rico em bloco para Soul/Jazz
+                    scheduledNotes.push({ midi: bassNote, timeOffset: currentBeat, duration: chordDuration, velocity: 85 });
+                    notes.forEach((n, i) => {
+                        scheduledNotes.push({ midi: n, timeOffset: currentBeat + (i * 0.1), duration: chordDuration - (i * 0.1), velocity: 70 });
+                    });
+                }
+
+                currentBeat += chordDuration;
+            });
+            return { notes: scheduledNotes, totalBeats: currentBeat };
+        }
+
+        function createMidiBlob(scheduledNotesArr, totalBeats) {
             const track = [];
             track.push(0x00, 0xFF, 0x51, 0x03, 0x07, 0xA1, 0x20); 
 
@@ -447,27 +433,26 @@
                 return res;
             }
 
-            for (let c = 0; c < progressionData.length; c++) {
-                const chordNotes = progressionData[c].midiNotes;
-                const totalDurationTicks = progressionData[c].beats * 480; 
-                
-                track.push(0x00); 
-                track.push(0x90, chordNotes[0], 85); 
-                for (let i = 1; i < chordNotes.length; i++) {
-                    track.push(...vlq(strumDelayMs)); track.push(0x90, chordNotes[i], 70); 
-                }
-                
-                const usedTicks = (chordNotes.length - 1) * strumDelayMs;
-                const remainingTicks = totalDurationTicks - usedTicks;
-                
-                track.push(...vlq(remainingTicks));
-                track.push(0x80, chordNotes[0], 0x00);
-                for (let i = 1; i < chordNotes.length; i++) {
-                    track.push(0x00); track.push(0x80, chordNotes[i], 0x00);
-                }
-            }
+            // Precisamos criar eventos absolutos ordenados e converter para delta times
+            let events = [];
+            scheduledNotesArr.forEach(n => {
+                events.push({ type: 0x90, midi: n.midi, ticks: Math.round(n.timeOffset * 480), velocity: n.velocity });
+                events.push({ type: 0x80, midi: n.midi, ticks: Math.round((n.timeOffset + n.duration) * 480), velocity: 0 });
+            });
+            events.sort((a,b) => a.ticks - b.ticks);
+
+            let lastTicks = 0;
+            events.forEach(e => {
+                const delta = e.ticks - lastTicks;
+                track.push(...vlq(delta));
+                track.push(e.type, e.midi, e.velocity);
+                lastTicks = e.ticks;
+            });
+
+            const endDelta = Math.max(0, (totalBeats * 480) - lastTicks);
+            track.push(...vlq(endDelta));
+            track.push(0xFF, 0x2F, 0x00);
             
-            track.push(0x00, 0xFF, 0x2F, 0x00);
             const header = [0x4D, 0x54, 0x68, 0x64, 0x00, 0x00, 0x00, 0x06, 0x00, 0x00, 0x00, 0x01, 0x01, 0xE0];
             const mtrk = [0x4D, 0x54, 0x72, 0x6B];
             const len = track.length;
@@ -478,7 +463,6 @@
             return new Blob([midiBytes], { type: 'audio/midi' });
         }
 
-        // --- SISTEMA DE CONTROLE (GERAR, ANTERIOR, REPETIR) ---
         function updateHistoryButtons() {
             document.getElementById('btn-prev').disabled = historyIndex <= 0;
             document.getElementById('btn-repeat').disabled = historyIndex < 0;
@@ -496,12 +480,11 @@
             const scaleIntervals = SCALES[scaleType];
             
             const progressionData = [];
-            let delayMs = 15;
+            let patternType = 'none';
 
             if (currentMode === 'scale') {
                 const voicings = ['triad', 'add9', 'seventh', 'ninth', 'sus2'];
                 const autoBeats = [4, 2, 2, 4]; 
-                // Mistura tamanhos de progressão (3 ou 4 acordes)
                 const numChords = Math.random() > 0.3 ? 4 : 3; 
                 for (let i = 0; i < numChords; i++) {
                     const degree = Math.floor(Math.random() * 7);
@@ -516,7 +499,7 @@
             } else {
                 const styleId = document.getElementById('music-style').value;
                 const config = STYLES_CONFIG[styleId];
-                delayMs = config.delayMs;
+                patternType = config.pattern;
                 const template = config.templates[Math.floor(Math.random() * config.templates.length)];
 
                 for (let i = 0; i < template.degrees.length; i++) {
@@ -535,11 +518,10 @@
             }
 
             const state = {
-                progressionData, delayMs, rootIdx, scaleIntervals,
+                progressionData, patternType, rootIdx, scaleIntervals,
                 keySigString: getVexFlowKeySignature(rootIdx, scaleType)
             };
 
-            // Salva no histórico
             historyIndex++;
             progressionHistory = progressionHistory.slice(0, historyIndex);
             progressionHistory.push(state);
@@ -557,9 +539,7 @@
         }
 
         function repeatCurrent() {
-            if (historyIndex >= 0) {
-                executeState(progressionHistory[historyIndex]);
-            }
+            if (historyIndex >= 0) executeState(progressionHistory[historyIndex]);
         }
 
         function executeState(state) {
@@ -586,76 +566,61 @@
                 container.appendChild(box);
             });
 
+            // Toca com o novo Motor de Arranjo (Arpejos e Baixos)
+            const schedule = generateScheduledNotes(state.progressionData, state.patternType);
             const now = Tone.now();
-            let cumulativeTimeS = 0;
+            const beatToSeconds = 0.5; // 120 BPM
 
-            state.progressionData.forEach((data, index) => {
-                const durationSeconds = data.beats * 0.5; 
-                const currentDelay = cumulativeTimeS;
-
-                data.midiNotes.forEach((midiVal, noteIdx) => {
-                    const freq = Tone.Frequency(midiVal, "midi").toNote();
-                    const strumOffset = noteIdx * (state.delayMs / 1000);
-                    sampler.triggerAttackRelease(freq, durationSeconds, now + currentDelay + strumOffset);
-                });
-
-                const timeoutId = setTimeout(() => {
-                    document.querySelectorAll('.chord-box').forEach(b => b.classList.remove('playing'));
-                    document.querySelectorAll('.key').forEach(k => k.classList.remove('active'));
-                    
-                    document.getElementById(`chord-box-${index}`).classList.add('playing');
-                    data.midiNotes.forEach(m => {
-                        const keyEl = document.getElementById(`note-${m}`);
-                        if(keyEl) keyEl.classList.add('active');
-                    });
-
-                    if (index === state.progressionData.length - 1) {
-                        setTimeout(() => {
-                            document.getElementById(`chord-box-${index}`).classList.remove('playing');
-                            document.querySelectorAll('.key').forEach(k => k.classList.remove('active'));
-                        }, durationSeconds * 1000);
-                    }
-                }, currentDelay * 1000);
+            schedule.notes.forEach(noteData => {
+                const freq = Tone.Frequency(noteData.midi, "midi").toNote();
+                const time = now + (noteData.timeOffset * beatToSeconds);
+                const dur = noteData.duration * beatToSeconds;
+                sampler.triggerAttackRelease(freq, dur, time, noteData.velocity / 127);
                 
-                playTimeouts.push(timeoutId);
-                cumulativeTimeS += durationSeconds;
+                // Anima as teclas individuais
+                playTimeouts.push(setTimeout(() => {
+                    const keyEl = document.getElementById(`note-${noteData.midi}`);
+                    if(keyEl) keyEl.classList.add('active');
+                }, noteData.timeOffset * beatToSeconds * 1000));
+                
+                playTimeouts.push(setTimeout(() => {
+                    const keyEl = document.getElementById(`note-${noteData.midi}`);
+                    if(keyEl) keyEl.classList.remove('active');
+                }, (noteData.timeOffset + noteData.duration) * beatToSeconds * 1000));
             });
 
+            // Anima Caixas HTML
+            let cumulativeBeats = 0;
+            state.progressionData.forEach((chord, index) => {
+                const delayMs = cumulativeBeats * beatToSeconds * 1000;
+                playTimeouts.push(setTimeout(() => {
+                    document.querySelectorAll('.chord-box').forEach(b => b.classList.remove('playing'));
+                    document.getElementById(`chord-box-${index}`).classList.add('playing');
+                }, delayMs));
+                cumulativeBeats += chord.beats;
+            });
+            
+            // Finaliza UI
+            playTimeouts.push(setTimeout(() => {
+                document.querySelectorAll('.chord-box').forEach(b => b.classList.remove('playing'));
+                document.getElementById('btn-generate').disabled = false;
+            }, schedule.totalBeats * beatToSeconds * 1000));
+
+            // MIDI Blob
             if (currentBlobUrl) URL.revokeObjectURL(currentBlobUrl);
-            const blob = createMidiBlob(state.progressionData, state.delayMs);
+            const blob = createMidiBlob(schedule.notes, schedule.totalBeats);
             currentBlobUrl = URL.createObjectURL(blob);
             const fileString = state.progressionData.map(d => d.chordName.replace(/#/g, 's')).join('-');
             
             const dragPad = document.getElementById('drag-pad');
             dragPad.style.display = 'block';
-            // Restabelecido puramente para Drag and Drop
             dragPad.setAttribute('data-downloadurl', `audio/midi:Progressao_${fileString}.mid:${currentBlobUrl}`);
         }
 
-        // Drag & Drop Nativo
         document.getElementById('drag-pad').addEventListener('dragstart', function(e) {
             const url = this.getAttribute('data-downloadurl');
             if (url) e.dataTransfer.setData('DownloadURL', url);
         });
-        
-              // DESBLOQUEIO GLOBAL DE ÁUDIO PARA iOS (iPhone/iPad)
-        let audioUnlocked = false;
-        
-        function unlockAudio() {
-            if (!audioUnlocked) {
-                Tone.start().then(() => {
-                    audioUnlocked = true;
-                    console.log("Áudio desbloqueado no iOS");
-                    // Remove os listeners após desbloquear para não pesar a página
-                    document.body.removeEventListener('touchstart', unlockAudio);
-                    document.body.removeEventListener('click', unlockAudio);
-                });
-            }
-        }
-        
-        // Força a tentativa de desbloqueio no primeiro toque na tela
-        document.body.addEventListener('touchstart', unlockAudio, { once: true });
-        document.body.addEventListener('click', unlockAudio, { once: true });
     </script>
 </body>
 </html>
