@@ -27,7 +27,7 @@
         .tab-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
 
         .controls { background: var(--surface); padding: 20px; border-radius: 12px; display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-end; gap: 12px; border: 1px solid var(--border); margin-bottom: 25px; max-width: 950px; margin-left: auto; margin-right: auto; box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
-        .control-group { display: flex; flex-direction: column; text-align: left; gap: 5px; flex: 1 1 140px; min-width: 130px; }
+        .control-group { display: flex; flex-direction: column; text-align: left; gap: 5px; flex: 1 1 130px; min-width: 120px; }
         .control-group label { font-size: 10px; color: var(--text-muted); text-transform: uppercase; font-weight: 800; letter-spacing: 0.5px;}
         select { padding: 12px; font-size: 13px; border-radius: 8px; border: 1px solid var(--border); outline: none; background: var(--bg); color: var(--text); cursor: pointer; transition: all 0.2s; width: 100%; font-weight: 500;}
         select:hover { border-color: var(--accent); }
@@ -148,13 +148,12 @@
         </div>
     </div>
 
-    <!-- UI -->
     <div class="score-header">Leitura Harmônica (Base)</div>
     <div id="score-container"><div id="score"></div></div>
     
     <div class="progression-container" id="progression-display"></div>
-    <div class="piano-wrapper"><div id="piano"></div></div>
     <div id="scale-display"></div>
+    <div class="piano-wrapper"><div id="piano"></div></div>
     <div id="drag-pad" draggable="true" title="Arraste para a Timeline">↓ Arraste o MIDI para a sua DAW</div>
 
     <script>
@@ -176,7 +175,6 @@
             'locrian':        [0, 1, 3, 5, 6, 8, 10]
         };
 
-        // BANCO DE DADOS MACIÇO (Para acabar com a repetição)
         const STYLES_CONFIG = {
             'pop': {
                 pattern: 'block_bass',
@@ -261,7 +259,8 @@
         const sampler = new Tone.Sampler({
             urls: {
                 "C3": "C3.mp3", "D#3": "Ds3.mp3", "F#3": "Fs3.mp3", "A3": "A3.mp3",
-                "C4": "C4.mp3", "D#4": "Ds4.mp3", "F#4": "Fs4.mp3", "A4": "A4.mp3"
+                "C4": "C4.mp3", "D#4": "Ds4.mp3", "F#4": "Fs4.mp3", "A4": "A4.mp3",
+                "C5": "C5.mp3", "D#5": "Ds5.mp3"
             },
             release: 1.5,
             baseUrl: "https://tonejs.github.io/audio/salamander/",
@@ -316,7 +315,7 @@
                 case 'seventh': return [r, t, fi, se];
                 case 'ninth': return [r, t, fi, se, n];
                 case 'eleventh': return [r, t, fi, se, n, el];
-                case 'm9': return [r, t, fi, se, n]; // Treat standard extension contextually
+                case 'm9': return [r, t, fi, se, n];
                 case 'triad': default: return [r, t, fi];
             }
         }
@@ -334,7 +333,7 @@
             });
         }
 
-        // --- PARTITURA BLOCO LIMPO ---
+        // --- PARTITURA LIMPA (SOMENTE BLOCOS / HARMONIA BASE) ---
         function renderScore(progressionData, keySignatureString) {
             const div = document.getElementById("score");
             div.innerHTML = ""; 
@@ -370,8 +369,8 @@
                     }
                 });
 
-                // Duração baseada nos Beats da Harmonia
-                const bDur = chord.beats >= 4 ? "w" : chord.beats === 2 ? "h" : "q";
+                // Força visual limpo na pauta: Apenas q (1), h (2), w (4)
+                const bDur = chord.beats >= 4 ? "w" : chord.beats >= 2 ? "h" : "q";
 
                 // Clave de Sol
                 if (tKeys.length === 0) { 
@@ -398,6 +397,7 @@
             const bassVoice = new VF.Voice({ num_beats: 32, beat_value: 4 }).setStrict(false);
             trebleVoice.addTickables(trebleNotes); bassVoice.addTickables(bassNotes);
 
+            // Sem Beams (hastes unidas), formato limpo e perfeitamente agrupado
             new VF.Formatter().joinVoices([trebleVoice]).joinVoices([bassVoice]).format([trebleVoice, bassVoice], 600);
             trebleVoice.draw(context, topStave); bassVoice.draw(context, bottomStave);
         }
@@ -501,7 +501,7 @@
             const rootIdx = parseInt(document.getElementById('root-note').value);
             const scaleType = document.getElementById('scale-type').value;
             const baseOctaveMidi = parseInt(document.getElementById('octave-select').value);
-            const rhythmOverride = document.getElementById('rhythm-control').value;
+            const arrOverride = document.getElementById('arrangement-pattern').value;
             const scaleIntervals = SCALES[scaleType];
             
             const progressionData = [];
@@ -511,8 +511,7 @@
                 const voicings = ['triad', 'add9', 'seventh', 'ninth', 'sus2', 'power'];
                 const numChords = Math.random() > 0.4 ? 4 : (Math.random() > 0.5 ? 3 : 5); 
                 
-                // Escolhe um padrão aleatório se não houver
-                patternType = ALL_PATTERNS[Math.floor(Math.random()*ALL_PATTERNS.length)];
+                patternType = arrOverride === 'auto' ? 'block_bass' : (arrOverride === 'random' ? ALL_PATTERNS[Math.floor(Math.random()*ALL_PATTERNS.length)] : arrOverride);
 
                 for (let i = 0; i < numChords; i++) {
                     const degree = Math.floor(Math.random() * 7);
@@ -536,9 +535,8 @@
                 }
                 
                 const config = STYLES_CONFIG[styleId];
-                patternType = rhythmOverride === 'auto' ? config.pattern : 'block_bass'; 
+                patternType = arrOverride === 'auto' ? config.pattern : (arrOverride === 'random' ? ALL_PATTERNS[Math.floor(Math.random()*ALL_PATTERNS.length)] : arrOverride);
                 
-                // Pega template aleatório da lista ampliada
                 const template = config.templates[Math.floor(Math.random() * config.templates.length)];
 
                 for (let i = 0; i < template.degrees.length; i++) {
@@ -547,6 +545,7 @@
                     const intervals = getDiatonicVoicing(scaleIntervals, degree, voicing);
                     
                     let beats = template.beats[i];
+                    if (patternType === 'syncopated' && beats < 2) beats = 2;
                     
                     let chordName = NOTES[(rootIdx + intervals[0]) % 12];
                     if (voicing === 'power') chordName += '5';
@@ -586,6 +585,7 @@
             container.innerHTML = '';
 
             renderScale(state.rootIdx, state.scaleIntervals);
+            // Renderiza sempre a versão em bloco da Partitura
             renderScore(state.progressionData, state.keySigString);
 
             state.progressionData.forEach((data, i) => {
