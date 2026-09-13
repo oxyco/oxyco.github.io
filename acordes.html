@@ -124,6 +124,7 @@
             <label>Arranjo (Como Tocar)</label>
             <select id="arrangement-pattern">
                 <option value="auto">Auto (Estilo Base)</option>
+                <option value="random">🎲 Misto Aleatório</option>
                 <option value="block_bass">Blocos (Mínimas/Semibreves)</option>
                 <option value="fingerpick">Dedilhado (Colcheias)</option>
                 <option value="fast_pluck">Pluck (Semicolcheias)</option>
@@ -369,10 +370,9 @@
                     }
                 });
 
-                // Força visual limpo na pauta: Apenas q (1), h (2), w (4)
+                // Força visual limpo na pauta: Apenas q (1), h (2), w (4) ignorando as pausas e as notas picotadas
                 const bDur = chord.beats >= 4 ? "w" : chord.beats >= 2 ? "h" : "q";
 
-                // Clave de Sol
                 if (tKeys.length === 0) { 
                     trebleNotes.push(new VF.StaveNote({ keys: ["b/4"], duration: bDur+"r", clef: "treble" })); 
                 } else {
@@ -382,7 +382,6 @@
                     trebleNotes.push(tn);
                 }
 
-                // Clave de Fá
                 if (bKeys.length === 0) { 
                     bassNotes.push(new VF.StaveNote({ keys: ["d/3"], duration: bDur+"r", clef: "bass" })); 
                 } else {
@@ -397,12 +396,10 @@
             const bassVoice = new VF.Voice({ num_beats: 32, beat_value: 4 }).setStrict(false);
             trebleVoice.addTickables(trebleNotes); bassVoice.addTickables(bassNotes);
 
-            // Sem Beams (hastes unidas), formato limpo e perfeitamente agrupado
             new VF.Formatter().joinVoices([trebleVoice]).joinVoices([bassVoice]).format([trebleVoice, bassVoice], 600);
             trebleVoice.draw(context, topStave); bassVoice.draw(context, bottomStave);
         }
 
-        // MOTOR DE ÁUDIO/MIDI
         function generateScheduledNotes(progressionData, patternType) {
             let scheduledNotes = []; 
             let currentBeat = 0;
@@ -585,7 +582,8 @@
             container.innerHTML = '';
 
             renderScale(state.rootIdx, state.scaleIntervals);
-            // Renderiza sempre a versão em bloco da Partitura
+            
+            // Força a partitura a desenhar os blocos da harmonia real
             renderScore(state.progressionData, state.keySigString);
 
             state.progressionData.forEach((data, i) => {
