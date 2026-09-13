@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ACORDES E PARTITURAS (Harmonia Funcional)</title>
+    <title>ACORDES E PARTITURAS</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vexflow@4.2.2/build/cjs/vexflow.js"></script>
     
@@ -70,11 +70,11 @@
     </style>
 </head>
 <body onload="buildPiano()">
-    <h1>MOTOR DE HARMONIA & PARTITURAS</h1>
+    <h1>ACORDES E PARTITURAS</h1>
 
     <div class="tabs">
         <button class="tab-btn active" id="tab-scale" onclick="switchMode('scale')">Escala Livre (Aleatório)</button>
-        <button class="tab-btn" id="tab-style" onclick="switchMode('style')">Harmonia por Estilo (Markov)</button>
+        <button class="tab-btn" id="tab-style" onclick="switchMode('style')">Composição por Estilo</button>
     </div>
     
     <div class="controls">
@@ -110,11 +110,11 @@
         <div class="control-group" id="group-style" style="display: none;">
             <label>Gênero Base</label>
             <select id="music-style">
-                <option value="random">🎲 Misto Aleatório</option>
+                <option value="random">Misto Aleatório</option>
                 <option value="pop">Pop & Indie</option>
                 <option value="acoustic_blues">Acoustic & Blues</option>
-                <option value="alt_emo">Alt Rock & Emo</option>
-                <option value="hiphop_trap">Hip-Hop & Trap</option>
+                <option value="alt_rock">Rock Alternativo</option>
+                <option value="hiphop_trap">Hip-Hop & Trap Club</option>
                 <option value="rnb_jazz">R&B, Soul & Jazz</option>
                 <option value="edm_house">Electro House & Dubstep</option>
             </select>
@@ -124,7 +124,7 @@
             <label>Arranjo (Como Tocar)</label>
             <select id="arrangement-pattern">
                 <option value="auto">Auto (Estilo Base)</option>
-                <option value="random">🎲 Padrão Aleatório</option>
+                <option value="random">Padrão Aleatório</option>
                 <option value="block_bass">Blocos (Mínimas/Semibreves)</option>
                 <option value="fingerpick">Dedilhado (Colcheias)</option>
                 <option value="fast_pluck">Pluck (Semicolcheias)</option>
@@ -137,7 +137,7 @@
             <label>Duração (Ritmo Base)</label>
             <select id="rhythm-control">
                 <option value="auto">Misto (Automático)</option>
-                <option value="4">Longo (4 Tempos / Compasso Inteiro)</option>
+                <option value="4">Longo (4 Tempos / Compasso)</option>
                 <option value="2">Curto (2 Tempos / Meio Compasso)</option>
             </select>
         </div>
@@ -152,9 +152,9 @@
         </div>
 
         <div class="playback-controls">
-            <button id="btn-prev" class="secondary-btn" onclick="playPrevious()" disabled>⏮ Anterior</button>
+            <button id="btn-prev" class="secondary-btn" onclick="playPrevious()" disabled>Anterior</button>
             <button id="btn-generate" class="primary-btn" onclick="generateNew()" disabled>Carregando Piano...</button>
-            <button id="btn-repeat" class="secondary-btn" onclick="repeatCurrent()" disabled>🔁 Repetir</button>
+            <button id="btn-repeat" class="secondary-btn" onclick="repeatCurrent()" disabled>Repetir</button>
         </div>
     </div>
 
@@ -164,7 +164,7 @@
     <div class="progression-container" id="progression-display"></div>
     <div id="scale-display"></div>
     <div class="piano-wrapper"><div id="piano"></div></div>
-    <div id="drag-pad" draggable="true" title="Arraste para a Timeline do Ableton/Reaper">↓ Arraste o MIDI Exato para a sua DAW</div>
+    <div id="drag-pad" draggable="true" title="Arraste para a Timeline do Ableton/Reaper/FL Studio">↓ Arraste o MIDI Exato para a sua DAW</div>
 
     <script>
         const VF = Vex.Flow;
@@ -185,76 +185,57 @@
             'locrian':        [0, 1, 3, 5, 6, 8, 10]
         };
 
-        // NOVO MOTOR: CADEIAS DE MARKOV FUNCIONAIS
-        // Isso dita qual acorde deve vir DEPOIS do acorde atual (Garante 100% de variedade harmônica sem quebrar o estilo)
-        const MARKOV_TRANSITIONS = {
-            'pop': {
-                0: [4, 5, 3, 3, 5, 1], // I vai pra V, vi, IV, ii
-                1: [4, 0, 5],          // ii vai pra V, I, vi
-                2: [3, 5],             // iii vai pra IV, vi
-                3: [4, 0, 5, 1],       // IV vai pra V, I, vi, ii
-                4: [0, 5, 3],          // V vai pra I, vi, IV
-                5: [3, 4, 0, 1],       // vi vai pra IV, V, I, ii
-                6: [0, 5]              // vii vai pra I, vi
-            },
-            'acoustic_blues': {
-                0: [3, 4, 5],
-                1: [4, 0],
-                2: [3, 5],
-                3: [0, 4, 0], // Forte movimento IV -> I
-                4: [0, 3, 5],
-                5: [3, 4, 1],
-                6: [0]
-            },
-            'alt_emo': {
-                0: [5, 3, 4, 6], // I -> vi, IV, V, bVII
-                1: [4, 5],
-                2: [3, 5, 0],
-                3: [0, 4, 5],
-                4: [5, 0, 3],
-                5: [3, 0, 4],
-                6: [0]
-            },
-            'hiphop_trap': {
-                0: [5, 4, 3, 1, 6, 0], // i pode repetir, vai pra VI, v, iv, bII
-                1: [0, 4],
-                2: [5, 0],
-                3: [0, 4, 5],
-                4: [0, 5, 3],
-                5: [4, 0, 6, 0],
-                6: [0, 5]
-            },
-            'rnb_jazz': {
-                0: [3, 5, 2, 1], // I -> IV, vi, iii, ii
-                1: [4, 6, 2],    // ii -> V, vii
-                2: [5, 1, 3],    // iii -> vi, IV
-                3: [6, 2, 1, 4], // IV -> vii, iii, ii, V
-                4: [0, 5, 2],    // V -> I, vi, iii
-                5: [1, 3, 4],    // vi -> ii, IV, V
-                6: [2, 0]        // vii -> iii, I
-            },
-            'edm_house': {
-                0: [3, 5, 4, 0],
-                1: [3, 4],
-                2: [3, 5],
-                3: [0, 4, 5],
-                4: [0, 5, 3],
-                5: [3, 4, 0],
-                6: [0]
-            }
-        };
-
-        const STYLE_VOICINGS = {
-            'pop': ['triad', 'add9', 'sus2', 'sus4', 'seventh'],
-            'acoustic_blues': ['add9', 'm9', 'seventh', 'sus4', 'triad'],
-            'alt_emo': ['power', 'sus2', 'power', 'sus4'],
-            'hiphop_trap': ['m9', 'seventh', 'triad', 'eleventh'],
-            'rnb_jazz': ['ninth', 'eleventh', 'm9', 'seventh', 'triad'],
-            'edm_house': ['sus2', 'triad', 'sus4', 'power']
+        // BANCO DE PROGRESSÕES: Células rítmicas e texturas profundamente variadas
+        const BASE_PROGRESSIONS = {
+            'pop': [
+                { degrees: [0,4,5,3], voicings: ['add9', 'triad', 'seventh', 'sus2'], rhythms: [4,4,2,2] },
+                { degrees: [5,3,0,4], voicings: ['m9', 'add9', 'triad', 'sus4'], rhythms: [2,2,4,4] },
+                { degrees: [0,3,5,4], voicings: ['triad', 'sus2', 'seventh', 'triad'], rhythms: [2,2,2,2] },
+                { degrees: [3,4,2,5], voicings: ['add9', 'sus4', 'm9', 'seventh'], rhythms: [4,4,4,4] },
+                { degrees: [0,4,3,0], voicings: ['add9', 'triad', 'sus2', 'add9'], rhythms: [2,2,4,4] },
+                { degrees: [1,4,0,5], voicings: ['seventh', 'sus4', 'add9', 'm9'], rhythms: [2,2,2,2] },
+                { degrees: [0,5,3,4], voicings: ['triad', 'm9', 'add9', 'seventh'], rhythms: [4,2,2,4] }
+            ],
+            'acoustic_blues': [
+                { degrees: [0,3,0,4], voicings: ['seventh', 'seventh', 'seventh', 'seventh'], rhythms: [2,2,2,2] },
+                { degrees: [0,4,0,4], voicings: ['add9', 'sus4', 'add9', 'seventh'], rhythms: [4,4,4,4] },
+                { degrees: [3,2,1,0], voicings: ['add9', 'm9', 'm9', 'triad'], rhythms: [2,2,2,2] }, // Walkdown
+                { degrees: [0,5,3,4], voicings: ['triad', 'seventh', 'add9', 'sus4'], rhythms: [4,2,2,4] },
+                { degrees: [0,2,3,4], voicings: ['add9', 'm9', 'sus2', 'seventh'], rhythms: [2,2,2,2] }
+            ],
+            'alt_rock': [
+                { degrees: [5,3,0,4], voicings: ['power', 'power', 'sus2', 'power'], rhythms: [4,2,2,4] },
+                { degrees: [0,5,3,4], voicings: ['sus2', 'power', 'power', 'sus4'], rhythms: [2,2,2,2] },
+                { degrees: [0,6,3,0], voicings: ['power', 'power', 'sus2', 'power'], rhythms: [2,2,2,2] }, // bVII rock
+                { degrees: [5,0,3,4], voicings: ['power', 'sus2', 'power', 'power'], rhythms: [2,2,4,4] },
+                { degrees: [3,4,0,5], voicings: ['sus2', 'power', 'power', 'power'], rhythms: [4,4,2,2] }
+            ],
+            'hiphop_trap': [
+                { degrees: [0,5,4,0], voicings: ['m9', 'seventh', 'seventh', 'm9'], rhythms: [4,2,2,4] },
+                { degrees: [0,1,0,1], voicings: ['triad', 'triad', 'm9', 'm9'], rhythms: [2,2,2,2] }, // Phrygian tension
+                { degrees: [0,2,5,5], voicings: ['m9', 'm9', 'seventh', 'seventh'], rhythms: [2,2,2,2] },
+                { degrees: [5,6,0,0], voicings: ['add9', 'add9', 'm9', 'm9'], rhythms: [2,2,4,4] },
+                { degrees: [0,6,5,0], voicings: ['m9', 'seventh', 'seventh', 'm9'], rhythms: [2,2,2,2] },
+                { degrees: [0,3,4,0], voicings: ['m9', 'm9', 'seventh', 'eleventh'], rhythms: [4,4,4,4] }
+            ],
+            'rnb_jazz': [
+                { degrees: [1,4,0,5], voicings: ['ninth', 'eleventh', 'ninth', 'seventh'], rhythms: [2,2,4,4] }, // Clássico ii-V-I
+                { degrees: [3,4,2,5], voicings: ['ninth', 'eleventh', 'm9', 'seventh'], rhythms: [2,2,2,2] },
+                { degrees: [2,5,1,4], voicings: ['m9', 'seventh', 'ninth', 'eleventh'], rhythms: [2,2,2,2] },
+                { degrees: [0,5,1,4], voicings: ['ninth', 'seventh', 'ninth', 'eleventh'], rhythms: [4,4,2,2] },
+                { degrees: [0,3,2,5], voicings: ['Imaj9', 'IV9', 'iii9', 'vi7'], rhythms: [2,2,2,2] }
+            ],
+            'edm_house': [
+                { degrees: [5,3,0,4], voicings: ['sus2', 'triad', 'triad', 'sus4'], rhythms: [2,2,2,2] },
+                { degrees: [0,5,3,4], voicings: ['power', 'sus2', 'triad', 'triad'], rhythms: [2,2,2,2] },
+                { degrees: [3,0,4,5], voicings: ['sus2', 'triad', 'sus4', 'sus2'], rhythms: [2,2,2,2] },
+                { degrees: [1,3,0,4], voicings: ['m9', 'add9', 'add9', 'sus4'], rhythms: [2,2,2,2] },
+                { degrees: [5,4,3,4], voicings: ['sus2', 'triad', 'sus2', 'triad'], rhythms: [4,4,4,4] }
+            ]
         };
 
         const STYLE_PATTERNS = {
-            'pop': 'block_bass', 'acoustic_blues': 'fingerpick', 'alt_emo': 'block_bass',
+            'pop': 'block_bass', 'acoustic_blues': 'fingerpick', 'alt_rock': 'block_bass',
             'hiphop_trap': 'syncopated', 'rnb_jazz': 'roll_arpeggio', 'edm_house': 'fast_pluck'
         };
 
@@ -265,8 +246,8 @@
         let playTimeouts = [];
         let progressionHistory = [];
         let historyIndex = -1;
+        let lastProgressionIndex = -1; // Memória anti-repetição
 
-        // TONE.JS SAMPLER
         const sampler = new Tone.Sampler({
             urls: {
                 "C3": "C3.mp3", "D#3": "Ds3.mp3", "F#3": "Fs3.mp3", "A3": "A3.mp3",
@@ -277,7 +258,7 @@
             onload: () => {
                 const btn = document.getElementById('btn-generate');
                 btn.disabled = false;
-                btn.innerText = "Gerar Sequência 🎲";
+                btn.innerText = "Gerar Sequência";
             }
         }).toDestination();
         sampler.volume.value = -3;
@@ -328,6 +309,10 @@
                 case 'ninth': return [r, t, fi, se, n];
                 case 'eleventh': return [r, t, fi, se, n, el];
                 case 'm9': return [r, t, fi, se, n];
+                case 'Imaj9': return [r, t, fi, se, n]; // Treat same
+                case 'IV9': return [r, t, fi, se, n];
+                case 'iii9': return [r, t, fi, se, n];
+                case 'vi7': return [r, t, fi, se];
                 case 'triad': default: return [r, t, fi];
             }
         }
@@ -345,12 +330,11 @@
             });
         }
 
-        // --- PARTITURA REESCRITA (APENAS BLOCOS HARMONICOS SEMPRE, COM SCROLL DINÂMICO) ---
         function renderScore(progressionData, keySignatureString) {
             const div = document.getElementById("score");
             div.innerHTML = ""; 
             
-            const scoreWidth = Math.max(800, progressionData.length * 150); // Cresce dinamicamente se a música for longa
+            const scoreWidth = Math.max(800, progressionData.length * 160);
             const renderer = new VF.Renderer(div, VF.Renderer.Backends.SVG);
             renderer.resize(scoreWidth, 240);
             const context = renderer.getContext();
@@ -383,7 +367,6 @@
                     }
                 });
 
-                // SEMPRE força o bloco na pauta ignorando o arpejo do áudio
                 const bDur = chord.beats >= 4 ? "w" : chord.beats >= 2 ? "h" : "q";
 
                 if (tKeys.length === 0) { 
@@ -466,7 +449,7 @@
             return { notes: scheduledNotes, totalBeats: currentBeat };
         }
 
-        // MIDI ESPELHO (EXATAMENTE COMO O ÁUDIO)
+        // MIDI ESPELHO PERFEITO
         function createMidiBlob(scheduledNotesArr, totalBeats) {
             const track = [];
             track.push(0x00, 0xFF, 0x51, 0x03, 0x07, 0xA1, 0x20); 
@@ -480,7 +463,6 @@
 
             let events = [];
             scheduledNotesArr.forEach(n => {
-                // Ticks = tempo em beats * 480 (Resolução Padrão do Ableton/Reaper)
                 events.push({ type: 0x90, midi: n.midi, ticks: Math.round(n.timeOffset * 480), velocity: n.velocity });
                 events.push({ type: 0x80, midi: n.midi, ticks: Math.round((n.timeOffset + n.duration) * 480), velocity: 0 });
             });
@@ -527,14 +509,12 @@
 
             if (currentMode === 'scale') {
                 const voicings = ['triad', 'add9', 'seventh', 'ninth', 'sus2', 'power'];
-                // Múltiplos tamanhos dinâmicos
-                const lengths = [3, 4, 4, 5, 8];
-                const numChords = lengths[Math.floor(Math.random() * lengths.length)];
+                const numChords = Math.random() > 0.4 ? 4 : (Math.random() > 0.5 ? 3 : 5); 
                 
                 patternType = arrOverride === 'auto' ? 'block_bass' : (arrOverride === 'random' ? ALL_P[Math.floor(Math.random()*ALL_P.length)] : arrOverride);
 
                 for (let i = 0; i < numChords; i++) {
-                    const degree = Math.floor(Math.random() * 7); // Totalmente Livre
+                    const degree = Math.floor(Math.random() * 7);
                     const voicing = voicings[Math.floor(Math.random() * voicings.length)];
                     const intervals = getDiatonicVoicing(scaleIntervals, degree, voicing);
                     
@@ -554,40 +534,34 @@
             } else {
                 let styleId = document.getElementById('music-style').value;
                 if (styleId === 'random') {
-                    const keys = Object.keys(MARKOV_TRANSITIONS);
+                    const keys = Object.keys(BASE_PROGRESSIONS);
                     styleId = keys[Math.floor(Math.random() * keys.length)];
                 }
                 
-                // GERAÇÃO BASEADA NA CADEIA DE MARKOV (Harmonia Funcional Inteligente)
-                patternType = arrOverride === 'auto' ? STYLE_PATTERNS[styleId] : (arrOverride === 'random' ? ALL_P[Math.floor(Math.random()*ALL_P.length)] : arrOverride);
-                
-                let currentDeg = 0;
-                if (styleId === 'alt_emo' || styleId === 'hiphop_trap') currentDeg = Math.random() > 0.5 ? 5 : 0; // Costuma começar no vi
-                if (styleId === 'rnb_jazz') currentDeg = Math.random() > 0.5 ? 1 : 0; // Costuma começar no ii
-                
-                let seqLength = [3, 4, 4, 5, 8][Math.floor(Math.random() * 5)]; 
-                let degreesArray = [];
-                for(let i=0; i<seqLength; i++){
-                    degreesArray.push(currentDeg);
-                    let options = MARKOV_TRANSITIONS[styleId][currentDeg];
-                    currentDeg = options[Math.floor(Math.random() * options.length)];
+                // SISTEMA ANTI-REPETIÇÃO: Impede que a mesma progressão seja sorteada duas vezes seguidas
+                let pIndex = Math.floor(Math.random() * BASE_PROGRESSIONS[styleId].length);
+                if (pIndex === lastProgressionIndex) {
+                    pIndex = (pIndex + 1) % BASE_PROGRESSIONS[styleId].length;
                 }
+                lastProgressionIndex = pIndex;
 
-                const allowedVoicings = STYLE_VOICINGS[styleId];
+                const template = BASE_PROGRESSIONS[styleId][pIndex];
+                const degreesArray = template.degrees;
+                const voicingsArray = template.voicings;
+                const rhythmsArray = template.rhythms;
+                
+                patternType = arrOverride === 'auto' ? STYLE_PATTERNS[styleId] : (arrOverride === 'random' ? ALL_P[Math.floor(Math.random()*ALL_P.length)] : arrOverride);
 
                 for (let i = 0; i < degreesArray.length; i++) {
                     const degree = degreesArray[i];
-                    const voicing = allowedVoicings[Math.floor(Math.random() * allowedVoicings.length)];
+                    const voicing = voicingsArray[i];
                     const intervals = getDiatonicVoicing(scaleIntervals, degree, voicing);
                     
-                    let beats = 4;
+                    let beats = rhythmsArray[i];
                     if (rhythmOverride !== 'auto') {
                         beats = parseInt(rhythmOverride);
-                    } else {
-                        if (['fingerpick', 'fast_pluck'].includes(patternType)) beats = 2;
-                        else if (patternType === 'syncopated') beats = 4;
-                        else beats = (Math.random() > 0.5 ? 4 : 2);
                     }
+                    if (patternType === 'syncopated' && beats < 2) beats = 2; // Previne erro de tempo no R&B
                     
                     let chordName = NOTES[(rootIdx + intervals[0]) % 12];
                     if (voicing === 'power') chordName += '5';
