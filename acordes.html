@@ -143,11 +143,11 @@
         </div>
 
         <div class="control-group">
-            <label>Oitava Base</label>
+            <label>Registro Geral</label>
             <select id="octave-select">
-                <option value="36">Oitava 2</option>
-                <option value="48" selected>Oitava 3</option>
-                <option value="60">Oitava 4</option>
+                <option value="48" selected>Padrão (Ideal)</option>
+                <option value="36">Mais Grave</option>
+                <option value="60">Mais Agudo</option>
             </select>
         </div>
 
@@ -185,32 +185,23 @@
             'locrian':        [0, 1, 3, 5, 6, 8, 10]
         };
 
-        // BANCOS DE CÉLULAS MELÓDICAS REAIS (Inspirados nas playlists de grandes sucessos)
-        const GENRE_DNA = {
-            'pop': {
-                voicings: ['triad', 'add9', 'seventh', 'sus2', 'ninth'],
-                transitions: [[0,3,4,5], [5,3,0,4], [0,4,5,3], [1,4,0,5], [5,1,4,0]]
-            },
-            'acoustic_blues': {
-                voicings: ['seventh', 'ninth', 'sus4', 'add9', 'triad'],
-                transitions: [[0,3,4,0], [0,4,3,4], [3,2,1,0], [0,5,3,4], [1,4,0,4]]
-            },
-            'alt_rock': {
-                voicings: ['power', 'sus2', 'add9', 'sus4', 'seventh'],
-                transitions: [[5,3,0,4], [0,6,3,0], [5,4,0,3], [0,5,3,4], [3,4,0,5]]
-            },
-            'hiphop_trap': {
-                voicings: ['m9', 'seventh', 'eleventh', 'm11', 'minor'],
-                transitions: [[0,5,4,0], [0,1,0,1], [0,6,5,0], [5,6,0,0], [0,2,5,5]]
-            },
-            'rnb_jazz': {
-                voicings: ['ninth', 'eleventh', 'm9', 'seventh', 'maj9', 'thirteenth'],
-                transitions: [[1,4,0,5], [3,4,2,5], [2,5,0,0], [0,5,1,4], [6,2,5,1]]
-            },
-            'edm_house': {
-                voicings: ['sus2', 'sus4', 'power', 'seventh', 'add9'],
-                transitions: [[5,3,0,4], [3,0,4,5], [5,4,3,4], [0,5,3,4], [1,3,0,4]]
-            }
+        // MATRIZ DE MARKOV CRIATIVA (Caminhos longos e imprevisíveis)
+        const MARKOV_RULES = {
+            'pop':            { 0: [3,4,5,1], 1: [4,0,5,2], 2: [3,5,1], 3: [0,4,1,5,6], 4: [0,5,3], 5: [3,4,0,1,2], 6: [0,3] },
+            'acoustic_blues': { 0: [3,4,0,5,1], 1: [4,0,2], 2: [3,5], 3: [0,4,1,2,5], 4: [0,3,5], 5: [3,4,1,0],   6: [0,4] },
+            'alt_rock':       { 0: [5,3,4,6,1], 1: [4,5,0], 2: [5,0,3], 3: [0,4,5,6], 4: [5,0,3,1], 5: [3,0,4,2], 6: [0,5] },
+            'hiphop_trap':    { 0: [5,4,3,1,6,2], 1:[0,4,5], 2:[5,0,3], 3:[0,4,5,1],  4:[0,5,3], 5:[4,0,6,1],   6: [0,5,3] },
+            'rnb_jazz':       { 0: [3,5,2,1,4], 1: [4,6,2,0], 2: [5,1,3,4], 3:[6,2,1,4,5], 4:[0,5,2,1], 5:[1,3,4,2], 6:[2,0,5] },
+            'edm_house':      { 0: [3,5,4,1], 1:[3,4,0], 2:[3,5], 3:[0,4,5,2], 4:[0,5,3], 5:[3,4,0,1], 6:[0,4] }
+        };
+
+        const STYLE_VOICINGS = {
+            'pop': ['triad', 'add9', 'seventh', 'ninth', 'sus2', 'sus4'],
+            'acoustic_blues': ['seventh', 'ninth', 'sus4', 'add9', 'm9'],
+            'alt_rock': ['power', 'sus2', 'add9', 'sus4', 'seventh'],
+            'hiphop_trap': ['m9', 'seventh', 'eleventh', 'm11', 'minor'],
+            'rnb_jazz': ['ninth', 'eleventh', 'm9', 'seventh', 'maj9', 'thirteenth'],
+            'edm_house': ['sus2', 'sus4', 'power', 'seventh', 'add9']
         };
 
         const STYLE_PATTERNS = {
@@ -380,6 +371,7 @@
             bassVoice.draw(context, bottomStave);
         }
 
+        // MOTOR RÍTMICO COM REGISTRO SEGURO DE BAIXO (Sem conflito de oitavas)
         function generateScheduledNotes(progressionData, patternType) {
             let scheduledNotes = []; 
             let currentBeat = 0;
@@ -388,37 +380,41 @@
                 const chordDuration = chord.beats;
                 const uniqueMidis = [...new Set(chord.midiNotes)];
                 const notes = uniqueMidis.sort((a,b) => a-b);
-                const bassNote = notes[0] >= 48 ? notes[0] - 12 : notes[0];
+                
+                // Garante que o baixo toque fixo na região grave ideal (Oitava 2 ou 3) sem cruzar
+                let rootNote = notes[0];
+                while (rootNote > 55) rootNote -= 12;
+                while (rootNote < 36) rootNote += 12;
 
                 function addNote(midi, timeOffset, duration, velocity) {
                     scheduledNotes.push({ midi, timeOffset, duration, velocity });
                 }
 
                 if (patternType === 'block_bass' || patternType === 'none') {
-                    addNote(bassNote - 12, currentBeat, chordDuration, 80);
-                    addNote(bassNote, currentBeat, chordDuration, 95);
+                    addNote(rootNote - 12, currentBeat, chordDuration, 75);
+                    addNote(rootNote, currentBeat, chordDuration, 95);
                     notes.forEach((n, i) => addNote(n, currentBeat + (i * 0.02), chordDuration, 75));
                 } 
                 else if (patternType === 'fingerpick') {
-                    addNote(bassNote - 12, currentBeat, chordDuration, 80);
+                    addNote(rootNote - 12, currentBeat, chordDuration, 75);
                     let step = 0;
                     while (step < chordDuration) {
-                        const noteToPlay = step === 0 ? bassNote : notes[Math.floor(step * 2) % notes.length];
+                        const noteToPlay = step === 0 ? rootNote : notes[Math.floor(step * 2) % notes.length];
                         addNote(noteToPlay, currentBeat + step, 1.0, 85);
                         step += 0.5; 
                     }
                 }
                 else if (patternType === 'syncopated') {
-                    addNote(bassNote - 12, currentBeat, chordDuration, 85);
-                    addNote(bassNote, currentBeat, chordDuration, 95);
+                    addNote(rootNote - 12, currentBeat, chordDuration, 80);
+                    addNote(rootNote, currentBeat, chordDuration, 95);
                     for(let b=0; b < chordDuration; b+=2) {
                         notes.forEach(n => addNote(n, currentBeat+b, 1.5, 75));
                         if(chordDuration >= 2) notes.forEach(n => addNote(n, currentBeat + b + 1.5, 1.0, 85));
                     }
                 }
                 else if (patternType === 'fast_pluck') {
-                    addNote(bassNote - 12, currentBeat, chordDuration, 80);
-                    addNote(bassNote, currentBeat, chordDuration, 95);
+                    addNote(rootNote - 12, currentBeat, chordDuration, 75);
+                    addNote(rootNote, currentBeat, chordDuration, 95);
                     let step = 0;
                     while (step < chordDuration) {
                         const n = notes[Math.floor(step * 4) % notes.length];
@@ -427,8 +423,8 @@
                     }
                 }
                 else if (patternType === 'roll_arpeggio') {
-                    addNote(bassNote - 12, currentBeat, chordDuration, 80);
-                    addNote(bassNote, currentBeat, chordDuration, 95);
+                    addNote(rootNote - 12, currentBeat, chordDuration, 75);
+                    addNote(rootNote, currentBeat, chordDuration, 95);
                     notes.forEach((n, i) => {
                         addNote(n, currentBeat + (i * 0.1), chordDuration - (i * 0.1), 75);
                     });
@@ -481,7 +477,6 @@
             document.getElementById('btn-repeat').disabled = disabled || historyIndex < 0;
         }
 
-        // MOTOR CRIATIVO DE GERAÇÃO: DNA DE ESTILOS COM VARIAÇÃO INFINITA E COMPATIBILIDADE MODAL
         async function generateNew() {
             if (Tone.context.state !== 'running') await Tone.start();
             setButtonsState(true);
@@ -521,26 +516,24 @@
             } else {
                 let styleId = document.getElementById('music-style').value;
                 if (styleId === 'random') {
-                    const keys = Object.keys(GENRE_DNA);
+                    const keys = Object.keys(MARKOV_RULES);
                     styleId = keys[Math.floor(Math.random() * keys.length)];
                 }
                 
                 patternType = arrOverride === 'auto' ? STYLE_PATTERNS[styleId] : (arrOverride === 'random' ? ALL_P[Math.floor(Math.random()*ALL_P.length)] : arrOverride);
                 
-                const dna = GENRE_DNA[styleId];
-                // Sorteia um template de transição base do gênero e aplica mutações caóticas criativas
-                const baseSequence = dna.transitions[Math.floor(Math.random() * dna.transitions.length)];
+                // MARKOV FLUIDO COM COMPRIMENTO E SALTOS VARIÁVEIS (Garante que nunca soe igual)
+                let currentDeg = Math.floor(Math.random() * scaleIntervals.length);
+                let seqLength = [4, 5, 6, 8][Math.floor(Math.random() * 4)];
+                let degreesArray = [];
                 
-                // Expande ou altera para ter comprimento variável de 4 a 8 acordes
-                let degreesArray = [...baseSequence];
-                if (Math.random() > 0.5) {
-                    degreesArray.push((degreesArray[degreesArray.length - 1] + 2) % scaleIntervals.length);
-                }
-                if (Math.random() > 0.7) {
-                    degreesArray.unshift((degreesArray[0] + 4) % scaleIntervals.length);
+                for(let i = 0; i < seqLength; i++){
+                    degreesArray.push(currentDeg);
+                    let options = MARKOV_RULES[styleId][currentDeg] || [0, 2, 4];
+                    currentDeg = options[Math.floor(Math.random() * options.length)] % scaleIntervals.length;
                 }
 
-                const allowedVoicings = dna.voicings;
+                const allowedVoicings = STYLE_VOICINGS[styleId];
                 const rhythmPool = [2, 4, 2, 4, 2, 2, 4];
 
                 for (let i = 0; i < degreesArray.length; i++) {
