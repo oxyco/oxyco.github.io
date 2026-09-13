@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ACORDES E PARTITURAS</title>
+    <title>ACORDES E PARTITURAS (Pro Master)</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vexflow@4.2.2/build/cjs/vexflow.js"></script>
     
@@ -185,23 +185,13 @@
             'locrian':        [0, 1, 3, 5, 6, 8, 10]
         };
 
-        // MATRIZ DE MARKOV PURIFICADA (Harmonia Fluida e Perfeitamente Afinada)
-        const MARKOV_RULES = {
-            'pop':            { 0: [3,4,5,1], 1: [4,0,5], 2: [3,5], 3: [0,4,1,5], 4: [0,5,3], 5: [3,4,0,1], 6: [0] },
-            'acoustic_blues': { 0: [3,4,0,5], 1: [4,0], 2: [3,5], 3: [0,4,1,2], 4: [0,3,5], 5: [3,4,1],   6: [0] },
-            'alt_rock':       { 0: [5,3,4,6], 1: [4,5], 2: [5,0], 3: [0,4,5,6], 4: [5,0,3], 5: [3,0,4], 6: [0] },
-            'hiphop_trap':    { 0: [5,4,3,1,6], 1:[0,4], 2:[5,0], 3:[0,4,5],  4:[0,5,3], 5:[4,0,6],   6: [0,5] },
-            'rnb_jazz':       { 0: [3,5,2,1], 1: [4,6,2], 2: [5,1,3], 3:[6,2,1,4], 4:[0,5,2], 5:[1,3,4], 6:[2,0] },
-            'edm_house':      { 0: [3,5,4], 1:[3,4], 2:[3,5], 3:[0,4,5], 4:[0,5,3], 5:[3,4,0], 6:[0] }
-        };
-
         const STYLE_VOICINGS = {
-            'pop': ['triad', 'add9', 'sus2', 'sus4', 'seventh'],
-            'acoustic_blues': ['seventh', 'ninth', 'sus4', 'triad', 'add9'],
-            'alt_rock': ['power', 'sus2', 'power', 'sus4', 'add9'],
-            'hiphop_trap': ['m9', 'seventh', 'triad', 'eleventh', 'm11'],
-            'rnb_jazz': ['ninth', 'eleventh', 'm9', 'seventh', 'maj9'],
-            'edm_house': ['sus2', 'triad', 'sus4', 'power']
+            'pop': ['triad', 'add9', 'seventh', 'sus2', 'sus4', 'ninth'],
+            'acoustic_blues': ['seventh', 'ninth', 'sus4', 'add9', 'm9'],
+            'alt_rock': ['power', 'sus2', 'add9', 'sus4', 'seventh'],
+            'hiphop_trap': ['m9', 'seventh', 'eleventh', 'm11', 'minor'],
+            'rnb_jazz': ['ninth', 'eleventh', 'm9', 'seventh', 'maj9', 'thirteenth'],
+            'edm_house': ['sus2', 'sus4', 'power', 'seventh', 'add9']
         };
 
         const STYLE_PATTERNS = {
@@ -210,7 +200,6 @@
         };
 
         const ALL_P = ['block_bass', 'fingerpick', 'fast_pluck', 'syncopated', 'roll_arpeggio'];
-        const DYNAMIC_RHYTHMS = [[4,4,4,4], [2,2,4,4], [4,2,2,4], [4,4,2,2], [2,2,2,2], [2,4,2,4]];
 
         let currentMode = 'scale'; 
         let currentBlobUrl = null;
@@ -278,9 +267,11 @@
                 case 'seventh': return [r, t, fi, r + 10];
                 case 'ninth': return [r, t, fi, r + 10, r + 14];
                 case 'eleventh': return [r, t, fi, r + 10, r + 17];
+                case 'thirteenth': return [r, t, fi, r + 10, r + 21];
                 case 'm9': return [r, t, fi, r + 10, r + 14];
                 case 'm11': return [r, t, fi, r + 10, r + 17];
                 case 'maj9': return [r, t, fi, r + 11, r + 14];
+                case 'minor': return [r, s + 1, fi];
                 case 'triad': default: return [r, t, fi];
             }
         }
@@ -370,6 +361,7 @@
             bassVoice.draw(context, bottomStave);
         }
 
+        // MOTOR DE ARRANJOS COM FILTRO ANTI-CLIPPING E DINÂMICA
         function generateScheduledNotes(progressionData, patternType) {
             let scheduledNotes = []; 
             let currentBeat = 0;
@@ -471,6 +463,7 @@
             document.getElementById('btn-repeat').disabled = disabled || historyIndex < 0;
         }
 
+        // NOVO MOTOR DE GERAÇÃO: RANDOM WALK HARMÔNICO (Acordes Criativos e Únicos a Cada Clique)
         async function generateNew() {
             if (Tone.context.state !== 'running') await Tone.start();
             setButtonsState(true);
@@ -490,10 +483,9 @@
                 const numChords = Math.floor(Math.random() * 4) + 4; 
                 
                 patternType = arrOverride === 'auto' ? 'block_bass' : (arrOverride === 'random' ? ALL_P[Math.floor(Math.random()*ALL_P.length)] : arrOverride);
-                let rhythmMaster = DYNAMIC_RHYTHMS[Math.floor(Math.random() * DYNAMIC_RHYTHMS.length)];
 
                 for (let i = 0; i < numChords; i++) {
-                    const degree = Math.floor(Math.random() * 7);
+                    const degree = Math.floor(Math.random() * scaleIntervals.length);
                     const voicing = voicings[Math.floor(Math.random() * voicings.length)];
                     const intervals = getDiatonicVoicing(scaleIntervals, degree, voicing);
                     
@@ -501,9 +493,7 @@
                     if (rhythmOverride !== 'auto') {
                         beats = parseInt(rhythmOverride);
                     } else {
-                        beats = rhythmMaster[i % rhythmMaster.length];
-                        if (['fingerpick', 'fast_pluck'].includes(patternType)) beats = Math.max(2, beats);
-                        if (patternType === 'syncopated') beats = 4;
+                        beats = [2, 4][Math.floor(Math.random() * 2)];
                     }
                     
                     const rootName = NOTES[(rootIdx + intervals[0]) % 12];
@@ -513,28 +503,31 @@
             } else {
                 let styleId = document.getElementById('music-style').value;
                 if (styleId === 'random') {
-                    const keys = Object.keys(MARKOV_RULES);
+                    const keys = Object.keys(STYLE_VOICINGS);
                     styleId = keys[Math.floor(Math.random() * keys.length)];
                 }
                 
                 patternType = arrOverride === 'auto' ? STYLE_PATTERNS[styleId] : (arrOverride === 'random' ? ALL_P[Math.floor(Math.random()*ALL_P.length)] : arrOverride);
                 
-                // Geração Dinâmica Baseada em Markov Fluido (Sempre criando caminhos longos e criativos)
-                let currentDeg = Math.floor(Math.random() * 6);
+                // GERAÇÃO POR CAMINHADA ALEATÓRIA (RANDOM WALK) HARMÔNICA PURA
+                // Garante que os saltos de acordes sejam criativos, orgânicos e diferentes a cada clique.
                 let seqLength = [4, 5, 6, 8][Math.floor(Math.random() * 4)];
-                let degreesArray = [];
+                let currentDegree = Math.floor(Math.random() * scaleIntervals.length);
+                let degreesArray = [currentDegree];
                 
-                for(let i=0; i<seqLength; i++){
-                    degreesArray.push(currentDeg);
-                    let options = MARKOV_RULES[styleId][currentDeg] || [0, 3, 4];
-                    currentDeg = options[Math.floor(Math.random() * options.length)];
+                for(let i = 1; i < seqLength; i++) {
+                    // Salto harmônico natural (de 1 a 4 graus para frente ou trás)
+                    let jump = [1, 2, 3, -1, -2, 4][Math.floor(Math.random() * 6)];
+                    currentDegree = (currentDegree + jump + scaleIntervals.length) % scaleIntervals.length;
+                    degreesArray.push(currentDegree);
                 }
 
                 const allowedVoicings = STYLE_VOICINGS[styleId];
-                let rhythmMaster = DYNAMIC_RHYTHMS[Math.floor(Math.random() * DYNAMIC_RHYTHMS.length)];
+                // Rítmicos variados por compasso
+                const rhythmPool = [2, 4, 2, 4, 2, 2];
 
                 for (let i = 0; i < degreesArray.length; i++) {
-                    const degree = degreesArray[i] % scaleIntervals.length;
+                    const degree = degreesArray[i];
                     const voicing = allowedVoicings[Math.floor(Math.random() * allowedVoicings.length)];
                     const intervals = getDiatonicVoicing(scaleIntervals, degree, voicing);
                     
@@ -542,9 +535,8 @@
                     if (rhythmOverride !== 'auto') {
                         beats = parseInt(rhythmOverride);
                     } else {
-                        beats = rhythmMaster[i % rhythmMaster.length];
+                        beats = rhythmPool[i % rhythmPool.length];
                         if (['fingerpick', 'fast_pluck'].includes(patternType)) beats = Math.max(2, beats);
-                        if (patternType === 'syncopated') beats = 4;
                     }
                     
                     let chordName = NOTES[(rootIdx + intervals[0]) % 12];
