@@ -110,13 +110,16 @@
         <div class="control-group" id="group-style" style="display: none;">
             <label>Gênero Base</label>
             <select id="music-style">
-                <option value="pop">Pop & Indie</option>
-                <option value="acoustic_blues">Acoustic & Blues</option>
-                <option value="alt_rock">Rock Alternativo</option>
-                <option value="hiphop_trap">Hip-Hop & Trap</option>
-                <option value="rnb_jazz">R&B, Soul & Jazz</option>
-                <option value="edm_house">Electro House & Dubstep</option>
-                <option value="classical">Clássico</option>
+                <option value="pop_rock">Pop / Rock</option>
+                <option value="jazz_functional">Jazz / Functional</option>
+                <option value="blues_soul">Blues / Soul</option>
+                <option value="hiphop_trap">Hip-Hop / Trap</option>
+                <option value="electronic_modern">Electronic / Modern</option>
+                <option value="synthwave_retrowave">Synthwave / Retrowave</option>
+                <option value="metal_rock">Metal / Rock</option>
+                <option value="latin_bossa">Latin / Bossa</option>
+                <option value="cinematic">Film / Cinematic</option>
+                <option value="reggae_dub">Reggae / Dub</option>
             </select>
         </div>
 
@@ -152,7 +155,7 @@
 
         <div class="playback-controls">
             <button id="btn-prev" class="secondary-btn" onclick="playPrevious()" disabled>⏮ Anterior</button>
-            <button id="btn-generate" class="primary-btn" onclick="generateNew()" disabled>Carregando Base...</button>
+            <button id="btn-generate" class="primary-btn" onclick="generateNew()" disabled>Carregando Banco...</button>
             <button id="btn-stop" class="stop-btn" onclick="stopPlayback()" disabled>⏹ Parar</button>
             <button id="btn-repeat" class="secondary-btn" onclick="repeatCurrent()" disabled>🔁 Repetir</button>
         </div>
@@ -186,8 +189,16 @@
         };
 
         const STYLE_PATTERNS = {
-            'pop': 'block_bass', 'acoustic_blues': 'fingerpick', 'alt_rock': 'block_bass',
-            'hiphop_trap': 'syncopated', 'rnb_jazz': 'roll_arpeggio', 'edm_house': 'fast_pluck', 'classical': 'roll_arpeggio'
+            'pop_rock': 'block_bass',
+            'jazz_functional': 'roll_arpeggio',
+            'blues_soul': 'fingerpick',
+            'hiphop_trap': 'syncopated',
+            'electronic_modern': 'fast_pluck',
+            'synthwave_retrowave': 'block_bass',
+            'metal_rock': 'block_bass',
+            'latin_bossa': 'syncopated',
+            'cinematic': 'roll_arpeggio',
+            'reggae_dub': 'syncopated'
         };
 
         let currentMode = 'scale'; 
@@ -212,11 +223,12 @@
         async function initializeApp() {
             buildPiano();
             try {
-                const response = await fetch('./dataset.json');
+                // Tenta carregar o JSON com cache desativado
+                const response = await fetch('./dataset.json', { cache: "no-store" });
                 if (!response.ok) throw new Error("Dataset não encontrado");
                 musicDatabase = await response.json();
             } catch (error) {
-                musicDatabase = createFallbackDataset();
+                console.log("Aviso: Falha ao buscar dataset.json. Verifique se ele está na mesma pasta.");
             }
             checkReady();
         }
@@ -229,18 +241,6 @@
                 btn.disabled = false;
                 btn.innerText = "Gerar Sequência";
             }
-        }
-
-        function createFallbackDataset() {
-            return {
-                'pop': { progressions: [[0,4,5,3], [0,5,3,4]], voicings: ['add9', 'sus4', 'triad'] },
-                'acoustic_blues': { progressions: [[0,5,3,4], [3,2,1,0]], voicings: ['seventh', 'm9', 'triad'] },
-                'alt_rock': { progressions: [[5,3,0,4], [0,6,3,0]], voicings: ['power', 'sus2'] },
-                'hiphop_trap': { progressions: [[0,5,4,0], [5,6,0,0]], voicings: ['minor', 'm9'] },
-                'rnb_jazz': { progressions: [[1,4,0,5], [6,2,5,1]], voicings: ['ninth', 'maj9', 'seventh'] },
-                'edm_house': { progressions: [[5,3,0,4], [5,4,3,4]], voicings: ['sus2', 'power'] },
-                'classical': { progressions: [[0,3,4,0], [0,5,3,4]], voicings: ['triad', 'seventh'] }
-            };
         }
 
         function switchMode(mode) {
@@ -271,7 +271,6 @@
             return VEX_KEYS[(rootIdx + (offsets[scaleType] || 0) + 12) % 12];
         }
 
-        // --- MOTOR DE VOICINGS LIMPO E SEGURO (Sem inversões malucas de Drop-2) ---
         function getDiatonicVoicing(scaleIntervals, rootDegree, voicingType) {
             const len = scaleIntervals.length;
             const getInterval = (offset) => {
@@ -302,7 +301,6 @@
                 case 'triad': default: notes = [r, t, fi]; break;
             }
 
-            // Garante apenas notas válidas e ordenadas de forma natural (sem bagunçar o voicing)
             notes = notes.filter(n => typeof n === 'number' && !isNaN(n));
             notes.sort((a, b) => a - b);
             return notes;
@@ -551,12 +549,37 @@
                 }
             } else {
                 let styleId = document.getElementById('music-style').value;
-                const styleData = musicDatabase[styleId] || musicDatabase['pop'];
+                const styleData = musicDatabase[styleId];
                 
                 patternType = arrOverride === 'auto' ? STYLE_PATTERNS[styleId] || 'block_bass' : (arrOverride === 'random' ? ALL_P[Math.floor(Math.random()*ALL_P.length)] : arrOverride);
                 
-                const degreesArray = styleData.progressions[Math.floor(Math.random() * styleData.progressions.length)];
-                const allowedVoicings = styleData.voicings;
+                let degreesArray = [];
+                let seqLength = [4, 5, 6, 8][Math.floor(Math.random() * 4)];
+
+                // LEITOR DE MARKOV DE 2ª ORDEM
+                if (styleData && styleData.markov && Object.keys(styleData.markov).length > 0) {
+                    const seedProg = styleData.progressions[Math.floor(Math.random() * styleData.progressions.length)];
+                    degreesArray.push(seedProg[0]);
+                    if (seedProg.length > 1) degreesArray.push(seedProg[1]);
+
+                    while (degreesArray.length < seqLength) {
+                        let stateKey = `(${degreesArray[degreesArray.length-2]}, ${degreesArray[degreesArray.length-1]})`;
+                        let possibleNexts = styleData.markov[stateKey];
+                        
+                        if (possibleNexts && possibleNexts.length > 0) {
+                            degreesArray.push(possibleNexts[Math.floor(Math.random() * possibleNexts.length)]);
+                        } else {
+                            degreesArray.push(seedProg[Math.floor(Math.random() * seedProg.length)]);
+                        }
+                    }
+                } else if (styleData) {
+                    // Fallback para blocos prontos caso o markov falhe
+                    degreesArray = styleData.progressions[Math.floor(Math.random() * styleData.progressions.length)];
+                } else {
+                    degreesArray = [0, 4, 5, 3]; // Segurança extrema
+                }
+
+                const allowedVoicings = styleData ? styleData.voicings : ["triad"];
                 const rhythmPool = [4, 2, 4, 2, 2, 4];
 
                 for (let i = 0; i < degreesArray.length; i++) {
