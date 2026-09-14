@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ACORDES E PARTITURAS</title>
+    <title>ACORDES E PARTITURAS (Pro Edition - Motor Rítmico Tone.js)</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vexflow@4.2.2/build/cjs/vexflow.js"></script>
     
@@ -27,7 +27,7 @@
         .controls { background: var(--surface); padding: 20px; border-radius: 12px; display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-end; gap: 12px; border: 1px solid var(--border); margin-bottom: 25px; max-width: 950px; margin-left: auto; margin-right: auto; box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
         .control-group { display: flex; flex-direction: column; text-align: left; gap: 5px; flex: 1 1 140px; min-width: 130px; }
         .control-group label { font-size: 10px; color: var(--text-muted); text-transform: uppercase; font-weight: 800; letter-spacing: 0.5px;}
-        select { padding: 12px; font-size: 13px; border-radius: 8px; border: 1px solid var(--border); outline: none; background: var(--bg); color: var(--text); cursor: pointer; transition: all 0.2s; width: 100%; font-weight: 500;}
+        select, input { padding: 12px; font-size: 13px; border-radius: 8px; border: 1px solid var(--border); outline: none; background: var(--bg); color: var(--text); cursor: pointer; transition: all 0.2s; width: 100%; font-weight: 500;}
         select:hover { border-color: var(--accent); }
 
         .playback-controls { width: 100%; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 10px; }
@@ -127,31 +127,40 @@
             <label>Arranjo (Como Tocar)</label>
             <select id="arrangement-pattern">
                 <option value="auto">Auto (Levada do Estilo)</option>
-                <option value="block_bass">Blocos (Mínimas/Semibreves)</option>
-                <option value="fingerpick">Dedilhado (Colcheias)</option>
+                <option value="block_bass">Blocos Retos (Mínimas)</option>
+                <option value="fingerpick">Dedilhado (Arpejo)</option>
                 <option value="syncopated">Sincopado (Trap/R&B)</option>
-                <option value="bossa_nova">Bossa Nova (Clave)</option>
-                <option value="reggae_skank">Reggae (Contratempo Swing)</option>
+                <option value="bossa_nova">Bossa Nova (Clave Real)</option>
+                <option value="reggae_skank">Reggae (One Drop)</option>
                 <option value="synth_pulse">Synthwave (Pulsante)</option>
+            </select>
+        </div>
+        
+        <div class="control-group">
+            <label>Andamento (BPM)</label>
+            <select id="bpm-control">
+                <option value="75">75 (Reggae / Trap Lento)</option>
+                <option value="90">90 (Bossa / Hip-Hop)</option>
+                <option value="120" selected>120 (Pop / House / Padrão)</option>
+                <option value="140">140 (Rock / Synthwave)</option>
             </select>
         </div>
 
         <div class="control-group">
-            <label>Duração (Ritmo)</label>
+            <label>Duração dos Acordes</label>
             <select id="rhythm-control">
-                <option value="auto">Dinâmico (Automático)</option>
+                <option value="auto">Automático pelo Estilo</option>
                 <option value="4">Longo (4 Tempos)</option>
                 <option value="2">Curto (2 Tempos)</option>
-                <option value="1">Muito Curto (1 Tempo)</option>
             </select>
         </div>
 
         <div class="control-group">
             <label>Oitava da Harmonia</label>
             <select id="octave-select">
-                <option value="36">Oitava 2 (Denso e Pesado)</option>
-                <option value="48" selected>Oitava 3 (Equilíbrio Médio)</option>
-                <option value="60">Oitava 4 (Agudo e Brilhante)</option>
+                <option value="36">Oitava 2 (Harmonia Grave)</option>
+                <option value="48" selected>Oitava 3 (Harmonia Média)</option>
+                <option value="60">Oitava 4 (Harmonia Aguda)</option>
             </select>
         </div>
 
@@ -314,7 +323,7 @@
 
             notes = notes.filter(n => typeof n === 'number' && !isNaN(n));
             
-            // OMITIR A QUINTA em acordes densos para não ficar estridente ("muita nota ao mesmo tempo")
+            // OMITIR A QUINTA em acordes densos para abrir o som e não ficar estridente
             if (notes.length > 4) {
                 notes.splice(2, 1); 
             }
@@ -420,7 +429,7 @@
             bassVoice.draw(context, bottomStave);
         }
 
-        // MOTOR RÍTMICO COM SWING RECUPERADO
+        // MOTOR RÍTMICO NATIVO (Tone.js timing) COM LEVADAS REAIS
         function generateScheduledNotes(progressionData, patternType, baseOctaveMidi) {
             let scheduledNotes = []; 
             let currentBeat = 0;
@@ -431,42 +440,41 @@
                 const notes = uniqueMidis.sort((a,b) => a-b);
                 const rootNoteIdx = chord.rootMidi % 12;
                 
-                // O SEGREDO DO BAIXO: Ele fica SEMPRE uma oitava inteira (-12) abaixo da harmonia que você escolheu.
-                // Isso traz o "médio delicado" na Oitava 3 e o "gravão" na Oitava 2.
+                // O BAIXO FICA EXATAMENTE UMA OITAVA ABAIXO DA HARMONIA
                 let bassBase = baseOctaveMidi - 12; 
-                if (bassBase < 24) bassBase = 24; // Trava de segurança para não sumir do teclado
+                if (bassBase < 24) bassBase = 24; // Trava de segurança
                 const bassNote = bassBase + rootNoteIdx;
 
-                // MICRO-SWING SEGURO (Atrasa ou antecipa apenas a nota, não o relógio)
+                // Micro-Swing Seguro: Afeta apenas o momento do ataque (Atraso positivo ou Antecipação negativa)
                 let swingOffset = 0;
-                if (patternType === 'reggae_skank') swingOffset = 0.08; // Atraso (Laid back)
-                if (patternType === 'bossa_nova') swingOffset = -0.05;  // Antecipação da Clave
+                if (patternType === 'reggae_skank') swingOffset = 0.08; 
+                if (patternType === 'bossa_nova') swingOffset = -0.05;  
 
-                function addNote(midi, timeOffset, duration, baseVelocity, applySwing = true) {
-                    let finalVel = Math.min(127, Math.max(0, baseVelocity + (Math.random() * 6 - 3))); // Humanize leve
-                    let finalTime = timeOffset;
-                    if (applySwing) finalTime += swingOffset;
+                function addNote(midi, timeOffset, duration, baseVelocity, applySwing = false) {
+                    let finalVel = Math.min(127, Math.max(0, baseVelocity + (Math.random() * 6 - 3))); 
+                    let finalTime = timeOffset + (applySwing ? swingOffset : 0);
                     scheduledNotes.push({ midi, timeOffset: finalTime, duration, velocity: Math.round(finalVel) });
                 }
 
                 if (patternType === 'reggae_skank') {
                     for(let b=0; b<chordDuration; b+=2) {
-                        addNote(bassNote, currentBeat + b, 1.0, 95, false); // Baixo reto no tempo 1
-                        // Skank com swing pra trás no contratempo
-                        notes.forEach(n => addNote(n, currentBeat + b + 1.0, 0.4, 88, true)); 
+                        addNote(bassNote, currentBeat + b, 1.0, 95, false); // Baixo reto no 1
+                        notes.forEach(n => addNote(n, currentBeat + b + 1.0, 0.4, 88, true)); // Skank na cabeça do 2
                     }
                 }
                 else if (patternType === 'bossa_nova') {
                     for (let b = 0; b < chordDuration; b += 2) {
-                        addNote(bassNote, currentBeat + b, 1.5, 90, false); 
-                        addNote(bassNote + 7, currentBeat + b + 1.5, 0.5, 80, false); // Quinta
+                        addNote(bassNote, currentBeat + b, 1.5, 90, false); // Tônica
+                        if(chordDuration > 1) addNote(bassNote + 7, currentBeat + b + 1.5, 0.5, 80, false); // Quinta
                     }
-                    let bossaRhythm = [0.5, 1.5, 2.5, 3.5]; 
-                    bossaRhythm.forEach(offset => {
-                        if (offset < chordDuration) {
-                            notes.forEach(n => addNote(n, currentBeat + offset, 0.5, 78, true)); // Swing antecipado
-                        }
-                    });
+                    let bossaRhythm = [0, 1.5, 2.5]; // Clave Bossa Nova (Partido Alto)
+                    for(let b=0; b<chordDuration; b+=4) {
+                        bossaRhythm.forEach(offset => {
+                            if (b + offset < chordDuration) {
+                                notes.forEach(n => addNote(n, currentBeat + b + offset, 0.8, 78, true)); 
+                            }
+                        });
+                    }
                 }
                 else if (patternType === 'synth_pulse') {
                     for (let b = 0; b < chordDuration; b += 0.5) {
@@ -476,9 +484,9 @@
                 }
                 else if (patternType === 'syncopated') {
                     addNote(bassNote, currentBeat, chordDuration, 90, false);
-                    notes.forEach(n => addNote(n, currentBeat + 0.5, 1.0, 80, true)); // Swing leve
-                    if(chordDuration > 2) {
-                        notes.forEach(n => addNote(n, currentBeat + 2.5, 1.0, 85, true));
+                    notes.forEach(n => addNote(n, currentBeat + 0.5, 1.0, 80, true));
+                    if(chordDuration > 1) {
+                        notes.forEach(n => addNote(n, currentBeat + 1.5, 1.0, 85, true));
                     }
                 }
                 else if (patternType === 'fingerpick') {
@@ -500,10 +508,13 @@
             return { notes: scheduledNotes, totalBeats: currentBeat };
         }
 
-        function createMidiBlob(scheduledNotesArr, totalBeats) {
+        function createMidiBlob(scheduledNotesArr, totalBeats, bpm) {
             const track = [];
-            track.push(0x00, 0xFF, 0x51, 0x03, 0x07, 0xA1, 0x20); 
-
+            const ticksPerBeat = 480;
+            track.push(0x00, 0xFF, 0x51, 0x03);
+            const microSecsPerBeat = Math.round(60000000 / bpm);
+            track.push((microSecsPerBeat >> 16) & 0xFF, (microSecsPerBeat >> 8) & 0xFF, microSecsPerBeat & 0xFF);
+            
             function vlq(n) {
                 if (n === 0) return [0]; let res = [];
                 while (n > 0) { res.unshift(n & 0x7F); n >>= 7; }
@@ -513,8 +524,8 @@
 
             let events = [];
             scheduledNotesArr.forEach(n => {
-                events.push({ type: 0x90, midi: n.midi, ticks: Math.round(n.timeOffset * 480), velocity: n.velocity });
-                events.push({ type: 0x80, midi: n.midi, ticks: Math.round((n.timeOffset + n.duration) * 480), velocity: 0 });
+                events.push({ type: 0x90, midi: n.midi, ticks: Math.round(n.timeOffset * ticksPerBeat), velocity: n.velocity });
+                events.push({ type: 0x80, midi: n.midi, ticks: Math.round((n.timeOffset + n.duration) * ticksPerBeat), velocity: 0 });
             });
             events.sort((a,b) => a.ticks - b.ticks);
 
@@ -524,7 +535,7 @@
                 track.push(...vlq(delta)); track.push(e.type, e.midi, e.velocity); lastTicks = e.ticks;
             });
 
-            const endDelta = Math.max(0, (totalBeats * 480) - lastTicks);
+            const endDelta = Math.max(0, (totalBeats * ticksPerBeat) - lastTicks);
             track.push(...vlq(endDelta)); track.push(0xFF, 0x2F, 0x00);
             
             const header = [0x4D, 0x54, 0x68, 0x64, 0x00, 0x00, 0x00, 0x06, 0x00, 0x00, 0x00, 0x01, 0x01, 0xE0];
@@ -563,6 +574,7 @@
             const baseOctaveMidi = parseInt(document.getElementById('octave-select').value);
             const arrOverride = document.getElementById('arrangement-pattern').value;
             const rhythmOverride = document.getElementById('rhythm-control').value;
+            const bpmValue = parseInt(document.getElementById('bpm-control').value) || 120;
             const scaleIntervals = SCALES[scaleType];
             
             const progressionData = [];
@@ -606,14 +618,20 @@
                 let degreesArray = [];
                 let seqLength = [4, 5, 6, 8][Math.floor(Math.random() * 4)];
 
-                // LEITOR DE MARKOV CORRIGIDO
                 if (styleData && styleData.markov && Object.keys(styleData.markov).length > 0) {
                     const seedProg = styleData.progressions[Math.floor(Math.random() * styleData.progressions.length)];
-                    degreesArray.push(seedProg[0]);
-                    if (seedProg.length > 1) degreesArray.push(seedProg[1]);
+                    
+                    let rotSeed = [...seedProg];
+                    if (Math.random() > 0.4 && rotSeed.length > 2) {
+                        let rotAmt = Math.floor(Math.random() * (rotSeed.length - 1)) + 1;
+                        rotSeed = rotSeed.slice(rotAmt).concat(rotSeed.slice(0, rotAmt));
+                    }
+
+                    degreesArray.push(rotSeed[0]);
+                    if (rotSeed.length > 1) degreesArray.push(rotSeed[1]);
 
                     while (degreesArray.length < seqLength) {
-                        let stateKey = "(" + degreesArray[degreesArray.length-2] + ", " + degreesArray[degreesArray.length-1] + ")";
+                        let stateKey = `(${degreesArray[degreesArray.length-2]}, ${degreesArray[degreesArray.length-1]})`;
                         let possibleNexts = styleData.markov[stateKey];
                         
                         if (possibleNexts && possibleNexts.length > 0) {
@@ -624,6 +642,10 @@
                     }
                 } else {
                     degreesArray = styleData.progressions[Math.floor(Math.random() * styleData.progressions.length)];
+                    if (Math.random() > 0.5 && degreesArray.length > 2) {
+                        let rotAmt = Math.floor(Math.random() * (degreesArray.length - 1)) + 1;
+                        degreesArray = degreesArray.slice(rotAmt).concat(degreesArray.slice(0, rotAmt));
+                    }
                 }
 
                 const allowedVoicings = styleData ? styleData.voicings : ["triad"];
@@ -633,7 +655,6 @@
                     const voicing = allowedVoicings[Math.floor(Math.random() * allowedVoicings.length)];
                     const intervals = getDiatonicVoicing(scaleIntervals, degree, voicing);
                     
-                    // RESGATANDO O BOTÃO DE RITMO
                     let beats = 4;
                     if (rhythmOverride !== 'auto') {
                         beats = parseInt(rhythmOverride);
@@ -656,16 +677,36 @@
                 }
             }
 
-            const state = { progressionData, patternType, rootIdx, scaleIntervals, keySigString: getVexFlowKeySignature(rootIdx, scaleType), baseOctaveMidi };
+            const state = { progressionData, patternType, rootIdx, scaleIntervals, keySigString: getVexFlowKeySignature(rootIdx, scaleType), baseOctaveMidi, bpmValue };
+            
+            // Corrige o comportamento dos botões Anterior e Repetir
             historyIndex++;
             progressionHistory = progressionHistory.slice(0, historyIndex);
             progressionHistory.push(state);
             executeState(state);
         }
 
+        async function playPrevious() {
+            if (Tone.context.state !== 'running') await Tone.start();
+            if (historyIndex > 0) { 
+                historyIndex--; 
+                executeState(progressionHistory[historyIndex]); 
+            }
+        }
+
+        async function repeatCurrent() {
+            if (Tone.context.state !== 'running') await Tone.start();
+            if (historyIndex >= 0) {
+                executeState(progressionHistory[historyIndex]);
+            }
+        }
+
         function executeState(state) {
             stopPlayback();
             setButtonsState(true);
+
+            // Atualiza os seletores da UI para refletir o estado do histórico
+            document.getElementById('bpm-control').value = state.bpmValue;
 
             const container = document.getElementById('progression-display');
             container.innerHTML = '';
@@ -687,32 +728,36 @@
             });
 
             const schedule = generateScheduledNotes(state.progressionData, state.patternType, state.baseOctaveMidi);
-            const beatToSeconds = 0.5;
+            const beatToSeconds = 60 / state.bpmValue;
+            const now = Tone.now() + 0.1; // Sincronização nativa do Tone.js para ritmo perfeito
 
             schedule.notes.forEach(noteData => {
                 const freq = Tone.Frequency(noteData.midi, "midi").toNote();
-                const delayMs = noteData.timeOffset * beatToSeconds * 1000;
-                const durSeconds = noteData.duration * beatToSeconds;
+                const delaySecs = noteData.timeOffset * beatToSeconds;
+                const durSecs = noteData.duration * beatToSeconds;
                 
+                // Disparo imune ao atraso do navegador
+                sampler.triggerAttackRelease(freq, durSecs, now + delaySecs, noteData.velocity / 127);
+                
+                // Interface visual via setTimeout
                 playTimeouts.push(setTimeout(() => {
-                    sampler.triggerAttackRelease(freq, durSeconds, Tone.now(), noteData.velocity / 127);
                     const keyEl = document.getElementById(`note-${noteData.midi}`);
                     if(keyEl) keyEl.classList.add('active');
-                }, delayMs));
+                }, delaySecs * 1000));
                 
                 playTimeouts.push(setTimeout(() => {
                     const keyEl = document.getElementById(`note-${noteData.midi}`);
                     if(keyEl) keyEl.classList.remove('active');
-                }, delayMs + (durSeconds * 1000)));
+                }, (delaySecs + durSecs) * 1000));
             });
 
             let cumulativeBeats = 0;
             state.progressionData.forEach((chord, index) => {
-                const delayMs = cumulativeBeats * beatToSeconds * 1000;
+                const delaySecs = cumulativeBeats * beatToSeconds;
                 playTimeouts.push(setTimeout(() => {
                     document.querySelectorAll('.chord-box').forEach(b => b.classList.remove('playing'));
                     document.getElementById(`chord-box-${index}`).classList.add('playing');
-                }, delayMs));
+                }, delaySecs * 1000));
                 cumulativeBeats += chord.beats;
             });
             
@@ -722,7 +767,7 @@
             }, schedule.totalBeats * beatToSeconds * 1000));
 
             if (currentBlobUrl) URL.revokeObjectURL(currentBlobUrl);
-            const blob = createMidiBlob(schedule.notes, schedule.totalBeats);
+            const blob = createMidiBlob(schedule.notes, schedule.totalBeats, state.bpmValue);
             currentBlobUrl = URL.createObjectURL(blob);
             const fileString = state.progressionData.map(d => d.chordName.replace(/#/g, 's')).join('-');
             
