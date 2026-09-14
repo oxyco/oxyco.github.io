@@ -63,8 +63,9 @@
         .key.white.active { background: var(--active-white); border-color: var(--accent); z-index: 3;}
         .key.black.active { background: var(--active-black); z-index: 4;}
 
-        #drag-pad { display: none; margin: 20px auto; padding: 15px 30px; width: fit-content; background: rgba(16, 185, 129, 0.1); border: 1px dashed var(--accent); border-radius: 8px; color: var(--text); font-size: 14px; font-weight: 600; cursor: grab; transition: 0.2s;}
-        #drag-pad:hover { background: rgba(16, 185, 129, 0.2); }
+        /* ESTILO DO NOVO BOTÃO DE DOWNLOAD */
+        #btn-download-midi { display: none; margin: 25px auto; padding: 18px 30px; width: 100%; max-width: 500px; background: #3b82f6; color: #fff; font-size: 16px; font-weight: 800; border: none; border-radius: 8px; cursor: pointer; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4); transition: 0.2s;}
+        #btn-download-midi:hover { background: #2563eb; transform: translateY(-2px);}
     </style>
 </head>
 <body onload="initializeApp()">
@@ -155,7 +156,9 @@
     
     <div class="progression-container" id="progression-display"></div>
     <div class="piano-wrapper"><div id="piano"></div></div>
-    <div id="drag-pad" draggable="true" title="Arraste para a Timeline do Ableton/Reaper">↓ Arraste o MIDI Exato para a DAW</div>
+    
+    <!-- BOTÃO DE DOWNLOAD DIRETO E INFALÍVEL -->
+    <button id="btn-download-midi">⬇️ BAIXAR ARQUIVO MIDI PARA A DAW</button>
 
     <script>
         const VF = Vex.Flow;
@@ -196,36 +199,14 @@
 
         async function initializeApp() {
             buildPiano();
-            // Fallback imediato robusto
             musicDatabase = {
-                'pop_rock': { 
-                    progressions: [[0,4,5,3], [0,3,4,0], [5,3,0,4], [0,5,3,4]], 
-                    voicings: ['add9', 'triad', 'sus4'] 
-                },
-                'jazz_functional': { 
-                    progressions: [[1,4,0,5], [2,5,1,4], [0,5,3,4]], 
-                    voicings: ['maj9', 'm9', 'dom9'] 
-                },
-                'metal_rock': {
-                    progressions: [[0,5,6,0], [0,4,6,3], [0,2,5,6]],
-                    voicings: ['power', 'sus2']
-                },
-                'latin_bossa': { 
-                    progressions: [[0,5,1,4], [2,5,0,0], [1,4,2,5]], 
-                    voicings: ['maj9', 'm9'] 
-                },
-                'reggae_dub': { 
-                    progressions: [[0,3,0,4], [0,6,5,0]], 
-                    voicings: ['seventh', 'triad'] 
-                },
-                'hiphop_trap': { 
-                    progressions: [[0,5,6,0], [0,4,5,3]], 
-                    voicings: ['m9', 'minor'] 
-                },
-                'electronic_modern': { 
-                    progressions: [[0,6,5,4], [0,4,5,3]], 
-                    voicings: ['add9', 'sus2'] 
-                }
+                'pop_rock': { progressions: [[0,4,5,3], [0,3,4,0], [5,3,0,4], [0,5,3,4]], voicings: ['add9', 'triad', 'sus4'] },
+                'jazz_functional': { progressions: [[1,4,0,5], [2,5,1,4], [0,5,3,4]], voicings: ['maj9', 'm9', 'dom9'] },
+                'metal_rock': { progressions: [[0,5,6,0], [0,4,6,3], [0,2,5,6]], voicings: ['power', 'sus2'] },
+                'latin_bossa': { progressions: [[0,5,1,4], [2,5,0,0], [1,4,2,5]], voicings: ['maj9', 'm9'] },
+                'reggae_dub': { progressions: [[0,3,0,4], [0,6,5,0]], voicings: ['seventh', 'triad'] },
+                'hiphop_trap': { progressions: [[0,5,6,0], [0,4,5,3]], voicings: ['m9', 'minor'] },
+                'electronic_modern': { progressions: [[0,6,5,4], [0,4,5,3]], voicings: ['add9', 'sus2'] }
             };
             checkReady();
         }
@@ -377,73 +358,65 @@
             bassVoice.draw(context, bottomStave);
         }
 
-        // ==========================================
-        // MIDI WIZARD ENGINE - SEQUENCIADOR DE PASSOS
-        // ==========================================
         function generateScheduledNotes(progressionData, styleId, playBass) {
             let scheduledNotes = []; 
             let currentBeat = 0;
 
-            // Matrizes de Ritmo (1 compasso = 16 passos de semicolcheia, onde cada passo = 0.25 tempos)
-            // { t: tempo no compasso, d: duração, v: velocity (impacto) }
             const grooveTemplates = {
                 'jazz_functional': {
-                    bass: [{t:0, d:1, v:85}, {t:1, d:1, v:75}, {t:2, d:1, v:85}, {t:3, d:1, v:75}], // Walking Bass
-                    chord: [{t:0.5, d:0.5, v:80}, {t:2.5, d:0.25, v:75}, {t:3.0, d:0.5, v:85}] // Comping Sincopado
+                    bass: [{t:0, d:1, v:85}, {t:1, d:1, v:75}, {t:2, d:1, v:85}, {t:3, d:1, v:75}], 
+                    chord: [{t:0.5, d:0.5, v:80}, {t:2.5, d:0.25, v:75}, {t:3.0, d:0.5, v:85}] 
                 },
                 'latin_bossa': {
-                    bass: [{t:0, d:1.5, v:95}, {t:1.5, d:0.5, v:80, shift: 7}, {t:2, d:1.5, v:90}, {t:3.5, d:0.5, v:80, shift: 7}], // Surdo Tônica/Quinta
-                    chord: [{t:0.5, d:0.5, v:80}, {t:1.5, d:0.5, v:85}, {t:2.5, d:0.5, v:75}, {t:3.5, d:0.5, v:80}] // Clave Sincopada
+                    bass: [{t:0, d:1.5, v:95}, {t:1.5, d:0.5, v:80, shift: 7}, {t:2, d:1.5, v:90}, {t:3.5, d:0.5, v:80, shift: 7}], 
+                    chord: [{t:0.5, d:0.5, v:80}, {t:1.5, d:0.5, v:85}, {t:2.5, d:0.5, v:75}, {t:3.5, d:0.5, v:80}] 
                 },
                 'reggae_dub': {
-                    bass: [{t:0, d:1, v:95}, {t:2, d:1, v:95}], // One Drop Bass
-                    chord: [{t:1, d:0.5, v:90}, {t:1.5, d:0.25, v:70}, {t:3, d:0.5, v:90}, {t:3.5, d:0.25, v:70}] // Skank Duplo (Offbeat)
+                    bass: [{t:0, d:1, v:95}, {t:2, d:1, v:95}], 
+                    chord: [{t:1, d:0.5, v:90}, {t:1.5, d:0.25, v:70}, {t:3, d:0.5, v:90}, {t:3.5, d:0.25, v:70}] 
                 },
                 'hiphop_trap': {
-                    bass: [{t:0, d:1.5, v:100}, {t:2.5, d:1.5, v:95}], // 808 style pattern
-                    chord: [{t:0, d:0.75, v:85}, {t:0.75, d:0.75, v:75}, {t:1.5, d:0.5, v:85}, {t:2, d:0.5, v:75}, {t:3, d:1, v:80}] // Rhythmic Chords
+                    bass: [{t:0, d:1.5, v:100}, {t:2.5, d:1.5, v:95}], 
+                    chord: [{t:0, d:0.75, v:85}, {t:0.75, d:0.75, v:75}, {t:1.5, d:0.5, v:85}, {t:2, d:0.5, v:75}, {t:3, d:1, v:80}] 
                 },
                 'metal_rock': {
-                    bass: [{t:0, d:0.25, v:100}, {t:0.5, d:0.25, v:90}, {t:1, d:0.25, v:100}, {t:1.5, d:0.25, v:90}, {t:2, d:0.25, v:100}, {t:2.5, d:0.25, v:90}, {t:3, d:0.25, v:100}, {t:3.5, d:0.25, v:90}], // Gallop/8ths
-                    chord: [{t:0, d:0.25, v:100}, {t:0.5, d:0.25, v:90}, {t:1, d:0.25, v:100}, {t:1.5, d:0.25, v:90}, {t:2, d:0.25, v:100}, {t:2.5, d:0.25, v:90}, {t:3, d:0.25, v:100}, {t:3.5, d:0.25, v:90}] // Palm Mute Chords
+                    bass: [{t:0, d:0.25, v:100}, {t:0.5, d:0.25, v:90}, {t:1, d:0.25, v:100}, {t:1.5, d:0.25, v:90}, {t:2, d:0.25, v:100}, {t:2.5, d:0.25, v:90}, {t:3, d:0.25, v:100}, {t:3.5, d:0.25, v:90}], 
+                    chord: [{t:0, d:0.25, v:100}, {t:0.5, d:0.25, v:90}, {t:1, d:0.25, v:100}, {t:1.5, d:0.25, v:90}, {t:2, d:0.25, v:100}, {t:2.5, d:0.25, v:90}, {t:3, d:0.25, v:100}, {t:3.5, d:0.25, v:90}] 
                 },
                 'electronic_modern': {
-                    bass: [{t:0, d:0.25, v:95}, {t:0.75, d:0.25, v:85}, {t:1.5, d:0.25, v:95}, {t:2.25, d:0.25, v:85}, {t:3, d:0.25, v:95}], // Rolling Synth Bass
-                    chord: [{t:0, d:4, v:80}] // Pad Longo
+                    bass: [{t:0, d:0.25, v:95}, {t:0.75, d:0.25, v:85}, {t:1.5, d:0.25, v:95}, {t:2.25, d:0.25, v:85}, {t:3, d:0.25, v:95}], 
+                    chord: [{t:0, d:4, v:80}] 
                 },
                 'pop_rock': {
-                    bass: [{t:0, d:1.5, v:95}, {t:1.5, d:0.5, v:85}, {t:2.5, d:1.5, v:90}], // Syncopated Pop Bass
-                    chord: [{t:0, d:1, v:85}, {t:1, d:0.5, v:75}, {t:1.5, d:1, v:85}, {t:2.5, d:1.5, v:80}] // Pop Piano Rhythm
+                    bass: [{t:0, d:1.5, v:95}, {t:1.5, d:0.5, v:85}, {t:2.5, d:1.5, v:90}], 
+                    chord: [{t:0, d:1, v:85}, {t:1, d:0.5, v:75}, {t:1.5, d:1, v:85}, {t:2.5, d:1.5, v:80}] 
                 }
             };
 
             progressionData.forEach(chord => {
                 const notes = chord.midiNotes.sort((a,b) => a-b);
                 const bassNote = chord.bassNote;
-                const template = grooveTemplates[styleId] || grooveTemplates['pop_rock']; // Fallback para Pop
+                const template = grooveTemplates[styleId] || grooveTemplates['pop_rock']; 
 
-                // Insere Baixo
                 if (playBass && bassNote !== null) {
                     template.bass.forEach(step => {
                         let finalMidi = bassNote;
-                        if (step.shift) finalMidi += step.shift; // Ex: Bossa Nova 5th degree bounce
-                        
-                        let vel = step.v + (Math.random() * 6 - 3); // Humanize
+                        if (step.shift) finalMidi += step.shift; 
+                        let vel = step.v + (Math.random() * 6 - 3); 
                         scheduledNotes.push({ midi: finalMidi, timeOffset: currentBeat + step.t, duration: step.d, velocity: Math.round(vel) });
                     });
                 }
 
-                // Insere Acordes
                 template.chord.forEach(step => {
                     notes.forEach(n => {
                         let targetVel = step.v;
-                        if (n >= 67) targetVel *= 0.85; // Aveluda os agudos
+                        if (n >= 67) targetVel *= 0.85; 
                         let vel = targetVel + (Math.random() * 6 - 3);
                         scheduledNotes.push({ midi: n, timeOffset: currentBeat + step.t, duration: step.d, velocity: Math.round(vel) });
                     });
                 });
                 
-                currentBeat += 4; // Avança 1 compasso inteiro (4 tempos)
+                currentBeat += 4; 
             });
             return { notes: scheduledNotes, totalBeats: currentBeat };
         }
@@ -534,7 +507,7 @@
             } else {
                 const styleData = musicDatabase[styleId] || musicDatabase['pop_rock'];
                 let degreesArray = [];
-                let seqLength = 4; // Travado em 4 compassos para coerência rítmica.
+                let seqLength = 4; 
 
                 if (styleData && styleData.progressions) {
                     let seedProg = styleData.progressions[Math.floor(Math.random() * styleData.progressions.length)];
@@ -675,15 +648,18 @@
             currentBlobUrl = URL.createObjectURL(blob);
             const fileString = state.progressionData.map(d => d.chordName.replace(/#/g, 's')).join('-');
             
-            const dragPad = document.getElementById('drag-pad');
-            dragPad.style.display = 'block';
-            dragPad.setAttribute('data-downloadurl', `audio/midi:Progressao_${fileString}.mid:${currentBlobUrl}`);
+            // CONFIGURAÇÃO DO BOTÃO DE DOWNLOAD DIRETO
+            const downloadBtn = document.getElementById('btn-download-midi');
+            downloadBtn.style.display = 'block';
+            downloadBtn.onclick = () => {
+                const a = document.createElement('a');
+                a.href = currentBlobUrl;
+                a.download = `Progressao_${state.styleId || 'Midi'}_${fileString}.mid`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+            };
         }
-
-        document.getElementById('drag-pad').addEventListener('dragstart', function(e) {
-            const url = this.getAttribute('data-downloadurl');
-            if (url) e.dataTransfer.setData('DownloadURL', url);
-        });
     </script>
 </body>
 </html>
