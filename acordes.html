@@ -35,6 +35,7 @@
         
         button.primary-btn { background: var(--accent); color: #fff;}
         button.primary-btn:hover:not(:disabled) { background: var(--accent-hover); transform: translateY(-2px); box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);}
+        button.primary-btn.error { background: #ef4444; border-color: #dc2626;}
         button.secondary-btn { background: var(--surface); color: var(--text); border: 1px solid var(--accent); }
         button.secondary-btn:hover:not(:disabled) { background: rgba(16, 185, 129, 0.2); transform: translateY(-2px); }
         button.stop-btn { background: #ef4444; color: #fff; }
@@ -141,7 +142,7 @@
             <select id="bpm-control">
                 <option value="75">75 (Reggae / Trap Lento)</option>
                 <option value="90">90 (Bossa / Hip-Hop)</option>
-                <option value="120" selected>120 (Pop / House / Padrão)</option>
+                <option value="120" selected>120 (Pop / Padrão)</option>
                 <option value="140">140 (Rock / Synthwave)</option>
             </select>
         </div>
@@ -159,8 +160,8 @@
             <label>Oitava da Harmonia</label>
             <select id="octave-select">
                 <option value="36">Oitava 2 (Harmonia Grave)</option>
-                <option value="48" selected>Oitava 3 (Harmonia Média)</option>
-                <option value="60">Oitava 4 (Harmonia Aguda)</option>
+                <option value="48" selected>Oitava 3 (Equilíbrio Médio)</option>
+                <option value="60">Oitava 4 (Brilho Agudo)</option>
             </select>
         </div>
 
@@ -219,6 +220,19 @@
         let historyIndex = -1;
         let musicDatabase = null; 
 
+        // RACK DE EQ E COMPRESSÃO (Corta a estridência e aquece o grave médio)
+        const eq = new Tone.EQ3({
+            low: 3,     // Aquece o grave/médio grave
+            mid: 0,
+            high: -6    // Corta o brilho agudo cortante
+        }).toDestination();
+        const compressor = new Tone.Compressor({
+            threshold: -18,
+            ratio: 3,
+            attack: 0.05,
+            release: 0.1
+        }).connect(eq);
+
         const sampler = new Tone.Sampler({
             urls: {
                 "C2": "C2.mp3", "D#2": "Ds2.mp3", "F#2": "Fs2.mp3", "A2": "A2.mp3",
@@ -228,17 +242,24 @@
             release: 1.5,
             baseUrl: "https://tonejs.github.io/audio/salamander/",
             onload: checkReady
-        }).toDestination();
-        sampler.volume.value = -3;
+        }).connect(compressor);
+        sampler.volume.value = 2; // Compensa o corte do EQ
 
         async function initializeApp() {
             buildPiano();
             try {
                 const response = await fetch('./dataset.json', { cache: "no-store" });
-                if (!response.ok) throw new Error("Dataset não encontrado");
+                if (!response.ok) throw new Error("Falha HTTP");
                 musicDatabase = await response.json();
+                
+                // Se o JSON não tiver a categoria correta, é porque não é o novo
+                if(!musicDatabase['pop_rock']) throw new Error("JSON Antigo");
+                
             } catch (error) {
-                console.log("Usando fallback de segurança.");
+                console.log("Erro de JSON:", error);
+                const btn = document.getElementById('btn-generate');
+                btn.classList.add('error');
+                btn.innerText = "⚠️ JSON NÃO CARREGOU (Usando Básico)";
                 musicDatabase = createFallbackDataset();
             }
             checkReady();
@@ -250,16 +271,21 @@
             if(isReady >= 2 || (sampler.loaded && musicDatabase)) {
                 const btn = document.getElementById('btn-generate');
                 btn.disabled = false;
-                btn.innerText = "Gerar Sequência";
+                if(!btn.classList.contains('error')) {
+                    btn.innerText = "Gerar Sequência";
+                }
             }
         }
 
         function createFallbackDataset() {
+            // Um fallback um pouco melhor caso o JSON realmente falhe no servidor
             return {
-                'pop_rock': { progressions: [[0,4,5,3]], voicings: ['add9', 'triad'] },
+                'pop_rock': { progressions: [[0,4,5,3], [0,3,4,0]], voicings: ['add9', 'triad'] },
+                'jazz_functional': { progressions: [[1,4,0,5]], voicings: ['maj9', 'm9'] },
                 'latin_bossa': { progressions: [[0,5,1,4]], voicings: ['maj9', 'm9'] },
-                'reggae_dub': { progressions: [[0,3,0,4]], voicings: ['seventh', 'triad'] },
-                'synthwave_retrowave': { progressions: [[0,6,5,4]], voicings: ['add9'] }
+                'reggae_dub': { progressions: [[0,3,0,4], [0,6,5]], voicings: ['seventh', 'triad'] },
+                'synthwave_retrowave': { progressions: [[0,6,5,4]], voicings: ['add9'] },
+                'hiphop_trap': { progressions: [[0,5,6]], voicings: ['m9', 'minor'] }
             };
         }
 
@@ -323,9 +349,11 @@
 
             notes = notes.filter(n => typeof n === 'number' && !isNaN(n));
             
-            // OMITIR A QUINTA em acordes densos para abrir o som e não ficar estridente
+            // FILTRO DE ESTRIDÊNCIA: Acordes estendidos (9, 11) têm 5-6 notas e embolam/gritam.
+            // A regra de harmonia clássica é omitir a 5ª justa (fi) nesses casos.
             if (notes.length > 4) {
-                notes.splice(2, 1); 
+                const idx5th = notes.indexOf(fi);
+                if (idx5th !== -1) notes.splice(idx5th, 1); 
             }
 
             notes.sort((a, b) => a - b);
@@ -429,7 +457,6 @@
             bassVoice.draw(context, bottomStave);
         }
 
-        // MOTOR RÍTMICO NATIVO (Tone.js timing) COM LEVADAS REAIS
         function generateScheduledNotes(progressionData, patternType, baseOctaveMidi) {
             let scheduledNotes = []; 
             let currentBeat = 0;
@@ -440,67 +467,69 @@
                 const notes = uniqueMidis.sort((a,b) => a-b);
                 const rootNoteIdx = chord.rootMidi % 12;
                 
-                // O BAIXO FICA EXATAMENTE UMA OITAVA ABAIXO DA HARMONIA
+                // CÁLCULO SEGURO DO BAIXO: Exatamente uma oitava abaixo do acorde selecionado.
+                // Isso traz o médio macio para a oitava 3, e evita agudos esburacados.
                 let bassBase = baseOctaveMidi - 12; 
-                if (bassBase < 24) bassBase = 24; // Trava de segurança
+                if (bassBase < 24) bassBase = 24; 
                 const bassNote = bassBase + rootNoteIdx;
 
-                // Micro-Swing Seguro: Afeta apenas o momento do ataque (Atraso positivo ou Antecipação negativa)
-                let swingOffset = 0;
-                if (patternType === 'reggae_skank') swingOffset = 0.08; 
-                if (patternType === 'bossa_nova') swingOffset = -0.05;  
-
-                function addNote(midi, timeOffset, duration, baseVelocity, applySwing = false) {
-                    let finalVel = Math.min(127, Math.max(0, baseVelocity + (Math.random() * 6 - 3))); 
-                    let finalTime = timeOffset + (applySwing ? swingOffset : 0);
-                    scheduledNotes.push({ midi, timeOffset: finalTime, duration, velocity: Math.round(finalVel) });
+                function addNote(midi, timeOffset, duration, baseVelocity) {
+                    // COMPENSAÇÃO DE AGUDOS: Se a nota for muito aguda (acima de C5 = 72), ela bate bem mais fraca.
+                    let targetVel = baseVelocity;
+                    if (midi > 72) targetVel *= 0.8;
+                    if (midi > 84) targetVel *= 0.6;
+                    
+                    let finalVel = Math.min(127, Math.max(0, targetVel + (Math.random() * 6 - 3))); 
+                    scheduledNotes.push({ midi, timeOffset: timeOffset, duration, velocity: Math.round(finalVel) });
                 }
 
                 if (patternType === 'reggae_skank') {
                     for(let b=0; b<chordDuration; b+=2) {
-                        addNote(bassNote, currentBeat + b, 1.0, 95, false); // Baixo reto no 1
-                        notes.forEach(n => addNote(n, currentBeat + b + 1.0, 0.4, 88, true)); // Skank na cabeça do 2
+                        addNote(bassNote, currentBeat + b, 1.0, 95); 
+                        // Skank com leve atraso do Reggae Roots
+                        notes.forEach(n => addNote(n, currentBeat + b + 1.05, 0.4, 85)); 
                     }
                 }
                 else if (patternType === 'bossa_nova') {
                     for (let b = 0; b < chordDuration; b += 2) {
-                        addNote(bassNote, currentBeat + b, 1.5, 90, false); // Tônica
-                        if(chordDuration > 1) addNote(bassNote + 7, currentBeat + b + 1.5, 0.5, 80, false); // Quinta
+                        addNote(bassNote, currentBeat + b, 1.5, 90); 
+                        if(chordDuration > 1) addNote(bassNote + 7, currentBeat + b + 1.5, 0.5, 80); 
                     }
-                    let bossaRhythm = [0, 1.5, 2.5]; // Clave Bossa Nova (Partido Alto)
+                    // Clave Bossa levemente antecipada
+                    let bossaRhythm = [0, 1.45, 2.45]; 
                     for(let b=0; b<chordDuration; b+=4) {
                         bossaRhythm.forEach(offset => {
                             if (b + offset < chordDuration) {
-                                notes.forEach(n => addNote(n, currentBeat + b + offset, 0.8, 78, true)); 
+                                notes.forEach(n => addNote(n, currentBeat + b + offset, 0.8, 75)); 
                             }
                         });
                     }
                 }
                 else if (patternType === 'synth_pulse') {
                     for (let b = 0; b < chordDuration; b += 0.5) {
-                        addNote(bassNote, currentBeat + b, 0.25, 95, false); 
+                        addNote(bassNote, currentBeat + b, 0.25, 95); 
                     }
-                    notes.forEach(n => addNote(n, currentBeat, chordDuration, 70, false)); 
+                    notes.forEach(n => addNote(n, currentBeat, chordDuration, 65)); 
                 }
                 else if (patternType === 'syncopated') {
-                    addNote(bassNote, currentBeat, chordDuration, 90, false);
-                    notes.forEach(n => addNote(n, currentBeat + 0.5, 1.0, 80, true));
+                    addNote(bassNote, currentBeat, chordDuration, 90);
+                    notes.forEach(n => addNote(n, currentBeat + 0.5, 1.0, 80));
                     if(chordDuration > 1) {
-                        notes.forEach(n => addNote(n, currentBeat + 1.5, 1.0, 85, true));
+                        notes.forEach(n => addNote(n, currentBeat + 1.5, 1.0, 85));
                     }
                 }
                 else if (patternType === 'fingerpick') {
-                    addNote(bassNote, currentBeat, chordDuration, 90, false);
+                    addNote(bassNote, currentBeat, chordDuration, 90);
                     let step = 0;
                     while (step < chordDuration) {
                         const noteToPlay = step === 0 ? bassNote : notes[Math.floor(step * 2) % notes.length];
-                        addNote(noteToPlay, currentBeat + step, 1.0, step === 0 ? 90 : 75, false);
+                        addNote(noteToPlay, currentBeat + step, 1.0, step === 0 ? 90 : 70);
                         step += 0.5; 
                     }
                 }
                 else { 
-                    addNote(bassNote, currentBeat, chordDuration, 95, false);
-                    notes.forEach((n, i) => addNote(n, currentBeat + (i * 0.015), chordDuration, 75, false));
+                    addNote(bassNote, currentBeat, chordDuration, 95);
+                    notes.forEach((n, i) => addNote(n, currentBeat + (i * 0.015), chordDuration, 75));
                 }
                 
                 currentBeat += chordDuration;
@@ -556,9 +585,10 @@
         }
 
         function stopPlayback() {
+            // CORREÇÃO DO PARAR: Cancela tudo perfeitamente
             playTimeouts.forEach(clearTimeout);
             playTimeouts = [];
-            sampler.releaseAll();
+            sampler.releaseAll(); 
             document.querySelectorAll('.chord-box').forEach(b => b.classList.remove('playing'));
             document.querySelectorAll('.key').forEach(k => k.classList.remove('active'));
             setButtonsState(false);
@@ -679,7 +709,6 @@
 
             const state = { progressionData, patternType, rootIdx, scaleIntervals, keySigString: getVexFlowKeySignature(rootIdx, scaleType), baseOctaveMidi, bpmValue };
             
-            // Corrige o comportamento dos botões Anterior e Repetir
             historyIndex++;
             progressionHistory = progressionHistory.slice(0, historyIndex);
             progressionHistory.push(state);
@@ -705,7 +734,6 @@
             stopPlayback();
             setButtonsState(true);
 
-            // Atualiza os seletores da UI para refletir o estado do histórico
             document.getElementById('bpm-control').value = state.bpmValue;
 
             const container = document.getElementById('progression-display');
@@ -714,7 +742,7 @@
             renderScore(state.progressionData, state.keySigString);
 
             state.progressionData.forEach((data, i) => {
-                const durText = data.beats >= 4 ? 'Semibreve' : data.beats === 2 ? 'Mínima' : 'Semínima';
+                const durText = data.beats >= 4 ? 'Semibreve' : data.beats === 2 ? 'Mínima' : (data.beats === 1 ? 'Semínima' : 'Duração ' + data.beats);
                 const box = document.createElement('div');
                 box.className = 'chord-box';
                 box.id = `chord-box-${i}`;
@@ -729,18 +757,15 @@
 
             const schedule = generateScheduledNotes(state.progressionData, state.patternType, state.baseOctaveMidi);
             const beatToSeconds = 60 / state.bpmValue;
-            const now = Tone.now() + 0.1; // Sincronização nativa do Tone.js para ritmo perfeito
 
+            // VOLTEI O COMANDO PRO SETTIMEOUT: Agora o botão parar funciona 100% de novo.
             schedule.notes.forEach(noteData => {
                 const freq = Tone.Frequency(noteData.midi, "midi").toNote();
                 const delaySecs = noteData.timeOffset * beatToSeconds;
                 const durSecs = noteData.duration * beatToSeconds;
                 
-                // Disparo imune ao atraso do navegador
-                sampler.triggerAttackRelease(freq, durSecs, now + delaySecs, noteData.velocity / 127);
-                
-                // Interface visual via setTimeout
                 playTimeouts.push(setTimeout(() => {
+                    sampler.triggerAttackRelease(freq, durSecs, Tone.now(), noteData.velocity / 127);
                     const keyEl = document.getElementById(`note-${noteData.midi}`);
                     if(keyEl) keyEl.classList.add('active');
                 }, delaySecs * 1000));
