@@ -271,7 +271,7 @@
             return VEX_KEYS[(rootIdx + (offsets[scaleType] || 0) + 12) % 12];
         }
 
-        // --- MOTOR DE VOICINGS + DROP-2 BLINDADO CONTRA UNDEFINED ---
+        // --- MOTOR DE VOICINGS LIMPO E SEGURO (Sem inversões malucas de Drop-2) ---
         function getDiatonicVoicing(scaleIntervals, rootDegree, voicingType) {
             const len = scaleIntervals.length;
             const getInterval = (offset) => {
@@ -302,17 +302,9 @@
                 case 'triad': default: notes = [r, t, fi]; break;
             }
 
-            // Filtra qualquer elemento nulo ou undefined gerado por folga de índice
+            // Garante apenas notas válidas e ordenadas de forma natural (sem bagunçar o voicing)
             notes = notes.filter(n => typeof n === 'number' && !isNaN(n));
-
-            // APLICAÇÃO SEGURA DO DROP-2
-            if (notes.length >= 4) {
-                notes.sort((a, b) => a - b);
-                let dropNote = notes[notes.length - 2] - 12;
-                notes[notes.length - 2] = dropNote;
-                notes.sort((a, b) => a - b);
-            }
-
+            notes.sort((a, b) => a - b);
             return notes;
         }
 
