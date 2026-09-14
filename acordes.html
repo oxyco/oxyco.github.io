@@ -33,7 +33,7 @@
         select:hover { border-color: var(--accent); }
 
         .playback-controls { width: 100%; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 15px; }
-        .playback-controls button { flex: 1 1 130px; max-width: 200px; font-weight: bold; padding: 14px; font-size: 14px; border-radius: 8px; border: none; cursor: pointer; transition: 0.2s; display: flex; align-items: center; justify-content: center; gap: 6px;}
+        .playback-controls button { flex: 1 1 130px; max-width: 200px; font-weight: bold; padding: 14px; font-size: 14px; border-radius: 8px; border: none; cursor: pointer; transition: 0.2s;}
         
         button.primary-btn { background: var(--accent); color: #fff;}
         button.primary-btn:hover:not(:disabled) { background: var(--accent-hover); transform: translateY(-2px); box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);}
@@ -92,11 +92,11 @@
             </select>
         </div>
         
-        <div class="control-group" id="group-scale">
-            <label>Escala Básica</label>
+        <div class="control-group" id="group-scale-type">
+            <label>Escala</label>
             <select id="scale-type">
-                <option value="major">Maior (Jônio)</option>
-                <option value="minor" selected>Menor Natural (Eólio)</option>
+                <option value="major">Maior</option>
+                <option value="minor" selected>Menor Natural</option>
                 <option value="harmonic_minor">Menor Harmônica</option>
                 <option value="dorian">Dórico</option>
             </select>
@@ -116,12 +116,12 @@
         </div>
 
         <div class="control-group">
-            <label>Arranjo (Ritmo)</label>
+            <label>Arranjo</label>
             <select id="arrangement-pattern">
-                <option value="auto">Automático</option>
-                <option value="block_bass">Blocos Sustentados</option>
-                <option value="fingerpick">Dedilhado Contínuo</option>
-                <option value="fast_pluck">Pluck Rápido</option>
+                <option value="auto">Automático pelo Estilo</option>
+                <option value="block_bass">Blocos</option>
+                <option value="fingerpick">Dedilhado</option>
+                <option value="fast_pluck">Pluck</option>
                 <option value="syncopated">Sincopado</option>
                 <option value="roll_arpeggio">Arpejo Longo</option>
             </select>
@@ -139,11 +139,10 @@
         <div class="control-group">
             <label>Oitava dos Acordes</label>
             <select id="octave-select">
-                <option value="24">1ª Oitava (Sub-Grave)</option>
-                <option value="36">2ª Oitava (Grave)</option>
-                <option value="48" selected>3ª Oitava (Médio Corpo)</option>
-                <option value="60">4ª Oitava (Médio Agudo)</option>
-                <option value="72">5ª Oitava (Brilhante)</option>
+                <option value="36">Oitava 2</option>
+                <option value="48" selected>Oitava 3</option>
+                <option value="60">Oitava 4</option>
+                <option value="72">Oitava 5</option>
             </select>
         </div>
 
@@ -155,13 +154,13 @@
         </div>
     </div>
 
-    <div class="score-header">Partitura Simplificada (Mão Direita e Baixo)</div>
+    <div class="score-header">Partitura Simplificada</div>
     <div id="score-container"><div id="score"></div></div>
     
     <div class="progression-container" id="progression-display"></div>
     <div id="scale-display"></div>
     <div class="piano-wrapper"><div id="piano"></div></div>
-    <div id="drag-pad" draggable="true" title="Arraste para a sua DAW">↓ Arraste o MIDI Exato para a sua DAW</div>
+    <div id="drag-pad" draggable="true" title="Arraste para a sua DAW">↓ Arraste o MIDI para a DAW</div>
 
     <script>
         const VF = Vex.Flow;
@@ -176,18 +175,18 @@
             'dorian':         [0, 2, 3, 5, 7, 9, 10]
         };
 
-        // DICIONÁRIO DE ACORDES ABSOLUTO (Em Semitons)
+        // BUG FATAL CORRIGIDO: Dicionário 100% completo, previne crash
         const CHORD_DICT = {
             'M': [0, 4, 7], 'm': [0, 3, 7], 'dim': [0, 3, 6], 
             '5': [0, 7], 'sus2': [0, 2, 7], 'sus4': [0, 5, 7], 
             '7': [0, 4, 7, 10], 'm7': [0, 3, 7, 10], 'M7': [0, 4, 7, 11], 
             'add9': [0, 4, 7, 14], 'madd9': [0, 3, 7, 14],
             '9': [0, 4, 7, 10, 14], 'm9': [0, 3, 7, 10, 14], 'M9': [0, 4, 7, 11, 14],
-            '11': [0, 7, 10, 14, 17], 'm11': [0, 3, 7, 10, 17]
+            '11': [0, 7, 10, 14, 17], 'm11': [0, 3, 7, 10, 17],
+            'm7b5': [0, 3, 6, 10], '7b9': [0, 4, 7, 10, 13]
         };
 
-        // MOTOR DE GERAÇÃO MASSIVO (Espinhas Dorsais de 2000+ Músicas)
-        // Cada array contém os intervalos em semitons a partir da tônica, e a qualidade exata.
+        // MATRIZ DE PROGRESSÕES REAIS (Acordes autênticos que criam música de verdade)
         const TEMPLATES = {
             'pop': [
                 [{r:0, q:'M'}, {r:7, q:'M'}, {r:9, q:'m'}, {r:5, q:'M'}],
@@ -195,7 +194,7 @@
                 [{r:0, q:'M'}, {r:4, q:'m'}, {r:5, q:'add9'}, {r:7, q:'sus4'}],
                 [{r:5, q:'M'}, {r:0, q:'M'}, {r:7, q:'M'}, {r:9, q:'m'}],
                 [{r:0, q:'add9'}, {r:5, q:'sus2'}, {r:9, q:'m7'}, {r:7, q:'M'}],
-                [{r:9, q:'m'}, {r:7, q:'M'}, {r:5, q:'M'}, {r:5, q:'m'}], // O clássico IVm
+                [{r:9, q:'m'}, {r:7, q:'M'}, {r:5, q:'M'}, {r:5, q:'m'}], 
                 [{r:0, q:'M'}, {r:5, q:'M'}, {r:2, q:'m'}, {r:7, q:'sus4'}]
             ],
             'acoustic_blues': [
@@ -214,18 +213,18 @@
                 [{r:0, q:'m'}, {r:3, q:'M'}, {r:10, q:'M'}, {r:5, q:'M'}]
             ],
             'hiphop_trap': [
-                [{r:0, q:'m'}, {r:8, q:'M'}, {r:0, q:'m'}, {r:1, q:'M'}], // Phrygian escuro
+                [{r:0, q:'m'}, {r:8, q:'M'}, {r:0, q:'m'}, {r:1, q:'M'}],
                 [{r:0, q:'m9'}, {r:5, q:'m9'}, {r:7, q:'m7'}, {r:0, q:'m9'}],
                 [{r:0, q:'m'}, {r:3, q:'M'}, {r:7, q:'m'}, {r:10, q:'M'}],
                 [{r:0, q:'m'}, {r:7, q:'m'}, {r:8, q:'M'}, {r:5, q:'m'}],
                 [{r:0, q:'m11'}, {r:8, q:'M7'}, {r:10, q:'M'}, {r:0, q:'m'}]
             ],
             'rnb_jazz': [
-                [{r:2, q:'m9'}, {r:7, q:'9'}, {r:0, q:'M9'}, {r:9, q:'m7'}], // ii-V-I-vi
+                [{r:2, q:'m9'}, {r:7, q:'9'}, {r:0, q:'M9'}, {r:9, q:'m7'}], 
                 [{r:0, q:'M9'}, {r:4, q:'m7'}, {r:9, q:'m9'}, {r:2, q:'m9'}],
                 [{r:5, q:'M7'}, {r:4, q:'m7'}, {r:2, q:'m9'}, {r:0, q:'M7'}],
                 [{r:0, q:'m9'}, {r:5, q:'m9'}, {r:2, q:'m7'}, {r:7, q:'7'}],
-                [{r:2, q:'m11'}, {r:1, q:'7'}, {r:0, q:'M9'}, {r:9, q:'7'}] // Tritone sub
+                [{r:2, q:'m11'}, {r:1, q:'7'}, {r:0, q:'M9'}, {r:9, q:'7'}] 
             ],
             'edm_house': [
                 [{r:9, q:'m'}, {r:5, q:'M'}, {r:0, q:'M'}, {r:7, q:'sus4'}],
@@ -237,7 +236,7 @@
             'classical': [
                 [{r:0, q:'m'}, {r:5, q:'m'}, {r:7, q:'7'}, {r:0, q:'m'}],
                 [{r:0, q:'M'}, {r:5, q:'M'}, {r:2, q:'m'}, {r:7, q:'7'}],
-                [{r:0, q:'M'}, {r:7, q:'M'}, {r:9, q:'m'}, {r:4, q:'m'}], // Canon
+                [{r:0, q:'M'}, {r:7, q:'M'}, {r:9, q:'m'}, {r:4, q:'m'}], 
                 [{r:0, q:'M'}, {r:9, q:'m'}, {r:5, q:'M'}, {r:7, q:'7'}]
             ]
         };
@@ -265,17 +264,17 @@
             baseUrl: "https://tonejs.github.io/audio/salamander/",
             onload: () => {
                 document.getElementById('btn-generate').disabled = false;
-                document.getElementById('btn-generate').innerHTML = "🎲 Gerar Composição";
+                document.getElementById('btn-generate').innerHTML = "Gerar Nova Composição";
             }
         }).toDestination();
-        sampler.volume.value = -1; 
+        sampler.volume.value = -3; 
 
         function switchMode(mode) {
             currentMode = mode;
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
             document.getElementById(`tab-${mode}`).classList.add('active');
             
-            document.getElementById('group-scale').style.display = mode === 'scale' ? 'flex' : 'none';
+            document.getElementById('group-scale-type').style.display = mode === 'scale' ? 'flex' : 'none';
             document.getElementById('group-style').style.display = mode === 'scale' ? 'none' : 'flex';
         }
 
@@ -295,24 +294,44 @@
             }
         }
 
-        function getVexFlowKeySignature(rootIdx, scaleType) {
-            const offsets = { 'major': 0, 'minor': 3, 'harmonic_minor': 3, 'dorian': -2 };
-            return VEX_KEYS[(rootIdx + (offsets[scaleType] || 0) + 12) % 12];
+        // MUTAÇÃO: Aplica substituições lógicas para dar criatividade, sem destruir a música
+        function mutateChord(quality, styleId) {
+            if (Math.random() > 0.40) return quality; 
+            const mutations = {
+                'pop': { 'M': ['sus2', 'add9'], 'm': ['sus4', 'm7'] },
+                'acoustic_blues': { '7': ['9', '7b9'] },
+                'alt_rock': { '5': ['sus2', 'M'], 'M': ['sus4'] },
+                'hiphop_trap': { 'm': ['m9', 'sus2'], 'M': ['M7'] },
+                'rnb_jazz': { 'M9': ['M7'], 'm9': ['m7', 'm11'], '9': ['7b9'] },
+                'edm_house': { 'M': ['sus2'], 'm': ['sus4'] },
+                'classical': { 'M': ['sus4', '7'], 'm': ['dim'] }
+            };
+            const mutList = mutations[styleId]?.[quality];
+            if (mutList && mutList.length > 0) {
+                return mutList[Math.floor(Math.random() * mutList.length)];
+            }
+            return quality;
         }
 
-        function renderScale(rootIdx, scaleIntervals) {
-            const container = document.getElementById('scale-display');
-            container.innerHTML = `<span style="color:var(--text-muted); font-size: 11px; font-weight:bold; letter-spacing:0.5px; padding-top:4px;">ESCALA ATIVA:</span>`;
-            scaleIntervals.forEach(interv => {
-                const absNote = (rootIdx + interv) % 12;
-                const pill = document.createElement('div');
-                pill.className = 'scale-note-pill';
-                pill.style.backgroundColor = NOTE_COLORS[absNote];
-                pill.innerText = NOTES[absNote];
-                container.appendChild(pill);
+        // SEPARAÇÃO ESTRITA DE OITAVAS
+        function buildVoicing(rootOffsetAbs, quality, baseOctaveMidi) {
+            const intervals = CHORD_DICT[quality];
+            const rootMidi = rootOffsetAbs;
+            
+            // O Baixo fica isolado na Oitava 2 sempre (Grave puro 36-47)
+            let bassNote = 36 + (rootMidi % 12); 
+
+            // Os acordes vão para a oitava escolhida pelo usuário
+            let chordNotes = [];
+            intervals.forEach(inv => {
+                chordNotes.push(baseOctaveMidi + (rootMidi % 12) + inv);
             });
+
+            chordNotes = [...new Set(chordNotes)].sort((a,b) => a-b);
+            return { bassNote, chordNotes };
         }
 
+        // PROTEÇÃO NA PARTITURA: Impede o VexFlow de "Crashar" ao renderizar jazz chords complexos
         function renderScore(progressionData) {
             const div = document.getElementById("score");
             div.innerHTML = ""; 
@@ -334,13 +353,18 @@
             progressionData.forEach(chord => {
                 let tKeys = [], bKeys = [], tAcc = [], bAcc = [];
                 let tColors = [], bColors = [];
+                let usedKeysT = new Set(); // Escudo anti-crash do Vexflow
                 
                 chord.chordNotes.forEach(m => {
                     const noteIdx = m % 12;
                     const oct = Math.floor(m / 12) - 1;
-                    tKeys.push(`${keysMap[noteIdx]}/${oct}`);
-                    tColors.push(NOTE_COLORS[noteIdx]);
-                    if (ACC_MAP[noteIdx]) tAcc.push({ index: tKeys.length - 1, type: ACC_MAP[noteIdx], color: NOTE_COLORS[noteIdx] });
+                    const keyStr = `${keysMap[noteIdx]}/${oct}`;
+                    if(!usedKeysT.has(keyStr)) {
+                        usedKeysT.add(keyStr);
+                        tKeys.push(keyStr);
+                        tColors.push(NOTE_COLORS[noteIdx]);
+                        if (ACC_MAP[noteIdx]) tAcc.push({ index: tKeys.length - 1, type: ACC_MAP[noteIdx], color: NOTE_COLORS[noteIdx] });
+                    }
                 });
 
                 const bNoteIdx = chord.bassNote % 12;
@@ -351,15 +375,21 @@
 
                 const bDur = chord.beats >= 4 ? "w" : chord.beats >= 2 ? "h" : "q";
 
-                let tn = new VF.StaveNote({ keys: tKeys, duration: bDur, clef: "treble" });
-                tAcc.forEach(a => { let acc = new VF.Accidental(a.type); acc.setStyle({fillStyle: a.color, strokeStyle: a.color}); tn.addModifier(acc, a.index); });
-                tn.keyProps.forEach((_, idx) => tn.setKeyStyle(idx, { fillStyle: tColors[idx], strokeStyle: tColors[idx] }));
-                trebleNotes.push(tn);
+                if (tKeys.length > 0) {
+                    let tn = new VF.StaveNote({ keys: tKeys, duration: bDur, clef: "treble" });
+                    tAcc.forEach(a => { let acc = new VF.Accidental(a.type); acc.setStyle({fillStyle: a.color, strokeStyle: a.color}); tn.addModifier(acc, a.index); });
+                    tn.keyProps.forEach((_, idx) => tn.setKeyStyle(idx, { fillStyle: tColors[idx], strokeStyle: tColors[idx] }));
+                    trebleNotes.push(tn);
+                } else {
+                    trebleNotes.push(new VF.StaveNote({ keys: ["b/4"], duration: bDur+"r", clef: "treble" })); 
+                }
 
-                let bn = new VF.StaveNote({ keys: bKeys, duration: bDur, clef: "bass" });
-                bAcc.forEach(a => { let acc = new VF.Accidental(a.type); acc.setStyle({fillStyle: a.color, strokeStyle: a.color}); bn.addModifier(acc, a.index); });
-                bn.keyProps.forEach((_, idx) => bn.setKeyStyle(idx, { fillStyle: bColors[idx], strokeStyle: bColors[idx] }));
-                bassNotes.push(bn);
+                if (bKeys.length > 0) {
+                    let bn = new VF.StaveNote({ keys: bKeys, duration: bDur, clef: "bass" });
+                    bAcc.forEach(a => { let acc = new VF.Accidental(a.type); acc.setStyle({fillStyle: a.color, strokeStyle: a.color}); bn.addModifier(acc, a.index); });
+                    bn.keyProps.forEach((_, idx) => bn.setKeyStyle(idx, { fillStyle: bColors[idx], strokeStyle: bColors[idx] }));
+                    bassNotes.push(bn);
+                }
             });
 
             const totalBeats = progressionData.reduce((acc, curr) => acc + curr.beats, 0);
@@ -374,7 +404,6 @@
             bassVoice.draw(context, bottomStave);
         }
 
-        // MOTOR RÍTMICO - BAIXO ANCORADO
         function generateScheduledNotes(progressionData, patternType) {
             let scheduledNotes = []; 
             let currentBeat = 0;
@@ -382,7 +411,6 @@
             progressionData.forEach(chord => {
                 const chordDuration = chord.beats;
                 const notes = chord.chordNotes;
-                // Baixo âncora firme na oitava 2
                 const bassNote = chord.bassNote;
 
                 function addNote(midi, timeOffset, duration, velocity) {
@@ -390,11 +418,11 @@
                 }
 
                 if (patternType === 'block_bass' || patternType === 'none') {
-                    addNote(bassNote, currentBeat, chordDuration, 100); 
-                    notes.forEach((n, i) => addNote(n, currentBeat + (i * 0.02), chordDuration, 80)); 
+                    addNote(bassNote, currentBeat, chordDuration, 95); 
+                    notes.forEach((n, i) => addNote(n, currentBeat + (i * 0.02), chordDuration, 75)); 
                 } 
                 else if (patternType === 'fingerpick') {
-                    addNote(bassNote, currentBeat, chordDuration, 95);
+                    addNote(bassNote, currentBeat, chordDuration, 90);
                     let step = 0;
                     while (step < chordDuration) {
                         const noteToPlay = step === 0 ? bassNote : notes[Math.floor(step * 2) % notes.length];
@@ -403,14 +431,14 @@
                     }
                 }
                 else if (patternType === 'syncopated') {
-                    addNote(bassNote, currentBeat, chordDuration, 100);
+                    addNote(bassNote, currentBeat, chordDuration, 95);
                     for(let b=0; b < chordDuration; b+=2) {
                         notes.forEach(n => addNote(n, currentBeat+b, 1.5, 75));
                         if(chordDuration >= 2) notes.forEach(n => addNote(n, currentBeat + b + 1.5, 1.0, 85));
                     }
                 }
                 else if (patternType === 'fast_pluck') {
-                    addNote(bassNote, currentBeat, chordDuration, 95);
+                    addNote(bassNote, currentBeat, chordDuration, 90);
                     let step = 0;
                     while (step < chordDuration) {
                         const n = notes[Math.floor(step * 4) % notes.length];
@@ -419,9 +447,9 @@
                     }
                 }
                 else if (patternType === 'roll_arpeggio') {
-                    addNote(bassNote, currentBeat, chordDuration, 95);
+                    addNote(bassNote, currentBeat, chordDuration, 90);
                     notes.forEach((n, i) => {
-                        addNote(n, currentBeat + (i * 0.1), chordDuration - (i * 0.1), 80);
+                        addNote(n, currentBeat + (i * 0.1), chordDuration - (i * 0.1), 75);
                     });
                 }
                 currentBeat += chordDuration;
@@ -482,7 +510,6 @@
             setButtonsState(false);
         }
 
-        // MOTOR PRINCIPAL
         async function generateNew() {
             if (Tone.context.state !== 'running') await Tone.start();
             stopPlayback();
@@ -500,7 +527,7 @@
                 const scaleType = document.getElementById('scale-type').value;
                 const scaleIntervals = SCALES[scaleType];
                 const voicings = ['M', 'm', 'sus2', 'add9']; 
-                const numChords = Math.floor(Math.random() * 4) + 4; // 4 a 7 acordes
+                const numChords = Math.floor(Math.random() * 4) + 4; 
                 patternType = arrOverride === 'auto' ? 'block_bass' : arrOverride;
 
                 for (let i = 0; i < numChords; i++) {
@@ -508,12 +535,10 @@
                     const rootOffsetAbs = rootIdx + scaleIntervals[degree];
                     const voicing = voicings[Math.floor(Math.random() * voicings.length)];
                     
-                    const bassNote = 36 + (rootOffsetAbs % 12);
-                    const chordNotes = CHORD_DICT[voicing].map(inv => baseOctaveMidi + (rootOffsetAbs % 12) + inv);
-                    
+                    const { bassNote, chordNotes } = buildVoicing(rootOffsetAbs, voicing, baseOctaveMidi);
                     let beats = rhythmOverride !== 'auto' ? parseInt(rhythmOverride) : [2, 4][Math.floor(Math.random() * 2)];
+                    
                     let chordName = NOTES[rootOffsetAbs % 12] + (voicing === 'M' ? '' : voicing);
-
                     progressionData.push({ chordName, bassNote, chordNotes, functionLabel: `Grau ${degree+1}`, voicing, beats });
                 }
             } else {
@@ -523,7 +548,7 @@
                 const templates = TEMPLATES[styleId];
                 let idx = Math.floor(Math.random() * templates.length);
                 
-                // Força não repetir o último template gerado
+                // Força não repetir o último template
                 if (idx === lastTemplateIdx && templates.length > 1) {
                     idx = (idx + 1) % templates.length;
                 }
@@ -531,7 +556,7 @@
                 
                 let sequence = [...templates[idx]];
 
-                // MUTAÇÃO: Expande a sequência para garantir criatividade extensa (4 a 8 compassos)
+                // Junta até duas sequências garantindo criatividade e imprevisibilidade
                 if (Math.random() > 0.4) {
                     let idx2 = Math.floor(Math.random() * templates.length);
                     sequence = sequence.concat(templates[idx2]);
@@ -542,17 +567,10 @@
                 for (let i = 0; i < sequence.length; i++) {
                     const item = sequence[i];
                     
-                    // Mutação ocasional de qualidade para enriquecer sem estragar
-                    let finalQ = item.q;
-                    if (Math.random() > 0.6) {
-                        if (finalQ === 'M') finalQ = ['sus2', 'add9'][Math.floor(Math.random()*2)];
-                        else if (finalQ === 'm') finalQ = ['m7', 'sus4'][Math.floor(Math.random()*2)];
-                        else if (finalQ === '5') finalQ = ['sus2'][0];
-                    }
-
+                    const mutatedVoicing = mutateChord(item.q, styleId);
                     const rootOffsetAbs = rootIdx + item.r;
-                    const bassNote = 36 + (rootOffsetAbs % 12);
-                    const chordNotes = CHORD_DICT[finalQ].map(inv => baseOctaveMidi + (rootOffsetAbs % 12) + inv);
+                    
+                    const { bassNote, chordNotes } = buildVoicing(rootOffsetAbs, mutatedVoicing, baseOctaveMidi);
                     
                     let beats = 4;
                     if (rhythmOverride !== 'auto') {
@@ -562,10 +580,10 @@
                         if (['fingerpick', 'fast_pluck'].includes(patternType)) beats = Math.max(2, beats);
                     }
                     
-                    let vName = finalQ === 'M' ? '' : (finalQ === 'm' ? 'm' : finalQ.replace('power', '5'));
+                    let vName = mutatedVoicing === 'M' ? '' : (mutatedVoicing === 'm' ? 'm' : mutatedVoicing.replace('power', '5'));
                     let chordName = NOTES[rootOffsetAbs % 12] + vName;
 
-                    progressionData.push({ chordName, bassNote, chordNotes, functionLabel: `Arranjo ${i+1}`, voicing: finalQ, beats });
+                    progressionData.push({ chordName, bassNote, chordNotes, functionLabel: `Arranjo ${i+1}`, voicing: mutatedVoicing, beats });
                 }
             }
 
