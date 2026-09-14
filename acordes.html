@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ACORDES E PARTITURAS</title>
+    <title>ACORDES E PARTITURAS (Pro Edition - Motores Rítmicos Reais)</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vexflow@4.2.2/build/cjs/vexflow.js"></script>
     
@@ -70,7 +70,7 @@
     </style>
 </head>
 <body onload="initializeApp()">
-    <h1>ACORDES E PARTITURAS</h1>
+    <h1>ACORDES E PARTITURAS (Motores Rítmicos)</h1>
 
     <div class="tabs">
         <button class="tab-btn active" id="tab-scale" onclick="switchMode('scale')">Escala Livre</button>
@@ -126,21 +126,13 @@
         <div class="control-group">
             <label>Arranjo (Como Tocar)</label>
             <select id="arrangement-pattern">
-                <option value="auto">Auto (Estilo Base)</option>
+                <option value="auto">Auto (Levada Original)</option>
                 <option value="block_bass">Blocos (Mínimas/Semibreves)</option>
                 <option value="fingerpick">Dedilhado (Colcheias)</option>
-                <option value="fast_pluck">Pluck (Semicolcheias)</option>
                 <option value="syncopated">Sincopado (Trap/R&B)</option>
-                <option value="roll_arpeggio">Arpejo Longo (Soul/Clássico)</option>
-            </select>
-        </div>
-
-        <div class="control-group">
-            <label>Duração (Ritmo)</label>
-            <select id="rhythm-control">
-                <option value="auto">Dinâmico (Automático)</option>
-                <option value="4">Longo (4 Tempos)</option>
-                <option value="2">Curto (2 Tempos)</option>
+                <option value="bossa_nova">Bossa Nova (Clave)</option>
+                <option value="reggae_skank">Reggae (Contratempo)</option>
+                <option value="synth_pulse">Synthwave (Pulsante)</option>
             </select>
         </div>
 
@@ -155,13 +147,13 @@
 
         <div class="playback-controls">
             <button id="btn-prev" class="secondary-btn" onclick="playPrevious()" disabled>⏮ Anterior</button>
-            <button id="btn-generate" class="primary-btn" onclick="generateNew()" disabled>Carregando Banco...</button>
+            <button id="btn-generate" class="primary-btn" onclick="generateNew()" disabled>Carregando...</button>
             <button id="btn-stop" class="stop-btn" onclick="stopPlayback()" disabled>⏹ Parar</button>
             <button id="btn-repeat" class="secondary-btn" onclick="repeatCurrent()" disabled>🔁 Repetir</button>
         </div>
     </div>
 
-    <div class="score-header">Leitura Harmônica Simplificada (Acordes Base da Partitura)</div>
+    <div class="score-header">Leitura Harmônica Simplificada (Acordes Base)</div>
     <div id="score-container"><div id="score"></div></div>
     
     <div class="progression-container" id="progression-display"></div>
@@ -188,17 +180,18 @@
             'locrian':        [0, 1, 3, 5, 6, 8, 10]
         };
 
+        // MAPEAMENTO REAL DE LEVADAS POR ESTILO
         const STYLE_PATTERNS = {
             'pop_rock': 'block_bass',
-            'jazz_functional': 'roll_arpeggio',
+            'jazz_functional': 'block_bass',
             'blues_soul': 'fingerpick',
             'hiphop_trap': 'syncopated',
-            'electronic_modern': 'fast_pluck',
-            'synthwave_retrowave': 'block_bass',
+            'electronic_modern': 'block_bass',
+            'synthwave_retrowave': 'synth_pulse',
             'metal_rock': 'block_bass',
-            'latin_bossa': 'syncopated',
-            'cinematic': 'roll_arpeggio',
-            'reggae_dub': 'syncopated'
+            'latin_bossa': 'bossa_nova',
+            'cinematic': 'block_bass',
+            'reggae_dub': 'reggae_skank'
         };
 
         let currentMode = 'scale'; 
@@ -223,12 +216,12 @@
         async function initializeApp() {
             buildPiano();
             try {
-                // Tenta carregar o JSON com cache desativado
                 const response = await fetch('./dataset.json', { cache: "no-store" });
                 if (!response.ok) throw new Error("Dataset não encontrado");
                 musicDatabase = await response.json();
             } catch (error) {
-                console.log("Aviso: Falha ao buscar dataset.json. Verifique se ele está na mesma pasta.");
+                console.log("Usando fallback de segurança.");
+                musicDatabase = createFallbackDataset();
             }
             checkReady();
         }
@@ -241,6 +234,15 @@
                 btn.disabled = false;
                 btn.innerText = "Gerar Sequência";
             }
+        }
+
+        function createFallbackDataset() {
+            return {
+                'pop_rock': { progressions: [[0,4,5,3]], voicings: ['add9', 'triad'] },
+                'latin_bossa': { progressions: [[0,5,1,4]], voicings: ['maj9', 'm9'] },
+                'reggae_dub': { progressions: [[0,3,0,4]], voicings: ['seventh', 'triad'] },
+                'synthwave_retrowave': { progressions: [[0,6,5,4]], voicings: ['add9'] }
+            };
         }
 
         function switchMode(mode) {
@@ -401,6 +403,7 @@
             bassVoice.draw(context, bottomStave);
         }
 
+        // MOTORES RÍTMICOS REAIS (Onde a Mágica Acontece)
         function generateScheduledNotes(progressionData, patternType) {
             let scheduledNotes = []; 
             let currentBeat = 0;
@@ -418,10 +421,47 @@
                     scheduledNotes.push({ midi, timeOffset: finalTime, duration, velocity: Math.round(finalVel) });
                 }
 
-                if (patternType === 'block_bass' || patternType === 'none') {
+                if (patternType === 'reggae_skank') {
+                    // Baixo duro nos tempos fortes
+                    addNote(bassNote, currentBeat, 1.0, 95, false);
+                    if (chordDuration >= 4) addNote(bassNote, currentBeat + 2, 1.0, 95, false);
+                    
+                    // Acordes curtos nos contratempos (O "Skank" clássico)
+                    for (let b = 0; b < chordDuration; b++) {
+                        notes.forEach(n => addNote(n, currentBeat + b + 0.5, 0.25, 85));
+                    }
+                }
+                else if (patternType === 'bossa_nova') {
+                    // Baixo imitando o Surdo (Tônica no 1, Quinta no 2 e meio)
+                    for (let b = 0; b < chordDuration; b += 2) {
+                        addNote(bassNote, currentBeat + b, 1.0, 90, false);
+                        if (chordDuration > 1) {
+                            addNote(bassNote + 7, currentBeat + b + 1.5, 0.5, 80, false); // Quinta justa
+                        }
+                    }
+                    // Clave Sincopada de Bossa Nova para os acordes
+                    let bossaRhythm = [0, 1.5, 2.5, 4, 5.5, 6.5]; 
+                    bossaRhythm.forEach(offset => {
+                        if (offset < chordDuration) {
+                            notes.forEach(n => addNote(n, currentBeat + offset, 0.5, 75));
+                        }
+                    });
+                }
+                else if (patternType === 'synth_pulse') {
+                    // Baixo em colcheias contínuas (Oitentista)
+                    for (let b = 0; b < chordDuration; b += 0.5) {
+                        addNote(bassNote, currentBeat + b, 0.25, 90, false);
+                    }
+                    // Acorde estático segurando a cama harmônica (Pad)
+                    notes.forEach(n => addNote(n, currentBeat, chordDuration, 70));
+                }
+                else if (patternType === 'syncopated') {
                     addNote(bassNote, currentBeat, chordDuration, 95, false);
-                    notes.forEach((n, i) => addNote(n, currentBeat + (i * 0.015), chordDuration, 75));
-                } 
+                    for(let b=0; b < chordDuration; b+=2) {
+                        notes.forEach(n => addNote(n, currentBeat+b, 1.5, 75));
+                        if(chordDuration >= 2) notes.forEach(n => addNote(n, currentBeat + b + 1.5, 1.0, 85));
+                    }
+                }
                 else if (patternType === 'fingerpick') {
                     addNote(bassNote, currentBeat, chordDuration, 90, false);
                     let step = 0;
@@ -432,28 +472,11 @@
                         step += 0.5; 
                     }
                 }
-                else if (patternType === 'syncopated') {
+                else { // block_bass genérico
                     addNote(bassNote, currentBeat, chordDuration, 95, false);
-                    for(let b=0; b < chordDuration; b+=2) {
-                        notes.forEach(n => addNote(n, currentBeat+b, 1.5, 75));
-                        if(chordDuration >= 2) notes.forEach(n => addNote(n, currentBeat + b + 1.5, 1.0, 85));
-                    }
+                    notes.forEach((n, i) => addNote(n, currentBeat + (i * 0.015), chordDuration, 75));
                 }
-                else if (patternType === 'fast_pluck') {
-                    addNote(bassNote, currentBeat, chordDuration, 90, false);
-                    let step = 0;
-                    while (step < chordDuration) {
-                        const n = notes[Math.floor(step * 4) % notes.length];
-                        addNote(n, currentBeat + step, 0.25, 80, false);
-                        step += 0.25;
-                    }
-                }
-                else if (patternType === 'roll_arpeggio') {
-                    addNote(bassNote, currentBeat, chordDuration, 90, false);
-                    notes.forEach((n, i) => {
-                        addNote(n, currentBeat + (i * 0.1), chordDuration - (i * 0.1), 70);
-                    });
-                }
+                
                 currentBeat += chordDuration;
             });
             return { notes: scheduledNotes, totalBeats: currentBeat };
@@ -521,12 +544,11 @@
             const scaleType = document.getElementById('scale-type').value;
             const baseOctaveMidi = parseInt(document.getElementById('octave-select').value);
             const arrOverride = document.getElementById('arrangement-pattern').value;
-            const rhythmOverride = document.getElementById('rhythm-control').value;
             const scaleIntervals = SCALES[scaleType];
             
             const progressionData = [];
             let patternType = 'block_bass';
-            const ALL_P = ['block_bass', 'fingerpick', 'fast_pluck', 'syncopated', 'roll_arpeggio'];
+            const ALL_P = ['block_bass', 'fingerpick', 'syncopated', 'reggae_skank', 'bossa_nova', 'synth_pulse'];
             let previousNotes = [];
 
             if (currentMode === 'scale') {
@@ -538,7 +560,7 @@
                     const degree = Math.floor(Math.random() * scaleIntervals.length);
                     const voicing = voicings[Math.floor(Math.random() * voicings.length)];
                     const intervals = getDiatonicVoicing(scaleIntervals, degree, voicing);
-                    let beats = rhythmOverride !== 'auto' ? parseInt(rhythmOverride) : [2, 4][Math.floor(Math.random() * 2)];
+                    let beats = 4;
                     
                     let rawMidiNotes = intervals.map(interv => baseOctaveMidi + rootIdx + interv);
                     let ledMidiNotes = applyVoiceLeading(rawMidiNotes, previousNotes);
@@ -549,7 +571,7 @@
                 }
             } else {
                 let styleId = document.getElementById('music-style').value;
-                const styleData = musicDatabase[styleId];
+                const styleData = musicDatabase[styleId] || musicDatabase['pop_rock'];
                 
                 patternType = arrOverride === 'auto' ? STYLE_PATTERNS[styleId] || 'block_bass' : (arrOverride === 'random' ? ALL_P[Math.floor(Math.random()*ALL_P.length)] : arrOverride);
                 
@@ -572,28 +594,18 @@
                             degreesArray.push(seedProg[Math.floor(Math.random() * seedProg.length)]);
                         }
                     }
-                } else if (styleData) {
-                    // Fallback para blocos prontos caso o markov falhe
-                    degreesArray = styleData.progressions[Math.floor(Math.random() * styleData.progressions.length)];
                 } else {
-                    degreesArray = [0, 4, 5, 3]; // Segurança extrema
+                    degreesArray = styleData.progressions[Math.floor(Math.random() * styleData.progressions.length)];
                 }
 
                 const allowedVoicings = styleData ? styleData.voicings : ["triad"];
-                const rhythmPool = [4, 2, 4, 2, 2, 4];
 
                 for (let i = 0; i < degreesArray.length; i++) {
                     const degree = degreesArray[i] % scaleIntervals.length;
                     const voicing = allowedVoicings[Math.floor(Math.random() * allowedVoicings.length)];
                     const intervals = getDiatonicVoicing(scaleIntervals, degree, voicing);
                     
-                    let beats = 4;
-                    if (rhythmOverride !== 'auto') {
-                        beats = parseInt(rhythmOverride);
-                    } else {
-                        beats = rhythmPool[i % rhythmPool.length];
-                        if (['fingerpick', 'fast_pluck'].includes(patternType)) beats = Math.max(2, beats);
-                    }
+                    let beats = 4; // Rítmos especiais como bossa pedem compasso cheio
                     
                     let rawMidiNotes = intervals.map(interv => baseOctaveMidi + rootIdx + interv);
                     let ledMidiNotes = applyVoiceLeading(rawMidiNotes, previousNotes);
