@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ACORDES E PARTITURAS (Pro Edition)</title>
+    <title>ACORDES E PARTITURAS (Pro Vector Engine)</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vexflow@4.2.2/build/cjs/vexflow.js"></script>
     
@@ -164,7 +164,7 @@
     <div class="progression-container" id="progression-display"></div>
     <div id="scale-display"></div>
     <div class="piano-wrapper"><div id="piano"></div></div>
-    <div id="drag-pad" draggable="true" title="Arraste para la Timeline do Ableton/Reaper/FL Studio">↓ Arraste o MIDI Exato para a sua DAW</div>
+    <div id="drag-pad" draggable="true" title="Arraste para a Timeline do Ableton/Reaper/FL Studio">↓ Arraste o MIDI Exato para a sua DAW</div>
 
     <script>
         const VF = Vex.Flow;
@@ -185,10 +185,11 @@
             'locrian':        [0, 1, 3, 5, 6, 8, 10]
         };
 
-        // BANCO DE HIT PROGRESSIONS: Mais de 40 sequências estruturadas de verdade por gênero
-        const GENRE_HIT_BANKS = {
+        // MATRIZ DE VETORES DE TENSÃO (Estilo Scaler / Captain Chords)
+        // Cada gênero possui blocos de progressão com curvas de tensão e resolução reais.
+        const VECTOR_BANKS = {
             'pop': [
-                [0, 5, 3, 4], [0, 3, 4, 5], [5, 3, 0, 4], [1, 4, 0, 5], [0, 4, 5, 3], [3, 0, 1, 4], [0, 1, 3, 4]
+                [0, 5, 3, 4], [0, 3, 5, 4], [5, 3, 0, 4], [0, 4, 5, 3], [1, 4, 0, 5], [3, 0, 4, 5], [0, 5, 1, 4]
             ],
             'acoustic_blues': [
                 [0, 3, 0, 4], [0, 0, 3, 4], [3, 2, 1, 0], [0, 3, 5, 4], [0, 4, 3, 0], [1, 4, 0, 4]
@@ -207,7 +208,6 @@
             ]
         };
 
-        // Voicings limpos e profissionais (sem extensões forçadas e sujas)
         const STYLE_VOICINGS = {
             'pop': ['triad', 'add9', 'sus2', 'sus4', 'seventh'],
             'acoustic_blues': ['seventh', 'sus4', 'triad', 'add9'],
@@ -229,7 +229,7 @@
         let playTimeouts = [];
         let progressionHistory = [];
         let historyIndex = -1;
-        let lastSeqId = "";
+        let lastVectorKey = "";
 
         const sampler = new Tone.Sampler({
             urls: {
@@ -382,7 +382,6 @@
             bassVoice.draw(context, bottomStave);
         }
 
-        // MOTOR RÍTMICO COM REGISTRO LIMPO (Sem notas duplicadas/conflitantes)
         function generateScheduledNotes(progressionData, patternType) {
             let scheduledNotes = []; 
             let currentBeat = 0;
@@ -484,7 +483,7 @@
             document.getElementById('btn-repeat').disabled = disabled || historyIndex < 0;
         }
 
-        // MOTOR DE GERAÇÃO PROFISSIONAL: Banco de Hits + Variação Dinâmica Real
+        // MOTOR DE GERAÇÃO BASEADO EM VETORES DE SUCESSO (Estilo Scaler VST)
         async function generateNew() {
             if (Tone.context.state !== 'running') await Tone.start();
             setButtonsState(true);
@@ -500,7 +499,7 @@
             let patternType = 'block_bass';
 
             if (currentMode === 'scale') {
-                const voicings = ['triad', 'add9', 'seventh', 'sus2', 'power'];
+                const voicings = ['triad', 'add9', 'seventh', 'sus2', 'sus4'];
                 const numChords = 4;
                 
                 patternType = arrOverride === 'auto' ? 'block_bass' : (arrOverride === 'random' ? ALL_P[Math.floor(Math.random()*ALL_P.length)] : arrOverride);
@@ -519,30 +518,30 @@
             } else {
                 let styleId = document.getElementById('music-style').value;
                 if (styleId === 'random') {
-                    const keys = Object.keys(GENRE_HIT_BANKS);
+                    const keys = Object.keys(VECTOR_BANKS);
                     styleId = keys[Math.floor(Math.random() * keys.length)];
                 }
                 
                 patternType = arrOverride === 'auto' ? STYLE_PATTERNS[styleId] : (arrOverride === 'random' ? ALL_P[Math.floor(Math.random()*ALL_P.length)] : arrOverride);
                 
-                // SELEÇÃO GARANTIDA DE UMA PROGRESSÃO DIFERENTE DA ANTERIOR
-                let bank = GENRE_HIT_BANKS[styleId];
-                let randomIndex = Math.floor(Math.random() * bank.length);
-                let selectedSeq = bank[randomIndex];
+                // SELEÇÃO DE VETOR GARANTINDO DIFERENÇA EM RELAÇÃO AO ANTERIOR
+                let bank = VECTOR_BANKS[styleId];
+                let idx = Math.floor(Math.random() * bank.length);
+                let selectedVector = bank[idx];
                 
-                let seqKey = styleId + "-" + selectedSeq.join(",");
-                if (seqKey === lastSeqId && bank.length > 1) {
-                    randomIndex = (randomIndex + 1) % bank.length;
-                    selectedSeq = bank[randomIndex];
+                let vectorKey = styleId + "-" + selectedVector.join("-");
+                if (vectorKey === lastVectorKey && bank.length > 1) {
+                    idx = (idx + 1) % bank.length;
+                    selectedVector = bank[idx];
                 }
-                lastSeqId = styleId + "-" + selectedSeq.join(",");
+                lastVectorKey = styleId + "-" + selectedVector.join("-");
 
                 const allowedVoicings = STYLE_VOICINGS[styleId];
                 const rhythmPool = [4, 2, 4, 2];
 
-                for (let i = 0; i < selectedSeq.length; i++) {
-                    const degree = selectedSeq[i] % scaleIntervals.length;
-                    // Varia as aberturas de forma inteligente para cada acorde
+                for (let i = 0; i < selectedVector.length; i++) {
+                    const degree = selectedVector[i] % scaleIntervals.length;
+                    // Varia a abertura de forma inteligente para dar o frescor que você precisa
                     const voicing = allowedVoicings[Math.floor(Math.random() * allowedVoicings.length)];
                     const intervals = getDiatonicVoicing(scaleIntervals, degree, voicing);
                     
