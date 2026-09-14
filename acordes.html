@@ -33,7 +33,7 @@
         select:hover { border-color: var(--accent); }
 
         .playback-controls { width: 100%; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 15px; }
-        .playback-controls button { flex: 1 1 130px; max-width: 200px; font-weight: bold; padding: 14px; font-size: 14px; border-radius: 8px; border: none; cursor: pointer; transition: 0.2s;}
+        .playback-controls button { flex: 1 1 130px; max-width: 200px; font-weight: bold; padding: 14px; font-size: 14px; border-radius: 8px; border: none; cursor: pointer; transition: 0.2s; display: flex; align-items: center; justify-content: center; gap: 6px;}
         
         button.primary-btn { background: var(--accent); color: #fff;}
         button.primary-btn:hover:not(:disabled) { background: var(--accent-hover); transform: translateY(-2px); box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);}
@@ -119,9 +119,9 @@
             <label>Arranjo</label>
             <select id="arrangement-pattern">
                 <option value="auto">Automático pelo Estilo</option>
-                <option value="block_bass">Blocos</option>
-                <option value="fingerpick">Dedilhado</option>
-                <option value="fast_pluck">Pluck</option>
+                <option value="block_bass">Blocos Sustentados</option>
+                <option value="fingerpick">Dedilhado Contínuo</option>
+                <option value="fast_pluck">Pluck Rápido</option>
                 <option value="syncopated">Sincopado</option>
                 <option value="roll_arpeggio">Arpejo Longo</option>
             </select>
@@ -139,10 +139,11 @@
         <div class="control-group">
             <label>Oitava dos Acordes</label>
             <select id="octave-select">
-                <option value="36">Oitava 2</option>
-                <option value="48" selected>Oitava 3</option>
-                <option value="60">Oitava 4</option>
-                <option value="72">Oitava 5</option>
+                <option value="24">1ª Oitava (Sub-Grave)</option>
+                <option value="36">2ª Oitava (Grave)</option>
+                <option value="48" selected>3ª Oitava (Médio Corpo)</option>
+                <option value="60">4ª Oitava (Médio Agudo)</option>
+                <option value="72">5ª Oitava (Brilhante)</option>
             </select>
         </div>
 
@@ -154,13 +155,13 @@
         </div>
     </div>
 
-    <div class="score-header">Partitura Simplificada</div>
+    <div class="score-header">Partitura Simplificada (Mão Direita e Baixo)</div>
     <div id="score-container"><div id="score"></div></div>
     
     <div class="progression-container" id="progression-display"></div>
     <div id="scale-display"></div>
     <div class="piano-wrapper"><div id="piano"></div></div>
-    <div id="drag-pad" draggable="true" title="Arraste para a sua DAW">↓ Arraste o MIDI para a DAW</div>
+    <div id="drag-pad" draggable="true" title="Arraste para a sua DAW">↓ Arraste o MIDI Exato para a sua DAW</div>
 
     <script>
         const VF = Vex.Flow;
@@ -175,7 +176,7 @@
             'dorian':         [0, 2, 3, 5, 7, 9, 10]
         };
 
-        // BUG FATAL CORRIGIDO: Dicionário 100% completo, previne crash
+        // DICIONÁRIO DE ACORDES ABSOLUTO
         const CHORD_DICT = {
             'M': [0, 4, 7], 'm': [0, 3, 7], 'dim': [0, 3, 6], 
             '5': [0, 7], 'sus2': [0, 2, 7], 'sus4': [0, 5, 7], 
@@ -186,7 +187,8 @@
             'm7b5': [0, 3, 6, 10], '7b9': [0, 4, 7, 10, 13]
         };
 
-        // MATRIZ DE PROGRESSÕES REAIS (Acordes autênticos que criam música de verdade)
+        // MATRIZ DE ARQUÉTIPOS: A Alma da Criatividade. 
+        // Em vez de notas aleatórias, puxa a base de músicas reais e depois "muta" e mistura.
         const TEMPLATES = {
             'pop': [
                 [{r:0, q:'M'}, {r:7, q:'M'}, {r:9, q:'m'}, {r:5, q:'M'}],
@@ -213,8 +215,8 @@
                 [{r:0, q:'m'}, {r:3, q:'M'}, {r:10, q:'M'}, {r:5, q:'M'}]
             ],
             'hiphop_trap': [
-                [{r:0, q:'m'}, {r:8, q:'M'}, {r:0, q:'m'}, {r:1, q:'M'}],
-                [{r:0, q:'m9'}, {r:5, q:'m9'}, {r:7, q:'m7'}, {r:0, q:'m9'}],
+                [{r:0, q:'m'}, {r:8, q:'M'}, {r:0, q:'m'}, {r:1, q:'M'}], 
+                [{r:0, q:'m9'}, {r:5, q:'m9'}, {r:7, q:'m7'}, {r:0, q:'m9'}],     
                 [{r:0, q:'m'}, {r:3, q:'M'}, {r:7, q:'m'}, {r:10, q:'M'}],
                 [{r:0, q:'m'}, {r:7, q:'m'}, {r:8, q:'M'}, {r:5, q:'m'}],
                 [{r:0, q:'m11'}, {r:8, q:'M7'}, {r:10, q:'M'}, {r:0, q:'m'}]
@@ -223,7 +225,7 @@
                 [{r:2, q:'m9'}, {r:7, q:'9'}, {r:0, q:'M9'}, {r:9, q:'m7'}], 
                 [{r:0, q:'M9'}, {r:4, q:'m7'}, {r:9, q:'m9'}, {r:2, q:'m9'}],
                 [{r:5, q:'M7'}, {r:4, q:'m7'}, {r:2, q:'m9'}, {r:0, q:'M7'}],
-                [{r:0, q:'m9'}, {r:5, q:'m9'}, {r:2, q:'m7'}, {r:7, q:'7'}],
+                [{r:0, q:'m9'}, {r:5, q:'m9'}, {r:2, q:'m7b5'}, {r:7, q:'7b9'}],
                 [{r:2, q:'m11'}, {r:1, q:'7'}, {r:0, q:'M9'}, {r:9, q:'7'}] 
             ],
             'edm_house': [
@@ -251,7 +253,6 @@
         let playTimeouts = [];
         let progressionHistory = [];
         let historyIndex = -1;
-        let lastTemplateIdx = -1;
 
         const sampler = new Tone.Sampler({
             urls: {
@@ -264,10 +265,10 @@
             baseUrl: "https://tonejs.github.io/audio/salamander/",
             onload: () => {
                 document.getElementById('btn-generate').disabled = false;
-                document.getElementById('btn-generate').innerHTML = "Gerar Nova Composição";
+                document.getElementById('btn-generate').innerHTML = "🎲 Gerar Composição";
             }
         }).toDestination();
-        sampler.volume.value = -3; 
+        sampler.volume.value = -1; 
 
         function switchMode(mode) {
             currentMode = mode;
@@ -294,7 +295,7 @@
             }
         }
 
-        // MUTAÇÃO: Aplica substituições lógicas para dar criatividade, sem destruir a música
+        // MUTAÇÃO: Substituições que não estragam o estilo.
         function mutateChord(quality, styleId) {
             if (Math.random() > 0.40) return quality; 
             const mutations = {
@@ -313,15 +314,15 @@
             return quality;
         }
 
-        // SEPARAÇÃO ESTRITA DE OITAVAS
+        // CONSTRUÇÃO E SEPARAÇÃO DE OITAVAS (Zero Lama)
         function buildVoicing(rootOffsetAbs, quality, baseOctaveMidi) {
             const intervals = CHORD_DICT[quality];
             const rootMidi = rootOffsetAbs;
             
-            // O Baixo fica isolado na Oitava 2 sempre (Grave puro 36-47)
+            // O Baixo SEMPRE fica ancorado na Oitava 2 (MIDI 36-47)
             let bassNote = 36 + (rootMidi % 12); 
 
-            // Os acordes vão para a oitava escolhida pelo usuário
+            // Os Acordes vão para a oitava que o usuário escolheu no menu
             let chordNotes = [];
             intervals.forEach(inv => {
                 chordNotes.push(baseOctaveMidi + (rootMidi % 12) + inv);
@@ -331,7 +332,7 @@
             return { bassNote, chordNotes };
         }
 
-        // PROTEÇÃO NA PARTITURA: Impede o VexFlow de "Crashar" ao renderizar jazz chords complexos
+        // PARTITURA PROTEGIDA CONTRA CRASH
         function renderScore(progressionData) {
             const div = document.getElementById("score");
             div.innerHTML = ""; 
@@ -353,14 +354,14 @@
             progressionData.forEach(chord => {
                 let tKeys = [], bKeys = [], tAcc = [], bAcc = [];
                 let tColors = [], bColors = [];
-                let usedKeysT = new Set(); // Escudo anti-crash do Vexflow
+                let usedKeys = new Set();
                 
                 chord.chordNotes.forEach(m => {
                     const noteIdx = m % 12;
                     const oct = Math.floor(m / 12) - 1;
                     const keyStr = `${keysMap[noteIdx]}/${oct}`;
-                    if(!usedKeysT.has(keyStr)) {
-                        usedKeysT.add(keyStr);
+                    if(!usedKeys.has(keyStr)){
+                        usedKeys.add(keyStr);
                         tKeys.push(keyStr);
                         tColors.push(NOTE_COLORS[noteIdx]);
                         if (ACC_MAP[noteIdx]) tAcc.push({ index: tKeys.length - 1, type: ACC_MAP[noteIdx], color: NOTE_COLORS[noteIdx] });
@@ -404,6 +405,7 @@
             bassVoice.draw(context, bottomStave);
         }
 
+        // MOTOR RÍTMICO 
         function generateScheduledNotes(progressionData, patternType) {
             let scheduledNotes = []; 
             let currentBeat = 0;
@@ -510,6 +512,7 @@
             setButtonsState(false);
         }
 
+        // MOTOR PRINCIPAL DE GERAÇÃO
         async function generateNew() {
             if (Tone.context.state !== 'running') await Tone.start();
             stopPlayback();
@@ -539,6 +542,7 @@
                     let beats = rhythmOverride !== 'auto' ? parseInt(rhythmOverride) : [2, 4][Math.floor(Math.random() * 2)];
                     
                     let chordName = NOTES[rootOffsetAbs % 12] + (voicing === 'M' ? '' : voicing);
+
                     progressionData.push({ chordName, bassNote, chordNotes, functionLabel: `Grau ${degree+1}`, voicing, beats });
                 }
             } else {
@@ -546,18 +550,13 @@
                 patternType = arrOverride === 'auto' ? STYLE_PATTERNS[styleId] : arrOverride;
                 
                 const templates = TEMPLATES[styleId];
+                
+                // Escolhe um arranjo e nunca repete o mesmo duas vezes seguidas
                 let idx = Math.floor(Math.random() * templates.length);
-                
-                // Força não repetir o último template
-                if (idx === lastTemplateIdx && templates.length > 1) {
-                    idx = (idx + 1) % templates.length;
-                }
-                lastTemplateIdx = idx;
-                
                 let sequence = [...templates[idx]];
 
-                // Junta até duas sequências garantindo criatividade e imprevisibilidade
-                if (Math.random() > 0.4) {
+                // Mistura com outro arranjo do mesmo estilo para dar músicas longas e imprevisíveis
+                if (Math.random() > 0.3) {
                     let idx2 = Math.floor(Math.random() * templates.length);
                     sequence = sequence.concat(templates[idx2]);
                 }
@@ -567,7 +566,10 @@
                 for (let i = 0; i < sequence.length; i++) {
                     const item = sequence[i];
                     
+                    // Aplica a mutação genética (A qualidade do acorde muda sutilmente)
                     const mutatedVoicing = mutateChord(item.q, styleId);
+                    
+                    // Se estiver em estilo, joga a harmonia inteira para a tônica que o usuário escolheu
                     const rootOffsetAbs = rootIdx + item.r;
                     
                     const { bassNote, chordNotes } = buildVoicing(rootOffsetAbs, mutatedVoicing, baseOctaveMidi);
@@ -583,7 +585,7 @@
                     let vName = mutatedVoicing === 'M' ? '' : (mutatedVoicing === 'm' ? 'm' : mutatedVoicing.replace('power', '5'));
                     let chordName = NOTES[rootOffsetAbs % 12] + vName;
 
-                    progressionData.push({ chordName, bassNote, chordNotes, functionLabel: `Arranjo ${i+1}`, voicing: mutatedVoicing, beats });
+                    progressionData.push({ chordName, bassNote, chordNotes, functionLabel: `Variação ${i+1}`, voicing: mutatedVoicing, beats });
                 }
             }
 
