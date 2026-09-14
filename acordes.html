@@ -26,23 +26,21 @@
         .tab-btn { background: var(--surface); color: var(--text-muted); padding: 12px 16px; font-size: 14px; border: 1px solid var(--border); border-radius: 8px; cursor: pointer; font-weight: 600; transition: 0.2s; flex: 1 1 140px; max-width: 200px; }
         .tab-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
 
-        .controls { background: var(--surface); padding: 20px; border-radius: 12px; display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-end; gap: 12px; border: 1px solid var(--border); margin-bottom: 25px; max-width: 1000px; margin-left: auto; margin-right: auto; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .controls { background: var(--surface); padding: 20px; border-radius: 12px; display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-end; gap: 12px; border: 1px solid var(--border); margin-bottom: 25px; max-width: 950px; margin-left: auto; margin-right: auto; box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
         .control-group { display: flex; flex-direction: column; text-align: left; gap: 5px; flex: 1 1 140px; min-width: 130px; }
         .control-group label { font-size: 10px; color: var(--text-muted); text-transform: uppercase; font-weight: 800; letter-spacing: 0.5px;}
         select { padding: 12px; font-size: 13px; border-radius: 8px; border: 1px solid var(--border); outline: none; background: var(--bg); color: var(--text); cursor: pointer; transition: all 0.2s; width: 100%; font-weight: 500;}
         select:hover { border-color: var(--accent); }
 
-        .playback-controls { width: 100%; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 15px; }
-        .playback-controls button { flex: 1 1 130px; max-width: 200px; font-weight: bold; padding: 14px; font-size: 14px; border-radius: 8px; border: none; cursor: pointer; transition: 0.2s; display: flex; align-items: center; justify-content: center; gap: 6px;}
+        .playback-controls { width: 100%; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 10px; }
+        .playback-controls button { flex: 1 1 110px; max-width: 200px; font-weight: bold; padding: 14px; font-size: 14px; border-radius: 8px; border: none; cursor: pointer; transition: 0.2s;}
         
         button.primary-btn { background: var(--accent); color: #fff;}
         button.primary-btn:hover:not(:disabled) { background: var(--accent-hover); transform: translateY(-2px); box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);}
         button.secondary-btn { background: var(--surface); color: var(--text); border: 1px solid var(--accent); }
         button.secondary-btn:hover:not(:disabled) { background: rgba(16, 185, 129, 0.2); transform: translateY(-2px); }
-        
-        button.stop-btn { background: #ef4444; color: #fff; border: 1px solid #dc2626;}
-        button.stop-btn:hover:not(:disabled) { background: #dc2626; transform: translateY(-2px); box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);}
-        
+        button.stop-btn { background: #ef4444; color: #fff; }
+        button.stop-btn:hover:not(:disabled) { background: #dc2626; transform: translateY(-2px); }
         button:disabled { background: var(--border); border-color: var(--border); color: var(--text-muted); cursor: not-allowed; transform: none; box-shadow: none;}
 
         .progression-container { display: flex; justify-content: center; gap: 10px; margin-bottom: 25px; min-height: 100px; flex-wrap: wrap;}
@@ -92,18 +90,27 @@
             </select>
         </div>
         
-        <div class="control-group" id="group-scale-type">
-            <label>Escala</label>
+        <div class="control-group">
+            <label>Escala / Modo</label>
             <select id="scale-type">
-                <option value="major">Maior</option>
-                <option value="minor" selected>Menor Natural</option>
-                <option value="harmonic_minor">Menor Harmônica</option>
-                <option value="dorian">Dórico</option>
+                <optgroup label="Tradicionais">
+                    <option value="major">Maior (Jônio)</option>
+                    <option value="minor" selected>Menor Natural (Eólio)</option>
+                    <option value="harmonic_minor">Menor Harmônica</option>
+                    <option value="melodic_minor">Menor Melódica</option>
+                </optgroup>
+                <optgroup label="Modos Gregos">
+                    <option value="dorian">Dórico</option>
+                    <option value="phrygian">Frígio</option>
+                    <option value="lydian">Lídio</option>
+                    <option value="mixolydian">Mixolídio</option>
+                    <option value="locrian">Lócrio</option>
+                </optgroup>
             </select>
         </div>
 
         <div class="control-group" id="group-style" style="display: none;">
-            <label>Gênero Musical</label>
+            <label>Gênero Base</label>
             <select id="music-style">
                 <option value="pop">Pop & Indie</option>
                 <option value="acoustic_blues">Acoustic & Blues</option>
@@ -116,131 +123,89 @@
         </div>
 
         <div class="control-group">
-            <label>Arranjo</label>
+            <label>Arranjo (Como Tocar)</label>
             <select id="arrangement-pattern">
-                <option value="auto">Automático pelo Estilo</option>
-                <option value="block_bass">Blocos Sustentados</option>
-                <option value="fingerpick">Dedilhado Contínuo</option>
-                <option value="fast_pluck">Pluck Rápido</option>
-                <option value="syncopated">Sincopado</option>
-                <option value="roll_arpeggio">Arpejo Longo</option>
+                <option value="auto">Auto (Estilo Base)</option>
+                <option value="block_bass">Blocos (Mínimas/Semibreves)</option>
+                <option value="fingerpick">Dedilhado (Colcheias)</option>
+                <option value="fast_pluck">Pluck (Semicolcheias)</option>
+                <option value="syncopated">Sincopado (Trap/R&B)</option>
+                <option value="roll_arpeggio">Arpejo Longo (Soul)</option>
             </select>
         </div>
 
         <div class="control-group">
-            <label>Duração</label>
+            <label>Duração (Ritmo)</label>
             <select id="rhythm-control">
-                <option value="auto">Dinâmico</option>
+                <option value="auto">Dinâmico (Automático)</option>
                 <option value="4">Longo (4 Tempos)</option>
                 <option value="2">Curto (2 Tempos)</option>
             </select>
         </div>
 
         <div class="control-group">
-            <label>Oitava dos Acordes</label>
+            <label>Oitava Base</label>
             <select id="octave-select">
-                <option value="24">1ª Oitava (Sub-Grave)</option>
-                <option value="36">2ª Oitava (Grave)</option>
-                <option value="48" selected>3ª Oitava (Médio Corpo)</option>
-                <option value="60">4ª Oitava (Médio Agudo)</option>
-                <option value="72">5ª Oitava (Brilhante)</option>
+                <option value="36">Oitava 2</option>
+                <option value="48" selected>Oitava 3</option>
+                <option value="60">Oitava 4</option>
             </select>
         </div>
 
         <div class="playback-controls">
             <button id="btn-prev" class="secondary-btn" onclick="playPrevious()" disabled>⏮ Anterior</button>
-            <button id="btn-generate" class="primary-btn" onclick="generateNew()" disabled>Carregando...</button>
+            <button id="btn-generate" class="primary-btn" onclick="generateNew()" disabled>Carregando Piano...</button>
             <button id="btn-stop" class="stop-btn" onclick="stopPlayback()" disabled>⏹ Parar</button>
             <button id="btn-repeat" class="secondary-btn" onclick="repeatCurrent()" disabled>🔁 Repetir</button>
         </div>
     </div>
 
-    <div class="score-header">Partitura Simplificada (Mão Direita e Baixo)</div>
+    <div class="score-header">Leitura Harmônica Simplificada (Acordes Base da Partitura)</div>
     <div id="score-container"><div id="score"></div></div>
     
     <div class="progression-container" id="progression-display"></div>
     <div id="scale-display"></div>
     <div class="piano-wrapper"><div id="piano"></div></div>
-    <div id="drag-pad" draggable="true" title="Arraste para a sua DAW">↓ Arraste o MIDI Exato para a sua DAW</div>
+    <div id="drag-pad" draggable="true" title="Arraste para a Timeline do Ableton/Reaper/FL Studio">↓ Arraste o MIDI Exato para a sua DAW</div>
 
     <script>
         const VF = Vex.Flow;
         const NOTES = ['C', 'C#', 'D', 'Eb', 'E', 'F', 'F#', 'G', 'Ab', 'A', 'Bb', 'B'];
         const VEX_KEYS = ['C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B'];
         const ACC_MAP = ['', '#', '', 'b', '', '', '#', '', 'b', '', 'b', ''];
+        const NOTE_COLORS = ["#ef4444", "#f97316", "#f59e0b", "#eab308", "#84cc16", "#22c55e", "#10b981", "#06b6d4", "#3b82f6", "#6366f1", "#a855f7", "#ec4899"];
 
         const SCALES = {
             'major':          [0, 2, 4, 5, 7, 9, 11],
             'minor':          [0, 2, 3, 5, 7, 8, 10],
             'harmonic_minor': [0, 2, 3, 5, 7, 8, 11],
-            'dorian':         [0, 2, 3, 5, 7, 9, 10]
+            'melodic_minor':  [0, 2, 3, 5, 7, 9, 11],
+            'dorian':         [0, 2, 3, 5, 7, 9, 10],
+            'phrygian':       [0, 1, 3, 5, 7, 8, 10],
+            'lydian':         [0, 2, 4, 6, 7, 9, 11],
+            'mixolydian':     [0, 2, 4, 5, 7, 9, 10],
+            'locrian':        [0, 1, 3, 5, 6, 8, 10]
         };
 
-        // DICIONÁRIO DE ACORDES ABSOLUTO
-        const CHORD_DICT = {
-            'M': [0, 4, 7], 'm': [0, 3, 7], 'dim': [0, 3, 6], 
-            '5': [0, 7], 'sus2': [0, 2, 7], 'sus4': [0, 5, 7], 
-            '7': [0, 4, 7, 10], 'm7': [0, 3, 7, 10], 'M7': [0, 4, 7, 11], 
-            'add9': [0, 4, 7, 14], 'madd9': [0, 3, 7, 14],
-            '9': [0, 4, 7, 10, 14], 'm9': [0, 3, 7, 10, 14], 'M9': [0, 4, 7, 11, 14],
-            '11': [0, 7, 10, 14, 17], 'm11': [0, 3, 7, 10, 17],
-            'm7b5': [0, 3, 6, 10], '7b9': [0, 4, 7, 10, 13]
+        // MATRIZ MARKOV DE SUCESSO (Com saltos imprevisíveis mas musicais)
+        const MARKOV_RULES = {
+            'pop':            { 0: [3,4,5], 1: [4,5], 2: [3,5,4], 3: [0,4,1,5], 4: [0,5,3], 5: [3,4,0], 6: [0,3,4] },
+            'acoustic_blues': { 0: [3,4,0], 1: [4,0], 2: [3,5], 3: [0,4,0], 4: [0,3,4], 5: [3,4,0], 6: [0,4] },
+            'alt_rock':       { 0: [5,3,4], 1: [4,5,0], 2: [5,0,3], 3: [0,4,5], 4: [5,0,3], 5: [3,0,4], 6: [0,5] },
+            'hiphop_trap':    { 0: [5,4,3,1,6], 1: [0,4], 2: [5,0], 3: [0,4,5], 4: [0,5], 5: [4,0,6], 6: [0,5] },
+            'rnb_jazz':       { 0: [3,5,2,1,4], 1: [4,6,2,0], 2: [5,1,3], 3: [6,2,1,4], 4: [0,5,2], 5: [1,3,4,2], 6: [2,0,5] },
+            'edm_house':      { 0: [3,5,4,1], 1: [3,4,0], 2: [3,5], 3: [0,4,5], 4: [0,5,3], 5: [3,4,0], 6: [0,4] },
+            'classical':      { 0: [3,4,5], 1: [4,6,0], 2: [5,3,4], 3: [4,0,1], 4: [0,5,6], 5: [3,4,1], 6: [0,2] }
         };
 
-        // MATRIZ DE ARQUÉTIPOS: A Alma da Criatividade. 
-        // Em vez de notas aleatórias, puxa a base de músicas reais e depois "muta" e mistura.
-        const TEMPLATES = {
-            'pop': [
-                [{r:0, q:'M'}, {r:7, q:'M'}, {r:9, q:'m'}, {r:5, q:'M'}],
-                [{r:9, q:'m'}, {r:5, q:'M'}, {r:0, q:'M'}, {r:7, q:'M'}],
-                [{r:0, q:'M'}, {r:4, q:'m'}, {r:5, q:'add9'}, {r:7, q:'sus4'}],
-                [{r:5, q:'M'}, {r:0, q:'M'}, {r:7, q:'M'}, {r:9, q:'m'}],
-                [{r:0, q:'add9'}, {r:5, q:'sus2'}, {r:9, q:'m7'}, {r:7, q:'M'}],
-                [{r:9, q:'m'}, {r:7, q:'M'}, {r:5, q:'M'}, {r:5, q:'m'}], 
-                [{r:0, q:'M'}, {r:5, q:'M'}, {r:2, q:'m'}, {r:7, q:'sus4'}]
-            ],
-            'acoustic_blues': [
-                [{r:0, q:'7'}, {r:5, q:'7'}, {r:0, q:'7'}, {r:7, q:'7'}],
-                [{r:0, q:'7'}, {r:3, q:'M'}, {r:5, q:'7'}, {r:0, q:'7'}],
-                [{r:0, q:'7'}, {r:5, q:'9'}, {r:7, q:'9'}, {r:0, q:'7'}],
-                [{r:0, q:'m'}, {r:5, q:'m'}, {r:7, q:'7'}, {r:0, q:'m'}],
-                [{r:0, q:'7'}, {r:10, q:'M'}, {r:5, q:'7'}, {r:0, q:'7'}]
-            ],
-            'alt_rock': [
-                [{r:0, q:'5'}, {r:7, q:'5'}, {r:9, q:'5'}, {r:5, q:'5'}],
-                [{r:0, q:'5'}, {r:3, q:'M'}, {r:8, q:'M'}, {r:10, q:'M'}],
-                [{r:0, q:'m'}, {r:8, q:'M'}, {r:5, q:'sus2'}, {r:7, q:'5'}],
-                [{r:5, q:'5'}, {r:0, q:'5'}, {r:7, q:'5'}, {r:9, q:'5'}],
-                [{r:0, q:'5'}, {r:5, q:'5'}, {r:8, q:'5'}, {r:7, q:'5'}],
-                [{r:0, q:'m'}, {r:3, q:'M'}, {r:10, q:'M'}, {r:5, q:'M'}]
-            ],
-            'hiphop_trap': [
-                [{r:0, q:'m'}, {r:8, q:'M'}, {r:0, q:'m'}, {r:1, q:'M'}], 
-                [{r:0, q:'m9'}, {r:5, q:'m9'}, {r:7, q:'m7'}, {r:0, q:'m9'}],     
-                [{r:0, q:'m'}, {r:3, q:'M'}, {r:7, q:'m'}, {r:10, q:'M'}],
-                [{r:0, q:'m'}, {r:7, q:'m'}, {r:8, q:'M'}, {r:5, q:'m'}],
-                [{r:0, q:'m11'}, {r:8, q:'M7'}, {r:10, q:'M'}, {r:0, q:'m'}]
-            ],
-            'rnb_jazz': [
-                [{r:2, q:'m9'}, {r:7, q:'9'}, {r:0, q:'M9'}, {r:9, q:'m7'}], 
-                [{r:0, q:'M9'}, {r:4, q:'m7'}, {r:9, q:'m9'}, {r:2, q:'m9'}],
-                [{r:5, q:'M7'}, {r:4, q:'m7'}, {r:2, q:'m9'}, {r:0, q:'M7'}],
-                [{r:0, q:'m9'}, {r:5, q:'m9'}, {r:2, q:'m7b5'}, {r:7, q:'7b9'}],
-                [{r:2, q:'m11'}, {r:1, q:'7'}, {r:0, q:'M9'}, {r:9, q:'7'}] 
-            ],
-            'edm_house': [
-                [{r:9, q:'m'}, {r:5, q:'M'}, {r:0, q:'M'}, {r:7, q:'sus4'}],
-                [{r:5, q:'sus2'}, {r:7, q:'sus4'}, {r:9, q:'m'}, {r:0, q:'M'}],
-                [{r:0, q:'sus2'}, {r:5, q:'M'}, {r:9, q:'m'}, {r:7, q:'M'}],
-                [{r:0, q:'m'}, {r:8, q:'M'}, {r:10, q:'M'}, {r:5, q:'m'}],
-                [{r:0, q:'m7'}, {r:5, q:'m7'}, {r:7, q:'m7'}, {r:10, q:'M'}]
-            ],
-            'classical': [
-                [{r:0, q:'m'}, {r:5, q:'m'}, {r:7, q:'7'}, {r:0, q:'m'}],
-                [{r:0, q:'M'}, {r:5, q:'M'}, {r:2, q:'m'}, {r:7, q:'7'}],
-                [{r:0, q:'M'}, {r:7, q:'M'}, {r:9, q:'m'}, {r:4, q:'m'}], 
-                [{r:0, q:'M'}, {r:9, q:'m'}, {r:5, q:'M'}, {r:7, q:'7'}]
-            ]
+        const STYLE_VOICINGS = {
+            'pop': ['triad', 'add9', 'sus2', 'sus4', 'seventh'],
+            'acoustic_blues': ['seventh', 'triad', 'sus4', 'add9'],
+            'alt_rock': ['power', 'sus2', 'sus4', 'triad'],
+            'hiphop_trap': ['minor', 'sus2', 'triad', 'seventh'],
+            'rnb_jazz': ['ninth', 'm9', 'seventh', 'maj9', 'eleventh'],
+            'edm_house': ['sus2', 'sus4', 'power', 'triad'],
+            'classical': ['triad', 'seventh', 'sus4']
         };
 
         const STYLE_PATTERNS = {
@@ -248,15 +213,23 @@
             'hiphop_trap': 'syncopated', 'rnb_jazz': 'roll_arpeggio', 'edm_house': 'fast_pluck', 'classical': 'roll_arpeggio'
         };
 
+        const ALL_P = ['block_bass', 'fingerpick', 'fast_pluck', 'syncopated', 'roll_arpeggio'];
+        
+        // PISCINA RÍTMICA DINÂMICA (Para destruir a repetição robótica)
+        const MASTER_RHYTHMS = [
+            [4, 4, 4, 4], [2, 2, 4, 4], [4, 2, 2, 4], [4, 4, 2, 2],
+            [2, 4, 2, 4], [4, 2, 4, 2], [2, 2, 2, 2, 4], [4, 4, 4, 2, 2]
+        ];
+
         let currentMode = 'scale'; 
         let currentBlobUrl = null;
         let playTimeouts = [];
         let progressionHistory = [];
         let historyIndex = -1;
+        let lastProgressionKey = "";
 
         const sampler = new Tone.Sampler({
             urls: {
-                "C2": "C2.mp3", "D#2": "Ds2.mp3", "F#2": "Fs2.mp3", "A2": "A2.mp3",
                 "C3": "C3.mp3", "D#3": "Ds3.mp3", "F#3": "Fs3.mp3", "A3": "A3.mp3",
                 "C4": "C4.mp3", "D#4": "Ds4.mp3", "F#4": "Fs4.mp3", "A4": "A4.mp3",
                 "C5": "C5.mp3", "D#5": "Ds5.mp3"
@@ -265,17 +238,15 @@
             baseUrl: "https://tonejs.github.io/audio/salamander/",
             onload: () => {
                 document.getElementById('btn-generate').disabled = false;
-                document.getElementById('btn-generate').innerHTML = "🎲 Gerar Composição";
+                document.getElementById('btn-generate').innerText = "Gerar Sequência 🎲";
             }
         }).toDestination();
-        sampler.volume.value = -1; 
+        sampler.volume.value = -2;
 
         function switchMode(mode) {
             currentMode = mode;
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
             document.getElementById(`tab-${mode}`).classList.add('active');
-            
-            document.getElementById('group-scale-type').style.display = mode === 'scale' ? 'flex' : 'none';
             document.getElementById('group-style').style.display = mode === 'scale' ? 'none' : 'flex';
         }
 
@@ -295,45 +266,57 @@
             }
         }
 
-        // MUTAÇÃO: Substituições que não estragam o estilo.
-        function mutateChord(quality, styleId) {
-            if (Math.random() > 0.40) return quality; 
-            const mutations = {
-                'pop': { 'M': ['sus2', 'add9'], 'm': ['sus4', 'm7'] },
-                'acoustic_blues': { '7': ['9', '7b9'] },
-                'alt_rock': { '5': ['sus2', 'M'], 'M': ['sus4'] },
-                'hiphop_trap': { 'm': ['m9', 'sus2'], 'M': ['M7'] },
-                'rnb_jazz': { 'M9': ['M7'], 'm9': ['m7', 'm11'], '9': ['7b9'] },
-                'edm_house': { 'M': ['sus2'], 'm': ['sus4'] },
-                'classical': { 'M': ['sus4', '7'], 'm': ['dim'] }
+        function getVexFlowKeySignature(rootIdx, scaleType) {
+            const offsets = { 'major': 0, 'minor': 3, 'harmonic_minor': 3, 'melodic_minor': 3, 'dorian': -2, 'phrygian': -4, 'lydian': -5, 'mixolydian': 5, 'locrian': 1 };
+            return VEX_KEYS[(rootIdx + (offsets[scaleType] || 0) + 12) % 12];
+        }
+
+        // FÓRMULA MATEMÁTICA CORRIGIDA: Resolve 100% o bug das "sétimas e nonas erradas"
+        function getDiatonicVoicing(scaleIntervals, rootDegree, voicingType) {
+            const getInterval = (offset) => {
+                const idx = (rootDegree + offset) % scaleIntervals.length;
+                const octave = Math.floor((rootDegree + offset) / scaleIntervals.length);
+                return scaleIntervals[idx] + (octave * 12);
             };
-            const mutList = mutations[styleId]?.[quality];
-            if (mutList && mutList.length > 0) {
-                return mutList[Math.floor(Math.random() * mutList.length)];
-            }
-            return quality;
-        }
-
-        // CONSTRUÇÃO E SEPARAÇÃO DE OITAVAS (Zero Lama)
-        function buildVoicing(rootOffsetAbs, quality, baseOctaveMidi) {
-            const intervals = CHORD_DICT[quality];
-            const rootMidi = rootOffsetAbs;
+            // Cálculo Perfeito da Escala Diatônica
+            const r = getInterval(0);
+            const s = getInterval(1);
+            const t = getInterval(2);
+            const f = getInterval(3);
+            const fi = getInterval(4);
+            const se = getInterval(6); // Sétima exata no tom
+            const n = getInterval(8);  // Nona exata no tom
+            const el = getInterval(10); // Décima primeira exata
             
-            // O Baixo SEMPRE fica ancorado na Oitava 2 (MIDI 36-47)
-            let bassNote = 36 + (rootMidi % 12); 
-
-            // Os Acordes vão para a oitava que o usuário escolheu no menu
-            let chordNotes = [];
-            intervals.forEach(inv => {
-                chordNotes.push(baseOctaveMidi + (rootMidi % 12) + inv);
-            });
-
-            chordNotes = [...new Set(chordNotes)].sort((a,b) => a-b);
-            return { bassNote, chordNotes };
+            switch(voicingType) {
+                case 'power': return [r, fi, r + 12];
+                case 'sus2': return [r, s, fi];
+                case 'sus4': return [r, f, fi];
+                case 'add9': return [r, t, fi, n];
+                case 'seventh': return [r, t, fi, se];
+                case 'ninth': return [r, t, fi, se, n];
+                case 'm9': return [r, t, fi, se, n]; // Contexto já deixa menor
+                case 'maj9': return [r, t, fi, se, n];
+                case 'eleventh': return [r, t, fi, se, n, el];
+                case 'minor': return [r, t, fi]; // O contexto da escala vai fazer ser tríade menor (ou maior)
+                case 'triad': default: return [r, t, fi];
+            }
         }
 
-        // PARTITURA PROTEGIDA CONTRA CRASH
-        function renderScore(progressionData) {
+        function renderScale(rootIdx, scaleIntervals) {
+            const container = document.getElementById('scale-display');
+            container.innerHTML = `<span style="color:var(--text-muted); font-size: 11px; font-weight:bold; letter-spacing:0.5px; padding-top:4px;">ESCALA ATIVA:</span>`;
+            scaleIntervals.forEach(interv => {
+                const absNote = (rootIdx + interv) % 12;
+                const pill = document.createElement('div');
+                pill.className = 'scale-note-pill';
+                pill.style.backgroundColor = NOTE_COLORS[absNote];
+                pill.innerText = NOTES[absNote];
+                container.appendChild(pill);
+            });
+        }
+
+        function renderScore(progressionData, keySignatureString) {
             const div = document.getElementById("score");
             div.innerHTML = ""; 
             
@@ -342,8 +325,8 @@
             renderer.resize(scoreWidth, 240);
             const context = renderer.getContext();
             
-            const topStave = new VF.Stave(30, 20, scoreWidth - 50).addClef("treble").setContext(context).draw();
-            const bottomStave = new VF.Stave(30, 110, scoreWidth - 50).addClef("bass").setContext(context).draw();
+            const topStave = new VF.Stave(30, 20, scoreWidth - 50).addClef("treble").addKeySignature(keySignatureString).setContext(context).draw();
+            const bottomStave = new VF.Stave(30, 110, scoreWidth - 50).addClef("bass").addKeySignature(keySignatureString).setContext(context).draw();
 
             new VF.StaveConnector(topStave, bottomStave).setType(VF.StaveConnector.type.BRACE).setContext(context).draw();
             new VF.StaveConnector(topStave, bottomStave).setType(VF.StaveConnector.type.SINGLE_LEFT).setContext(context).draw();
@@ -354,38 +337,38 @@
             progressionData.forEach(chord => {
                 let tKeys = [], bKeys = [], tAcc = [], bAcc = [];
                 let tColors = [], bColors = [];
-                let usedKeys = new Set();
                 
-                chord.chordNotes.forEach(m => {
+                let visualNotes = [...new Set(chord.midiNotes)];
+
+                visualNotes.forEach(m => {
                     const noteIdx = m % 12;
                     const oct = Math.floor(m / 12) - 1;
-                    const keyStr = `${keysMap[noteIdx]}/${oct}`;
-                    if(!usedKeys.has(keyStr)){
-                        usedKeys.add(keyStr);
-                        tKeys.push(keyStr);
-                        tColors.push(NOTE_COLORS[noteIdx]);
-                        if (ACC_MAP[noteIdx]) tAcc.push({ index: tKeys.length - 1, type: ACC_MAP[noteIdx], color: NOTE_COLORS[noteIdx] });
+                    const key = `${keysMap[noteIdx]}/${oct}`;
+                    const color = NOTE_COLORS[noteIdx];
+
+                    if (m >= 60) {
+                        tKeys.push(key); tColors.push(color);
+                        if (ACC_MAP[noteIdx]) tAcc.push({ index: tKeys.length - 1, type: ACC_MAP[noteIdx], color });
+                    } else {
+                        bKeys.push(key); bColors.push(color);
+                        if (ACC_MAP[noteIdx]) bAcc.push({ index: bKeys.length - 1, type: ACC_MAP[noteIdx], color });
                     }
                 });
 
-                const bNoteIdx = chord.bassNote % 12;
-                const bOct = Math.floor(chord.bassNote / 12) - 1;
-                bKeys.push(`${keysMap[bNoteIdx]}/${bOct}`);
-                bColors.push(NOTE_COLORS[bNoteIdx]);
-                if (ACC_MAP[bNoteIdx]) bAcc.push({ index: 0, type: ACC_MAP[bNoteIdx], color: NOTE_COLORS[bNoteIdx] });
-
                 const bDur = chord.beats >= 4 ? "w" : chord.beats >= 2 ? "h" : "q";
 
-                if (tKeys.length > 0) {
+                if (tKeys.length === 0) { 
+                    trebleNotes.push(new VF.StaveNote({ keys: ["b/4"], duration: bDur+"r", clef: "treble" })); 
+                } else {
                     let tn = new VF.StaveNote({ keys: tKeys, duration: bDur, clef: "treble" });
                     tAcc.forEach(a => { let acc = new VF.Accidental(a.type); acc.setStyle({fillStyle: a.color, strokeStyle: a.color}); tn.addModifier(acc, a.index); });
                     tn.keyProps.forEach((_, idx) => tn.setKeyStyle(idx, { fillStyle: tColors[idx], strokeStyle: tColors[idx] }));
                     trebleNotes.push(tn);
-                } else {
-                    trebleNotes.push(new VF.StaveNote({ keys: ["b/4"], duration: bDur+"r", clef: "treble" })); 
                 }
 
-                if (bKeys.length > 0) {
+                if (bKeys.length === 0) { 
+                    bassNotes.push(new VF.StaveNote({ keys: ["d/3"], duration: bDur+"r", clef: "bass" })); 
+                } else {
                     let bn = new VF.StaveNote({ keys: bKeys, duration: bDur, clef: "bass" });
                     bAcc.forEach(a => { let acc = new VF.Accidental(a.type); acc.setStyle({fillStyle: a.color, strokeStyle: a.color}); bn.addModifier(acc, a.index); });
                     bn.keyProps.forEach((_, idx) => bn.setKeyStyle(idx, { fillStyle: bColors[idx], strokeStyle: bColors[idx] }));
@@ -405,23 +388,26 @@
             bassVoice.draw(context, bottomStave);
         }
 
-        // MOTOR RÍTMICO 
         function generateScheduledNotes(progressionData, patternType) {
             let scheduledNotes = []; 
             let currentBeat = 0;
 
             progressionData.forEach(chord => {
                 const chordDuration = chord.beats;
-                const notes = chord.chordNotes;
-                const bassNote = chord.bassNote;
+                const uniqueMidis = [...new Set(chord.midiNotes)];
+                const notes = uniqueMidis.sort((a,b) => a-b);
+                
+                // O SEGREDO DO PESO: Baixo absoluto ancorado na oitava 2
+                const rootNoteIdx = notes[0] % 12;
+                const bassNote = 36 + rootNoteIdx;
 
                 function addNote(midi, timeOffset, duration, velocity) {
                     scheduledNotes.push({ midi, timeOffset, duration, velocity });
                 }
 
                 if (patternType === 'block_bass' || patternType === 'none') {
-                    addNote(bassNote, currentBeat, chordDuration, 95); 
-                    notes.forEach((n, i) => addNote(n, currentBeat + (i * 0.02), chordDuration, 75)); 
+                    addNote(bassNote, currentBeat, chordDuration, 95);
+                    notes.forEach((n, i) => addNote(n, currentBeat + (i * 0.02), chordDuration, 75));
                 } 
                 else if (patternType === 'fingerpick') {
                     addNote(bassNote, currentBeat, chordDuration, 90);
@@ -506,73 +492,81 @@
         function stopPlayback() {
             playTimeouts.forEach(clearTimeout);
             playTimeouts = [];
-            sampler.releaseAll(Tone.now());
+            sampler.releaseAll();
             document.querySelectorAll('.chord-box').forEach(b => b.classList.remove('playing'));
             document.querySelectorAll('.key').forEach(k => k.classList.remove('active'));
             setButtonsState(false);
         }
 
-        // MOTOR PRINCIPAL DE GERAÇÃO
+        // MOTOR CRIATIVO EXPLOSIVO (Fim das músicas repetitivas)
         async function generateNew() {
             if (Tone.context.state !== 'running') await Tone.start();
             stopPlayback();
             setButtonsState(true);
 
             const rootIdx = parseInt(document.getElementById('root-note').value);
+            const scaleType = document.getElementById('scale-type').value;
+            const baseOctaveMidi = parseInt(document.getElementById('octave-select').value);
             const arrOverride = document.getElementById('arrangement-pattern').value;
             const rhythmOverride = document.getElementById('rhythm-control').value;
-            const baseOctaveMidi = parseInt(document.getElementById('octave-select').value);
+            const scaleIntervals = SCALES[scaleType];
             
             const progressionData = [];
             let patternType = 'block_bass';
 
             if (currentMode === 'scale') {
-                const scaleType = document.getElementById('scale-type').value;
-                const scaleIntervals = SCALES[scaleType];
-                const voicings = ['M', 'm', 'sus2', 'add9']; 
-                const numChords = Math.floor(Math.random() * 4) + 4; 
-                patternType = arrOverride === 'auto' ? 'block_bass' : arrOverride;
+                const voicings = ['triad', 'add9', 'seventh', 'sus2', 'sus4'];
+                const numChords = Math.floor(Math.random() * 4) + 5; // Gera de 5 a 8 acordes
+                
+                patternType = arrOverride === 'auto' ? 'block_bass' : (arrOverride === 'random' ? ALL_P[Math.floor(Math.random()*ALL_P.length)] : arrOverride);
+
+                // Dinâmica rítmica para Modo Escala
+                let rhythmPool = MASTER_RHYTHMS[Math.floor(Math.random() * MASTER_RHYTHMS.length)];
 
                 for (let i = 0; i < numChords; i++) {
                     const degree = Math.floor(Math.random() * scaleIntervals.length);
-                    const rootOffsetAbs = rootIdx + scaleIntervals[degree];
                     const voicing = voicings[Math.floor(Math.random() * voicings.length)];
+                    const intervals = getDiatonicVoicing(scaleIntervals, degree, voicing);
                     
-                    const { bassNote, chordNotes } = buildVoicing(rootOffsetAbs, voicing, baseOctaveMidi);
-                    let beats = rhythmOverride !== 'auto' ? parseInt(rhythmOverride) : [2, 4][Math.floor(Math.random() * 2)];
+                    let beats = rhythmOverride !== 'auto' ? parseInt(rhythmOverride) : rhythmPool[i % rhythmPool.length];
                     
-                    let chordName = NOTES[rootOffsetAbs % 12] + (voicing === 'M' ? '' : voicing);
-
-                    progressionData.push({ chordName, bassNote, chordNotes, functionLabel: `Grau ${degree+1}`, voicing, beats });
+                    const rootName = NOTES[(rootIdx + intervals[0]) % 12];
+                    const midiNotes = intervals.map(interv => baseOctaveMidi + rootIdx + interv);
+                    progressionData.push({ chordName: rootName, midiNotes, functionLabel: `Grau ${degree+1}`, voicing, beats });
                 }
             } else {
-                const styleId = document.getElementById('music-style').value;
-                patternType = arrOverride === 'auto' ? STYLE_PATTERNS[styleId] : arrOverride;
+                let styleId = document.getElementById('music-style').value;
+                patternType = arrOverride === 'auto' ? STYLE_PATTERNS[styleId] : (arrOverride === 'random' ? ALL_P[Math.floor(Math.random()*ALL_P.length)] : arrOverride);
                 
-                const templates = TEMPLATES[styleId];
+                // CADEIA DE MARKOV EXPANDIDA
+                let currentDeg = Math.floor(Math.random() * scaleIntervals.length);
+                let seqLength = [5, 6, 7, 8][Math.floor(Math.random() * 4)];
+                let degreesArray = [currentDeg];
                 
-                // Escolhe um arranjo e nunca repete o mesmo duas vezes seguidas
-                let idx = Math.floor(Math.random() * templates.length);
-                let sequence = [...templates[idx]];
-
-                // Mistura com outro arranjo do mesmo estilo para dar músicas longas e imprevisíveis
-                if (Math.random() > 0.3) {
-                    let idx2 = Math.floor(Math.random() * templates.length);
-                    sequence = sequence.concat(templates[idx2]);
+                for(let i = 1; i < seqLength; i++){
+                    let options = MARKOV_RULES[styleId][currentDeg] || [0, 3, 4, 5];
+                    currentDeg = options[Math.floor(Math.random() * options.length)] % scaleIntervals.length;
+                    degreesArray.push(currentDeg);
                 }
 
-                const rhythmPool = [4, 2, 4, 2, 4, 4];
+                // Geração mutável para garantir originalidade na "vibe" da música
+                let seqKey = styleId + "-" + degreesArray.join("-");
+                if (seqKey === lastProgressionKey) {
+                    degreesArray = degreesArray.reverse(); // Se ia repetir a última geração, vira a música do avesso
+                }
+                lastProgressionKey = seqKey;
 
-                for (let i = 0; i < sequence.length; i++) {
-                    const item = sequence[i];
+                const allowedVoicings = STYLE_VOICINGS[styleId];
+                
+                // Dinâmica rítmica escolhida entre mais de 8 padrões mapeados (A Magia contra a repetição)
+                let rhythmPool = MASTER_RHYTHMS[Math.floor(Math.random() * MASTER_RHYTHMS.length)];
+
+                for (let i = 0; i < degreesArray.length; i++) {
+                    const degree = degreesArray[i] % scaleIntervals.length;
+                    const voicing = allowedVoicings[Math.floor(Math.random() * allowedVoicings.length)];
                     
-                    // Aplica a mutação genética (A qualidade do acorde muda sutilmente)
-                    const mutatedVoicing = mutateChord(item.q, styleId);
-                    
-                    // Se estiver em estilo, joga a harmonia inteira para a tônica que o usuário escolheu
-                    const rootOffsetAbs = rootIdx + item.r;
-                    
-                    const { bassNote, chordNotes } = buildVoicing(rootOffsetAbs, mutatedVoicing, baseOctaveMidi);
+                    // Intervalos diatônicos corrigidos!
+                    const intervals = getDiatonicVoicing(scaleIntervals, degree, voicing);
                     
                     let beats = 4;
                     if (rhythmOverride !== 'auto') {
@@ -582,14 +576,20 @@
                         if (['fingerpick', 'fast_pluck'].includes(patternType)) beats = Math.max(2, beats);
                     }
                     
-                    let vName = mutatedVoicing === 'M' ? '' : (mutatedVoicing === 'm' ? 'm' : mutatedVoicing.replace('power', '5'));
-                    let chordName = NOTES[rootOffsetAbs % 12] + vName;
+                    let chordName = NOTES[(rootIdx + intervals[0]) % 12];
+                    if (voicing === 'power') chordName += '5';
+                    if (voicing === 'sus2') chordName += 'sus2';
 
-                    progressionData.push({ chordName, bassNote, chordNotes, functionLabel: `Variação ${i+1}`, voicing: mutatedVoicing, beats });
+                    const midiNotes = intervals.map(interv => baseOctaveMidi + rootIdx + interv);
+                    progressionData.push({ chordName, midiNotes, functionLabel: `Grau ${degree+1}`, voicing, beats });
                 }
             }
 
-            const state = { progressionData, patternType, rootIdx };
+            const state = {
+                progressionData, patternType, rootIdx, scaleIntervals,
+                keySigString: getVexFlowKeySignature(rootIdx, scaleType)
+            };
+
             historyIndex++;
             progressionHistory = progressionHistory.slice(0, historyIndex);
             progressionHistory.push(state);
@@ -613,9 +613,9 @@
 
             const container = document.getElementById('progression-display');
             container.innerHTML = '';
-            document.getElementById('scale-display').innerHTML = ''; 
 
-            renderScore(state.progressionData);
+            renderScale(state.rootIdx, state.scaleIntervals);
+            renderScore(state.progressionData, state.keySigString);
 
             state.progressionData.forEach((data, i) => {
                 const durText = data.beats >= 4 ? 'Semibreve' : data.beats === 2 ? 'Mínima' : 'Semínima';
@@ -632,7 +632,7 @@
             });
 
             const schedule = generateScheduledNotes(state.progressionData, state.patternType);
-            const beatToSeconds = 0.5; 
+            const beatToSeconds = 0.5; // 120 BPM
 
             schedule.notes.forEach(noteData => {
                 const freq = Tone.Frequency(noteData.midi, "midi").toNote();
