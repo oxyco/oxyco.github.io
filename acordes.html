@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ACORDES E PARTITURAS (Pro Voice Leading Engine)</title>
+    <title>ACORDES E PARTITURAS (Pro Edition)</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vexflow@4.2.2/build/cjs/vexflow.js"></script>
     
@@ -130,7 +130,7 @@
                 <option value="fingerpick">Dedilhado (Colcheias)</option>
                 <option value="fast_pluck">Pluck (Semicolcheias)</option>
                 <option value="syncopated">Sincopado (Trap/R&B)</option>
-                <option value="roll_arpeggio">Arpejo Longo (Soul)</option>
+                <option value="roll_arpeggio">Arpejo Longo (Soul/Clássico)</option>
             </select>
         </div>
 
@@ -140,6 +140,15 @@
                 <option value="auto">Dinâmico (Automático)</option>
                 <option value="4">Longo (4 Tempos)</option>
                 <option value="2">Curto (2 Tempos)</option>
+            </select>
+        </div>
+
+        <div class="control-group">
+            <label>Oitava dos Acordes</label>
+            <select id="octave-select">
+                <option value="36">Oitava 2 (Muito Grave)</option>
+                <option value="48" selected>Oitava 3 (Médio Limpo)</option>
+                <option value="60">Oitava 4 (Agudo Brilhante)</option>
             </select>
         </div>
 
@@ -178,34 +187,25 @@
             'locrian':        [0, 1, 3, 5, 6, 8, 10]
         };
 
-        // ENGENHARIA DE HARMONIA FUNCIONAL (Substitui o Markov Cego)
-        // Agrupa os graus da escala em funções: Tônica(T), Subdominante(S), Dominante(D)
-        const HARMONIC_FUNCTIONS = {
-            'T': [0, 2, 5], // Graus I, iii, vi (Sensação de repouso)
-            'S': [1, 3],    // Graus ii, IV (Sensação de afastamento)
-            'D': [4, 6]     // Graus V, vii (Sensação de tensão pedindo retorno)
+        // MATRIZ CRIATIVA E IMPREVISÍVEL DE MARKOV (Garante variação contínua)
+        const MARKOV_RULES = {
+            'pop':            { 0: [3,4,5,1], 1: [4,0,5], 2: [3,5,4], 3: [0,4,1,5], 4: [0,5,3,6], 5: [3,4,0,1], 6: [0,3] },
+            'acoustic_blues': { 0: [3,4,0,5], 1: [4,0], 2: [3,5], 3: [0,4,1,5], 4: [0,3,5], 5: [3,4,1], 6: [0,4] },
+            'alt_rock':       { 0: [5,3,4,6], 1: [4,5,0], 2: [5,0,3], 3: [0,4,5,6], 4: [5,0,3], 5: [3,0,4], 6: [0,5] },
+            'hiphop_trap':    { 0: [5,4,3,1,6], 1: [0,4,5], 2: [5,0], 3: [0,4,5], 4: [0,5,3], 5: [4,0,6,1], 6: [0,5] },
+            'rnb_jazz':       { 0: [3,5,2,1], 1: [4,6,2,0], 2: [5,1,3], 3: [6,2,1,4], 4: [0,5,2], 5: [1,3,4,2], 6: [2,0,5] },
+            'edm_house':      { 0: [3,5,4,1], 1: [3,4,0], 2: [3,5], 3: [0,4,5], 4: [0,5,3], 5: [3,4,0], 6: [0,4] },
+            'classical':      { 0: [3,4,1,5], 1: [4,6,0], 2: [5,3,4], 3: [4,0,6], 4: [0,5,6], 5: [3,4,1], 6: [0,2] }
         };
 
-        // Regras de Sintaxe Musical por Estilo (O que vem depois do quê)
-        const GENRE_SYNTAX = {
-            'pop': ['T', 'S', 'D', 'T', 'S', 'T'],
-            'acoustic_blues': ['T', 'S', 'T', 'D', 'S', 'T'],
-            'alt_rock': ['T', 'D', 'S', 'T', 'D', 'T'],
-            'hiphop_trap': ['T', 'T', 'S', 'D', 'T', 'S'],
-            'rnb_jazz': ['S', 'D', 'T', 'T', 'S', 'D', 'T'],
-            'edm_house': ['T', 'S', 'T', 'D', 'T', 'D'],
-            'classical': ['T', 'S', 'D', 'T', 'D', 'T']
-        };
-
-        // Paletas estritas para não haver "notas sujas" onde não devem
         const STYLE_VOICINGS = {
-            'pop': ['triad', 'sus2', 'sus4', 'add9'],
-            'acoustic_blues': ['seventh', 'triad', 'sus4'],
-            'alt_rock': ['power', 'sus2', 'triad'],
+            'pop': ['triad', 'add9', 'sus2', 'sus4', 'seventh'],
+            'acoustic_blues': ['seventh', 'triad', 'sus4', 'add9'],
+            'alt_rock': ['power', 'sus2', 'sus4', 'triad'],
             'hiphop_trap': ['minor', 'sus2', 'triad', 'seventh'],
-            'rnb_jazz': ['m9', 'maj9', 'ninth', 'seventh'],
+            'rnb_jazz': ['ninth', 'm9', 'seventh', 'maj9'],
             'edm_house': ['sus2', 'sus4', 'power', 'triad'],
-            'classical': ['triad', 'seventh']
+            'classical': ['triad', 'seventh', 'sus4']
         };
 
         const STYLE_PATTERNS = {
@@ -219,9 +219,10 @@
         let progressionHistory = [];
         let historyIndex = -1;
 
-        // TONE.JS SAMPLER - Volume Seguro e Completo
+        // TONE.JS SAMPLER COMPLETO E LIMPO
         const sampler = new Tone.Sampler({
             urls: {
+                "C2": "C2.mp3", "D#2": "Ds2.mp3", "F#2": "Fs2.mp3", "A2": "A2.mp3",
                 "C3": "C3.mp3", "D#3": "Ds3.mp3", "F#3": "Fs3.mp3", "A3": "A3.mp3",
                 "C4": "C4.mp3", "D#4": "Ds4.mp3", "F#4": "Fs4.mp3", "A4": "A4.mp3",
                 "C5": "C5.mp3", "D#5": "Ds5.mp3"
@@ -229,8 +230,9 @@
             release: 1.5,
             baseUrl: "https://tonejs.github.io/audio/salamander/",
             onload: () => {
-                document.getElementById('btn-generate').disabled = false;
-                document.getElementById('btn-generate').innerText = "Gerar Sequência";
+                const btn = document.getElementById('btn-generate');
+                btn.disabled = false;
+                btn.innerText = "Gerar Sequência";
             }
         }).toDestination();
         sampler.volume.value = -2;
@@ -263,7 +265,7 @@
             return VEX_KEYS[(rootIdx + (offsets[scaleType] || 0) + 12) % 12];
         }
 
-        function getRawIntervals(scaleIntervals, rootDegree, voicingType) {
+        function getDiatonicVoicing(scaleIntervals, rootDegree, voicingType) {
             const getInterval = (offset) => {
                 const idx = (rootDegree + offset) % scaleIntervals.length;
                 const octave = Math.floor((rootDegree + offset) / scaleIntervals.length);
@@ -272,7 +274,7 @@
             const r = getInterval(0), s = getInterval(1), t = getInterval(2), f = getInterval(3), fi = getInterval(4);
             
             switch(voicingType) {
-                case 'power': return [r, fi];
+                case 'power': return [r, fi, r + 12];
                 case 'sus2': return [r, s, fi];
                 case 'sus4': return [r, f, fi];
                 case 'add9': return [r, t, fi, r + 14];
@@ -283,40 +285,6 @@
                 case 'minor': return [r, s, fi];
                 case 'triad': default: return [r, t, fi];
             }
-        }
-
-        // ALGORITMO DE VOICE LEADING (CONDUÇÃO DE VOZES)
-        // Isso impede que os acordes saltem. Mantém as notas do novo acorde o mais perto possível das antigas.
-        function applyVoiceLeading(rawIntervals, prevMidiNotes, rootMidi, baseOctaveMidi) {
-            if (!prevMidiNotes || prevMidiNotes.length === 0) {
-                // Primeiro acorde: posiciona na Oitava 4 (60)
-                return rawIntervals.map(i => baseOctaveMidi + 12 + rootMidi + i);
-            }
-
-            // Calcula o centro de gravidade do acorde anterior
-            const prevCenter = prevMidiNotes.reduce((a, b) => a + b, 0) / prevMidiNotes.length;
-            
-            let newNotes = [];
-            rawIntervals.forEach(interval => {
-                let noteMidi = (rootMidi + interval) % 12;
-                // Tenta achar a oitava ideal que aproxima essa nota do centro do acorde anterior
-                let bestOctave = 4;
-                let minDistance = 999;
-                let bestMidi = 60;
-
-                for (let oct = 3; oct <= 5; oct++) {
-                    let testMidi = (oct * 12) + noteMidi;
-                    let dist = Math.abs(testMidi - prevCenter);
-                    if (dist < minDistance) {
-                        minDistance = dist;
-                        bestMidi = testMidi;
-                    }
-                }
-                newNotes.push(bestMidi);
-            });
-
-            // Evita notas duplicadas e organiza do grave pro agudo
-            return [...new Set(newNotes)].sort((a,b) => a-b);
         }
 
         function renderScale(rootIdx, scaleIntervals) {
@@ -332,7 +300,6 @@
             });
         }
 
-        // PARTITURA DESENHA APENAS A TRÍADE BASE (Evita poluição visual de inversões complexas)
         function renderScore(progressionData, keySignatureString) {
             const div = document.getElementById("score");
             div.innerHTML = ""; 
@@ -355,7 +322,7 @@
                 let tKeys = [], bKeys = [], tAcc = [], bAcc = [];
                 let tColors = [], bColors = [];
                 
-                let visualNotes = [...new Set(chord.rawMidiForScore)];
+                let visualNotes = [...new Set(chord.midiNotes)];
 
                 visualNotes.forEach(m => {
                     const noteIdx = m % 12;
@@ -405,19 +372,22 @@
             bassVoice.draw(context, bottomStave);
         }
 
-        // MOTOR RÍTMICO - SEPARAÇÃO TOTAL DE FREQUÊNCIAS
+        // MOTOR RÍTMICO COM SEPARAÇÃO ESTRITA DE OITAVAS
         function generateScheduledNotes(progressionData, patternType) {
             let scheduledNotes = []; 
             let currentBeat = 0;
 
             progressionData.forEach(chord => {
                 const chordDuration = chord.beats;
-                const notes = chord.midiNotes; // Já passaram pelo Voice Leading (Oitavas 4/5)
                 
-                // O Baixo independente fica travado e limpo na Oitava 2 ou 3 (Midi 36 a 55)
-                let bassNote = chord.rootMidiAbs; 
-                while (bassNote > 55) bassNote -= 12;
-                while (bassNote < 36) bassNote += 12;
+                // MÃO DIREITA (Acordes): Fica na oitava selecionada pelo usuário (36, 48 ou 60)
+                const uniqueMidis = [...new Set(chord.midiNotes)];
+                const notes = uniqueMidis.sort((a,b) => a-b);
+                
+                // MÃO ESQUERDA (Baixo): Fica travado na OITAVA 2 (MIDI 36-47) independente de onde o acorde estiver.
+                // Isso mata completamente o efeito de "lama" e os conflitos sonoros.
+                const rootNoteIdx = notes[0] % 12;
+                const bassNote = 36 + rootNoteIdx; 
 
                 function addNote(midi, timeOffset, duration, velocity) {
                     scheduledNotes.push({ midi, timeOffset, duration, velocity });
@@ -516,7 +486,7 @@
             setButtonsState(false);
         }
 
-        // MOTOR DE GERAÇÃO: HARMONIA FUNCIONAL + VOICE LEADING (Criatividade Infinita e Polida)
+        // MOTOR CRIATIVO RANDOM WALK + MARKOV
         async function generateNew() {
             if (Tone.context.state !== 'running') await Tone.start();
             stopPlayback();
@@ -524,65 +494,75 @@
 
             const rootIdx = parseInt(document.getElementById('root-note').value);
             const scaleType = document.getElementById('scale-type').value;
-            const baseOctaveMidi = 48; // O motor de voice leading cuida das oitavas sozinho agora
+            const baseOctaveMidi = parseInt(document.getElementById('octave-select').value);
             const arrOverride = document.getElementById('arrangement-pattern').value;
             const rhythmOverride = document.getElementById('rhythm-control').value;
             const scaleIntervals = SCALES[scaleType];
             
             const progressionData = [];
             let patternType = 'block_bass';
-            let styleId = currentMode === 'scale' ? 'pop' : document.getElementById('music-style').value;
-            
-            patternType = arrOverride === 'auto' ? STYLE_PATTERNS[styleId] : arrOverride;
 
-            // Define o tamanho da música (aleatório entre 4 a 8 acordes para sempre surpreender)
-            const numChords = Math.floor(Math.random() * 4) + 4;
-            const syntaxPath = GENRE_SYNTAX[styleId];
-            
-            let prevNotes = []; // Usado para o Voice Leading
-            const rhythmPool = [4, 2, 4, 2, 4];
+            if (currentMode === 'scale') {
+                const voicings = ['triad', 'add9', 'seventh', 'sus2', 'sus4'];
+                const numChords = Math.floor(Math.random() * 4) + 5; // Gera de 5 a 8 acordes
+                
+                patternType = arrOverride === 'auto' ? 'block_bass' : (arrOverride === 'random' ? ALL_P[Math.floor(Math.random()*ALL_P.length)] : arrOverride);
 
-            for (let i = 0; i < numChords; i++) {
-                // Pega a Função Harmônica (Tensão/Resolução) baseada na sintaxe do estilo
-                let func = syntaxPath[i % syntaxPath.length];
-                let possibleDegrees = HARMONIC_FUNCTIONS[func];
-                // Sorteia um grau que atenda à emoção daquela parte da música
-                let degree = possibleDegrees[Math.floor(Math.random() * possibleDegrees.length)] % scaleIntervals.length;
-                
-                const voicings = STYLE_VOICINGS[styleId];
-                const voicing = voicings[Math.floor(Math.random() * voicings.length)];
-                
-                const rawIntervals = getRawIntervals(scaleIntervals, degree, voicing);
-                
-                // MÁGICA: O Voice Leading transforma os intervalos crus em notas fluídas e conectadas
-                const rootMidiAbs = rootIdx + scaleIntervals[degree];
-                const finalMidiNotes = applyVoiceLeading(rawIntervals, prevNotes, rootMidiAbs, baseOctaveMidi);
-                prevNotes = finalMidiNotes; // Atualiza a memória para o próximo acorde
-
-                // A partitura visualiza apenas os blocos simples crus
-                const rawMidiForScore = rawIntervals.map(inv => baseOctaveMidi + 12 + rootIdx + inv);
-                
-                let beats = 4;
-                if (rhythmOverride !== 'auto') {
-                    beats = parseInt(rhythmOverride);
-                } else {
-                    beats = rhythmPool[i % rhythmPool.length];
-                    if (['fingerpick', 'fast_pluck'].includes(patternType)) beats = Math.max(2, beats);
+                for (let i = 0; i < numChords; i++) {
+                    const degree = Math.floor(Math.random() * scaleIntervals.length);
+                    const voicing = voicings[Math.floor(Math.random() * voicings.length)];
+                    const intervals = getDiatonicVoicing(scaleIntervals, degree, voicing);
+                    
+                    let beats = rhythmOverride !== 'auto' ? parseInt(rhythmOverride) : [2, 4][Math.floor(Math.random() * 2)];
+                    
+                    const rootName = NOTES[(rootIdx + intervals[0]) % 12];
+                    const midiNotes = intervals.map(interv => baseOctaveMidi + rootIdx + interv);
+                    progressionData.push({ chordName: rootName, midiNotes, functionLabel: `Grau ${degree+1}`, voicing, beats });
+                }
+            } else {
+                let styleId = document.getElementById('music-style').value;
+                const keys = Object.keys(MARKOV_RULES);
+                let actualStyle = styleId;
+                if (styleId === 'random') {
+                    actualStyle = keys[Math.floor(Math.random() * keys.length)];
                 }
                 
-                let chordName = NOTES[(rootIdx + scaleIntervals[degree]) % 12];
-                if (voicing === 'power') chordName += '5';
-                if (voicing === 'sus2') chordName += 'sus2';
+                patternType = arrOverride === 'auto' ? STYLE_PATTERNS[actualStyle] : (arrOverride === 'random' ? ALL_P[Math.floor(Math.random()*ALL_P.length)] : arrOverride);
+                
+                // MÁGICA: Cadeia de Markov para gerar tamanhos e sequências variadas (Fim do loop repetitivo)
+                let currentDeg = Math.floor(Math.random() * scaleIntervals.length);
+                let seqLength = [4, 5, 6, 8][Math.floor(Math.random() * 4)];
+                let degreesArray = [currentDeg];
+                
+                for(let i = 1; i < seqLength; i++){
+                    let options = MARKOV_RULES[actualStyle][currentDeg] || [0, 3, 4, 5];
+                    currentDeg = options[Math.floor(Math.random() * options.length)] % scaleIntervals.length;
+                    degreesArray.push(currentDeg);
+                }
 
-                progressionData.push({ 
-                    chordName, 
-                    midiNotes: finalMidiNotes, 
-                    rawMidiForScore,
-                    rootMidiAbs: baseOctaveMidi + rootMidiAbs,
-                    functionLabel: `${func} (Grau ${degree+1})`, 
-                    voicing, 
-                    beats 
-                });
+                const allowedVoicings = STYLE_VOICINGS[actualStyle];
+                const rhythmPool = [4, 2, 4, 2, 2, 4];
+
+                for (let i = 0; i < degreesArray.length; i++) {
+                    const degree = degreesArray[i] % scaleIntervals.length;
+                    const voicing = allowedVoicings[Math.floor(Math.random() * allowedVoicings.length)];
+                    const intervals = getDiatonicVoicing(scaleIntervals, degree, voicing);
+                    
+                    let beats = 4;
+                    if (rhythmOverride !== 'auto') {
+                        beats = parseInt(rhythmOverride);
+                    } else {
+                        beats = rhythmPool[i % rhythmPool.length];
+                        if (['fingerpick', 'fast_pluck'].includes(patternType)) beats = Math.max(2, beats);
+                    }
+                    
+                    let chordName = NOTES[(rootIdx + intervals[0]) % 12];
+                    if (voicing === 'power') chordName += '5';
+                    if (voicing === 'sus2') chordName += 'sus2';
+
+                    const midiNotes = intervals.map(interv => baseOctaveMidi + rootIdx + interv);
+                    progressionData.push({ chordName, midiNotes, functionLabel: `Grau ${degree+1}`, voicing, beats });
+                }
             }
 
             const state = {
