@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ACORDES E PARTITURAS</title>
+    <title>ACORDES E PARTITURAS (Pro Edition - Clean Voicing Engine)</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vexflow@4.2.2/build/cjs/vexflow.js"></script>
     
@@ -225,7 +225,6 @@
                 const response = await fetch('./dataset.json', { cache: "no-store" });
                 if (!response.ok) throw new Error("HTTP Fail");
                 musicDatabase = await response.json();
-                if(!musicDatabase['pop_rock']) throw new Error("JSON antigo");
             } catch (error) {
                 const btn = document.getElementById('btn-generate');
                 btn.classList.add('error');
@@ -247,10 +246,11 @@
 
         function createFallbackDataset() {
             return {
-                'pop_rock': { progressions: [[0,4,5,3], [0,3,4,0]] },
-                'jazz_functional': { progressions: [[1,4,0,5]] },
-                'latin_bossa': { progressions: [[0,5,1,4]] },
-                'reggae_dub': { progressions: [[0,3,0,4]] }
+                'pop_rock': { progressions: [[0,4,5,3], [0,3,4,0]], voicings: ['add9', 'triad'] },
+                'jazz_functional': { progressions: [[1,4,0,5]], voicings: ['maj9', 'm9', 'ninth'] },
+                'latin_bossa': { progressions: [[0,5,1,4]], voicings: ['maj9', 'm9'] },
+                'reggae_dub': { progressions: [[0,3,0,4]], voicings: ['seventh', 'triad'] },
+                'synthwave_retrowave': { progressions: [[0,6,5,4]], voicings: ['add9', 'sus2'] }
             };
         }
 
@@ -282,38 +282,62 @@
             return VEX_KEYS[(rootIdx + (offsets[scaleType] || 0) + 12) % 12];
         }
 
-        // NOVO MOTOR ABSOLUTO DE TEORIA FUNCIONAL (Resolve a atonalidade e o "Rolo Compressor")
-        function buildAbsoluteVoicing(rootMidiAbs, quality) {
-            let intervals = [0, 4, 7]; 
-            switch(quality) {
-                case 'maj9': intervals = [0, 4, 7, 11, 14]; break;
-                case 'm9': intervals = [0, 3, 7, 10, 14]; break;
-                case 'dom9': intervals = [0, 4, 7, 10, 14]; break;
-                case 'dom7': intervals = [0, 4, 7, 10]; break;
-                case 'm7': intervals = [0, 3, 7, 10]; break;
-                case 'maj7': intervals = [0, 4, 7, 11]; break;
-                case 'm7b5': intervals = [0, 3, 6, 10]; break;
-                case 'sus2': intervals = [0, 2, 7]; break;
-                case 'sus4': intervals = [0, 5, 7]; break;
-                case 'power': intervals = [0, 7]; break;
-                case 'minor': intervals = [0, 3, 7]; break;
-                case 'triad': intervals = [0, 4, 7]; break;
+        // GERADOR DE INTERVALOS PUROS: Retorna as notas base relativas à escala sem esmagar oitavas
+        function getDiatonicVoicing(scaleIntervals, rootDegree, voicingType) {
+            const len = scaleIntervals.length;
+            const getInterval = (offset) => {
+                const totalIdx = rootDegree + offset;
+                const idx = ((totalIdx % len) + len) % len;
+                const octave = Math.floor(totalIdx / len);
+                return scaleIntervals[idx] + (octave * 12);
+            };
+
+            const r = getInterval(0);
+            const t = getInterval(2);
+            const fi = getInterval(4);
+            const se = getInterval(6) !== undefined ? getInterval(6) : (scaleIntervals[0] + 10); 
+            const n = getInterval(8) !== undefined ? getInterval(8) : (scaleIntervals[1] + 12);  
+            
+            let notes = [];
+            switch(voicingType) {
+                case 'power': notes = [r, fi, r + 12]; break;
+                case 'sus2': notes = [r, getInterval(1), fi]; break;
+                case 'sus4': notes = [r, getInterval(3), fi]; break;
+                case 'add9': notes = [r, t, fi, n]; break;
+                case 'seventh': notes = [r, t, fi, se]; break;
+                case 'ninth': 
+                case 'm9': 
+                case 'maj9': notes = [r, t, fi, se, n]; break;
+                case 'eleventh': notes = [r, t, fi, se, getInterval(10) !== undefined ? getInterval(10) : (n + 3)]; break;
+                case 'minor': notes = [r, getInterval(1), fi]; break;
+                case 'triad': default: notes = [r, t, fi]; break;
             }
-            if (intervals.length > 4) intervals.splice(2, 1); // Omite a quinta em acordes muito densos
-            return intervals.map(i => rootMidiAbs + i);
+
+            notes = notes.filter(n => typeof n === 'number' && !isNaN(n));
+            
+            // Drop-2 Seguro: Abaixa a penúltima nota em uma oitava sem colidir.
+            if (notes.length >= 4 && (voicingType.includes('9') || voicingType.includes('11'))) {
+                notes.sort((a, b) => a - b);
+                notes[notes.length - 2] -= 12; 
+            }
+
+            notes.sort((a, b) => a - b);
+            return notes;
         }
 
-        function applyVoiceLeading(targetNotes, previousNotes, baseOctaveMidi) {
+        // CONDUÇÃO DE VOZES EM BLOCO: Move o acorde INTEIRO para manter a estrutura harmônica intacta
+        function applyVoiceLeading(targetNotes, previousNotes) {
             if (!previousNotes || previousNotes.length === 0) return targetNotes;
             const prevCenter = previousNotes.reduce((a, b) => a + b, 0) / previousNotes.length;
-            let ledNotes = targetNotes.map(note => {
-                let distance = prevCenter - note;
-                let octavesToShift = Math.round(distance / 12);
-                return note + (octavesToShift * 12);
-            });
-            const minBound = baseOctaveMidi - 4; 
-            const maxBound = baseOctaveMidi + 14; 
-            return ledNotes.map(n => n < minBound ? n + 12 : (n > maxBound ? n - 12 : n)).sort((a,b) => a - b);
+            const targetCenter = targetNotes.reduce((a, b) => a + b, 0) / targetNotes.length;
+            
+            const diff = prevCenter - targetCenter;
+            
+            // Se o centro do acorde novo estiver muito longe (mais de 8 semitons), movemos o bloco inteiro
+            if (diff > 8) return targetNotes.map(n => n + 12);
+            if (diff < -8) return targetNotes.map(n => n - 12);
+            
+            return targetNotes;
         }
 
         function renderScore(progressionData, keySignatureString) {
@@ -379,8 +403,8 @@
             bassVoice.draw(context, bottomStave);
         }
 
-        // MOTORES DE GROOVE COM ARRANJOS REAIS
-        function generateScheduledNotes(progressionData, patternType, baseOctaveMidi) {
+        // MOTOR RÍTMICO INDEPENDENTE
+        function generateScheduledNotes(progressionData, patternType) {
             let scheduledNotes = []; 
             let currentBeat = 0;
 
@@ -390,8 +414,8 @@
                 const notes = uniqueMidis.sort((a,b) => a-b);
                 const rootNoteIdx = chord.rootMidi % 12;
                 
-                let bassBase = baseOctaveMidi - 12; 
-                if (bassBase < 24) bassBase = 24; 
+                // O BAIXO SEMPRE FICA ISOLADO NO GRAVE (Oitava 2 ou 3) - Protege contra notas emboladas
+                let bassBase = 36; // C2
                 const bassNote = bassBase + rootNoteIdx;
 
                 let swingOffset = 0;
@@ -412,7 +436,6 @@
                 if (patternType === 'reggae_skank') {
                     for(let b=0; b<chordDuration; b+=2) {
                         addNote(bassNote, currentBeat + b, 1.0, 95, false); // Bumbo/Baixo no tempo forte
-                        // Skank puramente nos contratempos (1.5 e 3.5 em compasso 4/4)
                         notes.forEach(n => addNote(n, currentBeat + b + 0.5, 0.4, 88, true)); 
                         notes.forEach(n => addNote(n, currentBeat + b + 1.5, 0.4, 88, true)); 
                     }
@@ -422,7 +445,6 @@
                         addNote(bassNote, currentBeat + b, 1.5, 90, false); // Surdo Tônica
                         if(chordDuration > 1) addNote(bassNote + 7, currentBeat + b + 1.5, 0.5, 80, false); // Surdo Quinta
                     }
-                    // Clave autêntica de 2 compassos
                     let bossaRhythm = [0, 1.5, 2.5, 4.5, 6]; 
                     bossaRhythm.forEach(offset => {
                         if (offset < chordDuration) {
@@ -432,7 +454,7 @@
                 }
                 else if (patternType === 'synth_pulse') {
                     for (let b = 0; b < chordDuration; b += 0.5) {
-                        addNote(bassNote, currentBeat + b, 0.25, 95, false); // Pulsante oitavado
+                        addNote(bassNote, currentBeat + b, 0.25, 95, false); 
                     }
                     notes.forEach(n => addNote(n, currentBeat, chordDuration, 65, false)); 
                 }
@@ -518,7 +540,7 @@
 
             const rootIdx = parseInt(document.getElementById('root-note').value);
             const scaleType = document.getElementById('scale-type').value;
-            const baseOctaveMidi = 48; // Equilíbrio perfeito fixo
+            const baseOctaveMidi = 48; // Fixado no Sweet Spot (C3) para Harmonia
             const arrOverride = document.getElementById('arrangement-pattern').value;
             const rhythmOverride = document.getElementById('rhythm-control').value;
             const bpmValue = parseInt(document.getElementById('bpm-control').value) || 120;
@@ -538,15 +560,20 @@
                 for (let i = 0; i < numChords; i++) {
                     const degree = Math.floor(Math.random() * scaleIntervals.length);
                     const voicing = voicings[Math.floor(Math.random() * voicings.length)];
-                    let rootMidiAbs = baseOctaveMidi + rootIdx + scaleIntervals[degree];
-                    const intervals = buildAbsoluteVoicing(rootMidiAbs, voicing);
+                    
+                    const intervals = getDiatonicVoicing(scaleIntervals, degree, voicing);
+                    let rawMidiNotes = intervals.map(interv => baseOctaveMidi + rootIdx + interv);
                     
                     let beats = rhythmOverride !== 'auto' ? parseInt(rhythmOverride) : [4, 2, 4, 2][i % 4];
-                    let ledMidiNotes = applyVoiceLeading(intervals, previousNotes, baseOctaveMidi);
+                    let ledMidiNotes = applyVoiceLeading(rawMidiNotes, previousNotes);
                     previousNotes = [...ledMidiNotes];
 
                     let rootNoteAbs = ((rootIdx + scaleIntervals[degree]) % 12 + 12) % 12;
-                    progressionData.push({ chordName: NOTES[rootNoteAbs], midiNotes: ledMidiNotes, rootMidi: rootMidiAbs, functionLabel: `Grau ${degree+1}`, voicing, beats });
+                    let chordName = NOTES[rootNoteAbs];
+                    if (voicing === 'power') chordName += '5';
+                    if (voicing === 'sus2') chordName += 'sus2';
+
+                    progressionData.push({ chordName, midiNotes: ledMidiNotes, rootMidi: baseOctaveMidi + rootIdx + intervals[0], functionLabel: `Grau ${degree+1}`, voicing, beats });
                 }
             } else {
                 const styleData = musicDatabase[styleId] || musicDatabase['pop_rock'];
@@ -555,6 +582,7 @@
                 let degreesArray = [];
                 let seqLength = [4, 6, 8][Math.floor(Math.random() * 3)];
 
+                // LEITURA DO JSON SEGURO
                 if (styleData && styleData.markov && Object.keys(styleData.markov).length > 0) {
                     const seedProg = styleData.progressions[Math.floor(Math.random() * styleData.progressions.length)];
                     degreesArray.push(seedProg[0]);
@@ -570,54 +598,29 @@
                     degreesArray = styleData.progressions[Math.floor(Math.random() * styleData.progressions.length)];
                 }
 
-                let isMinor = scaleType.includes('minor') || scaleType === 'dorian';
+                const allowedVoicings = styleData ? styleData.voicings : ["triad", "seventh"];
 
                 for (let i = 0; i < degreesArray.length; i++) {
                     const degree = degreesArray[i] % scaleIntervals.length;
-                    let rootMidiAbs = baseOctaveMidi + rootIdx + scaleIntervals[degree];
-                    let chordQuality = 'triad';
-
-                    // LÓGICA FUNCIONAL REAL (Substitui o Sorteio Cego)
-                    if (styleId === 'jazz_functional' || styleId === 'latin_bossa') {
-                        if (degree === 0) chordQuality = isMinor ? 'm9' : 'maj9';
-                        else if (degree === 1) chordQuality = 'm9';
-                        else if (degree === 3) chordQuality = 'maj9';
-                        else if (degree === 4) chordQuality = 'dom9'; // V sempre dominante
-                        else if (degree === 5) chordQuality = 'm9';
-                        else chordQuality = 'm7';
-                    }
-                    else if (styleId === 'blues_soul') {
-                        if ([0, 3, 4].includes(degree)) chordQuality = 'dom7';
-                        else chordQuality = 'm7';
-                    }
-                    else if (styleId === 'hiphop_trap') chordQuality = [0, 1, 3, 5].includes(degree) ? 'm9' : 'minor';
-                    else if (styleId === 'synthwave_retrowave') chordQuality = [0, 3, 4, 5].includes(degree) ? 'sus2' : 'power';
-                    else if (styleId === 'reggae_dub') chordQuality = [0, 3, 4].includes(degree) ? (isMinor ? 'm7' : 'maj7') : 'minor';
-                    else {
-                        let third = (scaleIntervals[(degree+2)%7] - scaleIntervals[degree] + 12) % 12;
-                        chordQuality = (third === 3) ? 'minor' : 'triad';
-                        if (Math.random() > 0.5) chordQuality = (third === 3) ? 'm7' : 'maj7';
-                    }
-
-                    const intervals = buildAbsoluteVoicing(rootMidiAbs, chordQuality);
+                    const voicing = allowedVoicings[Math.floor(Math.random() * allowedVoicings.length)];
+                    
+                    const intervals = getDiatonicVoicing(scaleIntervals, degree, voicing);
+                    let rawMidiNotes = intervals.map(interv => baseOctaveMidi + rootIdx + interv);
                     
                     let beats = rhythmOverride !== 'auto' ? parseInt(rhythmOverride) : 4;
                     if (['bossa_nova', 'reggae_skank'].includes(patternType)) beats = Math.max(4, beats);
                     
-                    let ledMidiNotes = applyVoiceLeading(intervals, previousNotes, baseOctaveMidi);
+                    let ledMidiNotes = applyVoiceLeading(rawMidiNotes, previousNotes);
                     previousNotes = [...ledMidiNotes];
 
                     let rootNoteAbs = ((rootIdx + scaleIntervals[degree]) % 12 + 12) % 12;
                     let chordName = NOTES[rootNoteAbs];
-                    if (chordQuality.includes('sus')) chordName += 'sus2';
-                    if (chordQuality === 'power') chordName += '5';
-                    if (chordQuality === 'dom7') chordName += '7';
-                    if (chordQuality === 'm7') chordName += 'm7';
-                    if (chordQuality === 'maj9') chordName += 'maj9';
-                    if (chordQuality === 'm9') chordName += 'm9';
-                    if (chordQuality === 'dom9') chordName += '9';
+                    
+                    if (voicing === 'power') chordName += '5';
+                    if (voicing === 'sus2') chordName += 'sus2';
+                    if (voicing === 'sus4') chordName += 'sus4';
 
-                    progressionData.push({ chordName, midiNotes: ledMidiNotes, rootMidi: rootMidiAbs, functionLabel: `Grau ${degree+1}`, voicing: chordQuality, beats });
+                    progressionData.push({ chordName, midiNotes: ledMidiNotes, rootMidi: baseOctaveMidi + rootIdx + intervals[0], functionLabel: `Grau ${degree+1}`, voicing, beats });
                 }
             }
 
@@ -645,8 +648,6 @@
             
             const container = document.getElementById('progression-display');
             container.innerHTML = '';
-            const scalePills = document.getElementById('scale-display');
-            scalePills.innerHTML = '';
             
             renderScore(state.progressionData, state.keySigString);
 
@@ -664,7 +665,7 @@
                 container.appendChild(box);
             });
 
-            const schedule = generateScheduledNotes(state.progressionData, state.patternType, state.baseOctaveMidi);
+            const schedule = generateScheduledNotes(state.progressionData, state.patternType);
             const beatToSeconds = 60 / state.bpmValue;
 
             schedule.notes.forEach(noteData => {
