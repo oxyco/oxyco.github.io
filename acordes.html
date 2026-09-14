@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ACORDES E PARTITURAS (Pro Edition - JSON Driven)</title>
+    <title>ACORDES E PARTITURAS (Pro Edition - JSON & Drop-2)</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vexflow@4.2.2/build/cjs/vexflow.js"></script>
     
@@ -215,9 +215,7 @@
                 const response = await fetch('./dataset.json');
                 if (!response.ok) throw new Error("Dataset não encontrado");
                 musicDatabase = await response.json();
-                console.log("Banco de dados musical carregado com sucesso.");
             } catch (error) {
-                console.warn("Criando dataset de fallback local para testes.");
                 musicDatabase = createFallbackDataset();
             }
             checkReady();
@@ -233,7 +231,6 @@
             }
         }
 
-        // Caso o JSON não seja encontrado, este fallback salva a interface para não quebrar.
         function createFallbackDataset() {
             return {
                 'pop': { progressions: [[0,4,5,3], [0,5,3,4]], voicings: ['add9', 'sus4', 'triad'] },
@@ -274,41 +271,49 @@
             return VEX_KEYS[(rootIdx + (offsets[scaleType] || 0) + 12) % 12];
         }
 
+        // --- MOTOR DE VOICINGS + DROP-2 PROFISSIONAL ---
         function getDiatonicVoicing(scaleIntervals, rootDegree, voicingType) {
             const getInterval = (offset) => {
                 const idx = (rootDegree + offset) % scaleIntervals.length;
                 const octave = Math.floor((rootDegree + offset) / scaleIntervals.length);
                 return scaleIntervals[idx] + (octave * 12);
             };
-            const r = getInterval(0), s = getInterval(1), t = getInterval(2), f = getInterval(3), fi = getInterval(4);
+            const r = getInterval(0), t = getInterval(2), fi = getInterval(4), se = getInterval(6), n = getInterval(8);
             
+            let notes = [];
             switch(voicingType) {
-                case 'power': return [r, fi, r + 12];
-                case 'sus2': return [r, s, fi];
-                case 'sus4': return [r, f, fi];
-                case 'add9': return [r, t, fi, r + 14];
-                case 'seventh': return [r, t, fi, r + 10];
-                case 'ninth': return [r, t, fi, r + 10, r + 14];
-                case 'm9': return [r, t, fi, r + 10, r + 14];
-                case 'maj9': return [r, t, fi, r + 11, r + 14];
-                case 'eleventh': return [r, t, fi, r+10, r+17];
-                case 'minor': return [r, s, fi];
-                case 'triad': default: return [r, t, fi];
+                case 'power': notes = [r, fi, r + 12]; break;
+                case 'sus2': notes = [r, getInterval(1), fi]; break;
+                case 'sus4': notes = [r, getInterval(3), fi]; break;
+                case 'add9': notes = [r, t, fi, n]; break;
+                case 'seventh': notes = [r, t, fi, se]; break;
+                case 'ninth': 
+                case 'm9': 
+                case 'maj9': notes = [r, t, fi, se, n]; break;
+                case 'eleventh': notes = [r, t, fi, se, getInterval(10)]; break;
+                case 'minor': notes = [r, getInterval(1), fi]; break;
+                case 'triad': default: notes = [r, t, fi]; break;
             }
+
+            // APLICAÇÃO DO DROP-2 (Abre as aberturas para Jazz, R&B e Pop avançado)
+            if (notes.length >= 4) {
+                notes.sort((a, b) => a - b);
+                let dropNote = notes[notes.length - 2] - 12;
+                notes[notes.length - 2] = dropNote;
+                notes.sort((a, b) => a - b);
+            }
+
+            return notes;
         }
 
-        // ALGORITMO DE CONDUÇÃO DE VOZES (Elimina cancelamento de fase e saltos artificiais)
         function applyVoiceLeading(targetNotes, previousNotes) {
             if (!previousNotes || previousNotes.length === 0) return targetNotes;
-            
             const prevCenter = previousNotes.reduce((a, b) => a + b, 0) / previousNotes.length;
-            
             let ledNotes = targetNotes.map(note => {
                 let distance = prevCenter - note;
                 let octavesToShift = Math.round(distance / 12);
                 return note + (octavesToShift * 12);
             });
-            // Mantém na zona limpa de reprodução (Oitava 3 e 4)
             return ledNotes.map(n => n < 48 ? n + 12 : (n > 72 ? n - 12 : n)).sort((a,b) => a - b);
         }
 
@@ -396,7 +401,6 @@
             bassVoice.draw(context, bottomStave);
         }
 
-        // MOTOR RÍTMICO HUMANIZADO (Micro-atrasos e Velocity Dinâmico baseados no estilo)
         function generateScheduledNotes(progressionData, patternType) {
             let scheduledNotes = []; 
             let currentBeat = 0;
@@ -405,11 +409,9 @@
                 const chordDuration = chord.beats;
                 const uniqueMidis = [...new Set(chord.midiNotes)];
                 const notes = uniqueMidis.sort((a,b) => a-b);
-                
                 const rootNoteIdx = chord.rootMidi % 12;
-                const bassNote = 36 + rootNoteIdx; // Isolado e potente na Oitava 2
+                const bassNote = 36 + rootNoteIdx;
 
-                // Função auxiliar que injeta leve variação humana no velocity (-5 a +5) e offset de tempo
                 function addNote(midi, timeOffset, duration, baseVelocity, humanizeTime = true) {
                     let finalVel = Math.min(127, Math.max(0, baseVelocity + (Math.random() * 10 - 5)));
                     let finalTime = humanizeTime ? timeOffset + (Math.random() * 0.02 - 0.01) : timeOffset;
@@ -417,15 +419,15 @@
                 }
 
                 if (patternType === 'block_bass' || patternType === 'none') {
-                    addNote(bassNote, currentBeat, chordDuration, 95, false); // Baixo sempre cravado
-                    notes.forEach((n, i) => addNote(n, currentBeat + (i * 0.015), chordDuration, 75)); // Acorde levemente arpejado
+                    addNote(bassNote, currentBeat, chordDuration, 95, false);
+                    notes.forEach((n, i) => addNote(n, currentBeat + (i * 0.015), chordDuration, 75));
                 } 
                 else if (patternType === 'fingerpick') {
                     addNote(bassNote, currentBeat, chordDuration, 90, false);
                     let step = 0;
                     while (step < chordDuration) {
                         const noteToPlay = step === 0 ? bassNote : notes[Math.floor(step * 2) % notes.length];
-                        let vel = step === 0 ? 90 : 75; // Acentua a cabeça do tempo
+                        let vel = step === 0 ? 90 : 75;
                         addNote(noteToPlay, currentBeat + step, 1.0, vel);
                         step += 0.5; 
                     }
@@ -442,7 +444,6 @@
                     let step = 0;
                     while (step < chordDuration) {
                         const n = notes[Math.floor(step * 4) % notes.length];
-                        // EDM pluck precisa ser duro e cravado
                         addNote(n, currentBeat + step, 0.25, 80, false);
                         step += 0.25;
                     }
@@ -547,7 +548,6 @@
                     progressionData.push({ chordName: rootName, midiNotes: ledMidiNotes, rootMidi: baseOctaveMidi + rootIdx + intervals[0], functionLabel: `Grau ${degree+1}`, voicing, beats });
                 }
             } else {
-                // Consulta o JSON de alta qualidade em vez de matriz local rígida
                 let styleId = document.getElementById('music-style').value;
                 const styleData = musicDatabase[styleId] || musicDatabase['pop'];
                 
@@ -623,7 +623,7 @@
             });
 
             const schedule = generateScheduledNotes(state.progressionData, state.patternType);
-            const beatToSeconds = 0.5; // 120 BPM
+            const beatToSeconds = 0.5;
 
             schedule.notes.forEach(noteData => {
                 const freq = Tone.Frequency(noteData.midi, "midi").toNote();
