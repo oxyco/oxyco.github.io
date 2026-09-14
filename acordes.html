@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ACORDES E PARTITURAS (Pro Edition - JSON & Drop-2)</title>
+    <title>ACORDES E PARTITURAS (Pro Edition - JSON & Drop-2 Blindado)</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vexflow@4.2.2/build/cjs/vexflow.js"></script>
     
@@ -164,7 +164,7 @@
     <div class="progression-container" id="progression-display"></div>
     <div id="scale-display"></div>
     <div class="piano-wrapper"><div id="piano"></div></div>
-    <div id="drag-pad" draggable="true" title="Arraste para a Timeline do Ableton/Reaper">↓ Arraste o MIDI Exato para a DAW</div>
+    <div id="drag-pad" draggable="true" title="Arraste para a Timeline do Ableton/Reaper">↓ Arraste o MIDI Exato para a sua DAW</div>
 
     <script>
         const VF = Vex.Flow;
@@ -271,14 +271,21 @@
             return VEX_KEYS[(rootIdx + (offsets[scaleType] || 0) + 12) % 12];
         }
 
-        // --- MOTOR DE VOICINGS + DROP-2 PROFISSIONAL ---
+        // --- MOTOR DE VOICINGS + DROP-2 BLINDADO CONTRA UNDEFINED ---
         function getDiatonicVoicing(scaleIntervals, rootDegree, voicingType) {
+            const len = scaleIntervals.length;
             const getInterval = (offset) => {
-                const idx = (rootDegree + offset) % scaleIntervals.length;
-                const octave = Math.floor((rootDegree + offset) / scaleIntervals.length);
+                const totalIdx = rootDegree + offset;
+                const idx = ((totalIdx % len) + len) % len;
+                const octave = Math.floor(totalIdx / len);
                 return scaleIntervals[idx] + (octave * 12);
             };
-            const r = getInterval(0), t = getInterval(2), fi = getInterval(4), se = getInterval(6), n = getInterval(8);
+
+            const r = getInterval(0);
+            const t = getInterval(2);
+            const fi = getInterval(4);
+            const se = getInterval(6) !== undefined ? getInterval(6) : (scaleIntervals[0] + 10); 
+            const n = getInterval(8) !== undefined ? getInterval(8) : (scaleIntervals[1] + 12);  
             
             let notes = [];
             switch(voicingType) {
@@ -290,12 +297,15 @@
                 case 'ninth': 
                 case 'm9': 
                 case 'maj9': notes = [r, t, fi, se, n]; break;
-                case 'eleventh': notes = [r, t, fi, se, getInterval(10)]; break;
+                case 'eleventh': notes = [r, t, fi, se, getInterval(10) !== undefined ? getInterval(10) : (n + 3)]; break;
                 case 'minor': notes = [r, getInterval(1), fi]; break;
                 case 'triad': default: notes = [r, t, fi]; break;
             }
 
-            // APLICAÇÃO DO DROP-2 (Abre as aberturas para Jazz, R&B e Pop avançado)
+            // Filtra qualquer elemento nulo ou undefined gerado por folga de índice
+            notes = notes.filter(n => typeof n === 'number' && !isNaN(n));
+
+            // APLICAÇÃO SEGURA DO DROP-2
             if (notes.length >= 4) {
                 notes.sort((a, b) => a - b);
                 let dropNote = notes[notes.length - 2] - 12;
