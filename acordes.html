@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ACORDES E PARTITURAS (Pro Edition - Bug Fix & Melody)</title>
+    <title>ACORDES E PARTITURAS (Pro Edition - Blindado)</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vexflow@4.2.2/build/cjs/vexflow.js"></script>
     
@@ -68,6 +68,8 @@
         #drag-pad:hover { background: rgba(16, 185, 129, 0.2); }
         #btn-download-midi { padding: 18px 30px; background: #3b82f6; color: #fff; font-size: 16px; font-weight: 800; border: none; border-radius: 8px; cursor: pointer; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4); transition: 0.2s; width: 100%; }
         #btn-download-midi:hover { background: #2563eb; transform: translateY(-2px);}
+        
+        #error-log { display: none; margin: 20px auto; max-width: 800px; padding: 15px; background: rgba(239, 68, 68, 0.1); border: 1px solid #ef4444; border-radius: 8px; color: #ef4444; font-size: 12px; text-align: left; }
     </style>
 </head>
 <body onload="initializeApp()">
@@ -169,6 +171,8 @@
         </div>
     </div>
 
+    <div id="error-log"></div>
+
     <div class="score-header">Leitura Harmônica Simplificada</div>
     <div id="score-container"><div id="score"></div></div>
     
@@ -176,7 +180,7 @@
     <div class="piano-wrapper"><div id="piano"></div></div>
     
     <div id="export-zone">
-        <div id="drag-pad" draggable="true" title="Arraste direto para a DAW (Para Windows, salve no desktop primeiro)">🖱️ ARRASTAR MIDI PARA DAW (MAC/Chrome)</div>
+        <div id="drag-pad" draggable="true" title="Arraste direto para a DAW (Para Windows, salve no desktop primeiro)">🖱️ ARRASTAR PARA O DESKTOP (E DEPOIS PARA A DAW)</div>
         <button id="btn-download-midi">⬇️ BAIXAR ARQUIVO MIDI (Para Windows/Ableton)</button>
     </div>
 
@@ -187,7 +191,6 @@
         const ACC_MAP = ['', '#', '', 'b', '', '', '#', '', 'b', '', 'b', ''];
         const NOTE_COLORS = ["#ef4444", "#f97316", "#f59e0b", "#eab308", "#84cc16", "#22c55e", "#10b981", "#06b6d4", "#3b82f6", "#6366f1", "#a855f7", "#ec4899"];
 
-        // BUG CORRIGIDO: Todas as escalas mapeadas perfeitamente
         const SCALES = {
             'major':          [0, 2, 4, 5, 7, 9, 11],
             'minor':          [0, 2, 3, 5, 7, 8, 10],
@@ -332,6 +335,7 @@
         }
 
         function renderScore(progressionData, keySignatureString) {
+            if (!progressionData || progressionData.length === 0) return;
             const div = document.getElementById("score");
             div.innerHTML = ""; 
             const scoreWidth = Math.max(800, progressionData.length * 150);
@@ -387,13 +391,15 @@
             });
 
             const totalBeats = progressionData.reduce((acc, curr) => acc + curr.beats, 0);
-            const trebleVoice = new VF.Voice({ num_beats: totalBeats, beat_value: 4 }).setStrict(false);
-            const bassVoice = new VF.Voice({ num_beats: totalBeats, beat_value: 4 }).setStrict(false);
-            trebleVoice.addTickables(trebleNotes); 
-            bassVoice.addTickables(bassNotes);
-            new VF.Formatter().joinVoices([trebleVoice]).joinVoices([bassVoice]).format([trebleVoice, bassVoice], scoreWidth - 100);
-            trebleVoice.draw(context, topStave); 
-            bassVoice.draw(context, bottomStave);
+            if (totalBeats > 0) {
+                const trebleVoice = new VF.Voice({ num_beats: totalBeats, beat_value: 4 }).setStrict(false);
+                const bassVoice = new VF.Voice({ num_beats: totalBeats, beat_value: 4 }).setStrict(false);
+                trebleVoice.addTickables(trebleNotes); 
+                bassVoice.addTickables(bassNotes);
+                new VF.Formatter().joinVoices([trebleVoice]).joinVoices([bassVoice]).format([trebleVoice, bassVoice], scoreWidth - 100);
+                trebleVoice.draw(context, topStave); 
+                bassVoice.draw(context, bottomStave);
+            }
         }
 
         function generateScheduledNotes(progressionData, styleId, patternType, playBass, playMelody) {
@@ -424,7 +430,7 @@
                 const template = grooveTemplates[styleId] || grooveTemplates['pop_rock']; 
 
                 function addNote(midi, timeOffset, duration, baseVelocity, isMelody = false) {
-                    if (midi === null) return;
+                    if (midi === null || isNaN(midi)) return;
                     let targetVel = baseVelocity;
                     if (midi >= 67 && !isMelody) targetVel *= 0.85; 
                     let finalVel = Math.min(127, Math.max(0, targetVel + (Math.random() * 6 - 3))); 
@@ -449,8 +455,10 @@
                     let step = 0;
                     let noteIndex = 0;
                     while (step < 4) {
-                        let n = notes[noteIndex % notes.length];
-                        addNote(n, currentBeat + step, 1.0, 80);
+                        if (notes.length > 0) {
+                            let n = notes[noteIndex % notes.length];
+                            addNote(n, currentBeat + step, 1.0, 80);
+                        }
                         step += 0.5; 
                         noteIndex++;
                     }
@@ -467,7 +475,7 @@
                     });
                 }
 
-                if (playMelody) {
+                if (playMelody && notes.length > 0) {
                     let isBPart = (compassIndex % 4 === 2); 
                     let activeTimes = isBPart ? motifBTimes : motifATimes;
                     let activeContour = isBPart ? contourB : contourA;
@@ -505,7 +513,7 @@
             events.sort((a,b) => a.ticks - b.ticks);
             let lastTicks = 0;
             events.forEach(e => {
-                const delta = e.ticks - lastTicks;
+                const delta = Math.max(0, e.ticks - lastTicks);
                 track.push(...vlq(delta)); track.push(e.type, e.midi, e.velocity); lastTicks = e.ticks;
             });
             const endDelta = Math.max(0, (totalBeats * ticksPerBeat) - lastTicks);
@@ -530,120 +538,136 @@
         function stopPlayback() {
             playTimeouts.forEach(clearTimeout);
             playTimeouts = [];
-            sampler.releaseAll();
+            if(sampler && sampler.loaded) sampler.releaseAll();
             document.querySelectorAll('.chord-box').forEach(b => b.classList.remove('playing'));
             document.querySelectorAll('.key').forEach(k => k.classList.remove('active'));
             setButtonsState(false);
         }
 
+        function showError(msg) {
+            const el = document.getElementById('error-log');
+            el.style.display = 'block';
+            el.innerText = `🛑 Erro Identificado: ${msg}`;
+            setButtonsState(false);
+        }
+
         async function generateNew() {
-            if (Tone.context.state !== 'running') await Tone.start();
-            stopPlayback();
-            setButtonsState(true);
+            try {
+                document.getElementById('error-log').style.display = 'none';
+                if (Tone.context.state !== 'running') await Tone.start();
+                stopPlayback();
+                setButtonsState(true);
 
-            const rootIdx = parseInt(document.getElementById('root-note').value);
-            const scaleType = document.getElementById('scale-type').value;
-            const baseOctaveMidi = parseInt(document.getElementById('octave-select').value); 
-            const arrOverride = document.getElementById('arrangement-pattern').value;
-            const bpmValue = parseInt(document.getElementById('bpm-control').value) || 120;
-            const playBass = document.getElementById('bass-control').value === 'on';
-            const playMelody = document.getElementById('melody-control').value === 'on';
-            const scaleIntervals = SCALES[scaleType];
-            
-            const progressionData = [];
-            let previousNotes = [];
-            let styleId = document.getElementById('music-style').value;
-            let patternType = 'block_bass';
-            const ALL_P = ['block_bass', 'fingerpick', 'jazz_comping', 'reggae_skank', 'bossa_nova', 'synth_pulse', 'metal_gallop'];
-            
-            if (currentMode === 'scale') {
-                patternType = arrOverride === 'auto' ? 'block_bass' : (arrOverride === 'random' ? ALL_P[Math.floor(Math.random()*ALL_P.length)] : arrOverride);
-                const voicings = ['triad', 'add9', 'seventh', 'sus2', 'sus4'];
-                for (let i = 0; i < 4; i++) {
-                    const degree = Math.floor(Math.random() * scaleIntervals.length);
-                    const voicing = voicings[Math.floor(Math.random() * voicings.length)];
-                    let rootMidiAbs = 48 + rootIdx + scaleIntervals[degree];
-                    const intervals = buildAbsoluteVoicing(rootMidiAbs, voicing);
-                    
-                    let ledMidiNotes = applyVoiceLeading(intervals, previousNotes, 48);
-                    previousNotes = [...ledMidiNotes];
+                const rootIdx = parseInt(document.getElementById('root-note').value);
+                const scaleType = document.getElementById('scale-type').value;
+                const baseOctaveMidi = parseInt(document.getElementById('octave-select').value); 
+                const arrOverride = document.getElementById('arrangement-pattern').value;
+                const bpmValue = parseInt(document.getElementById('bpm-control').value) || 120;
+                const playBass = document.getElementById('bass-control').value === 'on';
+                const playMelody = document.getElementById('melody-control').value === 'on';
+                const scaleIntervals = SCALES[scaleType] || SCALES['minor']; // Fallback robusto
+                
+                const progressionData = [];
+                let previousNotes = [];
+                let styleId = document.getElementById('music-style').value;
+                let patternType = 'block_bass';
+                const ALL_P = ['block_bass', 'fingerpick', 'jazz_comping', 'reggae_skank', 'bossa_nova', 'synth_pulse', 'metal_gallop'];
+                
+                if (currentMode === 'scale') {
+                    patternType = arrOverride === 'auto' ? 'block_bass' : (arrOverride === 'random' ? ALL_P[Math.floor(Math.random()*ALL_P.length)] : arrOverride);
+                    const voicings = ['triad', 'sus2', 'sus4']; // Removido add9/seventh que não estavam no dictionary
+                    for (let i = 0; i < 4; i++) {
+                        const degree = Math.floor(Math.random() * scaleIntervals.length);
+                        const voicing = voicings[Math.floor(Math.random() * voicings.length)];
+                        let rootMidiAbs = 48 + rootIdx + scaleIntervals[degree];
+                        const intervals = buildAbsoluteVoicing(rootMidiAbs, voicing);
+                        
+                        let ledMidiNotes = applyVoiceLeading(intervals, previousNotes, 48);
+                        previousNotes = [...ledMidiNotes];
 
-                    let rootNoteAbs = ((rootIdx + scaleIntervals[degree]) % 12 + 12) % 12;
-                    let bassNote = playBass ? (rootNoteAbs + 36) : null; 
+                        let rootNoteAbs = ((rootIdx + scaleIntervals[degree]) % 12 + 12) % 12;
+                        let bassNote = playBass ? (rootNoteAbs + 36) : null; 
 
-                    progressionData.push({ chordName: NOTES[rootNoteAbs], midiNotes: ledMidiNotes, bassNote: bassNote, rootMidi: rootMidiAbs, functionLabel: `Grau ${degree+1}`, voicing, beats: 4 });
-                }
-            } else {
-                const styleData = musicDatabase[styleId] || musicDatabase['pop_rock'];
-                patternType = arrOverride === 'auto' ? 'auto' : (arrOverride === 'random' ? ALL_P[Math.floor(Math.random()*ALL_P.length)] : arrOverride);
-                let degreesArray = [];
-                let seqLength = 4; 
-
-                if (styleData && styleData.progressions) {
-                    let seedProg = styleData.progressions[Math.floor(Math.random() * styleData.progressions.length)];
-                    while(degreesArray.length < seqLength) {
-                         degreesArray = degreesArray.concat(seedProg);
+                        progressionData.push({ chordName: NOTES[rootNoteAbs], midiNotes: ledMidiNotes, bassNote: bassNote, rootMidi: rootMidiAbs, functionLabel: `Grau ${degree+1}`, voicing, beats: 4 });
                     }
-                    degreesArray = degreesArray.slice(0, seqLength);
-                }
+                } else {
+                    const styleData = musicDatabase[styleId] || musicDatabase['pop_rock'];
+                    patternType = arrOverride === 'auto' ? 'auto' : (arrOverride === 'random' ? ALL_P[Math.floor(Math.random()*ALL_P.length)] : arrOverride);
+                    let degreesArray = [];
+                    let seqLength = 4; 
 
-                let isMinor = scaleType.includes('minor') || scaleType === 'dorian' || scaleType === 'phrygian';
-
-                for (let i = 0; i < degreesArray.length; i++) {
-                    const degree = degreesArray[i] % scaleIntervals.length;
-                    let rootMidiAbs = 48 + rootIdx + scaleIntervals[degree];
-                    let chordQuality = 'triad';
-
-                    if (styleId === 'jazz_functional' || styleId === 'latin_bossa') {
-                        if (degree === 0) chordQuality = isMinor ? 'm9' : 'maj9';
-                        else if (degree === 1) chordQuality = isMinor ? 'm7b5' : 'm9'; 
-                        else if (degree === 3) chordQuality = isMinor ? 'm7' : 'maj9';
-                        else if (degree === 4) chordQuality = isMinor ? 'dom7b9' : 'dom13'; 
-                        else if (degree === 5) chordQuality = 'm9';
-                        else if (degree === 6) chordQuality = 'dim7';
-                        else chordQuality = 'm7';
-                    }
-                    else if (styleId === 'hiphop_trap') chordQuality = [0, 1, 3, 5].includes(degree) ? 'm9' : 'minor';
-                    else if (styleId === 'electronic_modern') chordQuality = [0, 3, 4, 5].includes(degree) ? 'sus2' : 'power';
-                    else if (styleId === 'reggae_dub') chordQuality = [0, 3, 4].includes(degree) ? (isMinor ? 'm7' : 'maj7') : 'minor';
-                    else if (styleId === 'metal_rock') chordQuality = 'power';
-                    else {
-                        let third = (scaleIntervals[(degree+2)%7] - scaleIntervals[degree] + 12) % 12;
-                        chordQuality = (third === 3) ? 'minor' : 'triad';
-                        if (Math.random() > 0.5) chordQuality = (third === 3) ? 'm7' : 'maj7';
+                    if (styleData && styleData.progressions) {
+                        let seedProg = styleData.progressions[Math.floor(Math.random() * styleData.progressions.length)];
+                        while(degreesArray.length < seqLength) {
+                             degreesArray = degreesArray.concat(seedProg);
+                        }
+                        degreesArray = degreesArray.slice(0, seqLength);
+                    } else {
+                        degreesArray = [0,4,5,3]; // Garantia contra falha de array vazio
                     }
 
-                    const intervals = buildAbsoluteVoicing(rootMidiAbs, chordQuality);
-                    
-                    let ledMidiNotes = applyVoiceLeading(intervals, previousNotes, 48);
-                    previousNotes = [...ledMidiNotes];
+                    let isMinor = scaleType.includes('minor') || scaleType === 'dorian' || scaleType === 'phrygian';
 
-                    let rootNoteAbs = ((rootIdx + scaleIntervals[degree]) % 12 + 12) % 12;
-                    let chordName = NOTES[rootNoteAbs];
-                    
-                    if (chordQuality.includes('sus')) chordName += 'sus2';
-                    if (chordQuality === 'power') chordName += '5';
-                    if (chordQuality === 'dom7') chordName += '7';
-                    if (chordQuality === 'm7') chordName += 'm7';
-                    if (chordQuality === 'maj9') chordName += 'maj9';
-                    if (chordQuality === 'm9') chordName += 'm9';
-                    if (chordQuality === 'dom9') chordName += '9';
-                    if (chordQuality === 'dom7b9') chordName += '7b9';
-                    if (chordQuality === 'dom13') chordName += '13';
-                    if (chordQuality === 'm7b5') chordName += 'm7b5';
-                    if (chordQuality === 'dim7') chordName += 'dim';
+                    for (let i = 0; i < degreesArray.length; i++) {
+                        const safeDegree = (degreesArray[i] || 0) % scaleIntervals.length;
+                        let rootMidiAbs = 48 + rootIdx + scaleIntervals[safeDegree];
+                        let chordQuality = 'triad';
 
-                    let bassNote = playBass ? (rootNoteAbs + 36) : null;
+                        if (styleId === 'jazz_functional' || styleId === 'latin_bossa') {
+                            if (safeDegree === 0) chordQuality = isMinor ? 'm9' : 'maj9';
+                            else if (safeDegree === 1) chordQuality = isMinor ? 'm7b5' : 'm9'; 
+                            else if (safeDegree === 3) chordQuality = isMinor ? 'm7' : 'maj9';
+                            else if (safeDegree === 4) chordQuality = isMinor ? 'dom7b9' : 'dom13'; 
+                            else if (safeDegree === 5) chordQuality = 'm9';
+                            else if (safeDegree === 6) chordQuality = 'dim7';
+                            else chordQuality = 'm7';
+                        }
+                        else if (styleId === 'hiphop_trap') chordQuality = [0, 1, 3, 5].includes(safeDegree) ? 'm9' : 'minor';
+                        else if (styleId === 'electronic_modern') chordQuality = [0, 3, 4, 5].includes(safeDegree) ? 'sus2' : 'power';
+                        else if (styleId === 'reggae_dub') chordQuality = [0, 3, 4].includes(safeDegree) ? (isMinor ? 'm7' : 'maj7') : 'minor';
+                        else if (styleId === 'metal_rock') chordQuality = 'power';
+                        else {
+                            let third = (scaleIntervals[(safeDegree+2)%7] - scaleIntervals[safeDegree] + 12) % 12;
+                            chordQuality = (third === 3) ? 'minor' : 'triad';
+                            if (Math.random() > 0.5) chordQuality = (third === 3) ? 'm7' : 'maj7';
+                        }
 
-                    progressionData.push({ chordName, midiNotes: ledMidiNotes, bassNote: bassNote, rootMidi: rootMidiAbs, functionLabel: `Grau ${degree+1}`, voicing: chordQuality, beats: 4 });
+                        const intervals = buildAbsoluteVoicing(rootMidiAbs, chordQuality);
+                        
+                        let ledMidiNotes = applyVoiceLeading(intervals, previousNotes, 48);
+                        previousNotes = [...ledMidiNotes];
+
+                        let rootNoteAbs = ((rootIdx + scaleIntervals[safeDegree]) % 12 + 12) % 12;
+                        let chordName = NOTES[rootNoteAbs];
+                        
+                        if (chordQuality.includes('sus')) chordName += 'sus2';
+                        if (chordQuality === 'power') chordName += '5';
+                        if (chordQuality === 'dom7') chordName += '7';
+                        if (chordQuality === 'm7') chordName += 'm7';
+                        if (chordQuality === 'maj9') chordName += 'maj9';
+                        if (chordQuality === 'm9') chordName += 'm9';
+                        if (chordQuality === 'dom9') chordName += '9';
+                        if (chordQuality === 'dom7b9') chordName += '7b9';
+                        if (chordQuality === 'dom13') chordName += '13';
+                        if (chordQuality === 'm7b5') chordName += 'm7b5';
+                        if (chordQuality === 'dim7') chordName += 'dim';
+
+                        let bassNote = playBass ? (rootNoteAbs + 36) : null;
+
+                        progressionData.push({ chordName, midiNotes: ledMidiNotes, bassNote: bassNote, rootMidi: rootMidiAbs, functionLabel: `Grau ${safeDegree+1}`, voicing: chordQuality, beats: 4 });
+                    }
                 }
+
+                const state = { progressionData, patternType, styleId, rootIdx, scaleIntervals, keySigString: getVexFlowKeySignature(rootIdx, scaleType), baseOctaveMidi, bpmValue, playBass, playMelody };
+                historyIndex++;
+                progressionHistory = progressionHistory.slice(0, historyIndex);
+                progressionHistory.push(state);
+                executeState(state);
+
+            } catch (err) {
+                showError(err.message);
+                console.error(err);
             }
-
-            const state = { progressionData, patternType, styleId, rootIdx, scaleIntervals, keySigString: getVexFlowKeySignature(rootIdx, scaleType), baseOctaveMidi, bpmValue, playBass, playMelody };
-            historyIndex++;
-            progressionHistory = progressionHistory.slice(0, historyIndex);
-            progressionHistory.push(state);
-            executeState(state);
         }
 
         async function playPrevious() {
@@ -657,90 +681,95 @@
         }
 
         function executeState(state) {
-            stopPlayback();
-            setButtonsState(true);
-            
-            document.getElementById('bpm-control').value = state.bpmValue;
-            document.getElementById('bass-control').value = state.playBass ? "on" : "off";
-            document.getElementById('melody-control').value = state.playMelody ? "on" : "off";
-            document.getElementById('octave-select').value = state.baseOctaveMidi;
-            document.getElementById('arrangement-pattern').value = state.patternType;
-            if(state.styleId) document.getElementById('music-style').value = state.styleId;
-            
-            const container = document.getElementById('progression-display');
-            container.innerHTML = '';
-            
-            renderScore(state.progressionData, state.keySigString);
-
-            state.progressionData.forEach((data, i) => {
-                const box = document.createElement('div');
-                box.className = 'chord-box';
-                box.id = `chord-box-${i}`;
-                box.innerHTML = `
-                    <div class="chord-duration">1 Compasso</div>
-                    <div class="chord-name">${data.chordName}</div>
-                    <div class="chord-voicing">${data.voicing}</div>
-                    <div class="chord-function">${data.functionLabel}</div>
-                `;
-                container.appendChild(box);
-            });
-
-            const schedule = generateScheduledNotes(state.progressionData, state.styleId, state.patternType, state.playBass, state.playMelody);
-            const beatToSeconds = 60 / state.bpmValue;
-
-            schedule.notes.forEach(noteData => {
-                const freq = Tone.Frequency(noteData.midi, "midi").toNote();
-                const delaySecs = noteData.timeOffset * beatToSeconds;
-                const durSecs = noteData.duration * beatToSeconds;
+            try {
+                stopPlayback();
+                setButtonsState(true);
                 
-                playTimeouts.push(setTimeout(() => {
-                    sampler.triggerAttackRelease(freq, durSecs, Tone.now(), noteData.velocity / 127);
-                    const keyEl = document.getElementById(`note-${noteData.midi}`);
-                    if(keyEl) keyEl.classList.add('active');
-                }, delaySecs * 1000));
+                document.getElementById('bpm-control').value = state.bpmValue;
+                document.getElementById('bass-control').value = state.playBass ? "on" : "off";
+                document.getElementById('melody-control').value = state.playMelody ? "on" : "off";
+                document.getElementById('octave-select').value = state.baseOctaveMidi;
+                document.getElementById('arrangement-pattern').value = state.patternType;
+                if(state.styleId) document.getElementById('music-style').value = state.styleId;
                 
-                playTimeouts.push(setTimeout(() => {
-                    const keyEl = document.getElementById(`note-${noteData.midi}`);
-                    if(keyEl) keyEl.classList.remove('active');
-                }, (delaySecs + durSecs) * 1000));
-            });
+                const container = document.getElementById('progression-display');
+                container.innerHTML = '';
+                
+                renderScore(state.progressionData, state.keySigString);
 
-            let cumulativeBeats = 0;
-            state.progressionData.forEach((chord, index) => {
-                const delaySecs = cumulativeBeats * beatToSeconds;
+                state.progressionData.forEach((data, i) => {
+                    const box = document.createElement('div');
+                    box.className = 'chord-box';
+                    box.id = `chord-box-${i}`;
+                    box.innerHTML = `
+                        <div class="chord-duration">1 Compasso</div>
+                        <div class="chord-name">${data.chordName}</div>
+                        <div class="chord-voicing">${data.voicing}</div>
+                        <div class="chord-function">${data.functionLabel}</div>
+                    `;
+                    container.appendChild(box);
+                });
+
+                const schedule = generateScheduledNotes(state.progressionData, state.styleId, state.patternType, state.playBass, state.playMelody);
+                const beatToSeconds = 60 / state.bpmValue;
+
+                schedule.notes.forEach(noteData => {
+                    const freq = Tone.Frequency(noteData.midi, "midi").toNote();
+                    const delaySecs = noteData.timeOffset * beatToSeconds;
+                    const durSecs = noteData.duration * beatToSeconds;
+                    
+                    playTimeouts.push(setTimeout(() => {
+                        sampler.triggerAttackRelease(freq, durSecs, Tone.now(), noteData.velocity / 127);
+                        const keyEl = document.getElementById(`note-${noteData.midi}`);
+                        if(keyEl) keyEl.classList.add('active');
+                    }, delaySecs * 1000));
+                    
+                    playTimeouts.push(setTimeout(() => {
+                        const keyEl = document.getElementById(`note-${noteData.midi}`);
+                        if(keyEl) keyEl.classList.remove('active');
+                    }, (delaySecs + durSecs) * 1000));
+                });
+
+                let cumulativeBeats = 0;
+                state.progressionData.forEach((chord, index) => {
+                    const delaySecs = cumulativeBeats * beatToSeconds;
+                    playTimeouts.push(setTimeout(() => {
+                        document.querySelectorAll('.chord-box').forEach(b => b.classList.remove('playing'));
+                        document.getElementById(`chord-box-${index}`).classList.add('playing');
+                    }, delaySecs * 1000));
+                    cumulativeBeats += chord.beats;
+                });
+                
                 playTimeouts.push(setTimeout(() => {
                     document.querySelectorAll('.chord-box').forEach(b => b.classList.remove('playing'));
-                    document.getElementById(`chord-box-${index}`).classList.add('playing');
-                }, delaySecs * 1000));
-                cumulativeBeats += chord.beats;
-            });
-            
-            playTimeouts.push(setTimeout(() => {
-                document.querySelectorAll('.chord-box').forEach(b => b.classList.remove('playing'));
-                setButtonsState(false);
-            }, schedule.totalBeats * beatToSeconds * 1000));
+                    setButtonsState(false);
+                }, schedule.totalBeats * beatToSeconds * 1000));
 
-            if (currentBlobUrl) URL.revokeObjectURL(currentBlobUrl);
-            const blob = createMidiBlob(schedule.notes, schedule.totalBeats, state.bpmValue);
-            currentBlobUrl = URL.createObjectURL(blob);
-            const fileString = state.progressionData.map(d => d.chordName.replace(/#/g, 's')).join('-');
-            const finalFileName = `Progressao_${state.patternType}_${fileString}.mid`;
-            
-            const exportZone = document.getElementById('export-zone');
-            exportZone.style.display = 'flex';
-            
-            const dragPad = document.getElementById('drag-pad');
-            dragPad.setAttribute('data-downloadurl', `audio/midi:${finalFileName}:${currentBlobUrl}`);
+                if (currentBlobUrl) URL.revokeObjectURL(currentBlobUrl);
+                const blob = createMidiBlob(schedule.notes, schedule.totalBeats, state.bpmValue);
+                currentBlobUrl = URL.createObjectURL(blob);
+                const fileString = state.progressionData.map(d => d.chordName.replace(/#/g, 's')).join('-');
+                const finalFileName = `Progressao_${state.patternType}_${fileString}.mid`;
+                
+                const exportZone = document.getElementById('export-zone');
+                exportZone.style.display = 'flex';
+                
+                const dragPad = document.getElementById('drag-pad');
+                dragPad.setAttribute('data-downloadurl', `audio/midi:${finalFileName}:${currentBlobUrl}`);
 
-            const downloadBtn = document.getElementById('btn-download-midi');
-            downloadBtn.onclick = () => {
-                const a = document.createElement('a');
-                a.href = currentBlobUrl;
-                a.download = finalFileName;
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-            };
+                const downloadBtn = document.getElementById('btn-download-midi');
+                downloadBtn.onclick = () => {
+                    const a = document.createElement('a');
+                    a.href = currentBlobUrl;
+                    a.download = finalFileName;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                };
+            } catch (err) {
+                showError("Falha na renderização de áudio: " + err.message);
+                console.error(err);
+            }
         }
 
         document.getElementById('drag-pad').addEventListener('dragstart', function(e) {
@@ -750,4 +779,3 @@
     </script>
 </body>
 </html>
-
