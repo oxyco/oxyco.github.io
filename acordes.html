@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ACORDES E PARTITURAS (Pro Edition - Blindado)</title>
+    <title>ACORDES E PARTITURAS (Pro Edition - Bug Fix & Melody)</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vexflow@4.2.2/build/cjs/vexflow.js"></script>
     
@@ -92,7 +92,7 @@
         </div>
         
         <div class="control-group">
-            <label>Tonalidade (Escalas Restauradas)</label>
+            <label>Tonalidade</label>
             <select id="scale-type">
                 <optgroup label="Tradicionais">
                     <option value="major">Maior (Jônio)</option>
@@ -154,6 +154,16 @@
                 <option value="off">Sem Baixo</option>
             </select>
         </div>
+        
+        <!-- O MENU QUE EU TINHA APAGADO SEM QUERER VOLTOU AQUI -->
+        <div class="control-group">
+            <label>Oitava Central</label>
+            <select id="octave-select">
+                <option value="36">Oitava 2 (Grave)</option>
+                <option value="48" selected>Oitava 3 (Médio)</option>
+                <option value="60">Oitava 4 (Agudo)</option>
+            </select>
+        </div>
 
         <div class="control-group">
             <label>Melodia (Lead)</label>
@@ -180,8 +190,8 @@
     <div class="piano-wrapper"><div id="piano"></div></div>
     
     <div id="export-zone">
-        <div id="drag-pad" draggable="true" title="Arraste direto para a DAW (Para Windows, salve no desktop primeiro)">🖱️ ARRASTAR PARA O DESKTOP (E DEPOIS PARA A DAW)</div>
-        <button id="btn-download-midi">⬇️ BAIXAR ARQUIVO MIDI (Para Windows/Ableton)</button>
+        <div id="drag-pad" draggable="true" title="Arraste para o Desktop, depois para a DAW">🖱️ ARRASTAR PARA O DESKTOP (E DEPOIS PARA A DAW)</div>
+        <button id="btn-download-midi">⬇️ BAIXAR ARQUIVO MIDI</button>
     </div>
 
     <script>
@@ -565,7 +575,7 @@
                 const bpmValue = parseInt(document.getElementById('bpm-control').value) || 120;
                 const playBass = document.getElementById('bass-control').value === 'on';
                 const playMelody = document.getElementById('melody-control').value === 'on';
-                const scaleIntervals = SCALES[scaleType] || SCALES['minor']; // Fallback robusto
+                const scaleIntervals = SCALES[scaleType] || SCALES['minor'];
                 
                 const progressionData = [];
                 let previousNotes = [];
@@ -575,7 +585,7 @@
                 
                 if (currentMode === 'scale') {
                     patternType = arrOverride === 'auto' ? 'block_bass' : (arrOverride === 'random' ? ALL_P[Math.floor(Math.random()*ALL_P.length)] : arrOverride);
-                    const voicings = ['triad', 'sus2', 'sus4']; // Removido add9/seventh que não estavam no dictionary
+                    const voicings = ['triad', 'sus2', 'sus4']; 
                     for (let i = 0; i < 4; i++) {
                         const degree = Math.floor(Math.random() * scaleIntervals.length);
                         const voicing = voicings[Math.floor(Math.random() * voicings.length)];
@@ -603,7 +613,7 @@
                         }
                         degreesArray = degreesArray.slice(0, seqLength);
                     } else {
-                        degreesArray = [0,4,5,3]; // Garantia contra falha de array vazio
+                        degreesArray = [0,4,5,3]; 
                     }
 
                     let isMinor = scaleType.includes('minor') || scaleType === 'dorian' || scaleType === 'phrygian';
@@ -668,16 +678,6 @@
                 showError(err.message);
                 console.error(err);
             }
-        }
-
-        async function playPrevious() {
-            if (Tone.context.state !== 'running') await Tone.start();
-            if (historyIndex > 0) { historyIndex--; executeState(progressionHistory[historyIndex]); }
-        }
-
-        async function repeatCurrent() {
-            if (Tone.context.state !== 'running') await Tone.start();
-            if (historyIndex >= 0) executeState(progressionHistory[historyIndex]);
         }
 
         function executeState(state) {
@@ -779,3 +779,5 @@
     </script>
 </body>
 </html>
+
+
