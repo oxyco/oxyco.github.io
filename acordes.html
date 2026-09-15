@@ -35,6 +35,7 @@
         
         button.primary-btn { background: var(--accent); color: #fff;}
         button.primary-btn:hover:not(:disabled) { background: var(--accent-hover); transform: translateY(-2px); box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);}
+        button.primary-btn.error { background: #eab308; border-color: #ca8a04; color: #000;}
         button.secondary-btn { background: var(--surface); color: var(--text); border: 1px solid var(--accent); }
         button.secondary-btn:hover:not(:disabled) { background: rgba(16, 185, 129, 0.2); transform: translateY(-2px); }
         button.stop-btn { background: #ef4444; color: #fff; }
@@ -184,7 +185,7 @@
         <button id="btn-download-midi">⬇️ BAIXAR ARQUIVO MIDI</button>
     </div>
 
-    <script[span_2](start_span)[span_2](end_span)>
+    <script>
         const VF = Vex.Flow;
         const NOTES = ['C', 'C#', 'D', 'Eb', 'E', 'F', 'F#', 'G', 'Ab', 'A', 'Bb', 'B'];
         const VEX_KEYS = ['C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B'];
@@ -218,35 +219,36 @@
         let playTimeouts = [];
         let progressionHistory = [];
         let historyIndex = -1;
-        let externalCuratedDatasets = null;
 
+        // O NOVO CÉREBRO: DATASETS CURADOS TIPO RIPCHORD / SCALER
+        // Cada array interno é uma progressão clássica garantida, com os voicings corretos para o estilo.
         const CURATED_DATASETS = {
             'pop_rock': [
-                [{d:0, v:'add9'}, {d:4, v:'sus4'}, {d:5, v:'m7'}, {d:3, v:'add9'}], 
-                [{d:5, v:'m7'}, {d:3, v:'add9'}, {d:0, v:'maj7'}, {d:4, v:'sus4'}], 
+                [{d:0, v:'add9'}, {d:4, v:'sus4'}, {d:5, v:'m7'}, {d:3, v:'add9'}], // Clássico Pop I-V-vi-IV melhorado
+                [{d:5, v:'m7'}, {d:3, v:'add9'}, {d:0, v:'maj7'}, {d:4, v:'sus4'}], // Pop Moderno vi-IV-I-V
                 [{d:0, v:'maj7'}, {d:3, v:'maj7'}, {d:5, v:'m7'}, {d:4, v:'dom7'}],
                 [{d:0, v:'add9'}, {d:5, v:'m7'}, {d:1, v:'m7'}, {d:4, v:'sus4'}]
             ],
             'jazz_functional': [
-                [{d:1, v:'m9'}, {d:4, v:'dom13'}, {d:0, v:'maj9'}, {d:5, v:'dom7b9'}], 
-                [{d:3, v:'maj9'}, {d:2, v:'m7'}, {d:1, v:'m9'}, {d:0, v:'maj7'}],      
-                [{d:0, v:'maj9'}, {d:5, v:'m11'}, {d:1, v:'m9'}, {d:4, v:'dom13'}],    
-                [{d:1, v:'m7b5'}, {d:4, v:'dom7b9'}, {d:0, v:'m9'}, {d:0, v:'m9'}]     
+                [{d:1, v:'m9'}, {d:4, v:'dom13'}, {d:0, v:'maj9'}, {d:5, v:'dom7b9'}], // ii-V-I-VI (Jazz Clássico)
+                [{d:3, v:'maj9'}, {d:2, v:'m7'}, {d:1, v:'m9'}, {d:0, v:'maj7'}],      // Neo-Soul Walkdown IV-iii-ii-I
+                [{d:0, v:'maj9'}, {d:5, v:'m11'}, {d:1, v:'m9'}, {d:4, v:'dom13'}],    // Lo-Fi I-vi-ii-V
+                [{d:1, v:'m7b5'}, {d:4, v:'dom7b9'}, {d:0, v:'m9'}, {d:0, v:'m9'}]     // Minor ii-V-i
             ],
             'hiphop_trap': [
-                [{d:0, v:'m9'}, {d:5, v:'m7'}, {d:6, v:'maj7'}, {d:0, v:'m9'}],        
-                [{d:0, v:'m9'}, {d:4, v:'m9'}, {d:5, v:'m7'}, {d:0, v:'m9'}],          
-                [{d:0, v:'minor'}, {d:1, v:'maj7'}, {d:0, v:'minor'}, {d:6, v:'maj7'}], 
-                [{d:3, v:'maj7'}, {d:2, v:'m7'}, {d:0, v:'m9'}, {d:0, v:'m9'}]         
+                [{d:0, v:'m9'}, {d:5, v:'m7'}, {d:6, v:'maj7'}, {d:0, v:'m9'}],        // i-vi-VII-i (Dark Trap)
+                [{d:0, v:'m9'}, {d:4, v:'m9'}, {d:5, v:'m7'}, {d:0, v:'m9'}],          // i-v-vi-i
+                [{d:0, v:'minor'}, {d:1, v:'maj7'}, {d:0, v:'minor'}, {d:6, v:'maj7'}], // Phrygian Vibes
+                [{d:3, v:'maj7'}, {d:2, v:'m7'}, {d:0, v:'m9'}, {d:0, v:'m9'}]         // Emo Rap iv-iii-i
             ],
             'electronic_modern': [
-                [{d:5, v:'m9'}, {d:3, v:'maj9'}, {d:0, v:'maj7'}, {d:4, v:'dom9'}],    
-                [{d:0, v:'m9'}, {d:3, v:'maj9'}, {d:4, v:'m9'}, {d:5, v:'m7'}],        
-                [{d:0, v:'sus2'}, {d:6, v:'sus2'}, {d:5, v:'sus2'}, {d:4, v:'sus4'}],  
-                [{d:3, v:'maj7'}, {d:4, v:'dom7'}, {d:5, v:'m9'}, {d:5, v:'m9'}]       
+                [{d:5, v:'m9'}, {d:3, v:'maj9'}, {d:0, v:'maj7'}, {d:4, v:'dom9'}],    // House vi-IV-I-V
+                [{d:0, v:'m9'}, {d:3, v:'maj9'}, {d:4, v:'m9'}, {d:5, v:'m7'}],        // Deep House
+                [{d:0, v:'sus2'}, {d:6, v:'sus2'}, {d:5, v:'sus2'}, {d:4, v:'sus4'}],  // EDM Build
+                [{d:3, v:'maj7'}, {d:4, v:'dom7'}, {d:5, v:'m9'}, {d:5, v:'m9'}]       // Synthwave IV-V-vi
             ],
             'latin_bossa': [
-                [{d:0, v:'maj9'}, {d:1, v:'m9'}, {d:4, v:'dom13'}, {d:0, v:'maj7'}],   
+                [{d:0, v:'maj9'}, {d:1, v:'m9'}, {d:4, v:'dom13'}, {d:0, v:'maj7'}],   // I-ii-V-I
                 [{d:1, v:'m9'}, {d:4, v:'dom7b9'}, {d:0, v:'maj9'}, {d:5, v:'m7b5'}],
                 [{d:0, v:'m9'}, {d:3, v:'m9'}, {d:4, v:'dom7b9'}, {d:0, v:'m9'}],
                 [{d:0, v:'maj9'}, {d:6, v:'m7b5'}, {d:2, v:'dom7b9'}, {d:5, v:'m9'}]
@@ -281,14 +283,6 @@
 
         async function initializeApp() {
             buildPiano();
-            try {
-                const res = await fetch('dataset.json');
-                if(res.ok) {
-                    externalCuratedDatasets = await res.json();
-                }
-            } catch(e) {
-                // Mantém o fallback interno se falhar o fetch
-            }
             checkReady();
         }
 
@@ -351,6 +345,7 @@
                 case 'minor': intervals = [0, 3, 7]; break;
                 case 'triad': intervals = [0, 4, 7]; break;
             }
+            // Limpa as quintas se o acorde for denso para não embolar
             if (intervals.length > 4) intervals.splice(2, 1); 
             return intervals.map(i => rootMidiAbs + i);
         }
@@ -615,11 +610,10 @@
                         progressionData.push({ chordName: NOTES[rootNoteAbs], midiNotes: ledMidiNotes, bassNote: bassNote, rootMidi: rootMidiAbs, functionLabel: `Grau ${degree+1}`, voicing, beats: 4 });
                     }
                 } else {
+                    // LÓGICA DE DATASET CURADO (RIPCHORD / SCALER PRESETS)
                     patternType = arrOverride === 'auto' ? 'auto' : (arrOverride === 'random' ? ALL_P[Math.floor(Math.random()*ALL_P.length)] : arrOverride);
                     
-                    // SEGURANÇA BLINDADA CONTRA ERRO DE UNDEFINED (LENGTH)
-                    const sourceDatasets = (externalCuratedDatasets && externalCuratedDatasets[styleId]) ? externalCuratedDatasets : CURATED_DATASETS;
-                    const dataset = sourceDatasets[styleId] || sourceDatasets['pop_rock'] || CURATED_DATASETS['pop_rock'];
+                    const dataset = CURATED_DATASETS[styleId] || CURATED_DATASETS['pop_rock'];
                     const preset = dataset[Math.floor(Math.random() * dataset.length)];
 
                     for (let i = 0; i < preset.length; i++) {
@@ -637,8 +631,8 @@
                         let displayVoicing = chordConfig.v;
                         if (displayVoicing === 'power') chordName += '5';
                         else if (displayVoicing === 'minor') chordName += 'm';
-                        else if (displayVoicing === 'triad') chordName = chordName; 
-                        else chordName += displayVoicing.replace('dom', ''); 
+                        else if (displayVoicing === 'triad') chordName = chordName; // Mantem limpo
+                        else chordName += displayVoicing.replace('dom', ''); // Limpa display (dom13 vira 13)
 
                         let bassNote = playBass ? (rootNoteAbs + 36) : null;
 
@@ -761,20 +755,6 @@
             const url = this.getAttribute('data-downloadurl');
             if (url) e.dataTransfer.setData('DownloadURL', url);
         });
-
-        function playPrevious() {
-            if (historyIndex > 0) {
-                historyIndex--;
-                executeState(progressionHistory[historyIndex]);
-            }
-        }
-
-        function repeatCurrent() {
-            if (historyIndex >= 0 && historyIndex < progressionHistory.length) {
-                executeState(progressionHistory[historyIndex]);
-            }
-        }
     </script>
 </body>
 </html>
-
