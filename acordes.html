@@ -63,7 +63,6 @@
         .key.white.active { background: var(--active-white); border-color: var(--accent); z-index: 3;}
         .key.black.active { background: var(--active-black); z-index: 4;}
 
-        /* ÁREA DE DRAG E BOTÃO DE DOWNLOAD */
         #export-zone { display: none; flex-direction: column; gap: 10px; margin: 25px auto; width: 100%; max-width: 500px; }
         #drag-pad { padding: 15px 30px; background: rgba(16, 185, 129, 0.1); border: 1px dashed var(--accent); border-radius: 8px; color: var(--text); font-size: 14px; font-weight: 600; cursor: grab; transition: 0.2s; text-align: center; }
         #drag-pad:hover { background: rgba(16, 185, 129, 0.2); }
@@ -120,6 +119,20 @@
         </div>
         
         <div class="control-group">
+            <label>Arranjo / Ritmo</label>
+            <select id="arrangement-pattern">
+                <option value="auto">Automático (Pelo Estilo)</option>
+                <option value="block_bass">Blocos Retos (Pop)</option>
+                <option value="fingerpick">Arpejo / Dedilhado</option>
+                <option value="jazz_comping">Comping Sincopado (Jazz)</option>
+                <option value="bossa_nova">Bossa Nova (Clave)</option>
+                <option value="reggae_skank">Reggae (Skank)</option>
+                <option value="synth_pulse">Pulsante</option>
+                <option value="metal_gallop">Palhetada Rápida</option>
+            </select>
+        </div>
+        
+        <div class="control-group">
             <label>BPM</label>
             <select id="bpm-control">
                 <option value="75">75 (Lento / Reggae)</option>
@@ -161,7 +174,7 @@
     <div class="piano-wrapper"><div id="piano"></div></div>
     
     <div id="export-zone">
-        <div id="drag-pad" draggable="true" title="Arraste direto para a Timeline da DAW">🖱️ ARRASTAR PARA A DAW (Live/Reaper)</div>
+        <div id="drag-pad" draggable="true" title="Arraste direto para a DAW (Para Windows, salve no desktop primeiro)">🖱️ ARRASTAR MIDI</div>
         <button id="btn-download-midi">⬇️ BAIXAR ARQUIVO MIDI</button>
     </div>
 
@@ -179,6 +192,16 @@
             'phrygian':       [0, 1, 3, 5, 7, 8, 10],
             'lydian':         [0, 2, 4, 6, 7, 9, 11],
             'mixolydian':     [0, 2, 4, 5, 7, 9, 10]
+        };
+
+        const STYLE_PATTERNS = {
+            'pop_rock': 'block_bass',
+            'jazz_functional': 'jazz_comping',
+            'hiphop_trap': 'synth_pulse',
+            'electronic_modern': 'synth_pulse',
+            'metal_rock': 'metal_gallop',
+            'latin_bossa': 'bossa_nova',
+            'reggae_dub': 'reggae_skank'
         };
 
         let currentMode = 'scale'; 
@@ -363,65 +386,98 @@
             bassVoice.draw(context, bottomStave);
         }
 
-        function generateScheduledNotes(progressionData, styleId, playBass) {
+        // MOTOR DINÂMICO RESTAURADO: Lê o menu de arranjo e separa o arpejo/dedilhado.
+        function generateScheduledNotes(progressionData, patternType, playBass) {
             let scheduledNotes = []; 
             let currentBeat = 0;
 
-            const grooveTemplates = {
-                'jazz_functional': {
-                    bass: [{t:0, d:1, v:85}, {t:1, d:1, v:75}, {t:2, d:1, v:85}, {t:3, d:1, v:75}], 
-                    chord: [{t:0.5, d:0.5, v:80}, {t:2.5, d:0.25, v:75}, {t:3.0, d:0.5, v:85}] 
-                },
-                'latin_bossa': {
-                    bass: [{t:0, d:1.5, v:95}, {t:1.5, d:0.5, v:80, shift: 7}, {t:2, d:1.5, v:90}, {t:3.5, d:0.5, v:80, shift: 7}], 
-                    chord: [{t:0.5, d:0.5, v:80}, {t:1.5, d:0.5, v:85}, {t:2.5, d:0.5, v:75}, {t:3.5, d:0.5, v:80}] 
-                },
-                'reggae_dub': {
-                    bass: [{t:0, d:1, v:95}, {t:2, d:1, v:95}], 
-                    chord: [{t:1, d:0.5, v:90}, {t:1.5, d:0.25, v:70}, {t:3, d:0.5, v:90}, {t:3.5, d:0.25, v:70}] 
-                },
-                'hiphop_trap': {
-                    bass: [{t:0, d:1.5, v:100}, {t:2.5, d:1.5, v:95}], 
-                    chord: [{t:0, d:0.75, v:85}, {t:0.75, d:0.75, v:75}, {t:1.5, d:0.5, v:85}, {t:2, d:0.5, v:75}, {t:3, d:1, v:80}] 
-                },
-                'metal_rock': {
-                    bass: [{t:0, d:0.25, v:100}, {t:0.5, d:0.25, v:90}, {t:1, d:0.25, v:100}, {t:1.5, d:0.25, v:90}, {t:2, d:0.25, v:100}, {t:2.5, d:0.25, v:90}, {t:3, d:0.25, v:100}, {t:3.5, d:0.25, v:90}], 
-                    chord: [{t:0, d:0.25, v:100}, {t:0.5, d:0.25, v:90}, {t:1, d:0.25, v:100}, {t:1.5, d:0.25, v:90}, {t:2, d:0.25, v:100}, {t:2.5, d:0.25, v:90}, {t:3, d:0.25, v:100}, {t:3.5, d:0.25, v:90}] 
-                },
-                'electronic_modern': {
-                    bass: [{t:0, d:0.25, v:95}, {t:0.75, d:0.25, v:85}, {t:1.5, d:0.25, v:95}, {t:2.25, d:0.25, v:85}, {t:3, d:0.25, v:95}], 
-                    chord: [{t:0, d:4, v:80}] 
-                },
-                'pop_rock': {
-                    bass: [{t:0, d:1.5, v:95}, {t:1.5, d:0.5, v:85}, {t:2.5, d:1.5, v:90}], 
-                    chord: [{t:0, d:1, v:85}, {t:1, d:0.5, v:75}, {t:1.5, d:1, v:85}, {t:2.5, d:1.5, v:80}] 
-                }
-            };
-
             progressionData.forEach(chord => {
-                const notes = chord.midiNotes.sort((a,b) => a-b);
+                const chordDuration = chord.beats;
+                const uniqueMidis = [...new Set(chord.midiNotes)];
+                const notes = uniqueMidis.sort((a,b) => a-b);
                 const bassNote = chord.bassNote;
-                const template = grooveTemplates[styleId] || grooveTemplates['pop_rock']; 
 
-                if (playBass && bassNote !== null) {
-                    template.bass.forEach(step => {
-                        let finalMidi = bassNote;
-                        if (step.shift) finalMidi += step.shift; 
-                        let vel = step.v + (Math.random() * 6 - 3); 
-                        scheduledNotes.push({ midi: finalMidi, timeOffset: currentBeat + step.t, duration: step.d, velocity: Math.round(vel) });
-                    });
+                let swingOffset = 0;
+                if (patternType === 'reggae_skank') swingOffset = 0.08; 
+                if (patternType === 'bossa_nova') swingOffset = -0.05;  
+
+                function addNote(midi, timeOffset, duration, baseVelocity, applySwing = false) {
+                    if (midi === null) return;
+                    let targetVel = baseVelocity;
+                    if (midi >= 67) targetVel *= 0.85; 
+                    let finalVel = Math.min(127, Math.max(0, targetVel + (Math.random() * 6 - 3))); 
+                    let finalTime = timeOffset + (applySwing ? swingOffset : 0);
+                    scheduledNotes.push({ midi, timeOffset: finalTime, duration, velocity: Math.round(finalVel) });
                 }
 
-                template.chord.forEach(step => {
-                    notes.forEach(n => {
-                        let targetVel = step.v;
-                        if (n >= 67) targetVel *= 0.85; 
-                        let vel = targetVel + (Math.random() * 6 - 3);
-                        scheduledNotes.push({ midi: n, timeOffset: currentBeat + step.t, duration: step.d, velocity: Math.round(vel) });
+                if (patternType === 'reggae_skank') {
+                    for(let b=0; b<chordDuration; b+=2) {
+                        if (playBass) addNote(bassNote, currentBeat + b, 1.0, 95); 
+                        notes.forEach(n => addNote(n, currentBeat + b + 0.5, 0.4, 88, true)); 
+                        notes.forEach(n => addNote(n, currentBeat + b + 1.5, 0.4, 88, true)); 
+                    }
+                }
+                else if (patternType === 'bossa_nova') {
+                    for (let b = 0; b < chordDuration; b += 2) {
+                        if (playBass) {
+                            addNote(bassNote, currentBeat + b, 1.5, 90); 
+                            if(chordDuration > 1) addNote(bassNote + 7, currentBeat + b + 1.5, 0.5, 80); 
+                        }
+                    }
+                    let bossaRhythm = [0, 1.5, 2.5, 4.5, 6]; 
+                    bossaRhythm.forEach(offset => {
+                        if (offset < chordDuration) {
+                            notes.forEach(n => addNote(n, currentBeat + offset, 0.8, 75, true)); 
+                        }
                     });
-                });
+                }
+                else if (patternType === 'jazz_comping') {
+                    if (playBass) {
+                        for(let b=0; b<chordDuration; b++) addNote(bassNote, currentBeat + b, 1.0, 85);
+                    }
+                    let jazzRhythm = [0.5, 2.5, 3]; 
+                    jazzRhythm.forEach(offset => {
+                        if (offset < chordDuration) {
+                            notes.forEach(n => addNote(n, currentBeat + offset, 0.8, 80)); 
+                        }
+                    });
+                }
+                else if (patternType === 'metal_gallop') {
+                    for (let b = 0; b < chordDuration; b += 0.5) {
+                        let vel = (b % 1 === 0) ? 100 : 75;
+                        if (playBass) addNote(bassNote, currentBeat + b, 0.25, vel); 
+                        notes.forEach(n => addNote(n, currentBeat + b, 0.25, vel)); 
+                    }
+                }
+                else if (patternType === 'synth_pulse') {
+                    for (let b = 0; b < chordDuration; b += 0.5) {
+                        if (playBass) addNote(bassNote, currentBeat + b, 0.25, 95); 
+                    }
+                    notes.forEach(n => addNote(n, currentBeat, chordDuration, 65)); 
+                }
+                // O DEDILHADO RESTAURADO QUE SEPARA AS NOTAS
+                else if (patternType === 'fingerpick') {
+                    if (playBass) addNote(bassNote, currentBeat, chordDuration, 90);
+                    let step = 0;
+                    let noteIndex = 0;
+                    while (step < chordDuration) {
+                        let n = notes[noteIndex % notes.length];
+                        addNote(n, currentBeat + step, 1.0, 80);
+                        step += 0.5; 
+                        noteIndex++;
+                    }
+                }
+                else { // block_bass
+                    if (playBass) {
+                        addNote(bassNote, currentBeat, 1.5, 95);
+                        if(chordDuration > 2) addNote(bassNote, currentBeat + 2.5, 1.5, 90);
+                    }
+                    notes.forEach(n => addNote(n, currentBeat, 1.0, 85));
+                    if(chordDuration > 1) notes.forEach(n => addNote(n, currentBeat + 1.5, 1.0, 85));
+                    if(chordDuration > 2) notes.forEach(n => addNote(n, currentBeat + 2.5, 1.5, 80));
+                }
                 
-                currentBeat += 4; 
+                currentBeat += chordDuration;
             });
             return { notes: scheduledNotes, totalBeats: currentBeat };
         }
@@ -485,6 +541,7 @@
             const rootIdx = parseInt(document.getElementById('root-note').value);
             const scaleType = document.getElementById('scale-type').value;
             const baseOctaveMidi = parseInt(document.getElementById('octave-select').value); 
+            const arrOverride = document.getElementById('arrangement-pattern').value;
             const bpmValue = parseInt(document.getElementById('bpm-control').value) || 120;
             const playBass = document.getElementById('bass-control').value === 'on';
             const scaleIntervals = SCALES[scaleType];
@@ -492,8 +549,11 @@
             const progressionData = [];
             let previousNotes = [];
             let styleId = document.getElementById('music-style').value;
+            let patternType = 'block_bass';
+            const ALL_P = ['block_bass', 'fingerpick', 'jazz_comping', 'reggae_skank', 'bossa_nova', 'synth_pulse', 'metal_gallop'];
             
             if (currentMode === 'scale') {
+                patternType = arrOverride === 'auto' ? 'block_bass' : (arrOverride === 'random' ? ALL_P[Math.floor(Math.random()*ALL_P.length)] : arrOverride);
                 const voicings = ['triad', 'add9', 'seventh', 'sus2', 'sus4'];
                 for (let i = 0; i < 4; i++) {
                     const degree = Math.floor(Math.random() * scaleIntervals.length);
@@ -511,6 +571,7 @@
                 }
             } else {
                 const styleData = musicDatabase[styleId] || musicDatabase['pop_rock'];
+                patternType = arrOverride === 'auto' ? (STYLE_PATTERNS[styleId] || 'block_bass') : (arrOverride === 'random' ? ALL_P[Math.floor(Math.random()*ALL_P.length)] : arrOverride);
                 let degreesArray = [];
                 let seqLength = 4; 
 
@@ -569,7 +630,7 @@
                 }
             }
 
-            const state = { progressionData, styleId, rootIdx, scaleIntervals, keySigString: getVexFlowKeySignature(rootIdx, scaleType), baseOctaveMidi, bpmValue, playBass };
+            const state = { progressionData, patternType, styleId, rootIdx, scaleIntervals, keySigString: getVexFlowKeySignature(rootIdx, scaleType), baseOctaveMidi, bpmValue, playBass };
             historyIndex++;
             progressionHistory = progressionHistory.slice(0, historyIndex);
             progressionHistory.push(state);
@@ -593,6 +654,7 @@
             document.getElementById('bpm-control').value = state.bpmValue;
             document.getElementById('bass-control').value = state.playBass ? "on" : "off";
             document.getElementById('octave-select').value = state.baseOctaveMidi;
+            document.getElementById('arrangement-pattern').value = state.patternType;
             if(state.styleId) document.getElementById('music-style').value = state.styleId;
             
             const container = document.getElementById('progression-display');
@@ -613,7 +675,7 @@
                 container.appendChild(box);
             });
 
-            const schedule = generateScheduledNotes(state.progressionData, state.styleId, state.playBass);
+            const schedule = generateScheduledNotes(state.progressionData, state.patternType, state.playBass);
             const beatToSeconds = 60 / state.bpmValue;
 
             schedule.notes.forEach(noteData => {
@@ -652,17 +714,14 @@
             const blob = createMidiBlob(schedule.notes, schedule.totalBeats, state.bpmValue);
             currentBlobUrl = URL.createObjectURL(blob);
             const fileString = state.progressionData.map(d => d.chordName.replace(/#/g, 's')).join('-');
-            const finalFileName = `Progressao_${state.styleId || 'Midi'}_${fileString}.mid`;
+            const finalFileName = `Progressao_${state.patternType}_${fileString}.mid`;
             
-            // EXIBE A ZONA DE EXPORTAÇÃO (DRAG + DOWNLOAD)
             const exportZone = document.getElementById('export-zone');
             exportZone.style.display = 'flex';
             
-            // CONFIGURA O DRAG AND DROP
             const dragPad = document.getElementById('drag-pad');
             dragPad.setAttribute('data-downloadurl', `audio/midi:${finalFileName}:${currentBlobUrl}`);
 
-            // CONFIGURA O BOTÃO DE DOWNLOAD
             const downloadBtn = document.getElementById('btn-download-midi');
             downloadBtn.onclick = () => {
                 const a = document.createElement('a');
@@ -674,12 +733,9 @@
             };
         }
 
-        // EVENT LISTENER PARA O DRAG AND DROP
         document.getElementById('drag-pad').addEventListener('dragstart', function(e) {
             const url = this.getAttribute('data-downloadurl');
-            if (url) {
-                e.dataTransfer.setData('DownloadURL', url);
-            }
+            if (url) e.dataTransfer.setData('DownloadURL', url);
         });
     </script>
 </body>
