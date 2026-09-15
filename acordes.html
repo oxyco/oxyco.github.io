@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ACORDES E PARTITURAS (Ripchord / Scaler Dataset Engine)</title>
+    <title>ACORDES E PARTITURAS</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vexflow@4.2.2/build/cjs/vexflow.js"></script>
     
@@ -35,7 +35,6 @@
         
         button.primary-btn { background: var(--accent); color: #fff;}
         button.primary-btn:hover:not(:disabled) { background: var(--accent-hover); transform: translateY(-2px); box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);}
-        button.primary-btn.error { background: #eab308; border-color: #ca8a04; color: #000;}
         button.secondary-btn { background: var(--surface); color: var(--text); border: 1px solid var(--accent); }
         button.secondary-btn:hover:not(:disabled) { background: rgba(16, 185, 129, 0.2); transform: translateY(-2px); }
         button.stop-btn { background: #ef4444; color: #fff; }
@@ -185,7 +184,7 @@
         <button id="btn-download-midi">⬇️ BAIXAR ARQUIVO MIDI</button>
     </div>
 
-    <script>
+    <script[span_2](start_span)[span_2](end_span)>
         const VF = Vex.Flow;
         const NOTES = ['C', 'C#', 'D', 'Eb', 'E', 'F', 'F#', 'G', 'Ab', 'A', 'Bb', 'B'];
         const VEX_KEYS = ['C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B'];
@@ -219,7 +218,7 @@
         let playTimeouts = [];
         let progressionHistory = [];
         let historyIndex = -1;
-        let externalCuratedDatasets = null; // Suporte opcional ao dataset.json externo
+        let externalCuratedDatasets = null;
 
         const CURATED_DATASETS = {
             'pop_rock': [
@@ -286,10 +285,9 @@
                 const res = await fetch('dataset.json');
                 if(res.ok) {
                     externalCuratedDatasets = await res.json();
-                    console.log("dataset.json externo carregado com sucesso!");
                 }
             } catch(e) {
-                console.log("Usando datasets internos embutidos.");
+                // Mantém o fallback interno se falhar o fetch
             }
             checkReady();
         }
@@ -619,8 +617,9 @@
                 } else {
                     patternType = arrOverride === 'auto' ? 'auto' : (arrOverride === 'random' ? ALL_P[Math.floor(Math.random()*ALL_P.length)] : arrOverride);
                     
-                    const sourceDatasets = externalCuratedDatasets || CURATED_DATASETS;
-                    const dataset = sourceDatasets[styleId] || sourceDatasets['pop_rock'];
+                    // SEGURANÇA BLINDADA CONTRA ERRO DE UNDEFINED (LENGTH)
+                    const sourceDatasets = (externalCuratedDatasets && externalCuratedDatasets[styleId]) ? externalCuratedDatasets : CURATED_DATASETS;
+                    const dataset = sourceDatasets[styleId] || sourceDatasets['pop_rock'] || CURATED_DATASETS['pop_rock'];
                     const preset = dataset[Math.floor(Math.random() * dataset.length)];
 
                     for (let i = 0; i < preset.length; i++) {
