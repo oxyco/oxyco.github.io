@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ACORDES E PARTITURAS</title>
+    <title>ACORDES E PARTITURAS (Midi Wizard - Drag & Download)</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vexflow@4.2.2/build/cjs/vexflow.js"></script>
     
@@ -63,8 +63,11 @@
         .key.white.active { background: var(--active-white); border-color: var(--accent); z-index: 3;}
         .key.black.active { background: var(--active-black); z-index: 4;}
 
-        /* ESTILO DO NOVO BOTÃO DE DOWNLOAD */
-        #btn-download-midi { display: none; margin: 25px auto; padding: 18px 30px; width: 100%; max-width: 500px; background: #3b82f6; color: #fff; font-size: 16px; font-weight: 800; border: none; border-radius: 8px; cursor: pointer; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4); transition: 0.2s;}
+        /* ÁREA DE DRAG E BOTÃO DE DOWNLOAD */
+        #export-zone { display: none; flex-direction: column; gap: 10px; margin: 25px auto; width: 100%; max-width: 500px; }
+        #drag-pad { padding: 15px 30px; background: rgba(16, 185, 129, 0.1); border: 1px dashed var(--accent); border-radius: 8px; color: var(--text); font-size: 14px; font-weight: 600; cursor: grab; transition: 0.2s; text-align: center; }
+        #drag-pad:hover { background: rgba(16, 185, 129, 0.2); }
+        #btn-download-midi { padding: 18px 30px; background: #3b82f6; color: #fff; font-size: 16px; font-weight: 800; border: none; border-radius: 8px; cursor: pointer; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4); transition: 0.2s; width: 100%; }
         #btn-download-midi:hover { background: #2563eb; transform: translateY(-2px);}
     </style>
 </head>
@@ -157,8 +160,10 @@
     <div class="progression-container" id="progression-display"></div>
     <div class="piano-wrapper"><div id="piano"></div></div>
     
-    <!-- BOTÃO DE DOWNLOAD DIRETO E INFALÍVEL -->
-    <button id="btn-download-midi">⬇️ BAIXAR ARQUIVO MIDI PARA A DAW</button>
+    <div id="export-zone">
+        <div id="drag-pad" draggable="true" title="Arraste direto para a Timeline da DAW">🖱️ ARRASTAR PARA A DAW (Live/Reaper)</div>
+        <button id="btn-download-midi">⬇️ BAIXAR ARQUIVO MIDI</button>
+    </div>
 
     <script>
         const VF = Vex.Flow;
@@ -647,19 +652,35 @@
             const blob = createMidiBlob(schedule.notes, schedule.totalBeats, state.bpmValue);
             currentBlobUrl = URL.createObjectURL(blob);
             const fileString = state.progressionData.map(d => d.chordName.replace(/#/g, 's')).join('-');
+            const finalFileName = `Progressao_${state.styleId || 'Midi'}_${fileString}.mid`;
             
-            // CONFIGURAÇÃO DO BOTÃO DE DOWNLOAD DIRETO
+            // EXIBE A ZONA DE EXPORTAÇÃO (DRAG + DOWNLOAD)
+            const exportZone = document.getElementById('export-zone');
+            exportZone.style.display = 'flex';
+            
+            // CONFIGURA O DRAG AND DROP
+            const dragPad = document.getElementById('drag-pad');
+            dragPad.setAttribute('data-downloadurl', `audio/midi:${finalFileName}:${currentBlobUrl}`);
+
+            // CONFIGURA O BOTÃO DE DOWNLOAD
             const downloadBtn = document.getElementById('btn-download-midi');
-            downloadBtn.style.display = 'block';
             downloadBtn.onclick = () => {
                 const a = document.createElement('a');
                 a.href = currentBlobUrl;
-                a.download = `Progressao_${state.styleId || 'Midi'}_${fileString}.mid`;
+                a.download = finalFileName;
                 document.body.appendChild(a);
                 a.click();
                 document.body.removeChild(a);
             };
         }
+
+        // EVENT LISTENER PARA O DRAG AND DROP
+        document.getElementById('drag-pad').addEventListener('dragstart', function(e) {
+            const url = this.getAttribute('data-downloadurl');
+            if (url) {
+                e.dataTransfer.setData('DownloadURL', url);
+            }
+        });
     </script>
 </body>
 </html>
