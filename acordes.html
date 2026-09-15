@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ACORDES E PARTITURAS</title>
+    <title>ACORDES E PROGRESSÕES</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vexflow@4.2.2/build/cjs/vexflow.js"></script>
     
@@ -70,7 +70,7 @@
     </style>
 </head>
 <body onload="initializeApp()">
-    <h1>ACORDES E PARTITURAS</h1>
+    <h1>ACORDES E PROGRESSÕES</h1>
 
     <div class="tabs">
         <button class="tab-btn active" id="tab-scale" onclick="switchMode('scale')">Escala Livre</button>
@@ -89,7 +89,7 @@
         </div>
         
         <div class="control-group">
-            <label>Escala / Modo Grego</label>
+            <label>Escala / Modo</label>
             <select id="scale-type">
                 <optgroup label="Tradicionais">
                     <option value="major">Maior (Jônio)</option>
@@ -118,6 +118,21 @@
                 <option value="metal_rock">Metal / Rock Pesado</option>
                 <option value="latin_bossa">Bossa Nova / Latin</option>
                 <option value="reggae_dub">Reggae / Dub Skank</option>
+            </select>
+        </div>
+
+        <!-- O SELETOR DE ARRANJOS VOLTOU AQUI -->
+        <div class="control-group">
+            <label>Arranjo / Ritmo</label>
+            <select id="arrangement-pattern">
+                <option value="auto">Automático (Pelo Estilo)</option>
+                <option value="block_bass">Blocos Retos (Pop/Rock)</option>
+                <option value="fingerpick">Arpejo / Dedilhado</option>
+                <option value="jazz_comping">Comping Sincopado (Jazz)</option>
+                <option value="bossa_nova">Bossa Nova (Clave)</option>
+                <option value="reggae_skank">Reggae (Skank)</option>
+                <option value="synth_pulse">Pulsante (Synthwave)</option>
+                <option value="metal_gallop">Palhetada Rápida (Metal)</option>
             </select>
         </div>
         
@@ -174,7 +189,6 @@
         const ACC_MAP = ['', '#', '', 'b', '', '', '#', '', 'b', '', 'b', ''];
         const NOTE_COLORS = ["#ef4444", "#f97316", "#f59e0b", "#eab308", "#84cc16", "#22c55e", "#10b981", "#06b6d4", "#3b82f6", "#6366f1", "#a855f7", "#ec4899"];
 
-        // 1. CORREÇÃO: TODAS AS ESCALAS RESTAURADAS
         const SCALES = {
             'major':          [0, 2, 4, 5, 7, 9, 11],
             'minor':          [0, 2, 3, 5, 7, 8, 10],
@@ -187,6 +201,17 @@
             'locrian':        [0, 1, 3, 5, 6, 8, 10]
         };
 
+        const STYLE_PATTERNS = {
+            'pop_rock': 'block_bass',
+            'jazz_functional': 'jazz_comping',
+            'hiphop_trap': 'synth_pulse',
+            'electronic_modern': 'synth_pulse',
+            'synthwave_retrowave': 'synth_pulse',
+            'metal_rock': 'metal_gallop',
+            'latin_bossa': 'bossa_nova',
+            'reggae_dub': 'reggae_skank'
+        };
+
         let currentMode = 'scale'; 
         let currentBlobUrl = null;
         let playTimeouts = [];
@@ -194,7 +219,6 @@
         let historyIndex = -1;
         let musicDatabase = null; 
 
-        // 2. CORREÇÃO DE ÁUDIO: EQUALIZADOR E COMPRESSOR LIMPOS (Sem "lama" ou "pumping")
         const eq = new Tone.EQ3({ low: -2, mid: 0, high: 0 }).toDestination();
         const sampler = new Tone.Sampler({
             urls: {
@@ -210,7 +234,6 @@
 
         async function initializeApp() {
             buildPiano();
-            // 3. CORREÇÃO: DATASETS RICOS E EXTENSOS RESTAURADOS
             musicDatabase = {
                 'pop_rock': { 
                     progressions: [[0, 4, 5, 3], [5, 3, 0, 4], [0, 3, 4, 0], [1, 5, 3, 4], [0, 5, 1, 4]], 
@@ -400,41 +423,33 @@
             bassVoice.draw(context, bottomStave);
         }
 
-        // 4. CORREÇÃO DE VELOCITY: BAIXO REDUZIDO PARA NÃO ESTOURAR
-        function generateScheduledNotes(progressionData, styleId, playBass) {
+        // MOTOR RÍTMICO COM ACESSO TOTAL AOS PADRÕES
+        function generateScheduledNotes(progressionData, patternType, playBass) {
             let scheduledNotes = []; 
             let currentBeat = 0;
 
             const grooveTemplates = {
-                'jazz_functional': {
+                'jazz_comping': {
                     bass: [{t:0, d:1, v:75}, {t:1, d:1, v:68}, {t:2, d:1, v:73}, {t:3, d:1, v:65}],
                     chord: [{t:0.5, d:0.6, v:78}, {t:2.25, d:0.3, v:72}, {t:3.0, d:0.7, v:82}] 
                 },
-                'latin_bossa': {
+                'bossa_nova': {
                     bass: [{t:0, d:1.5, v:80}, {t:1.5, d:0.5, v:70, shift: 7}, {t:2, d:1.5, v:75}, {t:3.5, d:0.5, v:70, shift: 7}],
                     chord: [{t:0.5, d:0.4, v:75}, {t:1.5, d:0.4, v:80}, {t:2.5, d:0.4, v:72}, {t:3.5, d:0.4, v:76}] 
                 },
-                'reggae_dub': {
+                'reggae_skank': {
                     bass: [{t:0, d:1.2, v:85}, {t:2, d:1.2, v:85}],
                     chord: [{t:1, d:0.4, v:90}, {t:1.75, d:0.2, v:65}, {t:3, d:0.4, v:90}] 
                 },
-                'hiphop_trap': {
-                    bass: [{t:0, d:1.8, v:85}, {t:2.5, d:1.4, v:80}],
-                    chord: [{t:0, d:0.8, v:82}, {t:0.8, d:0.7, v:74}, {t:1.5, d:0.6, v:82}, {t:2.5, d:1.2, v:78}] 
-                },
-                'metal_rock': {
+                'metal_gallop': {
                     bass: [{t:0, d:0.3, v:85}, {t:0.5, d:0.3, v:75}, {t:1, d:0.3, v:85}, {t:1.5, d:0.3, v:75}, {t:2, d:0.3, v:85}, {t:2.5, d:0.3, v:75}, {t:3, d:0.3, v:85}, {t:3.5, d:0.3, v:75}],
                     chord: [{t:0, d:0.3, v:95}, {t:0.5, d:0.3, v:85}, {t:1, d:0.3, v:95}, {t:1.5, d:0.3, v:85}, {t:2, d:0.3, v:95}, {t:2.5, d:0.3, v:85}, {t:3, d:0.3, v:95}, {t:3.5, d:0.3, v:85}] 
                 },
-                'electronic_modern': {
-                    bass: [{t:0, d:0.3, v:80}, {t:0.75, d:0.3, v:70}, {t:1.5, d:0.3, v:80}, {t:2.25, d:0.3, v:70}, {t:3, d:0.3, v:80}],
-                    chord: [{t:0, d:3.8, v:75}] 
-                },
-                'synthwave_retrowave': {
+                'synth_pulse': {
                     bass: [{t:0, d:0.4, v:82}, {t:0.5, d:0.4, v:72}, {t:1, d:0.4, v:82}, {t:1.5, d:0.4, v:72}, {t:2, d:0.4, v:82}, {t:2.5, d:0.4, v:72}, {t:3, d:0.4, v:82}, {t:3.5, d:0.4, v:72}],
                     chord: [{t:0, d:1.8, v:80}, {t:2, d:1.8, v:80}]
                 },
-                'pop_rock': {
+                'block_bass': {
                     bass: [{t:0, d:1.6, v:82}, {t:1.6, d:0.4, v:72}, {t:2.5, d:1.5, v:80}],
                     chord: [{t:0, d:0.9, v:82}, {t:1, d:0.4, v:70}, {t:1.5, d:0.9, v:82}, {t:2.5, d:1.2, v:78}] 
                 }
@@ -443,8 +458,8 @@
             progressionData.forEach((chord) => {
                 const notes = chord.midiNotes.sort((a,b) => a-b);
                 const bassNote = chord.bassNote;
-                const template = grooveTemplates[styleId] || grooveTemplates['pop_rock']; 
-
+                
+                // Micro-timing (Swing / Humanize)
                 let microTimingShift = (Math.random() * 0.03 - 0.015); 
 
                 function addNote(midi, timeOffset, duration, baseVelocity) {
@@ -456,29 +471,40 @@
                     let finalVel = Math.min(127, Math.max(0, targetVel + (Math.random() * 8 - 4))); 
                     let finalTime = Math.max(0, currentBeat + timeOffset + microTimingShift);
 
-                    scheduledNotes.push({ 
-                        midi: midi, 
-                        timeOffset: finalTime, 
-                        duration: duration, 
-                        velocity: Math.round(finalVel) 
-                    });
+                    scheduledNotes.push({ midi, timeOffset: finalTime, duration, velocity: Math.round(finalVel) });
                 }
 
-                if (playBass && bassNote !== null) {
-                    template.bass.forEach(step => {
-                        let finalMidi = bassNote;
-                        if (step.shift) finalMidi += step.shift; 
-                        addNote(finalMidi, step.t, step.d, step.v);
+                if (patternType === 'fingerpick') {
+                    // Lógica especial programática para dedilhados contínuos
+                    if (playBass && bassNote) addNote(bassNote, 0, 4, 85);
+                    let step = 0;
+                    let noteIndex = 0;
+                    while (step < 4) {
+                        if (notes.length > 0) {
+                            let n = notes[noteIndex % notes.length];
+                            addNote(n, step, 1.0, 80);
+                        }
+                        step += 0.5; 
+                        noteIndex++;
+                    }
+                } else {
+                    const template = grooveTemplates[patternType] || grooveTemplates['block_bass']; 
+                    
+                    if (playBass && bassNote !== null) {
+                        template.bass.forEach(step => {
+                            let finalMidi = bassNote;
+                            if (step.shift) finalMidi += step.shift; 
+                            addNote(finalMidi, step.t, step.d, step.v);
+                        });
+                    }
+
+                    template.chord.forEach(step => {
+                        notes.forEach((n, idx) => {
+                            let strumOffset = idx * 0.012; 
+                            addNote(n, step.t + strumOffset, step.d, step.v);
+                        });
                     });
                 }
-
-                template.chord.forEach(step => {
-                    notes.forEach((n, idx) => {
-                        let strumOffset = idx * 0.012; 
-                        addNote(n, step.t + strumOffset, step.d, step.v);
-                    });
-                });
-                
                 currentBeat += 4; 
             });
             return { notes: scheduledNotes, totalBeats: currentBeat };
@@ -545,13 +571,17 @@
             const baseOctaveMidi = parseInt(document.getElementById('octave-select').value); 
             const bpmValue = parseInt(document.getElementById('bpm-control').value) || 120;
             const playBass = document.getElementById('bass-control').value === 'on';
+            const arrOverride = document.getElementById('arrangement-pattern').value;
             const scaleIntervals = SCALES[scaleType] || SCALES['minor'];
             
             const progressionData = [];
             let previousNotes = [];
             let styleId = document.getElementById('music-style').value;
             
+            // Define o padrão final (Pelo seletor ou Pelo Estilo)
+            let finalPattern = 'block_bass';
             if (currentMode === 'scale') {
+                finalPattern = arrOverride === 'auto' ? 'block_bass' : arrOverride;
                 const voicings = ['triad', 'add9', 'seventh', 'sus2', 'sus4', 'maj7', 'm7', 'ninth'];
                 for (let i = 0; i < 4; i++) {
                     const degree = Math.floor(Math.random() * scaleIntervals.length);
@@ -568,6 +598,7 @@
                     progressionData.push({ chordName: NOTES[rootNoteAbs], midiNotes: ledMidiNotes, bassNote: bassNote, rootMidi: rootMidiAbs, functionLabel: `Grau ${degree+1}`, voicing, beats: 4 });
                 }
             } else {
+                finalPattern = arrOverride === 'auto' ? STYLE_PATTERNS[styleId] : arrOverride;
                 const styleData = musicDatabase[styleId] || musicDatabase['pop_rock'];
                 let degreesArray = [];
                 let seqLength = 4; 
@@ -609,7 +640,7 @@
                 }
             }
 
-            const state = { progressionData, styleId, rootIdx, scaleIntervals, keySigString: getVexFlowKeySignature(rootIdx, scaleType), baseOctaveMidi, bpmValue, playBass };
+            const state = { progressionData, finalPattern, styleId, rootIdx, scaleIntervals, keySigString: getVexFlowKeySignature(rootIdx, scaleType), baseOctaveMidi, bpmValue, playBass };
             historyIndex++;
             progressionHistory = progressionHistory.slice(0, historyIndex);
             progressionHistory.push(state);
@@ -633,6 +664,12 @@
             document.getElementById('bpm-control').value = state.bpmValue;
             document.getElementById('bass-control').value = state.playBass ? "on" : "off";
             document.getElementById('octave-select').value = state.baseOctaveMidi;
+            // Para atualizar visualmente o seletor quando voltar no histórico
+            if(state.finalPattern) {
+                let s = document.getElementById('arrangement-pattern');
+                let found = Array.from(s.options).some(opt => opt.value === state.finalPattern);
+                if(found) s.value = state.finalPattern;
+            }
             if(state.styleId) document.getElementById('music-style').value = state.styleId;
             
             const container = document.getElementById('progression-display');
@@ -653,7 +690,7 @@
                 container.appendChild(box);
             });
 
-            const schedule = generateScheduledNotes(state.progressionData, state.styleId, state.playBass);
+            const schedule = generateScheduledNotes(state.progressionData, state.finalPattern, state.playBass);
             const beatToSeconds = 60 / state.bpmValue;
 
             schedule.notes.forEach(noteData => {
@@ -692,7 +729,7 @@
             const blob = createMidiBlob(schedule.notes, schedule.totalBeats, state.bpmValue);
             currentBlobUrl = URL.createObjectURL(blob);
             const fileString = state.progressionData.map(d => d.chordName.replace(/#/g, 's')).join('-');
-            const finalFileName = `Progressao_${state.styleId}_${fileString}.mid`;
+            const finalFileName = `Progressao_${state.finalPattern}_${fileString}.mid`;
             
             const exportZone = document.getElementById('export-zone');
             exportZone.style.display = 'flex';
