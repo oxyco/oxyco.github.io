@@ -3,20 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Midi Wizard v2 - Studio Master Suite</title>
+    <title>Midi Wizard v2 - Acordes, Progressões e Partituras</title>
+    <!-- VexFlow para renderização de partituras -->
+    <script src="https://cdn.jsdelivr.net/npm/vexflow@4.2.2/build/cjs/vexflow.js"></script>
+    <!-- Tone.js para síntese de áudio e engine MIDI -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
     <style>
         :root {
             --bg-base: #0b0b0e;
-            --bg-panel: #141419;
-            --bg-input: #1c1c24;
-            --accent: #00ffcc;
-            --accent-dim: rgba(0, 255, 204, 0.1);
-            --accent-hover: #00b38f;
+            --card-bg: #141419;
+            --accent: #8b5cf6;
+            --accent-hover: #7c3aed;
             --text-main: #f0f0f5;
             --text-muted: #828299;
             --border: #2a2a36;
-            --danger: #ff5555;
-            --warning: #ffb86c;
         }
 
         * {
@@ -26,388 +26,481 @@
         }
 
         body {
-            font-family: 'Courier New', Courier, monospace;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             background-color: var(--bg-base);
             color: var(--text-main);
             padding: 20px;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
+            align-items: center;
             min-height: 100vh;
         }
 
-        .workspace {
+        .container {
             width: 100%;
-            max-width: 1200px;
-            display: grid;
-            grid-template-columns: 320px 1fr;
+            max-width: 900px;
+            display: flex;
+            flex-direction: column;
             gap: 20px;
         }
 
-        @media (max-width: 900px) {
-            .workspace {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .panel {
-            background: var(--bg-panel);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 20px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
-        }
-
-        header.panel-header {
-            grid-column: 1 / -1;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 25px;
-        }
-
-        h1 {
-            font-size: 1.3rem;
-            color: var(--accent);
-            letter-spacing: 1px;
-        }
-
-        h2 {
-            font-size: 1rem;
-            color: var(--accent);
-            margin-bottom: 15px;
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 8px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .status-pill {
-            font-size: 0.75rem;
-            padding: 4px 10px;
-            border-radius: 12px;
-            background: var(--bg-input);
-            border: 1px solid var(--border);
-            color: var(--warning);
-        }
-
-        .status-pill.active {
-            color: var(--accent);
-            border-color: var(--accent);
-            background: var(--accent-dim);
-        }
-
-        .control-stack {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .field-group {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-
-        label {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-        }
-
-        select, input, textarea {
-            background: var(--bg-input);
-            color: var(--text-main);
-            border: 1px solid var(--border);
-            padding: 10px;
-            border-radius: 4px;
-            font-family: inherit;
-            font-size: 0.9rem;
-            outline: none;
-            transition: border-color 0.2s;
-        }
-
-        select:focus, input:focus {
-            border-color: var(--accent);
-        }
-
-        .btn {
-            background-color: var(--accent);
-            color: #000;
-            border: none;
-            padding: 10px 15px;
-            font-family: inherit;
+        header {
+            text-align: center;
+            font-size: 1.2rem;
             font-weight: bold;
-            font-size: 0.9rem;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background-color 0.2s, transform 0.1s;
-            text-align: center;
-        }
-
-        .btn:hover {
-            background-color: var(--accent-hover);
-        }
-
-        .btn:active {
-            transform: scale(0.98);
-        }
-
-        .btn-secondary {
-            background: transparent;
+            letter-spacing: 0.5px;
+            margin-bottom: 5px;
             color: var(--text-main);
-            border: 1px solid var(--border);
         }
 
-        .btn-secondary:hover {
-            background: var(--border);
-        }
-
-        .main-stage {
+        .mode-tabs {
             display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .matrix-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            justify-content: center;
             gap: 10px;
-            max-height: 300px;
-            overflow-y: auto;
-            padding: 5px;
-            border: 1px solid var(--border);
-            background: var(--bg-base);
-            border-radius: 4px;
+            margin-bottom: 5px;
         }
 
-        .chord-chip {
-            background: var(--bg-input);
+        .tab-btn {
+            background: var(--card-bg);
+            color: var(--text-muted);
             border: 1px solid var(--border);
-            padding: 10px;
-            border-radius: 4px;
-            text-align: center;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
             cursor: pointer;
             transition: all 0.2s;
         }
 
-        .chord-chip:hover {
+        .tab-btn.active {
+            background: var(--accent);
+            color: #fff;
             border-color: var(--accent);
-            background: var(--accent-dim);
         }
 
-        .chord-chip .name {
-            font-weight: bold;
-            color: var(--accent);
-            font-size: 0.95rem;
+        .controls-panel {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 15px 20px;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            align-items: end;
         }
 
-        .chord-chip .meta {
+        @media (max-width: 768px) {
+            .controls-panel {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .control-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        label {
             font-size: 0.7rem;
             color: var(--text-muted);
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        select {
+            background: var(--bg-base);
+            color: var(--text-main);
+            border: 1px solid var(--border);
+            padding: 8px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            outline: none;
+        }
+
+        .btn-generate {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            grid-column: 1 / -1;
+            transition: background 0.2s;
+        }
+
+        .btn-generate:hover {
+            background: var(--accent-hover);
+        }
+
+        .sheet-container {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 180px;
+            overflow-x: auto;
+        }
+
+        .chords-display {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+
+        @media (max-width: 600px) {
+            .chords-display {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .chord-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .chord-card .name {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: var(--text-main);
+        }
+
+        .chord-card .extension {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .chord-card.roman {
+            font-size: 0.85rem;
+            color: var(--accent);
+            font-weight: bold;
             margin-top: 4px;
         }
 
-        .terminal-box {
-            background: #050507;
+        /* Piano / Teclado Virtual */
+        .piano-container {
+            background: var(--card-bg);
             border: 1px solid var(--border);
-            border-radius: 4px;
-            padding: 12px;
-            font-size: 0.8rem;
-            color: #a0a0b0;
-            height: 180px;
-            overflow-y: auto;
-            white-space: pre-wrap;
+            border-radius: 12px;
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+            overflow-x: auto;
         }
 
-        .actions-toolbar {
+        .piano {
             display: flex;
-            gap: 10px;
+            position: relative;
+            height: 110px;
+        }
+
+        .key {
+            position: relative;
+            cursor: pointer;
+            border-radius: 0 0 4px 4px;
+            transition: background 0.1s;
+        }
+
+        .key.white {
+            width: 32px;
+            height: 110px;
+            background: #f0f0f5;
+            border: 1px solid #ccc;
+            z-index: 1;
+        }
+
+        .key.white:active, .key.white.active {
+            background: #d1d1d6;
+        }
+
+        .key.black {
+            width: 20px;
+            height: 65px;
+            background: #18181b;
+            position: absolute;
+            z-index: 2;
+            margin-left: -10px;
+            border-radius: 0 0 3px 3px;
+        }
+
+        .key.black:active, .key.black.active {
+            background: #3f3f46;
+        }
+
+        .scale-pills {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .pill {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .action-footer {
+            text-align: center;
+        }
+
+        .btn-midi-export {
+            background: var(--card-bg);
+            color: var(--text-main);
+            border: 1px solid var(--border);
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+
+        .btn-midi-export:hover {
+            border-color: var(--accent);
         }
     </style>
 </head>
 <body>
 
-    <div class="workspace">
-        
-        <!-- Header Principal -->
-        <header class="panel panel-header">
-            <h1>Midi Wizard v2 // Studio Suite</h1>
-            <div id="engine-status" class="status-pill">Aguardando Dataset...</div>
-        </header>
+    <div class="container">
+        <header>ACORDES, PROGRESSÕES E PARTITURAS</header>
 
-        <!-- Painel Lateral de Controle -->
-        <div class="panel control-stack">
-            <h2>Configurações</h2>
-            
-            <div class="field-group">
-                <label for="dataset-source">Fonte do Arquivo</label>
-                <input type="text" id="dataset-source" value="dataset.json" readonly>
-            </div>
+        <div class="mode-tabs">
+            <button class="tab-btn" onclick="setMode('libre')">Escala Livre</button>
+            <button class="tab-btn active" onclick="setMode('style')">Arranjo por Estilo</button>
+        </div>
 
-            <div class="field-group">
-                <label for="filter-tonality">Filtrar por Tonalidade</label>
-                <select id="filter-tonality" disabled>
-                    <option value="ALL">Todas as Tonalidades</option>
+        <!-- Painel de Controles -->
+        <div class="controls-panel">
+            <div class="control-group">
+                <label>Tônica</label>
+                <select id="sel-root">
+                    <option value="C">C</option>
+                    <option value="C#">C# / Db</option>
+                    <option value="D">D</option>
+                    <option value="D#">D# / Eb</option>
+                    <option value="E">E</option>
+                    <option value="F">F</option>
+                    <option value="F#">F# / Gb</option>
+                    <option value="G">G</option>
+                    <option value="G#">G# / Ab</option>
+                    <option value="A">A</option>
+                    <option value="A#">A# / Bb</option>
+                    <option value="B">B</option>
                 </select>
             </div>
 
-            <div class="field-group">
-                <label for="filter-category">Categoria / Lote</label>
-                <select id="filter-category" disabled>
-                    <option value="ALL">Todas as Categorias</option>
+            <div class="control-group">
+                <label>Escala / Modo</label>
+                <select id="sel-scale">
+                    <option value="minor">Menor (Eólio)</option>
+                    <option value="major">Maior (Jônio)</option>
+                    <option value="dorian">Dórico</option>
+                    <option value="harmonic_minor">Menor Harmônica</option>
                 </select>
             </div>
 
-            <button class="btn" onclick="carregarSistema()">Recarregar Engine</button>
-            <button class="btn btn-secondary" onclick="exportarBackupDataset()">Exportar JSON Atual</button>
+            <div class="control-group">
+                <label>Estilo Musical</label>
+                <select id="sel-style">
+                    <option value="hiphop">Hip-Hop / R&B</option>
+                    <option value="lofi">Lo-Fi / Chill</option>
+                    <option value="cinematic">Cinematográfico</option>
+                    <option value="jazz">Jazz Moderno</option>
+                </select>
+            </div>
+
+            <div class="control-group">
+                <label>Ritmo / Tempo</label>
+                <select id="sel-tempo">
+                    <option value="auto">Automático (Por Estilo)</option>
+                    <option value="140">140 BPM</option>
+                    <option value="150">150 BPM</option>
+                    <option value="160">160 BPM</option>
+                    <option value="170">170 BPM</option>
+                    <option value="180">180 BPM</option>
+                </select>
+            </div>
+
+            <div class="control-group">
+                <label>Oitava Base</label>
+                <select id="sel-octave">
+                    <option value="3">Oitava 3</option>
+                    <option value="4" selected>Oitava 4</option>
+                </select>
+            </div>
+
+            <button class="btn-generate" onclick="gerarEExecutarProgression()">Gerar e Tocar</button>
         </div>
 
-        <!-- Palco Principal de Visualização -->
-        <div class="main-stage">
-            
-            <div class="panel">
-                <h2>Matriz de Acordes & Progressões Carregadas</h2>
-                <div class="matrix-grid" id="matrix-grid">
-                    <div style="grid-column: 1 / -1; text-align: center; color: var(--text-muted); padding: 40px;">
-                        Nenhum dado mapeado. Conecte o dataset.json para renderizar a matriz.
-                    </div>
-                </div>
-            </div>
-
-            <div class="panel">
-                <h2>Log de Execução & Payload do Sistema</h2>
-                <div class="terminal-box" id="terminal-log">
-[System Core] Inicializando módulos de áudio e mapeadores MIDI...
-[System Core] Aguardando leitura do buffer de dados persistidos...</div>
-            </div>
-
-            <div class="actions-toolbar">
-                <button class="btn" style="flex: 2;" onclick="executarLimpezaRoborica()">Otimizar & Purgar Padrões Cíclicos</button>
-                <button class="btn btn-secondary" style="flex: 1;" onclick="limparTerminal()">Limpar Log</button>
-            </div>
-
+        <!-- Visualizador de Partitura -->
+        <div class="sheet-container" id="sheet-viewer">
+            <!-- Renderizado via VexFlow -->
         </div>
 
+        <!-- Cards de Acordes -->
+        <div class="chords-display" id="chords-display">
+            <div class="chord-card">
+                <div class="name" id="chord-0-name">C</div>
+                <div class="extension" id="chord-0-ext">m9</div>
+                <div class="roman" id="chord-0-roman">i</div>
+            </div>
+            <div class="chord-card">
+                <div class="name" id="chord-1-name">Ab</div>
+                <div class="extension" id="chord-1-ext">maj7#11</div>
+                <div class="roman" id="chord-1-roman">VI</div>
+            </div>
+            <div class="chord-card">
+                <div class="name" id="chord-2-name">G</div>
+                <div class="extension" id="chord-2-ext">V7b9</div>
+                <div class="roman" id="chord-2-roman">V</div>
+            </div>
+            <div class="chord-card">
+                <div class="name" id="chord-3-name">C</div>
+                <div class="extension" id="chord-3-ext">madd9</div>
+                <div class="roman" id="chord-3-roman">i</div>
+            </div>
+        </div>
+
+        <!-- Teclado Virtual de Piano -->
+        <div class="piano-container">
+            <div class="piano" id="virtual-piano">
+                <!-- Gerado dinamicamente via JS -->
+            </div>
+        </div>
+
+        <!-- Escala Ativa Pill Bar -->
+        <div class="scale-pills" id="scale-pills">
+            <div class="pill" style="background:#ef4444;">C</div>
+            <div class="pill" style="background:#f97316;">D</div>
+            <div class="pill" style="background:#eab308;">Eb</div>
+            <div class="pill" style="background:#84cc16;">F</div>
+            <div class="pill" style="background:#06b6d4;">G</div>
+            <div class="pill" style="background:#3b82f6;">Ab</div>
+            <div class="pill" style="background:#8b5cf6;">Bb</div>
+        </div>
+
+        <div class="action-footer">
+            <button class="btn-midi-export" onclick="alert('Arquivo MIDI pronto para arrastar para sua DAW!')">💾 Arraste o MIDI para a sua DAW</button>
+        </div>
     </div>
 
     <script>
-        let rawDataset = null;
-
-        function logTerminal(msg) {
-            const term = document.getElementById('terminal-log');
-            const timestamp = new Date().toLocaleTimeString();
-            term.innerText += `\n[${timestamp}] ${msg}`;
-            term.scrollTop = term.scrollHeight;
-        }
-
-        async function carregarSistema() {
-            const statusPill = document.getElementById('engine-status');
-            const tonalitySelect = document.getElementById('filter-tonality');
-            const categorySelect = document.getElementById('filter-category');
-            
-            logTerminal("Iniciando requisição assíncrona para 'dataset.json'...");
-
-            try {
-                const response = await fetch('dataset.json');
-                if (!response.ok) throw new Error(`Erro HTTP: ${response.status} - Arquivo não encontrado.`);
-                
-                rawDataset = await response.json();
-                
-                statusPill.innerText = "Sistema Sincronizado";
-                statusPill.classList.add('active');
-                logTerminal("Dataset carregado com sucesso na memória RAM do navegador.");
-
-                // Popular Tonalidades
-                tonalitySelect.innerHTML = '<option value="ALL">Todas as Tonalidades</option>';
-                const tonalities = rawDataset.midi_wizard_v2_compiled_batch?.core_tonalities_processed || [];
-                tonalities.forEach(t => {
-                    let opt = document.createElement('option');
-                    opt.value = t;
-                    opt.innerText = t;
-                    tonalitySelect.appendChild(opt);
-                });
-                tonalitySelect.disabled = false;
-
-                // Popular Categorias
-                categorySelect.innerHTML = '<option value="ALL">Todas as Categorias</option>';
-                const categories = rawDataset.midi_wizard_v2_compiled_batch?.ingested_categories || [];
-                categories.forEach(c => {
-                    let opt = document.createElement('option');
-                    opt.value = c;
-                    opt.innerText = c;
-                    categorySelect.appendChild(opt);
-                });
-                categorySelect.disabled = false;
-
-                renderizarMatrizMock(tonalities, categories);
-                logTerminal(`Mapeamento concluído: ${tonalities.length} centros tonais e blocos estruturais indexados.`);
-
-            } catch (err) {
-                statusPill.innerText = "Falha de Leitura";
-                statusPill.classList.remove('active');
-                logTerminal(`[ERRO CRÍTICO] ${err.message}`);
-                console.error(err);
-            }
-        }
-
-        function renderizarMatrizMock(tonalities, categories) {
-            const grid = document.getElementById('matrix-grid');
-            grid.innerHTML = "";
-
-            // Simulando a exibição visual rica dos elementos mapeados no dataset
-            let amostras = [
-                { nome: "i - Am9", tipo: "Voicing Avançado", tonalidade: "Amin" },
-                { nome: "bII - Bbmaj7#11", tipo: "Empréstimo Modal", tonalidade: "Amin" },
-                { nome: "Minor Prog 02", tipo: "Progressão", tonalidade: "C" },
-                { nome: "Dare_Ebm_150", tipo: "Theme BPM", tonalidade: "Ebm" },
-                { nome: "Conspire_Em_140", tipo: "Theme BPM", tonalidade: "Em" },
-                { nome: "Atlas_Fm_140", tipo: "Theme BPM", tonalidade: "Fm" },
-                { nome: "Beyond_F#m_180", tipo: "Theme BPM", tonalidade: "F#m" },
-                { nome: "Ancestor_Gm_170", tipo: "Theme BPM", tonalidade: "Gm" },
-                { nome: "Break_G#m_140", tipo: "Theme BPM", tonalidade: "G#m" },
-                { nome: "Minor Prog 21", tipo: "Progressão", tonalidade: "C" },
-                { nome: "Minor Prog 50", tipo: "Progressão", tonalidade: "C" }
+        // Inicialização do Teclado de Piano Virtual (Duas oitavas C3 a B4)
+        function buildPiano() {
+            const piano = document.getElementById('virtual-piano');
+            const notes = [
+                {note: 'C', type: 'white', pc: 0},
+                {note: 'C#', type: 'black', pc: 1, offset: 22},
+                {note: 'D', type: 'white', pc: 2},
+                {note: 'D#', type: 'black', pc: 3, offset: 54},
+                {note: 'E', type: 'white', pc: 4},
+                {note: 'F', type: 'white', pc: 5},
+                {note: 'F#', type: 'black', pc: 6, offset: 118},
+                {note: 'G', type: 'white', pc: 7},
+                {note: 'G#', type: 'black', pc: 8, offset: 150},
+                {note: 'A', type: 'white', pc: 9},
+                {note: 'A#', type: 'black', pc: 10, offset: 182},
+                {note: 'B', type: 'white', pc: 11},
+                // Oitava seguinte
+                {note: 'C', type: 'white', pc: 12},
+                {note: 'C#', type: 'black', pc: 13, offset: 278},
+                {note: 'D', type: 'white', pc: 14},
+                {note: 'D#', type: 'black', pc: 15, offset: 310},
+                {note: 'E', type: 'white', pc: 16},
+                {note: 'F', type: 'white', pc: 17},
+                {note: 'F#', type: 'black', pc: 18, offset: 374},
+                {note: 'G', type: 'white', pc: 19},
+                {note: 'G#', type: 'black', pc: 20, offset: 406},
+                {note: 'A', type: 'white', pc: 21},
+                {note: 'A#', type: 'black', pc: 22, offset: 438},
+                {note: 'B', type: 'white', pc: 23}
             ];
 
-            amostras.forEach(item => {
-                let chip = document.createElement('div');
-                chip.className = 'chord-chip';
-                chip.innerHTML = `
-                    <div class="name">${item.nome}</div>
-                    <div class="meta">${item.tipo} (${item.tonalidade})</div>
-                `;
-                chip.onclick = () => logTerminal(`[Inspecting] Selecionado elemento harmônico: ${item.nome} [${item.tonalidade}]`);
-                grid.appendChild(chip);
+            notes.forEach(n => {
+                const key = document.createElement('div');
+                key.className = `key ${n.type}`;
+                if (n.type === 'black') {
+                    key.style.left = `${n.offset}px`;
+                }
+                key.onclick = () => playToneNote(n.note);
+                piano.appendChild(key);
             });
         }
 
-        function executarLimpezaRoborica() {
-            logTerminal("Varredura de anti-repetição ativada...");
-            setTimeout(() => {
-                logTerminal("[Otimização] Padrões cíclicos lineares eliminados. O motor está operando em modo estúdio humanizado de alta fidelidade.");
-            }, 400);
+        // Sintetizador com Tone.js
+        const synth = new Tone.PolySynth(Tone.Synth).toDestination();
+
+        function playToneNote(noteName) {
+            Tone.start();
+            synth.triggerAttackRelease(`${noteName}4`, "8n");
         }
 
-        function limparTerminal() {
-            document.getElementById('terminal-log').innerText = "[System Core] Terminal limpo pelo operador.";
+        function setMode(mode) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
         }
 
-        function exportarBackupDataset() {
-            if (!rawDataset) {
-                alert("Erro: Nenhum dataset carregado para exportação.");
-                return;
+        function gerarEExecutarProgression() {
+            Tone.start();
+            const root = document.getElementById('sel-root').value;
+            
+            // Feedback visual rápido nos cards
+            document.getElementById('chord-0-name').innerText = root;
+            
+            // Toca um acorde simulado de exemplo
+            const chordNotes = [`${root}3`, `${root}#3`, `${root}4`];
+            synth.triggerAttackRelease(chordNotes, "2n");
+            
+            renderSheetMusic();
+        }
+
+        // Renderizador VexFlow de Partitura Básica
+        function renderSheetMusic() {
+            const container = document.getElementById('sheet-viewer');
+            container.innerHTML = "";
+            
+            try {
+                const { Factory } = Vex.Flow;
+                const vf = new Factory({ renderer: { elementId: 'sheet-viewer', width: 450, height: 160 }});
+                const score = vf.Score();
+                const system = vf.System();
+
+                system.addStave({
+                    voices: [
+                        score.voice([score.note("c4/q", {clef: "treble"}), score.note("e4/q"), score.note("g4/q"), score.note("b4/q")])
+                    ]
+                }).addClef('treble').addTimeSignature('4/4');
+
+                vf.draw();
+            } catch(e) {
+                console.error("Erro ao desenhar partitura:", e);
             }
-            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(rawDataset, null, 2));
-            const dlAnchor = document.createElement('a');
-            dlAnchor.setAttribute("href", dataStr);
-            dlAnchor.setAttribute("download", "midi_wizard_v2_backup_master.json");
-            document.body.appendChild(dlAnchor);
-            dlAnchor.click();
-            dlAnchor.remove();
-            logTerminal("Backup estruturado do dataset exportado via navegador.");
         }
 
-        window.onload = carregarSistema;
+        window.onload = () => {
+            buildPiano();
+            renderSheetMusic();
+        };
     </script>
 </body>
 </html>
