@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ACORDES E PARTITURAS</title>
+    <title>ACORDES E PARTITURAS (Ripchord / Scaler Dataset Engine)</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vexflow@4.2.2/build/cjs/vexflow.js"></script>
     
@@ -658,6 +658,16 @@
                 showError(err.message);
                 console.error(err);
             }
+        }
+
+        async function playPrevious() {
+            if (Tone.context.state !== 'running') await Tone.start();
+            if (historyIndex > 0) { historyIndex--; executeState(progressionHistory[historyIndex]); }
+        }
+
+        async function repeatCurrent() {
+            if (Tone.context.state !== 'running') await Tone.start();
+            if (historyIndex >= 0) { executeState(progressionHistory[historyIndex]); }
         }
 
         function executeState(state) {
