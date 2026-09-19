@@ -3,213 +3,304 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OXY | Ferramentas</title>
+    <title>OXYLABZ | Ferramentas</title>
+    
+    <!-- Importando fonte Inter do Google Fonts para um visual moderno e limpo -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
     <style>
+        /* Variáveis de cores inspiradas em temas Jekyll técnicos (como Chirpy/GitHub Dark) */
+        :root {
+            --bg-main: #0d1117; 
+            --bg-card: #161b22;
+            --bg-card-hover: #1f242c;
+            --text-primary: #c9d1d9;
+            --text-secondary: #8b949e;
+            --accent: #58a6ff;
+            --accent-glow: rgba(88, 166, 255, 0.3);
+            --border: #30363d;
+            --badge-hot-bg: rgba(248, 81, 73, 0.1);
+            --badge-hot-text: #ff7b72;
+            --badge-hot-border: rgba(248, 81, 73, 0.2);
+            --badge-new-bg: rgba(46, 160, 67, 0.1);
+            --badge-new-text: #3fb950;
+            --badge-new-border: rgba(46, 160, 67, 0.2);
+        }
+
         body { 
-            font-family: Arial, sans-serif; 
-            background: #0f172a; 
-            color: #f8fafc; 
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; 
+            background-color: var(--bg-main); 
+            color: var(--text-primary); 
             margin: 0; 
-            padding: 40px 20px; 
+            padding: 0; 
             display: flex;
             flex-direction: column;
             align-items: center;
+            min-height: 100vh;
         }
-        
-        /* Seletor de Idiomas no topo */
-        .top-bar {
+
+        /* Navbar estilo painel administrativo com efeito Glass */
+        .navbar {
             width: 100%;
-            max-width: 900px;
+            padding: 16px 40px;
+            box-sizing: border-box;
             display: flex;
             justify-content: flex-end;
-            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+            background: rgba(13, 17, 23, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
         .lang-selector {
-            background: #1e293b;
-            border: 1px solid #475569;
-            color: #bae6fd;
-            padding: 8px 12px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            padding: 8px 16px;
             border-radius: 6px;
+            font-family: 'Inter', sans-serif;
             font-size: 14px;
-            font-weight: bold;
+            font-weight: 500;
             cursor: pointer;
-            outline: none;
-            transition: border-color 0.2s;
+            transition: all 0.2s ease;
         }
 
         .lang-selector:hover {
-            border-color: #38bdf8;
+            border-color: var(--accent);
+            color: #ffffff;
         }
-        
-        .header {
+
+        .lang-selector:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px var(--accent-glow);
+        }
+
+        /* Hero Section - Título com gradiente elegante */
+        .hero {
             text-align: center;
-            margin-bottom: 50px;
+            padding: 80px 20px 60px;
+            max-width: 800px;
+            width: 100%;
         }
-        
-        .header h1 {
-            color: #38bdf8;
-            font-size: 36px;
-            letter-spacing: 2px;
-            margin: 0 0 10px 0;
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin: 0 0 16px 0;
+            letter-spacing: -1px;
+            background: linear-gradient(180deg, #ffffff 0%, var(--text-secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
-        
-        .header p {
-            color: #94a3b8;
-            font-size: 18px;
+
+        .hero p {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
             margin: 0;
+            font-weight: 400;
+            line-height: 1.6;
+        }
+
+        /* Grid dos Aplicativos */
+        .container {
+            max-width: 1000px;
+            width: 100%;
+            padding: 0 20px 80px;
+            box-sizing: border-box;
         }
 
         .apps-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            width: 100%;
-            max-width: 900px;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
         }
 
+        /* Cartões de Aplicativos */
         .app-card {
-            background: #1e293b;
-            border: 1px solid #334155;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
             border-radius: 12px;
-            padding: 30px;
+            padding: 32px;
             text-decoration: none;
-            color: #f8fafc;
-            transition: all 0.3s ease;
+            color: inherit;
+            transition: all 0.2s ease-in-out;
             position: relative;
-            overflow: hidden;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            align-items: flex-start;
         }
 
         .app-card:hover {
-            transform: translateY(-5px);
-            border-color: #38bdf8;
-            box-shadow: 0 10px 25px rgba(56, 189, 248, 0.15);
+            background: var(--bg-card-hover);
+            transform: translateY(-4px);
+            border-color: var(--accent);
+            box-shadow: 0 12px 24px rgba(0,0,0, 0.3);
+        }
+
+        .app-card.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
+        /* Área do ícone dentro de um box consistente */
+        .icon-wrapper {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            width: 56px;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            margin-bottom: 24px;
+            transition: all 0.2s ease;
+        }
+
+        .app-card:hover .icon-wrapper {
+            background: var(--accent-glow);
+            border-color: var(--accent);
         }
 
         .app-card h2 {
-            margin: 0 0 10px 0;
-            font-size: 22px;
-            color: #e0f2fe;
+            margin: 0 0 12px 0;
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #ffffff;
         }
 
         .app-card p {
-            color: #94a3b8;
-            font-size: 15px;
-            line-height: 1.5;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
             margin: 0;
         }
 
-        .icon {
-            font-size: 40px;
-            margin-bottom: 15px;
-        }
-
+        /* Cartão Destaque (Calculadora de Resistores) */
         .app-card.featured {
             grid-column: 1 / -1;
-            background: linear-gradient(145deg, #1e293b 0%, #0f172a 100%);
-            border: 2px solid #38bdf8;
             flex-direction: row;
             align-items: center;
-            padding: 40px;
+            background: linear-gradient(145deg, var(--bg-card) 0%, rgba(88, 166, 255, 0.03) 100%);
+            border: 1px solid rgba(88, 166, 255, 0.2);
         }
 
-        .app-card.featured .icon {
-            font-size: 60px;
+        .app-card.featured:hover {
+            border-color: var(--accent);
+            background: linear-gradient(145deg, var(--bg-card-hover) 0%, rgba(88, 166, 255, 0.08) 100%);
+        }
+
+        .app-card.featured .icon-wrapper {
+            width: 80px;
+            height: 80px;
+            font-size: 38px;
             margin-bottom: 0;
-            margin-right: 30px;
+            margin-right: 32px;
+            flex-shrink: 0;
+            background: rgba(88, 166, 255, 0.05);
+            border-color: rgba(88, 166, 255, 0.2);
         }
 
-        .app-card.featured h2 {
-            font-size: 28px;
-        }
-
+        /* Badges com transparência */
         .badge {
             position: absolute;
-            top: 20px;
-            right: 20px;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: bold;
+            top: 24px;
+            right: 24px;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
             text-transform: uppercase;
         }
         
-        .badge.hot { background: #ef4444; color: white; }
-        .badge.new { background: #10b981; color: white; }
+        .badge.hot { 
+            background: var(--badge-hot-bg); 
+            color: var(--badge-hot-text); 
+            border: 1px solid var(--badge-hot-border);
+        }
+        
+        .badge.new { 
+            background: var(--badge-new-bg); 
+            color: var(--badge-new-text); 
+            border: 1px solid var(--badge-new-border);
+        }
 
-        @media (max-width: 600px) {
+        /* Responsividade para telas menores */
+        @media (max-width: 768px) {
             .app-card.featured {
                 flex-direction: column;
-                text-align: center;
-                padding: 30px;
+                align-items: flex-start;
             }
-            .app-card.featured .icon {
+            .app-card.featured .icon-wrapper {
                 margin-right: 0;
-                margin-bottom: 15px;
+                margin-bottom: 24px;
             }
-            .badge {
-                top: 10px;
-                right: 10px;
-            }
+            .hero h1 { font-size: 2.25rem; }
+            .navbar { padding: 16px 20px; }
         }
     </style>
 </head>
 <body>
 
-    <div class="top-bar">
+    <nav class="navbar">
         <select class="lang-selector" id="langMenu" onchange="changeLanguage(this.value)">
             <option value="pt">🇧🇷 Português</option>
             <option value="en">🇺🇸 English</option>
             <option value="es">🇪🇸 Español</option>
         </select>
-    </div>
+    </nav>
 
-    <div class="header">
+    <header class="hero">
         <h1>OXY TOOLKIT</h1>
         <p data-i18n="subtitle">Soluções para Eletrônica e Áudio</p>
-    </div>
+    </header>
 
-    <div class="apps-grid">
-        
-        <!-- APLICATIVO 1 -->
-        <a href="resistores.html" class="app-card featured">
-            <span class="badge hot" data-i18n="badge_hot">Em Alta</span>
-            <div class="icon">⚡</div>
-            <div>
-                <h2 data-i18n="app1_title">Calculadora de Resistores</h2>
-                <p data-i18n="app1_desc">Identifique valores, simule tolerâncias, verifique coeficientes de temperatura e gere guias visuais em PNG de alta resolução para bancada.</p>
-            </div>
-        </a>
+    <main class="container">
+        <div class="apps-grid">
+            
+            <!-- APLICATIVO 1 -->
+            <a href="resistores.html" class="app-card featured">
+                <span class="badge hot" data-i18n="badge_hot">Em Alta</span>
+                <div class="icon-wrapper">⚡</div>
+                <div>
+                    <h2 data-i18n="app1_title">Calculadora de Resistores</h2>
+                    <p data-i18n="app1_desc">Identifique valores, simule tolerâncias, verifique coeficientes de temperatura e gere guias visuais em PNG de alta resolução para bancada.</p>
+                </div>
+            </a>
 
-        <!-- APLICATIVO 2 -->
-        <a href="acordes.html" class="app-card">
-            <span class="badge new" data-i18n="badge_new">Novo</span>
-            <div class="icon">🎹</div>
-            <div>
-                <h2 data-i18n="app2_title">Gerador de Acordes</h2>
-                <p data-i18n="app2_desc">Crie e exporte progressões harmônicas rapidamente para integrar no seu software de produção de áudio e instrumentos virtuais.</p>
-            </div>
-        </a>
+            <!-- APLICATIVO 2 -->
+            <a href="acordes.html" class="app-card">
+                <span class="badge new" data-i18n="badge_new">Novo</span>
+                <div class="icon-wrapper">🎹</div>
+                <div>
+                    <h2 data-i18n="app2_title">Gerador de Acordes</h2>
+                    <p data-i18n="app2_desc">Crie e exporte progressões harmônicas rapidamente para integrar no seu software de produção de áudio e instrumentos virtuais.</p>
+                </div>
+            </a>
 
-        <!-- Futuro Aplicativo 3 -->
-        <a href="#" class="app-card" style="opacity: 0.5; cursor: not-allowed;">
-            <div class="icon">🛠️</div>
-            <div>
-                <h2 data-i18n="app3_title">Em breve...</h2>
-                <p data-i18n="app3_desc">Mais ferramentas estão sendo desenvolvidas para compor o ecossistema OXY.</p>
-            </div>
-        </a>
+            <!-- Futuro Aplicativo 3 -->
+            <a href="#" class="app-card disabled">
+                <div class="icon-wrapper">🛠️</div>
+                <div>
+                    <h2 data-i18n="app3_title">Em breve...</h2>
+                    <p data-i18n="app3_desc">Mais ferramentas estão sendo desenvolvidas para compor o ecossistema OXY.</p>
+                </div>
+            </a>
 
-    </div>
+        </div>
+    </main>
 
     <script>
-        // Dicionário de Idiomas
         const translations = {
             pt: {
-                subtitle: "Soluções para Eletrônica e Áudio",
+                subtitle: "Soluções Avançadas para Eletrônica e Áudio",
                 badge_hot: "Em Alta",
                 badge_new: "Novo",
                 app1_title: "Calculadora de Resistores",
@@ -220,7 +311,7 @@
                 app3_desc: "Mais ferramentas estão sendo desenvolvidas para compor o ecossistema OXY."
             },
             en: {
-                subtitle: "Electronics & Audio Solutions",
+                subtitle: "Advanced Electronics & Audio Solutions",
                 badge_hot: "Trending",
                 badge_new: "New",
                 app1_title: "Resistor Calculator",
@@ -231,7 +322,7 @@
                 app3_desc: "More tools are currently being developed to build the OXY ecosystem."
             },
             es: {
-                subtitle: "Soluciones para Electrónica y Audio",
+                subtitle: "Soluciones Avanzadas para Electrónica y Audio",
                 badge_hot: "Tendencia",
                 badge_new: "Nuevo",
                 app1_title: "Calculadora de Resistencias",
@@ -243,7 +334,6 @@
             }
         };
 
-        // Função que troca os textos baseados nos atributos data-i18n
         function changeLanguage(lang) {
             document.querySelectorAll('[data-i18n]').forEach(element => {
                 const key = element.getAttribute('data-i18n');
@@ -251,12 +341,10 @@
                     element.innerText = translations[lang][key];
                 }
             });
-            // Salva a escolha do usuário no navegador
             localStorage.setItem('oxy_language', lang);
-            document.documentElement.lang = lang; // Atualiza a tag <html> para acessibilidade
+            document.documentElement.lang = lang; 
         }
 
-        // Ao carregar a página, verifica se o usuário já tinha escolhido um idioma antes
         window.onload = () => {
             const savedLang = localStorage.getItem('oxy_language') || 'pt';
             document.getElementById('langMenu').value = savedLang;
