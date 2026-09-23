@@ -29,7 +29,7 @@
         }
 
         body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background-color: var(--bg-main); color: var(--text-primary); margin: 0; padding: 0; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
-        .navbar { width: 100%; padding: 16px 40px; box-sizing: border-box; display: flex; justify-content: space-between; align-items: center; gap: 24px; border-bottom: 1px solid var(--border); background: rgba(19, 17, 28, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); position: sticky; top: 0; z-index: 100; }
+        .navbar { width: 100%; padding: 16px 40px; box-sizing: border-box; display: flex; justify-content: flex-end; align-items: center; gap: 24px; border-bottom: 1px solid var(--border); background: rgba(19, 17, 28, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); position: sticky; top: 0; z-index: 100; }
         .social-group { display: flex; gap: 20px; align-items: center; justify-content: center; }
         .social-link { display: flex; align-items: center; gap: 8px; color: var(--text-secondary); text-decoration: none; font-size: 14px; font-weight: 600; transition: color 0.2s ease; }
         .social-link:hover { color: var(--accent); }
@@ -80,88 +80,41 @@
             <option value="es">🇪🇸 Español</option>
         </select>
     </nav>
-
     <header class="hero">
         <h1>OXYLABZ TOOLS</h1>
-        <p data-i18n="subtitle">Eletrônica | Áudio</p>
+        <p data-i18n="subtitle">Eletrônica | Áudio | IA</p>
     </header>
-
     <main class="container">
         <div class="apps-grid">
-            
             <a href="calculadora/index.html" class="app-card featured">
                 <span class="badge hot" data-i18n="badge_hot">Em Alta</span>
                 <div class="icon-wrapper">⚡</div>
-                <div>
-                    <h2 data-i18n="app1_title">Calculadora de Resistores</h2>
-                    <p data-i18n="app1_desc">Identifique valores, simule tolerâncias, verifique coeficientes de temperatura e gere guias visuais em PNG de alta resolução para bancada.</p>
-                </div>
+                <div><h2 data-i18n="app1_title">Calculadora de Resistores</h2><p data-i18n="app1_desc">Identifique valores, simule tolerâncias, verifique coeficientes de temperatura e gere guias visuais em PNG de alta resolução para bancada.</p></div>
             </a>
-
             <a href="acordes/index.html" class="app-card">
-                <span class="badge new" data-i18n="badge_new">Ferramenta</span>
+                <span class="badge new" data-i18n="badge_new">Novo</span>
                 <div class="icon-wrapper">🎹</div>
-                <div>
-                    <h2 data-i18n="app2_title">Gerador de Acordes</h2>
-                    <p data-i18n="app2_desc">Crie e exporte progressões harmônicas rapidamente para integrar no seu software de produção de áudio e instrumentos virtuais.</p>
-                </div>
+                <div><h2 data-i18n="app2_title">Gerador de Acordes</h2><p data-i18n="app2_desc">Crie e exporte progressões harmônicas rapidamente para integrar no seu software de produção de áudio e instrumentos virtuais.</p></div>
             </a>
-
             <a href="mini-prompts/index.html" class="app-card">
-                <span class="badge new" data-i18n="badge_new">Ferramenta</span>
+                <span class="badge new" data-i18n="badge_new">Novo</span>
                 <div class="icon-wrapper">✨</div>
-                <div>
-                    <h2 data-i18n="app0_title">Mini Prompts (Tema Tetê)</h2>
-                    <p data-i18n="app0_desc">Biblioteca de prompts rápidos e visuais para ChatGPT e Gemini. Clique para copiar ou enviar direto para a IA e fazer transformações incríveis.</p>
-                </div>
+                <div><h2 data-i18n="app0_title">Mini Prompts</h2><p data-i18n="app0_desc">Biblioteca de prompts rápidos e visuais para ChatGPT e Gemini. Clique para copiar ou enviar direto para a IA e fazer transformações incríveis.</p></div>
             </a>
-
         </div>
     </main>
-
     <script>
-        const translations = {
-            pt: {
-                subtitle: "Eletrônica | Áudio", badge_hot: "Em Alta", badge_new: "Ferramenta",
-                app1_title: "Calculadora de Resistores", app1_desc: "Identifique valores, simule tolerâncias, verifique coeficientes de temperatura e gere guias visuais em PNG de alta resolução para bancada.",
-                app2_title: "Gerador de Acordes", app2_desc: "Crie e exporte progressões harmônicas rapidamente para integrar no seu software de produção de áudio e instrumentos virtuais.",
-                app0_title: "Mini Prompts (Tema Tetê)", app0_desc: "Biblioteca de prompts rápidos e visuais para ChatGPT e Gemini. Clique para copiar ou enviar direto para a IA e fazer transformações incríveis."
-            },
-            en: {
-                subtitle: "Electronics | Audio", badge_hot: "Trending", badge_new: "Tool",
-                app1_title: "Resistor Calculator", app1_desc: "Identify values, simulate tolerances, check temp coefficients, and generate high-res PNG visual guides for your workbench.",
-                app2_title: "Chord Generator", app2_desc: "Quickly create and export harmonic progressions to integrate into your DAW and virtual instruments.",
-                app0_title: "Mini Prompts (Tetê Theme)", app0_desc: "Visual prompt library for ChatGPT and Gemini. Click to copy or send directly to the AI for amazing image transformations."
-            },
-            es: {
-                subtitle: "Electrónica | Audio | IA", badge_hot: "Tendencia", badge_new: "Herramienta",
-                app1_title: "Calculadora de Resistencias", app1_desc: "Identifica valores, simula tolerancias, verifica coeficientes de temperatura y genera guías visuales PNG de alta resolución para el taller.",
-                app2_title: "Generador de Acordes", app2_desc: "Crea y exporta progresiones armónicas rápidamente para integrarlas en tu software de producción y sintetizadores virtuales.",
-                app0_title: "Mini Prompts (Tema Tetê)", app0_desc: "Biblioteca de prompts visuales para ChatGPT y Gemini. Haz clic para copiar o enviar directo a la IA y hacer transformaciones increíbles."
-            }
+        const i18n = {
+            pt: { subtitle: "Eletrônica | Áudio | IA", badge_hot: "Em Alta", badge_new: "Novo", app1_title: "Calculadora de Resistores", app1_desc: "Identifique valores, simule tolerâncias, verifique coeficientes de temperatura e gere guias visuais em PNG de alta resolução para bancada.", app2_title: "Gerador de Acordes", app2_desc: "Crie e exporte progressões harmônicas rapidamente para integrar no seu software de produção de áudio e instrumentos virtuais.", app0_title: "Mini Prompts", app0_desc: "Biblioteca de prompts rápidos e visuais para ChatGPT e Gemini. Clique para copiar ou enviar direto para a IA e fazer transformações incríveis." },
+            en: { subtitle: "Electronics | Audio | AI", badge_hot: "Trending", badge_new: "New", app1_title: "Resistor Calculator", app1_desc: "Identify values, simulate tolerances, check temp coefficients, and generate high-res PNG visual guides for your workbench.", app2_title: "Chord Generator", app2_desc: "Quickly create and export harmonic progressions to integrate into your DAW and virtual instruments.", app0_title: "Mini Prompts", app0_desc: "Visual prompt library for ChatGPT and Gemini. Click to copy or send directly to the AI for amazing image transformations." },
+            es: { subtitle: "Electrónica | Audio | IA", badge_hot: "Tendencia", badge_new: "Nuevo", app1_title: "Calculadora de Resistencias", app1_desc: "Identifica valores, simula tolerancias, verifica coeficientes de temperatura y genera guías visuales PNG de alta resolución para el taller.", app2_title: "Generador de Acordes", app2_desc: "Crea y exporta progresiones armónicas rápidamente para integrarlas en tu software de producción y sintetizadores virtuales.", app0_title: "Mini Prompts", app0_desc: "Biblioteca de prompts visuales para ChatGPT y Gemini. Haz clic para copiar o enviar directo a la IA y hacer transformaciones increíbles." }
         };
-
         function mudarIdioma(lang) {
             setGlobalLang(lang);
-            document.querySelectorAll('[data-i18n]').forEach(element => {
-                const key = element.getAttribute('data-i18n');
-                if(translations[lang][key]) {
-                    element.innerText = translations[lang][key];
-                }
-            });
+            document.querySelectorAll('[data-i18n]').forEach(el => { el.innerText = i18n[lang][el.getAttribute('data-i18n')]; });
         }
-
-        window.addEventListener('idiomaMudou', () => {
-            const savedLang = getGlobalLang();
-            document.getElementById('langMenu').value = savedLang;
-            mudarIdioma(savedLang);
-        });
-
-        window.onload = () => {
-            const savedLang = getGlobalLang();
-            document.getElementById('langMenu').value = savedLang;
-            mudarIdioma(savedLang);
-        };
+        window.addEventListener('idiomaMudou', () => { document.getElementById('langMenu').value = getGlobalLang(); mudarIdioma(getGlobalLang()); });
+        window.onload = () => { document.getElementById('langMenu').value = getGlobalLang(); mudarIdioma(getGlobalLang()); };
     </script>
 </body>
 </html>
