@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tema Tetê</title>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="../js/global.js"></script>
+    <style>
+        /* TEMA TETÊ: */
+        :root {
+            --bg-color: #F8F5FF;
+            --sidebar-bg: #F0E6FF;
+            --card-bg: #FFFFFF;
+            --text-main: #2B1B3D;
+            --text-muted: #7B6B8D;
+            --accent: #7B2CBF;
+            --accent-hover: #5A189A;
+            --border: #E0D4F5;
+            --chatgpt: #10a37f;
+            --gemini: #1a73e8;
+            --font-ui: 'Inter', sans-serif;
+            --font-hand: 'Caveat', cursive;
+        }
+        
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: var(--font-ui); background-color: var(--bg-color); color: var(--text-main); display: flex; height: 100vh; overflow: hidden; }
+        .sidebar { width: 280px; background-color: var(--sidebar-bg); border-right: 1px solid var(--border); display: flex; flex-direction: column; transition: transform 0.3s ease, width 0.3s ease; z-index: 1000; box-shadow: 2px 0 10px rgba(0,0,0,0.03); }
+        .sidebar.collapsed { transform: translateX(-100%); position: absolute; height: 100%; }
+        .sidebar-header { padding: 24px 20px; font-size: 2.4rem; font-family: var(--font-hand); color: var(--accent); text-align: center; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+        .close-sidebar-btn { background: none; border: none; color: var(--accent); font-size: 1.8rem; cursor: pointer; display: none; }
+        .lang-selector { display: flex; justify-content: center; gap: 10px; padding: 10px; background-color: rgba(255,255,255,0.5); border-bottom: 1px solid var(--border); }
+        .lang-btn { background: none; border: 1px solid var(--border); padding: 4px 8px; border-radius: 4px; cursor: pointer; font-size: 0.85rem; color: var(--text-muted); transition: all 0.2s; }
+        .lang-btn.active { background-color: var(--accent); color: white; border-color: var(--accent); }
+        .category-list { list-style: none; padding: 12px; overflow-y: auto; flex: 1; }
+        .category-btn { width: 100%; background: none; border: none; color: var(--text-main); text-align: left; padding: 12px 16px; font-size: 0.95rem; border-radius: 8px; cursor: pointer; margin-bottom: 4px; font-weight: 500; }
+        .category-btn:hover { background-color: rgba(123, 44, 191, 0.1); color: var(--accent); }
+        .category-btn.active { background-color: var(--accent); color: #fff; font-weight: 600;}
+        .main-content { flex: 1; display: flex; flex-direction: column; overflow: hidden; position: relative; }
+        .topbar { padding: 16px 24px; border-bottom: 1px solid var(--border); display: flex; gap: 16px; align-items: center; background-color: #fff; }
+        .toggle-btn { background: none; border: none; color: var(--accent); font-size: 1.5rem; cursor: pointer; }
+        .search-input { flex: 1; padding: 12px 20px; border-radius: 20px; border: 1px solid var(--border); background-color: var(--bg-color); color: var(--text-main); font-size: 1rem; outline: none; }
+        .search-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(123, 44, 191, 0.1); }
+        .btn-update { background-color: var(--accent); color: white; border: none; padding: 10px 16px; border-radius: 20px; font-weight: 600; cursor: pointer; font-size: 0.9rem; display: none; }
+        .nav-back { display: inline-block; margin-right: 15px; color: var(--accent); text-decoration: none; font-weight: bold; font-size: 18px; }
+        .prompts-container { flex: 1; padding: 24px; overflow-y: auto; display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; align-items: start; align-content: start; }
+        .card { background-color: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 20px; display: flex; flex-direction: column; gap: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.02); position: relative; height: 100%; }
+        .card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, #9D4EDD, #E0AAFF); }
+        .card-code { color: var(--accent); font-family: monospace; font-size: 1.15rem; font-weight: 700; background: rgba(123, 44, 191, 0.08); padding: 6px 10px; border-radius: 6px; align-self: flex-start; cursor: pointer; margin-top: 5px; word-break: break-all; }
+        .card-desc { font-size: 0.95rem; line-height: 1.5; color: var(--text-main); flex: 1; }
+        .card-actions { display: flex; gap: 8px; margin-top: auto; padding-top: 12px; border-top: 1px dashed var(--border); }
+        .action-btn { flex: 1; padding: 10px; border: none; border-radius: 6px; color: white; font-weight: 600; cursor: pointer; font-size: 0.85rem; display: flex; align-items: center; justify-content: center; }
+        .btn-gpt { background-color: var(--chatgpt); }
+        .btn-gemini { background-color: var(--gemini); }
+        
+        @media (max-width: 768px) {
+            .sidebar { position: absolute; height: 100%; transform: translateX(-100%); }
+            .sidebar.mobile-open { transform: translateX(0); box-shadow: 4px 0 15px rgba(0,0,0,0.1); }
+            .close-sidebar-btn { display: block; }
+            .prompts-container { padding: 16px; grid-template-columns: 1fr; }
+            .topbar { flex-wrap: wrap; }
+            .search-input { order: 3; min-width: 100%; margin-top: 10px; }
+        }
+
+        .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(100px); background: var(--accent); color: white; padding: 12px 24px; border-radius: 8px; font-weight: 600; opacity: 0; transition: all 0.3s; z-index: 2000; }
+        .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar collapsed" id="sidebar">
+        <div class="sidebar-header">
+            Tema Tetê
+            <button class="close-sidebar-btn" onclick="toggleSidebar()">×</button>
+        </div>
+        <div class="lang-selector">
+            <button class="lang-btn active" onclick="setLang('pt')">PT</button>
+            <button class="lang-btn" onclick="setLang('en')">EN</button>
+            <button class="lang-btn" onclick="setLang('es')">ES</button>
+        </div>
+        <ul class="category-list" id="categoryList"></ul>
+    </div>
+
+    <div class="main-content">
+        <div class="topbar">
+            <a href="../index.html" class="nav-back">←</a>
+            <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+            <input type="text" class="search-input" id="searchInput" placeholder="Pesquisar prompts...">
+            <button class="btn-update" id="addBtn" onclick="alert('Execute atualizador.py para inserir novos comandos.')">+ Novo</button>
+        </div>
+        <div class="prompts-container" id="promptsContainer"></div>
+    </div>
+
+    <div class="toast" id="toast">Prompt copiado!</div>
+
+    <script>
+        // O JSON AQUI PODE SER ATUALIZADO PELO SEU SCRIPT PYTHON. AQUI TEM UM EXEMPLO COM 3 PROMPTS.
+        const promptsData = [{"cat_pt": "Favoritos", "cat_en": "Favorites", "cat_es": "Favoritos", "Code": "/headshot", "Description_en": "A professional headshot from your selfie", "Description_pt": "Um retrato profissional de sua selfie", "Description_es": "Un retrato profesional de tu selfie"}, {"cat_pt": "Favoritos", "cat_en": "Favorites", "cat_es": "Favoritos", "Code": "/magazinecover", "Description_en": "You on the cover of a magazine", "Description_pt": "Você na capa de uma revista", "Description_es": "Tú en la portada de una revista"}, {"cat_pt": "Estilos e Filtros", "cat_en": "Styles, looks, and effects", "cat_es": "Estilos", "Code": "/claymation", "Description_en": "Use a handmade clay animation style.", "Description_pt": "Use um estilo de animação de argila feito à mão.", "Description_es": "Usa un estilo de animación de arcilla hecho a mano."}]; 
+        
+        const i18n = {
+            pt: { search: "Pesquisar comandos...", all: "Todos", does: "O que faz:", gpt: "Abrir ChatGPT", gemini: "Abrir Gemini" },
+            en: { search: "Search codes...", all: "All", does: "What it does:", gpt: "Open ChatGPT", gemini: "Open Gemini" },
+            es: { search: "Buscar comandos...", all: "Todos", does: "Qué hace:", gpt: "Abrir ChatGPT", gemini: "Abrir Gemini" }
+        };
+
+        let currentLang = getGlobalLang(); 
+        let currentCategory = i18n[currentLang].all;
+
+        const sidebarEl = document.getElementById('sidebar');
+        const categoryListEl = document.getElementById('categoryList');
+        const promptsContainerEl = document.getElementById('promptsContainer');
+        const searchInput = document.getElementById('searchInput');
+        const toast = document.getElementById('toast');
+
+        if (window.location.search.includes('admin=tete')) { document.getElementById('addBtn').style.display = 'block'; }
+
+        window.addEventListener('idiomaMudou', () => aplicarIdioma(getGlobalLang()));
+
+        function mudarIdioma(lang) {
+            setGlobalLang(lang);
+            aplicarIdioma(lang);
+        }
+
+        function aplicarIdioma(lang) {
+            currentLang = lang;
+            document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+            const btn = document.getElementById(`btn-${lang}`);
+            if(btn) btn.classList.add('active');
+            
+            searchInput.placeholder = i18n[lang].search;
+            currentCategory = i18n[lang].all;
+            renderCategories();
+            filterPrompts();
+        }
+
+        function toggleSidebar() {
+            if (window.innerWidth <= 768) sidebarEl.classList.toggle('mobile-open');
+            else sidebarEl.classList.toggle('collapsed');
+        }
+        if (window.innerWidth > 768) sidebarEl.classList.remove('collapsed');
+
+        function renderCategories() {
+            categoryListEl.innerHTML = '';
+            const key = "cat_" + currentLang;
+            if (promptsData.length === 0) return; 
+
+            const rawCategories = [...new Set(promptsData.map(p => p[key]))];
+            const categories = [i18n[currentLang].all, ...rawCategories];
+            
+            categories.forEach(cat => {
+                const btn = document.createElement('button');
+                btn.className = `category-btn ${cat === currentCategory ? 'active' : ''}`;
+                btn.textContent = cat;
+                btn.onclick = () => {
+                    currentCategory = cat;
+                    renderCategories();
+                    filterPrompts();
+                    if (window.innerWidth <= 768) toggleSidebar();
+                };
+                categoryListEl.appendChild(btn);
+            });
+        }
+
+        function renderPrompts(data) {
+            promptsContainerEl.innerHTML = '';
+            data.forEach(p => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                
+                const descLocal = p[`Description_${currentLang}`] || p.Description_en;
+                let fullPrompt = `${p.Code}\n${descLocal}`;
+                const cleanPrompt = encodeURIComponent(fullPrompt);
+                
+                card.innerHTML = `
+                    <div class="card-code" onclick="copyOnly('${p.Code}')">${p.Code}</div>
+                    <div class="card-desc"><b>${i18n[currentLang].does}</b> ${descLocal}</div>
+                    
+                    <div class="card-actions">
+                        <button class="action-btn btn-gpt" onclick="openAI('chatgpt', '${cleanPrompt}', '${p.Code}')">
+                            ${i18n[currentLang].gpt}
+                        </button>
+                        <button class="action-btn btn-gemini" onclick="openAI('gemini', '${cleanPrompt}', '${p.Code}')">
+                            ${i18n[currentLang].gemini}
+                        </button>
+                    </div>
+                `;
+                promptsContainerEl.appendChild(card);
+            });
+        }
+
+        function filterPrompts() {
+            const query = searchInput.value.toLowerCase();
+            const key = "cat_" + currentLang;
+            const filtered = promptsData.filter(p => {
+                const matchesCategory = currentCategory === i18n[currentLang].all || p[key] === currentCategory;
+                const descText = p[`Description_${currentLang}`] || p.Description_en;
+                const matchesSearch = p.Code.toLowerCase().includes(query) || descText.toLowerCase().includes(query);
+                return matchesCategory && matchesSearch;
+            });
+            renderPrompts(filtered);
+        }
+
+        searchInput.addEventListener('input', filterPrompts);
+
+        window.copyOnly = function(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                toast.innerText = "Copiado!";
+                toast.classList.add('show');
+                setTimeout(() => toast.classList.remove('show'), 2000);
+            });
+        };
+        
+        window.openAI = function(platform, encodedPrompt, rawCode) {
+            navigator.clipboard.writeText(rawCode).catch(e => console.log(e));
+            toast.innerText = "Pronto! Cole no chat e anexe sua imagem.";
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 4000);
+            
+            let url = platform === 'chatgpt' ? 'https://chatgpt.com/?q=' + encodedPrompt : 'https://gemini.google.com/app';
+            window.open(url, '_blank');
+        };
+
+        aplicarIdioma(currentLang);
+    </script>
+</body>
+</html>
