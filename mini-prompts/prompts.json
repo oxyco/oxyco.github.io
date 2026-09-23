@@ -32,8 +32,8 @@
     "cat_es": "Favoritos",
     "Code": "/podcastportrait",
     "Description_en": "A portrait with a mic in frame for a show cover",
-    "Description_pt": "A portrait with a mic in frame for a show cover",
-    "Description_es": "A portrait with a mic in frame for a show cover"
+    "Description_pt": "Um retrato com um microfone enquadrado para a capa de um programa",
+    "Description_es": "Un retrato con un micrófono encuadrado para la portada de un espectáculo."
   },
   {
     "cat_pt": "Favoritos",
@@ -41,8 +41,8 @@
     "cat_es": "Favoritos",
     "Code": "/outfitswap",
     "Description_en": "The same headshot in five outfits",
-    "Description_pt": "The same headshot in five outfits",
-    "Description_es": "The same headshot in five outfits"
+    "Description_pt": "O mesmo headshot em cinco roupas",
+    "Description_es": "El mismo retrato en cinco atuendos."
   },
   {
     "cat_pt": "Favoritos",
@@ -50,8 +50,8 @@
     "cat_es": "Favoritos",
     "Code": "/ingredient explosion",
     "Description_en": "Every ingredient floating apart in layers",
-    "Description_pt": "Every ingredient floating apart in layers",
-    "Description_es": "Every ingredient floating apart in layers"
+    "Description_pt": "Cada ingrediente flutuando em camadas",
+    "Description_es": "Cada ingrediente flotando en capas"
   },
   {
     "cat_pt": "Favoritos",
@@ -59,8 +59,8 @@
     "cat_es": "Favoritos",
     "Code": "/visual learning whiteboard",
     "Description_en": "The idea taught on a whiteboard",
-    "Description_pt": "The idea taught on a whiteboard",
-    "Description_es": "The idea taught on a whiteboard"
+    "Description_pt": "A ideia ensinada em um quadro branco",
+    "Description_es": "La idea enseñada en una pizarra."
   },
   {
     "cat_pt": "Favoritos",
@@ -86,8 +86,8 @@
     "cat_es": "Favoritos",
     "Code": "/adset",
     "Description_en": "Five ad versions with different hooks",
-    "Description_pt": "Five ad versions with different hooks",
-    "Description_es": "Five ad versions with different hooks"
+    "Description_pt": "Cinco versões de anúncios com ganchos diferentes",
+    "Description_es": "Cinco versiones de anuncios con diferentes ganchos"
   },
   {
     "cat_pt": "Favoritos",
@@ -104,8 +104,8 @@
     "cat_es": "Favoritos",
     "Code": "/comparisonad",
     "Description_en": "Us versus them side by side",
-    "Description_pt": "Us versus them side by side",
-    "Description_es": "Us versus them side by side"
+    "Description_pt": "Nós contra eles lado a lado",
+    "Description_es": "Nosotros contra ellos uno al lado del otro"
   },
   {
     "cat_pt": "Favoritos",
@@ -113,8 +113,8 @@
     "cat_es": "Favoritos",
     "Code": "/testimonialad",
     "Description_en": "An ad built around a client quote",
-    "Description_pt": "An ad built around a client quote",
-    "Description_es": "An ad built around a client quote"
+    "Description_pt": "Um anúncio criado em torno de uma cotação do cliente",
+    "Description_es": "Un anuncio creado en torno a la cotización de un cliente."
   },
   {
     "cat_pt": "Favoritos",
@@ -158,8 +158,8 @@
     "cat_es": "Favoritos",
     "Code": "/brandboard",
     "Description_en": "Your logo colours fonts and imagery on one board",
-    "Description_pt": "Your logo colours fonts and imagery on one board",
-    "Description_es": "Your logo colours fonts and imagery on one board"
+    "Description_pt": "Seu logotipo colore fontes e imagens em um quadro",
+    "Description_es": "Su logotipo colorea fuentes e imágenes en un solo tablero"
   },
   {
     "cat_pt": "Favoritos",
@@ -185,8 +185,8 @@
     "cat_es": "Fotos Tuyas",
     "Code": "/actorheadshot",
     "Description_en": "Casting-style headshot with clean eye contact",
-    "Description_pt": "Casting-style headshot with clean eye contact",
-    "Description_es": "Casting-style headshot with clean eye contact"
+    "Description_pt": "Tiro na cabeça estilo casting com contato visual limpo",
+    "Description_es": "Tiro en la cabeza estilo casting con contacto visual limpio"
   },
   {
     "cat_pt": "Fotos Suas",
@@ -194,8 +194,8 @@
     "cat_es": "Fotos Tuyas",
     "Code": "/authorphoto",
     "Description_en": "Book-jacket author portrait thoughtful and warm",
-    "Description_pt": "Book-jacket author portrait thoughtful and warm",
-    "Description_es": "Book-jacket author portrait thoughtful and warm"
+    "Description_pt": "Retrato do autor da capa do livro, atencioso e caloroso",
+    "Description_es": "Retrato de autor de sobrecubierta reflexivo y cálido"
   },
   {
     "cat_pt": "Fotos Suas",
@@ -204,7 +204,7 @@
     "Code": "/bwportrait",
     "Description_en": "Timeless black and white portrait film grain",
     "Description_pt": "Timeless black and white portrait film grain",
-    "Description_es": "Timeless black and white portrait film grain"
+    "Description_es": "Grano de película de retrato en blanco y negro atemporal"
   },
   {
     "cat_pt": "Fotos Suas",
@@ -212,8 +212,8 @@
     "cat_es": "Fotos Tuyas",
     "Code": "/casualheadshot",
     "Description_en": "Relaxed headshot with soft natural window light",
-    "Description_pt": "Relaxed headshot with soft natural window light",
-    "Description_es": "Relaxed headshot with soft natural window light"
+    "Description_pt": "Foto descontraída com luz natural suave da janela",
+    "Description_es": "Foto de rostro relajada con suave luz natural de ventana"
   },
   {
     "cat_pt": "Fotos Suas",
@@ -239,8 +239,8 @@
     "cat_es": "Fotos Tuyas",
     "Code": "/doctorportrait",
     "Description_en": "White coat clinic portrait calm and trustworthy",
-    "Description_pt": "White coat clinic portrait calm and trustworthy",
-    "Description_es": "White coat clinic portrait calm and trustworthy"
+    "Description_pt": "Retrato de clínica de jaleco branco calmo e confiável",
+    "Description_es": "Retrato de clínica de bata blanca tranquilo y digno de confianza."
   },
   {
     "cat_pt": "Fotos Suas",
@@ -248,8 +248,8 @@
     "cat_es": "Fotos Tuyas",
     "Code": "/fitnessportrait",
     "Description_en": "Gym portrait with dramatic side lighting",
-    "Description_pt": "Gym portrait with dramatic side lighting",
-    "Description_es": "Gym portrait with dramatic side lighting"
+    "Description_pt": "Retrato de academia com iluminação lateral dramática",
+    "Description_es": "Retrato de gimnasio con espectacular iluminación lateral"
   },
   {
     "cat_pt": "Fotos Suas",
@@ -258,7 +258,7 @@
     "Code": "/founderportrait",
     "Description_en": "Editorial founder portrait for a press feature",
     "Description_pt": "Editorial founder portrait for a press feature",
-    "Description_es": "Editorial founder portrait for a press feature"
+    "Description_es": "Retrato editorial del fundador para un artículo de prensa"
   },
   {
     "cat_pt": "Fotos Suas",
@@ -266,8 +266,8 @@
     "cat_es": "Fotos Tuyas",
     "Code": "/goldenhourportrait",
     "Description_en": "Outdoor portrait lit by warm golden hour sun",
-    "Description_pt": "Outdoor portrait lit by warm golden hour sun",
-    "Description_es": "Outdoor portrait lit by warm golden hour sun"
+    "Description_pt": "Retrato ao ar livre iluminado pelo sol quente da hora dourada",
+    "Description_es": "Retrato al aire libre iluminado por el cálido sol de la hora dorada"
   },
   {
     "cat_pt": "Fotos Suas",
@@ -284,8 +284,8 @@
     "cat_es": "Fotos Tuyas",
     "Code": "/passportphoto",
     "Description_en": "Compliant passport photo: white wall even light",
-    "Description_pt": "Compliant passport photo: white wall even light",
-    "Description_es": "Compliant passport photo: white wall even light"
+    "Description_pt": "Foto de passaporte compatível: parede branca mesmo com luz",
+    "Description_es": "Foto de pasaporte compatible: pared blanca incluso con luz"
   },
   {
     "cat_pt": "Fotos Suas",
@@ -302,8 +302,8 @@
     "cat_es": "Fotos Tuyas",
     "Code": "/teamphoto",
     "Description_en": "A matching headshot style for your whole team",
-    "Description_pt": "A matching headshot style for your whole team",
-    "Description_es": "A matching headshot style for your whole team"
+    "Description_pt": "Um estilo de headshot correspondente para toda a sua equipe",
+    "Description_es": "Un estilo de retrato a juego para todo tu equipo"
   },
   {
     "cat_pt": "Fotos Suas",
@@ -311,8 +311,8 @@
     "cat_es": "Fotos Tuyas",
     "Code": "/vintageportrait",
     "Description_en": "You shot in a 1970s film photo style",
-    "Description_pt": "You shot in a 1970s film photo style",
-    "Description_es": "You shot in a 1970s film photo style"
+    "Description_pt": "Você filmou no estilo de filme fotográfico dos anos 1970",
+    "Description_es": "Filmaste con el estilo de una película de los años 70."
   },
   {
     "cat_pt": "Fotos de Produtos",
@@ -329,8 +329,8 @@
     "cat_es": "Fotos de Productos",
     "Code": "/accessorylayout",
     "Description_en": "Arrange the main item with its accessories",
-    "Description_pt": "Arrange the main item with its accessories",
-    "Description_es": "Arrange the main item with its accessories"
+    "Description_pt": "Organize o item principal com seus acessórios",
+    "Description_es": "Organizar el artículo principal con sus accesorios."
   },
   {
     "cat_pt": "Fotos de Produtos",
@@ -338,8 +338,8 @@
     "cat_es": "Fotos de Productos",
     "Code": "/amazonready",
     "Description_en": "Amazon-compliant main image white background",
-    "Description_pt": "Amazon-compliant main image white background",
-    "Description_es": "Amazon-compliant main image white background"
+    "Description_pt": "Fundo branco da imagem principal compatível com Amazon",
+    "Description_es": "Imagen principal compatible con Amazon con fondo blanco"
   },
   {
     "cat_pt": "Fotos de Produtos",
@@ -365,8 +365,8 @@
     "cat_es": "Fotos de Productos",
     "Code": "/beforeafterproduct",
     "Description_en": "Before and after panel showing the result",
-    "Description_pt": "Before and after panel showing the result",
-    "Description_es": "Before and after panel showing the result"
+    "Description_pt": "Painel antes e depois mostrando o resultado",
+    "Description_es": "Panel de antes y después mostrando el resultado."
   },
   {
     "cat_pt": "Fotos de Produtos",
@@ -374,8 +374,8 @@
     "cat_es": "Fotos de Productos",
     "Code": "/cablemanagement",
     "Description_en": "Organize cables neatly around the item",
-    "Description_pt": "Organize cables neatly around the item",
-    "Description_es": "Organize cables neatly around the item"
+    "Description_pt": "Organize os cabos ordenadamente ao redor do item",
+    "Description_es": "Organice los cables ordenadamente alrededor del artículo."
   },
   {
     "cat_pt": "Fotos de Produtos",
@@ -383,8 +383,8 @@
     "cat_es": "Fotos de Productos",
     "Code": "/cafe table",
     "Description_en": "Product on a cafe table with a drink and warm ambient background",
-    "Description_pt": "Product on a cafe table with a drink and warm ambient background",
-    "Description_es": "Product on a cafe table with a drink and warm ambient background"
+    "Description_pt": "Produto em uma mesa de café com uma bebida e um fundo ambiente quente",
+    "Description_es": "Producto en una mesa de café con una bebida y un ambiente cálido"
   },
   {
     "cat_pt": "Fotos de Produtos",
@@ -401,8 +401,8 @@
     "cat_es": "Fotos de Productos",
     "Code": "/color pop",
     "Description_en": "Product on a bold single color background matched to its accent color",
-    "Description_pt": "Product on a bold single color background matched to its accent color",
-    "Description_es": "Product on a bold single color background matched to its accent color"
+    "Description_pt": "Produto em um fundo de cor única ousado que combina com sua cor de destaque",
+    "Description_es": "Producto sobre un fondo llamativo de un solo color que combina con su color de acento."
   },
   {
     "cat_pt": "Fotos de Produtos",
@@ -410,8 +410,8 @@
     "cat_es": "Fotos de Productos",
     "Code": "/colorways",
     "Description_en": "Show the subject in several coordinated color options",
-    "Description_pt": "Show the subject in several coordinated color options",
-    "Description_es": "Show the subject in several coordinated color options"
+    "Description_pt": "Mostre o assunto em várias opções de cores coordenadas",
+    "Description_es": "Muestra el sujeto en varias opciones de color coordinadas."
   },
   {
     "cat_pt": "Fotos de Produtos",
@@ -447,7 +447,7 @@
     "Code": "/deskuse",
     "Description_en": "Show a practical workstation setup",
     "Description_pt": "Show a practical workstation setup",
-    "Description_es": "Show a practical workstation setup"
+    "Description_es": "Mostrar una configuración práctica de estación de trabajo"
   },
   {
     "cat_pt": "Fotos de Produtos",
@@ -455,8 +455,8 @@
     "cat_es": "Fotos de Productos",
     "Code": "/drawerorganization",
     "Description_en": "Arrange small items inside a drawer",
-    "Description_pt": "Arrange small items inside a drawer",
-    "Description_es": "Arrange small items inside a drawer"
+    "Description_pt": "Organize pequenos itens dentro de uma gaveta",
+    "Description_es": "Organizar objetos pequeños dentro de un cajón."
   },
   {
     "cat_pt": "Fotos de Produtos",
@@ -473,8 +473,8 @@
     "cat_es": "Fotos de Productos",
     "Code": "/flatlay",
     "Description_en": "Top-down flat lay with complementary props",
-    "Description_pt": "Top-down flat lay with complementary props",
-    "Description_es": "Top-down flat lay with complementary props"
+    "Description_pt": "Postura plana de cima para baixo com adereços complementares",
+    "Description_es": "Plano de arriba hacia abajo con accesorios complementarios."
   },
   {
     "cat_pt": "Fotos de Produtos",
@@ -491,8 +491,8 @@
     "cat_es": "Fotos de Productos",
     "Code": "/floatingproduct",
     "Description_en": "Product floating mid-air with soft shadows",
-    "Description_pt": "Product floating mid-air with soft shadows",
-    "Description_es": "Product floating mid-air with soft shadows"
+    "Description_pt": "Produto flutuando no ar com sombras suaves",
+    "Description_es": "Producto flotando en el aire con sombras suaves."
   },
   {
     "cat_pt": "Fotos de Produtos",
@@ -518,8 +518,8 @@
     "cat_es": "Fotos de Productos",
     "Code": "/gym bag",
     "Description_en": "Product spilling out of or beside a gym bag with active props",
-    "Description_pt": "Product spilling out of or beside a gym bag with active props",
-    "Description_es": "Product spilling out of or beside a gym bag with active props"
+    "Description_pt": "Produto derramando fora ou ao lado de uma bolsa de ginástica com acessórios ativos",
+    "Description_es": "Producto que se derrama fuera o al lado de una bolsa de gimnasia con accesorios activos"
   },
   {
     "cat_pt": "Fotos de Produtos",
@@ -572,8 +572,8 @@
     "cat_es": "Fotos de Productos",
     "Code": "/in hand",
     "Description_en": "The product held in a hand at natural scale casual lighting",
-    "Description_pt": "The product held in a hand at natural scale casual lighting",
-    "Description_es": "The product held in a hand at natural scale casual lighting"
+    "Description_pt": "O produto segurado na mão em iluminação casual em escala natural",
+    "Description_es": "El producto sostenido en una mano con iluminación informal a escala natural."
   },
   {
     "cat_pt": "Fotos de Produtos",
@@ -617,8 +617,8 @@
     "cat_es": "Fotos de Productos",
     "Code": "/lefthanded",
     "Description_en": "Show the item operated left-handed",
-    "Description_pt": "Show the item operated left-handed",
-    "Description_es": "Show the item operated left-handed"
+    "Description_pt": "Mostrar o item operado com a mão esquerda",
+    "Description_es": "Mostrar el artículo operado con la mano izquierda."
   },
   {
     "cat_pt": "Fotos de Produtos",
@@ -662,8 +662,8 @@
     "cat_es": "Fotos de Productos",
     "Code": "/macroshot",
     "Description_en": "Extreme close-up on texture and material",
-    "Description_pt": "Extreme close-up on texture and material",
-    "Description_es": "Extreme close-up on texture and material"
+    "Description_pt": "Close extremo de textura e material",
+    "Description_es": "Primer plano extremo de textura y material."
   },
   {
     "cat_pt": "Fotos de Produtos",
@@ -716,8 +716,8 @@
     "cat_es": "Fotos de Productos",
     "Code": "/on desk",
     "Description_en": "Product staged on a styled desk with laptop coffee and props",
-    "Description_pt": "Product staged on a styled desk with laptop coffee and props",
-    "Description_es": "Product staged on a styled desk with laptop coffee and props"
+    "Description_pt": "Produto apresentado em uma mesa estilizada com café para laptop e adereços",
+    "Description_es": "Producto presentado en un escritorio elegante con café para computadora portátil y accesorios."
   },
   {
     "cat_pt": "Fotos de Produtos",
@@ -743,8 +743,8 @@
     "cat_es": "Fotos de Productos",
     "Code": "/pedestal shot",
     "Description_en": "Product on a raised platform with dramatic side lighting",
-    "Description_pt": "Product on a raised platform with dramatic side lighting",
-    "Description_es": "Product on a raised platform with dramatic side lighting"
+    "Description_pt": "Produto em uma plataforma elevada com iluminação lateral dramática",
+    "Description_es": "Producto sobre una plataforma elevada con espectacular iluminación lateral."
   },
   {
     "cat_pt": "Fotos de Produtos",
@@ -752,8 +752,8 @@
     "cat_es": "Fotos de Productos",
     "Code": "/podiumshot",
     "Description_en": "Product on a stone podium with rim lighting",
-    "Description_pt": "Product on a stone podium with rim lighting",
-    "Description_es": "Product on a stone podium with rim lighting"
+    "Description_pt": "Produto em pódio de pedra com iluminação de aro",
+    "Description_es": "Producto sobre un podio de piedra con iluminación en el borde."
   },
   {
     "cat_pt": "Fotos de Produtos",
@@ -788,8 +788,8 @@
     "cat_es": "Fotos de Productos",
     "Code": "/retro",
     "Description_en": "Restyle the subject with a coherent retro design language",
-    "Description_pt": "Restyle the subject with a coherent retro design language",
-    "Description_es": "Restyle the subject with a coherent retro design language"
+    "Description_pt": "Reestilize o assunto com uma linguagem de design retro coerente",
+    "Description_es": "Cambie el estilo del tema con un lenguaje de diseño retro coherente."
   },
   {
     "cat_pt": "Fotos de Produtos",
@@ -815,8 +815,8 @@
     "cat_es": "Fotos de Productos",
     "Code": "/silhouette",
     "Description_en": "Reduce the subject to a bold recognizable silhouette",
-    "Description_pt": "Reduce the subject to a bold recognizable silhouette",
-    "Description_es": "Reduce the subject to a bold recognizable silhouette"
+    "Description_pt": "Reduza o assunto a uma silhueta ousada e reconhecível",
+    "Description_es": "Reduce el sujeto a una silueta audaz y reconocible."
   },
   {
     "cat_pt": "Fotos de Produtos",
@@ -878,8 +878,8 @@
     "cat_es": "Fotos de Productos",
     "Code": "/upgrade",
     "Description_en": "Show a clear improved version of the subject",
-    "Description_pt": "Show a clear improved version of the subject",
-    "Description_es": "Show a clear improved version of the subject"
+    "Description_pt": "Mostre uma versão clara e melhorada do assunto",
+    "Description_es": "Mostrar una versión clara y mejorada del tema."
   },
   {
     "cat_pt": "Fotos de Produtos",
@@ -923,8 +923,8 @@
     "cat_es": "Anuncios",
     "Code": "/bannerad",
     "Description_en": "Web banner sizes: leaderboard square skyscraper",
-    "Description_pt": "Web banner sizes: leaderboard square skyscraper",
-    "Description_es": "Web banner sizes: leaderboard square skyscraper"
+    "Description_pt": "Tamanhos de banner da Web: arranha-céu quadrado com tabela de classificação",
+    "Description_es": "Tamaños de banner web: rascacielos cuadrado de clasificación"
   },
   {
     "cat_pt": "Anúncios",
@@ -932,8 +932,8 @@
     "cat_es": "Anuncios",
     "Code": "/benefit grid",
     "Description_en": "A 3 panel layout each showing one product benefit with an icon",
-    "Description_pt": "A 3 panel layout each showing one product benefit with an icon",
-    "Description_es": "A 3 panel layout each showing one product benefit with an icon"
+    "Description_pt": "Um layout de 3 painéis, cada um mostrando um benefício do produto com um ícone",
+    "Description_es": "Un diseño de 3 paneles, cada uno de los cuales muestra un beneficio del producto con un ícono."
   },
   {
     "cat_pt": "Anúncios",
@@ -968,8 +968,8 @@
     "cat_es": "Anuncios",
     "Code": "/comparisonad",
     "Description_en": "Us vs them side-by-side ad creative",
-    "Description_pt": "Us vs them side-by-side ad creative",
-    "Description_es": "Us vs them side-by-side ad creative"
+    "Description_pt": "Criativo de anúncio nós versus eles lado a lado",
+    "Description_es": "Nosotros contra ellos creatividad publicitaria en paralelo"
   },
   {
     "cat_pt": "Anúncios",
@@ -1040,8 +1040,8 @@
     "cat_es": "Anuncios",
     "Code": "/offerad",
     "Description_en": "Discount or launch offer creative with urgency",
-    "Description_pt": "Discount or launch offer creative with urgency",
-    "Description_es": "Discount or launch offer creative with urgency"
+    "Description_pt": "Desconto ou oferta de lançamento criativa com urgência",
+    "Description_es": "Oferta de descuento o lanzamiento creativa con urgencia."
   },
   {
     "cat_pt": "Anúncios",
@@ -1049,8 +1049,8 @@
     "cat_es": "Anuncios",
     "Code": "/premiumshowcase",
     "Description_en": "Stage the subject like a premium product launch",
-    "Description_pt": "Stage the subject like a premium product launch",
-    "Description_es": "Stage the subject like a premium product launch"
+    "Description_pt": "Encene o assunto como o lançamento de um produto premium",
+    "Description_es": "Presente el tema como si fuera el lanzamiento de un producto premium."
   },
   {
     "cat_pt": "Anúncios",
@@ -1085,8 +1085,8 @@
     "cat_es": "Anuncios",
     "Code": "/scroll stopper",
     "Description_en": "Create a bold high-contrast social visual that stops scrolling",
-    "Description_pt": "Create a bold high-contrast social visual that stops scrolling",
-    "Description_es": "Create a bold high-contrast social visual that stops scrolling"
+    "Description_pt": "Crie um visual social ousado de alto contraste que interrompe a rolagem",
+    "Description_es": "Cree una imagen social audaz y de alto contraste que deje de desplazarse"
   },
   {
     "cat_pt": "Anúncios",
@@ -1103,8 +1103,8 @@
     "cat_es": "Anuncios",
     "Code": "/subwayad",
     "Description_en": "Your ad on a subway platform poster",
-    "Description_pt": "Your ad on a subway platform poster",
-    "Description_es": "Your ad on a subway platform poster"
+    "Description_pt": "Seu anúncio em um pôster da plataforma do metrô",
+    "Description_es": "Su anuncio en un cartel del andén del metro"
   },
   {
     "cat_pt": "Anúncios",
@@ -1112,8 +1112,8 @@
     "cat_es": "Anuncios",
     "Code": "/testimonial card",
     "Description_en": "A review quote over a clean product image with a star rating",
-    "Description_pt": "A review quote over a clean product image with a star rating",
-    "Description_es": "A review quote over a clean product image with a star rating"
+    "Description_pt": "Uma citação de revisão sobre uma imagem limpa do produto com uma classificação por estrelas",
+    "Description_es": "Una cita de reseña sobre una imagen limpia del producto con una calificación de estrellas"
   },
   {
     "cat_pt": "Anúncios",
@@ -1121,8 +1121,8 @@
     "cat_es": "Anuncios",
     "Code": "/testimonialad",
     "Description_en": "Ad built around a customer quote and photo",
-    "Description_pt": "Ad built around a customer quote and photo",
-    "Description_es": "Ad built around a customer quote and photo"
+    "Description_pt": "Anúncio criado com base na cotação e na foto do cliente",
+    "Description_es": "Anuncio creado en torno a una cotización y una fotografía de un cliente."
   },
   {
     "cat_pt": "Redes Sociais",
@@ -1130,8 +1130,8 @@
     "cat_es": "Redes Sociales",
     "Code": "/albumcover",
     "Description_en": "Create music artwork around the subject",
-    "Description_pt": "Create music artwork around the subject",
-    "Description_es": "Create music artwork around the subject"
+    "Description_pt": "Crie arte musical em torno do assunto",
+    "Description_es": "Crear obras de arte musicales en torno al tema."
   },
   {
     "cat_pt": "Redes Sociais",
@@ -1139,8 +1139,8 @@
     "cat_es": "Redes Sociales",
     "Code": "/announcementpost",
     "Description_en": "Launch or news announcement graphic",
-    "Description_pt": "Launch or news announcement graphic",
-    "Description_es": "Launch or news announcement graphic"
+    "Description_pt": "Gráfico de lançamento ou anúncio de notícias",
+    "Description_es": "Gráfico de lanzamiento o anuncio de novedades."
   },
   {
     "cat_pt": "Redes Sociais",
@@ -1175,8 +1175,8 @@
     "cat_es": "Redes Sociales",
     "Code": "/educationalposter",
     "Description_en": "Combine facts labels and diagrams",
-    "Description_pt": "Combine facts labels and diagrams",
-    "Description_es": "Combine facts labels and diagrams"
+    "Description_pt": "Combine rótulos de fatos e diagramas",
+    "Description_es": "Combina etiquetas de hechos y diagramas"
   },
   {
     "cat_pt": "Redes Sociais",
@@ -1211,8 +1211,8 @@
     "cat_es": "Redes Sociales",
     "Code": "/instagrid",
     "Description_en": "Nine posts designed to look great as one grid",
-    "Description_pt": "Nine posts designed to look great as one grid",
-    "Description_es": "Nine posts designed to look great as one grid"
+    "Description_pt": "Nove postagens projetadas para ficarem ótimas como uma grade",
+    "Description_es": "Nueve publicaciones diseñadas para verse geniales como una cuadrícula"
   },
   {
     "cat_pt": "Redes Sociais",
@@ -1229,8 +1229,8 @@
     "cat_es": "Redes Sociales",
     "Code": "/lifestyle banner",
     "Description_en": "A wide horizontal image of the product in context for a header",
-    "Description_pt": "A wide horizontal image of the product in context for a header",
-    "Description_es": "A wide horizontal image of the product in context for a header"
+    "Description_pt": "Uma ampla imagem horizontal do produto no contexto de um cabeçalho",
+    "Description_es": "Una imagen horizontal amplia del producto en contexto para un encabezado."
   },
   {
     "cat_pt": "Redes Sociais",
@@ -1256,8 +1256,8 @@
     "cat_es": "Redes Sociales",
     "Code": "/memeformat",
     "Description_en": "Your idea turned into a clean meme layout",
-    "Description_pt": "Your idea turned into a clean meme layout",
-    "Description_es": "Your idea turned into a clean meme layout"
+    "Description_pt": "Sua ideia se transformou em um layout de meme limpo",
+    "Description_es": "Tu idea se convirtió en un diseño de meme limpio."
   },
   {
     "cat_pt": "Redes Sociais",
@@ -1274,8 +1274,8 @@
     "cat_es": "Redes Sociales",
     "Code": "/pixelart",
     "Description_en": "Convert the subject into pixel graphics",
-    "Description_pt": "Convert the subject into pixel graphics",
-    "Description_es": "Convert the subject into pixel graphics"
+    "Description_pt": "Converta o assunto em gráficos de pixel",
+    "Description_es": "Convierte el sujeto en gráficos de píxeles."
   },
   {
     "cat_pt": "Redes Sociais",
@@ -1292,8 +1292,8 @@
     "cat_es": "Redes Sociales",
     "Code": "/poster",
     "Description_en": "Create a bold graphic poster",
-    "Description_pt": "Create a bold graphic poster",
-    "Description_es": "Create a bold graphic poster"
+    "Description_pt": "Crie um pôster gráfico ousado",
+    "Description_es": "Crea un póster gráfico atrevido"
   },
   {
     "cat_pt": "Redes Sociais",
@@ -1310,8 +1310,8 @@
     "cat_es": "Redes Sociales",
     "Code": "/quotecard",
     "Description_en": "A shareable quote graphic in your brand style",
-    "Description_pt": "A shareable quote graphic in your brand style",
-    "Description_es": "A shareable quote graphic in your brand style"
+    "Description_pt": "Um gráfico de citação compartilhável no estilo da sua marca",
+    "Description_es": "Un gráfico de cotización que se puede compartir con el estilo de tu marca."
   },
   {
     "cat_pt": "Redes Sociais",
@@ -1319,8 +1319,8 @@
     "cat_es": "Redes Sociales",
     "Code": "/statgraphic",
     "Description_en": "One big number with a short caption graphic",
-    "Description_pt": "One big number with a short caption graphic",
-    "Description_es": "One big number with a short caption graphic"
+    "Description_pt": "Um grande número com um gráfico de legenda curta",
+    "Description_es": "Un número grande con un gráfico de título breve."
   },
   {
     "cat_pt": "Redes Sociais",
@@ -1346,8 +1346,8 @@
     "cat_es": "Redes Sociales",
     "Code": "/storycover",
     "Description_en": "Highlight cover icons for your Instagram profile",
-    "Description_pt": "Highlight cover icons for your Instagram profile",
-    "Description_es": "Highlight cover icons for your Instagram profile"
+    "Description_pt": "Destaque ícones de capa para o seu perfil do Instagram",
+    "Description_es": "Resalte los íconos de portada para su perfil de Instagram"
   },
   {
     "cat_pt": "Redes Sociais",
@@ -1355,8 +1355,8 @@
     "cat_es": "Redes Sociales",
     "Code": "/thumbnail bold",
     "Description_en": "A high contrast image with big text and product for a thumbnail",
-    "Description_pt": "A high contrast image with big text and product for a thumbnail",
-    "Description_es": "A high contrast image with big text and product for a thumbnail"
+    "Description_pt": "Uma imagem de alto contraste com texto grande e produto para miniatura",
+    "Description_es": "Una imagen de alto contraste con texto grande y producto como miniatura."
   },
   {
     "cat_pt": "Redes Sociais",
@@ -1373,8 +1373,8 @@
     "cat_es": "Redes Sociales",
     "Code": "/twitterheader",
     "Description_en": "X profile header image",
-    "Description_pt": "X profile header image",
-    "Description_es": "X profile header image"
+    "Description_pt": "Imagem do cabeçalho do perfil X",
+    "Description_es": "Imagen de encabezado de perfil X"
   },
   {
     "cat_pt": "Redes Sociais",
@@ -1382,8 +1382,8 @@
     "cat_es": "Redes Sociales",
     "Code": "/youtubebanner",
     "Description_en": "YouTube channel banner with safe zones respected",
-    "Description_pt": "YouTube channel banner with safe zones respected",
-    "Description_es": "YouTube channel banner with safe zones respected"
+    "Description_pt": "Banner do canal do YouTube com zonas seguras respeitadas",
+    "Description_es": "Banner del canal de YouTube con zonas seguras respetadas."
   },
   {
     "cat_pt": "Marca e Logos",
@@ -1391,8 +1391,8 @@
     "cat_es": "Marca y Logos",
     "Code": "/appicon",
     "Description_en": "An app icon in iOS and Android styles",
-    "Description_pt": "An app icon in iOS and Android styles",
-    "Description_es": "An app icon in iOS and Android styles"
+    "Description_pt": "Um ícone de aplicativo nos estilos iOS e Android",
+    "Description_es": "Un ícono de aplicación en estilos iOS y Android"
   },
   {
     "cat_pt": "Marca e Logos",
@@ -1436,8 +1436,8 @@
     "cat_es": "Marca y Logos",
     "Code": "/iconlogo",
     "Description_en": "A simple symbol-only logo mark",
-    "Description_pt": "A simple symbol-only logo mark",
-    "Description_es": "A simple symbol-only logo mark"
+    "Description_pt": "Uma marca de logotipo simples apenas com símbolos",
+    "Description_es": "Un logotipo simple de solo símbolo"
   },
   {
     "cat_pt": "Marca e Logos",
@@ -1517,8 +1517,8 @@
     "cat_es": "Marca y Logos",
     "Code": "/wordmark",
     "Description_en": "A clean typographic wordmark logo",
-    "Description_pt": "A clean typographic wordmark logo",
-    "Description_es": "A clean typographic wordmark logo"
+    "Description_pt": "Um logotipo tipográfico limpo",
+    "Description_es": "Un logotipo tipográfico limpio"
   },
   {
     "cat_pt": "Aprender",
@@ -1544,8 +1544,8 @@
     "cat_es": "Aprender",
     "Code": "/arrows",
     "Description_en": "Use arrows to show direction or movement",
-    "Description_pt": "Use arrows to show direction or movement",
-    "Description_es": "Use arrows to show direction or movement"
+    "Description_pt": "Use setas para mostrar direção ou movimento",
+    "Description_es": "Utilice flechas para mostrar dirección o movimiento."
   },
   {
     "cat_pt": "Aprender",
@@ -1598,8 +1598,8 @@
     "cat_es": "Aprender",
     "Code": "/callouts",
     "Description_en": "Add lines pointing to important details",
-    "Description_pt": "Add lines pointing to important details",
-    "Description_es": "Add lines pointing to important details"
+    "Description_pt": "Adicione linhas apontando para detalhes importantes",
+    "Description_es": "Agregue líneas que apunten a detalles importantes"
   },
   {
     "cat_pt": "Aprender",
@@ -1616,8 +1616,8 @@
     "cat_es": "Aprender",
     "Code": "/cellularview",
     "Description_en": "Zoom into cells or microscopic structure",
-    "Description_pt": "Zoom into cells or microscopic structure",
-    "Description_es": "Zoom into cells or microscopic structure"
+    "Description_pt": "Zoom em células ou estrutura microscópica",
+    "Description_es": "Ampliar células o estructuras microscópicas."
   },
   {
     "cat_pt": "Aprender",
@@ -1625,8 +1625,8 @@
     "cat_es": "Aprender",
     "Code": "/checklist",
     "Description_en": "Create a checklist of actions or parts",
-    "Description_pt": "Create a checklist of actions or parts",
-    "Description_es": "Create a checklist of actions or parts"
+    "Description_pt": "Crie uma lista de verificação de ações ou partes",
+    "Description_es": "Crear una lista de verificación de acciones o partes"
   },
   {
     "cat_pt": "Aprender",
@@ -1661,8 +1661,8 @@
     "cat_es": "Aprender",
     "Code": "/comparisonchart",
     "Description_en": "Visual side-by-side comparison chart",
-    "Description_pt": "Visual side-by-side comparison chart",
-    "Description_es": "Visual side-by-side comparison chart"
+    "Description_pt": "Gráfico de comparação visual lado a lado",
+    "Description_es": "Cuadro comparativo visual uno al lado del otro"
   },
   {
     "cat_pt": "Aprender",
@@ -1670,8 +1670,8 @@
     "cat_es": "Aprender",
     "Code": "/datastream",
     "Description_en": "Show information flowing through the scene",
-    "Description_pt": "Show information flowing through the scene",
-    "Description_es": "Show information flowing through the scene"
+    "Description_pt": "Mostrar informações fluindo pela cena",
+    "Description_es": "Mostrar información que fluye a través de la escena."
   },
   {
     "cat_pt": "Aprender",
@@ -1715,8 +1715,8 @@
     "cat_es": "Aprender",
     "Code": "/falsecolor",
     "Description_en": "Use scientific false-color mapping",
-    "Description_pt": "Use scientific false-color mapping",
-    "Description_es": "Use scientific false-color mapping"
+    "Description_pt": "Use mapeamento científico de cores falsas",
+    "Description_es": "Utilice mapas científicos de colores falsos"
   },
   {
     "cat_pt": "Aprender",
@@ -1751,8 +1751,8 @@
     "cat_es": "Aprender",
     "Code": "/gestureguide",
     "Description_en": "Show a gesture or body position clearly",
-    "Description_pt": "Show a gesture or body position clearly",
-    "Description_es": "Show a gesture or body position clearly"
+    "Description_pt": "Mostrar claramente um gesto ou posição do corpo",
+    "Description_es": "Mostrar claramente un gesto o posición corporal."
   },
   {
     "cat_pt": "Aprender",
@@ -1787,8 +1787,8 @@
     "cat_es": "Aprender",
     "Code": "/handsinframe",
     "Description_en": "Show hands using or demonstrating the item",
-    "Description_pt": "Show hands using or demonstrating the item",
-    "Description_es": "Show hands using or demonstrating the item"
+    "Description_pt": "Mostre as mãos usando ou demonstrando o item",
+    "Description_es": "Mostrar las manos usando o demostrando el artículo."
   },
   {
     "cat_pt": "Aprender",
@@ -1814,8 +1814,8 @@
     "cat_es": "Aprender",
     "Code": "/highlighter",
     "Description_en": "Highlight the most important areas",
-    "Description_pt": "Highlight the most important areas",
-    "Description_es": "Highlight the most important areas"
+    "Description_pt": "Destaque as áreas mais importantes",
+    "Description_es": "Destacar las áreas más importantes"
   },
   {
     "cat_pt": "Aprender",
@@ -1859,8 +1859,8 @@
     "cat_es": "Aprender",
     "Code": "/installation",
     "Description_en": "Show where and how the subject is installed",
-    "Description_pt": "Show where and how the subject is installed",
-    "Description_es": "Show where and how the subject is installed"
+    "Description_pt": "Mostre onde e como o assunto está instalado",
+    "Description_es": "Mostrar dónde y cómo está instalado el sujeto."
   },
   {
     "cat_pt": "Aprender",
@@ -1904,8 +1904,8 @@
     "cat_es": "Aprender",
     "Code": "/magneticfield",
     "Description_en": "Visualize magnetic field lines",
-    "Description_pt": "Visualize magnetic field lines",
-    "Description_es": "Visualize magnetic field lines"
+    "Description_pt": "Visualize linhas de campo magnético",
+    "Description_es": "Visualizar líneas de campo magnético"
   },
   {
     "cat_pt": "Aprender",
@@ -1913,8 +1913,8 @@
     "cat_es": "Aprender",
     "Code": "/manualpage",
     "Description_en": "Turn the subject into a manual-style page",
-    "Description_pt": "Turn the subject into a manual-style page",
-    "Description_es": "Turn the subject into a manual-style page"
+    "Description_pt": "Transforme o assunto em uma página estilo manual",
+    "Description_es": "Convierta el tema en una página estilo manual"
   },
   {
     "cat_pt": "Aprender",
@@ -1922,8 +1922,8 @@
     "cat_es": "Aprender",
     "Code": "/mapgraphic",
     "Description_en": "A styled map graphic with your locations marked",
-    "Description_pt": "A styled map graphic with your locations marked",
-    "Description_es": "A styled map graphic with your locations marked"
+    "Description_pt": "Um gráfico de mapa estilizado com seus locais marcados",
+    "Description_es": "Un gráfico de mapa con estilo con tus ubicaciones marcadas"
   },
   {
     "cat_pt": "Aprender",
@@ -1958,8 +1958,8 @@
     "cat_es": "Aprender",
     "Code": "/musclemap",
     "Description_en": "Label major muscles and their positions",
-    "Description_pt": "Label major muscles and their positions",
-    "Description_es": "Label major muscles and their positions"
+    "Description_pt": "Identifique os principais músculos e suas posições",
+    "Description_es": "Etiquetar los músculos principales y sus posiciones."
   },
   {
     "cat_pt": "Aprender",
@@ -1967,8 +1967,8 @@
     "cat_es": "Aprender",
     "Code": "/nightvision",
     "Description_en": "Use a green night-vision view",
-    "Description_pt": "Use a green night-vision view",
-    "Description_es": "Use a green night-vision view"
+    "Description_pt": "Use uma visão noturna verde",
+    "Description_es": "Utilice una vista verde de visión nocturna"
   },
   {
     "cat_pt": "Aprender",
@@ -1985,8 +1985,8 @@
     "cat_es": "Aprender",
     "Code": "/oldnew",
     "Description_en": "Compare an older and newer version",
-    "Description_pt": "Compare an older and newer version",
-    "Description_es": "Compare an older and newer version"
+    "Description_pt": "Compare uma versão mais antiga e mais recente",
+    "Description_es": "Comparar una versión anterior y una más nueva"
   },
   {
     "cat_pt": "Aprender",
@@ -1994,8 +1994,8 @@
     "cat_es": "Aprender",
     "Code": "/organmap",
     "Description_en": "Label internal organs or internal systems",
-    "Description_pt": "Label internal organs or internal systems",
-    "Description_es": "Label internal organs or internal systems"
+    "Description_pt": "Rotule órgãos internos ou sistemas internos",
+    "Description_es": "Etiquetar órganos internos o sistemas internos."
   },
   {
     "cat_pt": "Aprender",
@@ -2004,7 +2004,7 @@
     "Code": "/orgchart",
     "Description_en": "Visual org chart with photo placeholders",
     "Description_pt": "Visual org chart with photo placeholders",
-    "Description_es": "Visual org chart with photo placeholders"
+    "Description_es": "Organigrama visual con marcadores de posición de fotografías"
   },
   {
     "cat_pt": "Aprender",
@@ -2075,8 +2075,8 @@
     "cat_es": "Aprender",
     "Code": "/quickreference",
     "Description_en": "Create a fast visual reference guide",
-    "Description_pt": "Create a fast visual reference guide",
-    "Description_es": "Create a fast visual reference guide"
+    "Description_pt": "Crie um guia de referência visual rápido",
+    "Description_es": "Cree una guía de referencia visual rápida"
   },
   {
     "cat_pt": "Aprender",
@@ -2129,8 +2129,8 @@
     "cat_es": "Aprender",
     "Code": "/scalecomparison",
     "Description_en": "Compare size with a hand person or object",
-    "Description_pt": "Compare size with a hand person or object",
-    "Description_es": "Compare size with a hand person or object"
+    "Description_pt": "Compare o tamanho com uma mão ou objeto",
+    "Description_es": "Comparar el tamaño con la mano de una persona u objeto."
   },
   {
     "cat_pt": "Aprender",
@@ -2165,8 +2165,8 @@
     "cat_es": "Aprender",
     "Code": "/seethrough",
     "Description_en": "Make selected surfaces transparent",
-    "Description_pt": "Make selected surfaces transparent",
-    "Description_es": "Make selected surfaces transparent"
+    "Description_pt": "Tornar as superfícies selecionadas transparentes",
+    "Description_es": "Hacer transparentes las superficies seleccionadas"
   },
   {
     "cat_pt": "Aprender",
@@ -2237,8 +2237,8 @@
     "cat_es": "Aprender",
     "Code": "/thenandnow",
     "Description_en": "Compare an older generation with the current design",
-    "Description_pt": "Compare an older generation with the current design",
-    "Description_es": "Compare an older generation with the current design"
+    "Description_pt": "Compare uma geração mais antiga com o design atual",
+    "Description_es": "Compare una generación anterior con el diseño actual"
   },
   {
     "cat_pt": "Aprender",
@@ -2264,8 +2264,8 @@
     "cat_es": "Aprender",
     "Code": "/unwrapped",
     "Description_en": "Lay surfaces or packaging out as an unwrapped flat view",
-    "Description_pt": "Lay surfaces or packaging out as an unwrapped flat view",
-    "Description_es": "Lay surfaces or packaging out as an unwrapped flat view"
+    "Description_pt": "Disponha superfícies ou embalagens como uma visualização plana desembrulhada",
+    "Description_es": "Coloque las superficies o el embalaje como una vista plana sin envolver"
   },
   {
     "cat_pt": "Aprender",
@@ -2273,8 +2273,8 @@
     "cat_es": "Aprender",
     "Code": "/vanishingpoint",
     "Description_en": "Show the construction of perspective lines",
-    "Description_pt": "Show the construction of perspective lines",
-    "Description_es": "Show the construction of perspective lines"
+    "Description_pt": "Mostre a construção de linhas de perspectiva",
+    "Description_es": "Mostrar la construcción de líneas de perspectiva."
   },
   {
     "cat_pt": "Aprender",
@@ -2300,8 +2300,8 @@
     "cat_es": "Aprender",
     "Code": "/xrayview",
     "Description_en": "See-through x-ray render of the internal parts",
-    "Description_pt": "See-through x-ray render of the internal parts",
-    "Description_es": "See-through x-ray render of the internal parts"
+    "Description_pt": "Renderização de raio-X transparente das peças internas",
+    "Description_es": "Representación radiográfica transparente de las piezas internas."
   },
   {
     "cat_pt": "Raio-X",
@@ -2336,8 +2336,8 @@
     "cat_es": "Rayos X",
     "Code": "/assemblyorder",
     "Description_en": "Arrange parts in the order they are assembled",
-    "Description_pt": "Arrange parts in the order they are assembled",
-    "Description_es": "Arrange parts in the order they are assembled"
+    "Description_pt": "Organize as peças na ordem em que são montadas",
+    "Description_es": "Organizar las piezas en el orden en que se ensamblan."
   },
   {
     "cat_pt": "Raio-X",
@@ -2381,8 +2381,8 @@
     "cat_es": "Rayos X",
     "Code": "/cadview",
     "Description_en": "Present the subject like a CAD model",
-    "Description_pt": "Present the subject like a CAD model",
-    "Description_es": "Present the subject like a CAD model"
+    "Description_pt": "Apresente o assunto como um modelo CAD",
+    "Description_es": "Presentar el tema como un modelo CAD."
   },
   {
     "cat_pt": "Raio-X",
@@ -2417,8 +2417,8 @@
     "cat_es": "Rayos X",
     "Code": "/controlmap",
     "Description_en": "Connect each control to its function",
-    "Description_pt": "Connect each control to its function",
-    "Description_es": "Connect each control to its function"
+    "Description_pt": "Conecte cada controle à sua função",
+    "Description_es": "Conecte cada control a su función"
   },
   {
     "cat_pt": "Raio-X",
@@ -2453,8 +2453,8 @@
     "cat_es": "Rayos X",
     "Code": "/designlogic",
     "Description_en": "Label features and explain why each design choice exists",
-    "Description_pt": "Label features and explain why each design choice exists",
-    "Description_es": "Label features and explain why each design choice exists"
+    "Description_pt": "Rotule os recursos e explique por que cada opção de design existe",
+    "Description_es": "Etiquete las características y explique por qué existe cada opción de diseño."
   },
   {
     "cat_pt": "Raio-X",
@@ -2471,8 +2471,8 @@
     "cat_es": "Rayos X",
     "Code": "/dimensions",
     "Description_en": "Add clear practical dimensions around the subject",
-    "Description_pt": "Add clear practical dimensions around the subject",
-    "Description_es": "Add clear practical dimensions around the subject"
+    "Description_pt": "Adicione dimensões práticas claras em torno do assunto",
+    "Description_es": "Agregar dimensiones prácticas claras en torno al tema."
   },
   {
     "cat_pt": "Raio-X",
@@ -2507,8 +2507,8 @@
     "cat_es": "Rayos X",
     "Code": "/explodedview",
     "Description_en": "Spread components apart while preserving their positions",
-    "Description_pt": "Spread components apart while preserving their positions",
-    "Description_es": "Spread components apart while preserving their positions"
+    "Description_pt": "Separe os componentes preservando suas posições",
+    "Description_es": "Separe los componentes conservando sus posiciones"
   },
   {
     "cat_pt": "Raio-X",
@@ -2534,8 +2534,8 @@
     "cat_es": "Rayos X",
     "Code": "/fastenermap",
     "Description_en": "Highlight screws bolts clips welds adhesives and joints",
-    "Description_pt": "Highlight screws bolts clips welds adhesives and joints",
-    "Description_es": "Highlight screws bolts clips welds adhesives and joints"
+    "Description_pt": "Destacar parafusos, parafusos, clipes, soldas, adesivos e juntas",
+    "Description_es": "Destacar tornillos pernos clips soldaduras adhesivos y uniones"
   },
   {
     "cat_pt": "Raio-X",
@@ -2562,7 +2562,7 @@
     "Code": "/forceanalysis",
     "Description_en": "Show pressure force weight or stress",
     "Description_pt": "Show pressure force weight or stress",
-    "Description_es": "Show pressure force weight or stress"
+    "Description_es": "Mostrar presión fuerza peso o estrés"
   },
   {
     "cat_pt": "Raio-X",
@@ -2579,8 +2579,8 @@
     "cat_es": "Rayos X",
     "Code": "/goodvsbad",
     "Description_en": "Compare correct use or construction with a defective example",
-    "Description_pt": "Compare correct use or construction with a defective example",
-    "Description_es": "Compare correct use or construction with a defective example"
+    "Description_pt": "Compare o uso ou construção correta com um exemplo defeituoso",
+    "Description_es": "Compare el uso o la construcción correctos con un ejemplo defectuoso."
   },
   {
     "cat_pt": "Raio-X",
@@ -2615,8 +2615,8 @@
     "cat_es": "Rayos X",
     "Code": "/howitworks",
     "Description_en": "Explain the basic function visually",
-    "Description_pt": "Explain the basic function visually",
-    "Description_es": "Explain the basic function visually"
+    "Description_pt": "Explique a função básica visualmente",
+    "Description_es": "Explicar visualmente la función básica."
   },
   {
     "cat_pt": "Raio-X",
@@ -2624,8 +2624,8 @@
     "cat_es": "Rayos X",
     "Code": "/inputoutput",
     "Description_en": "Show what enters the system and what comes out",
-    "Description_pt": "Show what enters the system and what comes out",
-    "Description_es": "Show what enters the system and what comes out"
+    "Description_pt": "Mostre o que entra no sistema e o que sai",
+    "Description_es": "Mostrar lo que entra al sistema y lo que sale."
   },
   {
     "cat_pt": "Raio-X",
@@ -2651,8 +2651,8 @@
     "cat_es": "Rayos X",
     "Code": "/internalmap",
     "Description_en": "Expose major internal components in their actual locations",
-    "Description_pt": "Expose major internal components in their actual locations",
-    "Description_es": "Expose major internal components in their actual locations"
+    "Description_pt": "Expor os principais componentes internos em suas localizações reais",
+    "Description_es": "Exponer los principales componentes internos en sus ubicaciones reales."
   },
   {
     "cat_pt": "Raio-X",
@@ -2660,8 +2660,8 @@
     "cat_es": "Rayos X",
     "Code": "/isometric",
     "Description_en": "Create an angled engineering-style view",
-    "Description_pt": "Create an angled engineering-style view",
-    "Description_es": "Create an angled engineering-style view"
+    "Description_pt": "Crie uma vista angular em estilo de engenharia",
+    "Description_es": "Cree una vista de estilo de ingeniería en ángulo"
   },
   {
     "cat_pt": "Raio-X",
@@ -2696,8 +2696,8 @@
     "cat_es": "Rayos X",
     "Code": "/loadpath",
     "Description_en": "Show how forces travel through the object",
-    "Description_pt": "Show how forces travel through the object",
-    "Description_es": "Show how forces travel through the object"
+    "Description_pt": "Mostre como as forças viajam através do objeto",
+    "Description_es": "Muestre cómo las fuerzas viajan a través del objeto."
   },
   {
     "cat_pt": "Raio-X",
@@ -2705,8 +2705,8 @@
     "cat_es": "Rayos X",
     "Code": "/manufacturingsteps",
     "Description_en": "Show the factory process in major stages",
-    "Description_pt": "Show the factory process in major stages",
-    "Description_es": "Show the factory process in major stages"
+    "Description_pt": "Mostre o processo de fábrica nas principais etapas",
+    "Description_es": "Mostrar el proceso de fábrica en sus principales etapas."
   },
   {
     "cat_pt": "Raio-X",
@@ -2723,8 +2723,8 @@
     "cat_es": "Rayos X",
     "Code": "/materialswap",
     "Description_en": "Your product rendered in wood metal and glass",
-    "Description_pt": "Your product rendered in wood metal and glass",
-    "Description_es": "Your product rendered in wood metal and glass"
+    "Description_pt": "Seu produto renderizado em madeira metal e vidro",
+    "Description_es": "Su producto renderizado en madera metal y vidrio"
   },
   {
     "cat_pt": "Raio-X",
@@ -2741,8 +2741,8 @@
     "cat_es": "Rayos X",
     "Code": "/mechanismflow",
     "Description_en": "Use arrows to show how mechanical movement transfers",
-    "Description_pt": "Use arrows to show how mechanical movement transfers",
-    "Description_es": "Use arrows to show how mechanical movement transfers"
+    "Description_pt": "Use setas para mostrar como o movimento mecânico é transferido",
+    "Description_es": "Utilice flechas para mostrar cómo se transfiere el movimiento mecánico."
   },
   {
     "cat_pt": "Raio-X",
@@ -2759,8 +2759,8 @@
     "cat_es": "Rayos X",
     "Code": "/microscopic",
     "Description_en": "Zoom into a convincing microscopic level of detail",
-    "Description_pt": "Zoom into a convincing microscopic level of detail",
-    "Description_es": "Zoom into a convincing microscopic level of detail"
+    "Description_pt": "Amplie um nível de detalhe microscópico convincente",
+    "Description_es": "Acérquese a un nivel de detalle microscópico convincente"
   },
   {
     "cat_pt": "Raio-X",
@@ -2768,8 +2768,8 @@
     "cat_es": "Rayos X",
     "Code": "/miniature",
     "Description_en": "Your product as a tiny model on a desk tilt-shift",
-    "Description_pt": "Your product as a tiny model on a desk tilt-shift",
-    "Description_es": "Your product as a tiny model on a desk tilt-shift"
+    "Description_pt": "Seu produto como um pequeno modelo em uma mesa tilt-shift",
+    "Description_es": "Su producto como modelo diminuto sobre un escritorio inclinable"
   },
   {
     "cat_pt": "Raio-X",
@@ -2777,8 +2777,8 @@
     "cat_es": "Rayos X",
     "Code": "/moldview",
     "Description_en": "Show how the object sits inside its manufacturing mold",
-    "Description_pt": "Show how the object sits inside its manufacturing mold",
-    "Description_es": "Show how the object sits inside its manufacturing mold"
+    "Description_pt": "Mostre como o objeto fica dentro do molde de fabricação",
+    "Description_es": "Muestre cómo se asienta el objeto dentro de su molde de fabricación."
   },
   {
     "cat_pt": "Raio-X",
@@ -2786,8 +2786,8 @@
     "cat_es": "Rayos X",
     "Code": "/motionflow",
     "Description_en": "Show how parts move during operation",
-    "Description_pt": "Show how parts move during operation",
-    "Description_es": "Show how parts move during operation"
+    "Description_pt": "Mostre como as peças se movem durante a operação",
+    "Description_es": "Mostrar cómo se mueven las piezas durante la operación."
   },
   {
     "cat_pt": "Raio-X",
@@ -2795,8 +2795,8 @@
     "cat_es": "Rayos X",
     "Code": "/motionpath",
     "Description_en": "Show movement ranges rotations and trajectories",
-    "Description_pt": "Show movement ranges rotations and trajectories",
-    "Description_es": "Show movement ranges rotations and trajectories"
+    "Description_pt": "Mostrar rotações e trajetórias de intervalos de movimento",
+    "Description_es": "Mostrar rangos de movimiento, rotaciones y trayectorias."
   },
   {
     "cat_pt": "Raio-X",
@@ -2840,8 +2840,8 @@
     "cat_es": "Rayos X",
     "Code": "/qualitycheck",
     "Description_en": "Mark inspection points and common quality defects",
-    "Description_pt": "Mark inspection points and common quality defects",
-    "Description_es": "Mark inspection points and common quality defects"
+    "Description_pt": "Marque pontos de inspeção e defeitos de qualidade comuns",
+    "Description_es": "Marcar puntos de inspección y defectos de calidad comunes."
   },
   {
     "cat_pt": "Raio-X",
@@ -2903,8 +2903,8 @@
     "cat_es": "Mantenimiento",
     "Code": "/archaeological",
     "Description_en": "Present the subject like an excavation find",
-    "Description_pt": "Present the subject like an excavation find",
-    "Description_es": "Present the subject like an excavation find"
+    "Description_pt": "Apresente o assunto como um achado de escavação",
+    "Description_es": "Presentar el tema como un hallazgo de excavación."
   },
   {
     "cat_pt": "Manutenção",
@@ -2921,8 +2921,8 @@
     "cat_es": "Mantenimiento",
     "Code": "/battery",
     "Description_en": "Show battery location access and power path",
-    "Description_pt": "Show battery location access and power path",
-    "Description_es": "Show battery location access and power path"
+    "Description_pt": "Mostrar acesso à localização da bateria e caminho de alimentação",
+    "Description_es": "Mostrar acceso a la ubicación de la batería y ruta de alimentación"
   },
   {
     "cat_pt": "Manutenção",
@@ -2957,8 +2957,8 @@
     "cat_es": "Mantenimiento",
     "Code": "/cableorganization",
     "Description_en": "Arrange cables in a clean understandable layout",
-    "Description_pt": "Arrange cables in a clean understandable layout",
-    "Description_es": "Arrange cables in a clean understandable layout"
+    "Description_pt": "Organize os cabos em um layout limpo e compreensível",
+    "Description_es": "Organice los cables en un diseño claro y comprensible"
   },
   {
     "cat_pt": "Manutenção",
@@ -2975,8 +2975,8 @@
     "cat_es": "Mantenimiento",
     "Code": "/carrycase",
     "Description_en": "Place the item into a practical travel case",
-    "Description_pt": "Place the item into a practical travel case",
-    "Description_es": "Place the item into a practical travel case"
+    "Description_pt": "Coloque o item em um prático estojo de viagem",
+    "Description_es": "Coloque el artículo en un práctico estuche de viaje."
   },
   {
     "cat_pt": "Manutenção",
@@ -2984,8 +2984,8 @@
     "cat_es": "Mantenimiento",
     "Code": "/chargingports",
     "Description_en": "Identify charging connections and direction",
-    "Description_pt": "Identify charging connections and direction",
-    "Description_es": "Identify charging connections and direction"
+    "Description_pt": "Identifique as conexões e a direção de carregamento",
+    "Description_es": "Identificar las conexiones y la dirección de carga."
   },
   {
     "cat_pt": "Manutenção",
@@ -2993,8 +2993,8 @@
     "cat_es": "Mantenimiento",
     "Code": "/cleaning",
     "Description_en": "Show the correct cleaning zones and method",
-    "Description_pt": "Show the correct cleaning zones and method",
-    "Description_es": "Show the correct cleaning zones and method"
+    "Description_pt": "Mostre as zonas e o método de limpeza corretos",
+    "Description_es": "Mostrar las zonas y el método de limpieza correctos."
   },
   {
     "cat_pt": "Manutenção",
@@ -3039,7 +3039,7 @@
     "Code": "/controlpanel",
     "Description_en": "Explain the control panel or interface",
     "Description_pt": "Explain the control panel or interface",
-    "Description_es": "Explain the control panel or interface"
+    "Description_es": "Explicar el panel de control o interfaz."
   },
   {
     "cat_pt": "Manutenção",
@@ -3056,8 +3056,8 @@
     "cat_es": "Mantenimiento",
     "Code": "/cooling",
     "Description_en": "Explain airflow cooling paths and heat removal",
-    "Description_pt": "Explain airflow cooling paths and heat removal",
-    "Description_es": "Explain airflow cooling paths and heat removal"
+    "Description_pt": "Explicar os caminhos de resfriamento do fluxo de ar e a remoção de calor",
+    "Description_es": "Explicar las rutas de enfriamiento del flujo de aire y la eliminación de calor."
   },
   {
     "cat_pt": "Manutenção",
@@ -3074,8 +3074,8 @@
     "cat_es": "Mantenimiento",
     "Code": "/dropletmacro",
     "Description_en": "Show suspended droplets in close detail",
-    "Description_pt": "Show suspended droplets in close detail",
-    "Description_es": "Show suspended droplets in close detail"
+    "Description_pt": "Mostrar gotículas suspensas em detalhes",
+    "Description_es": "Muestre las gotas suspendidas con gran detalle"
   },
   {
     "cat_pt": "Manutenção",
@@ -3083,8 +3083,8 @@
     "cat_es": "Mantenimiento",
     "Code": "/durability",
     "Description_en": "Visualize ruggedness protection and expected wear",
-    "Description_pt": "Visualize ruggedness protection and expected wear",
-    "Description_es": "Visualize ruggedness protection and expected wear"
+    "Description_pt": "Visualize a proteção de robustez e o desgaste esperado",
+    "Description_es": "Visualice la protección de robustez y el desgaste esperado"
   },
   {
     "cat_pt": "Manutenção",
@@ -3110,8 +3110,8 @@
     "cat_es": "Mantenimiento",
     "Code": "/errorcodes",
     "Description_en": "Explain visible error codes or warning symbols",
-    "Description_pt": "Explain visible error codes or warning symbols",
-    "Description_es": "Explain visible error codes or warning symbols"
+    "Description_pt": "Explique códigos de erro visíveis ou símbolos de aviso",
+    "Description_es": "Explicar los códigos de error visibles o los símbolos de advertencia."
   },
   {
     "cat_pt": "Manutenção",
@@ -3155,8 +3155,8 @@
     "cat_es": "Mantenimiento",
     "Code": "/friction",
     "Description_en": "Show contact points and friction zones",
-    "Description_pt": "Show contact points and friction zones",
-    "Description_es": "Show contact points and friction zones"
+    "Description_pt": "Mostrar pontos de contato e zonas de atrito",
+    "Description_es": "Mostrar puntos de contacto y zonas de fricción."
   },
   {
     "cat_pt": "Manutenção",
@@ -3164,8 +3164,8 @@
     "cat_es": "Mantenimiento",
     "Code": "/gears",
     "Description_en": "Expose gears and show how they transfer motion",
-    "Description_pt": "Expose gears and show how they transfer motion",
-    "Description_es": "Expose gears and show how they transfer motion"
+    "Description_pt": "Exponha as engrenagens e mostre como elas transferem movimento",
+    "Description_es": "Exponga engranajes y muestre cómo transfieren el movimiento."
   },
   {
     "cat_pt": "Manutenção",
@@ -3200,8 +3200,8 @@
     "cat_es": "Mantenimiento",
     "Code": "/inkcloud",
     "Description_en": "Show ink spreading through liquid",
-    "Description_pt": "Show ink spreading through liquid",
-    "Description_es": "Show ink spreading through liquid"
+    "Description_pt": "Mostrar tinta se espalhando pelo líquido",
+    "Description_es": "Muestre la tinta esparciéndose a través del líquido."
   },
   {
     "cat_pt": "Manutenção",
@@ -3245,8 +3245,8 @@
     "cat_es": "Mantenimiento",
     "Code": "/maintenance",
     "Description_en": "Mark routine maintenance tasks and access points",
-    "Description_pt": "Mark routine maintenance tasks and access points",
-    "Description_es": "Mark routine maintenance tasks and access points"
+    "Description_pt": "Marque tarefas de manutenção de rotina e pontos de acesso",
+    "Description_es": "Marcar tareas de mantenimiento rutinario y puntos de acceso."
   },
   {
     "cat_pt": "Manutenção",
@@ -3263,8 +3263,8 @@
     "cat_es": "Mantenimiento",
     "Code": "/modechart",
     "Description_en": "Compare different operating modes",
-    "Description_pt": "Compare different operating modes",
-    "Description_es": "Compare different operating modes"
+    "Description_pt": "Compare diferentes modos de operação",
+    "Description_es": "Compara diferentes modos de funcionamiento"
   },
   {
     "cat_pt": "Manutenção",
@@ -3290,8 +3290,8 @@
     "cat_es": "Mantenimiento",
     "Code": "/portlabels",
     "Description_en": "Label every input and output port",
-    "Description_pt": "Label every input and output port",
-    "Description_es": "Label every input and output port"
+    "Description_pt": "Rotule cada porta de entrada e saída",
+    "Description_es": "Etiquete cada puerto de entrada y salida"
   },
   {
     "cat_pt": "Manutenção",
@@ -3326,8 +3326,8 @@
     "cat_es": "Mantenimiento",
     "Code": "/rainstreaks",
     "Description_en": "Show rain streaking across the view",
-    "Description_pt": "Show rain streaking across the view",
-    "Description_es": "Show rain streaking across the view"
+    "Description_pt": "Mostrar a chuva atravessando a vista",
+    "Description_es": "Muestra la lluvia que atraviesa la vista."
   },
   {
     "cat_pt": "Manutenção",
@@ -3344,8 +3344,8 @@
     "cat_es": "Mantenimiento",
     "Code": "/repairability",
     "Description_en": "Show which parts can be repaired or replaced",
-    "Description_pt": "Show which parts can be repaired or replaced",
-    "Description_es": "Show which parts can be repaired or replaced"
+    "Description_pt": "Mostrar quais peças podem ser reparadas ou substituídas",
+    "Description_es": "Mostrar qué piezas se pueden reparar o reemplazar"
   },
   {
     "cat_pt": "Manutenção",
@@ -3353,8 +3353,8 @@
     "cat_es": "Mantenimiento",
     "Code": "/repairroute",
     "Description_en": "Show the safest route through a repair",
-    "Description_pt": "Show the safest route through a repair",
-    "Description_es": "Show the safest route through a repair"
+    "Description_pt": "Mostre o caminho mais seguro através de um reparo",
+    "Description_es": "Mostrar la ruta más segura a través de una reparación"
   },
   {
     "cat_pt": "Manutenção",
@@ -3371,8 +3371,8 @@
     "cat_es": "Mantenimiento",
     "Code": "/replaceablepart",
     "Description_en": "Identify the component that can be replaced",
-    "Description_pt": "Identify the component that can be replaced",
-    "Description_es": "Identify the component that can be replaced"
+    "Description_pt": "Identifique o componente que pode ser substituído",
+    "Description_es": "Identificar el componente que se puede reemplazar."
   },
   {
     "cat_pt": "Manutenção",
@@ -3380,8 +3380,8 @@
     "cat_es": "Mantenimiento",
     "Code": "/safezones",
     "Description_en": "Show where it is safe to touch or work",
-    "Description_pt": "Show where it is safe to touch or work",
-    "Description_es": "Show where it is safe to touch or work"
+    "Description_pt": "Mostre onde é seguro tocar ou trabalhar",
+    "Description_es": "Mostrar dónde es seguro tocar o trabajar"
   },
   {
     "cat_pt": "Manutenção",
@@ -3425,8 +3425,8 @@
     "cat_es": "Mantenimiento",
     "Code": "/storagefit",
     "Description_en": "Show how the item fits into storage",
-    "Description_pt": "Show how the item fits into storage",
-    "Description_es": "Show how the item fits into storage"
+    "Description_pt": "Mostre como o item cabe no armazenamento",
+    "Description_es": "Muestre cómo encaja el artículo en el almacenamiento."
   },
   {
     "cat_pt": "Manutenção",
@@ -3452,8 +3452,8 @@
     "cat_es": "Mantenimiento",
     "Code": "/tolerance",
     "Description_en": "Visualize fit clearance and manufacturing tolerances",
-    "Description_pt": "Visualize fit clearance and manufacturing tolerances",
-    "Description_es": "Visualize fit clearance and manufacturing tolerances"
+    "Description_pt": "Visualize a folga de ajuste e as tolerâncias de fabricação",
+    "Description_es": "Visualice la holgura de ajuste y las tolerancias de fabricación."
   },
   {
     "cat_pt": "Manutenção",
@@ -3480,7 +3480,7 @@
     "Code": "/watersplash",
     "Description_en": "Freeze a splash around the subject",
     "Description_pt": "Freeze a splash around the subject",
-    "Description_es": "Freeze a splash around the subject"
+    "Description_es": "Congele un toque alrededor del tema"
   },
   {
     "cat_pt": "Manutenção",
@@ -3498,7 +3498,7 @@
     "Code": "/wearpoints",
     "Description_en": "Highlight areas most likely to wear out",
     "Description_pt": "Highlight areas most likely to wear out",
-    "Description_es": "Highlight areas most likely to wear out"
+    "Description_es": "Resalte las áreas con mayor probabilidad de desgastarse"
   },
   {
     "cat_pt": "Manutenção",
@@ -3515,8 +3515,8 @@
     "cat_es": "Mantenimiento",
     "Code": "/wiringpath",
     "Description_en": "Visualize electrical wires and their destinations",
-    "Description_pt": "Visualize electrical wires and their destinations",
-    "Description_es": "Visualize electrical wires and their destinations"
+    "Description_pt": "Visualize fios elétricos e seus destinos",
+    "Description_es": "Visualice cables eléctricos y sus destinos."
   },
   {
     "cat_pt": "Mockups",
@@ -3533,8 +3533,8 @@
     "cat_es": "Mockups",
     "Code": "/bookcover",
     "Description_en": "Front cover design for your book or ebook",
-    "Description_pt": "Front cover design for your book or ebook",
-    "Description_es": "Front cover design for your book or ebook"
+    "Description_pt": "Design da capa do seu livro ou e-book",
+    "Description_es": "Diseño de portada para tu libro o ebook."
   },
   {
     "cat_pt": "Mockups",
@@ -3578,8 +3578,8 @@
     "cat_es": "Mockups",
     "Code": "/giftbox",
     "Description_en": "Premium gift box presentation of your product",
-    "Description_pt": "Premium gift box presentation of your product",
-    "Description_es": "Premium gift box presentation of your product"
+    "Description_pt": "Apresentação em caixa de presente premium do seu produto",
+    "Description_es": "Presentación en caja regalo premium de su producto"
   },
   {
     "cat_pt": "Mockups",
@@ -3623,8 +3623,8 @@
     "cat_es": "Mockups",
     "Code": "/packaging",
     "Description_en": "Place the subject into polished retail packaging",
-    "Description_pt": "Place the subject into polished retail packaging",
-    "Description_es": "Place the subject into polished retail packaging"
+    "Description_pt": "Coloque o assunto em uma embalagem de varejo polida",
+    "Description_es": "Coloque el sujeto en un embalaje minorista pulido."
   },
   {
     "cat_pt": "Mockups",
@@ -3632,8 +3632,8 @@
     "cat_es": "Mockups",
     "Code": "/packaging shot",
     "Description_en": "The product in its box or wrapper front facing",
-    "Description_pt": "The product in its box or wrapper front facing",
-    "Description_es": "The product in its box or wrapper front facing"
+    "Description_pt": "O produto em sua caixa ou embalagem voltada para a frente",
+    "Description_es": "El producto en su caja o envoltorio mirando hacia el frente."
   },
   {
     "cat_pt": "Mockups",
@@ -3650,8 +3650,8 @@
     "cat_es": "Mockups",
     "Code": "/phonemockup",
     "Description_en": "Your app or site shown on a phone screen",
-    "Description_pt": "Your app or site shown on a phone screen",
-    "Description_es": "Your app or site shown on a phone screen"
+    "Description_pt": "Seu aplicativo ou site mostrado na tela do telefone",
+    "Description_es": "Su aplicación o sitio mostrado en la pantalla de un teléfono"
   },
   {
     "cat_pt": "Mockups",
@@ -3686,8 +3686,8 @@
     "cat_es": "Mockups",
     "Code": "/stickersheet",
     "Description_en": "A die-cut sticker sheet of your brand icons",
-    "Description_pt": "A die-cut sticker sheet of your brand icons",
-    "Description_es": "A die-cut sticker sheet of your brand icons"
+    "Description_pt": "Uma folha de adesivos recortados com os ícones da sua marca",
+    "Description_es": "Una hoja de pegatinas troqueladas de los iconos de tu marca."
   },
   {
     "cat_pt": "Mockups",
@@ -3704,8 +3704,8 @@
     "cat_es": "Mockups",
     "Code": "/tshirtmockup",
     "Description_en": "Your design printed on a worn tee",
-    "Description_pt": "Your design printed on a worn tee",
-    "Description_es": "Your design printed on a worn tee"
+    "Description_pt": "Seu design impresso em uma camiseta gasta",
+    "Description_es": "Tu diseño impreso en una camiseta desgastada"
   },
   {
     "cat_pt": "Mockups",
@@ -3713,8 +3713,8 @@
     "cat_es": "Mockups",
     "Code": "/unboxing",
     "Description_en": "Arrange the product and contents as an unboxing scene",
-    "Description_pt": "Arrange the product and contents as an unboxing scene",
-    "Description_es": "Arrange the product and contents as an unboxing scene"
+    "Description_pt": "Organize o produto e o conteúdo como uma cena de unboxing",
+    "Description_es": "Organizar el producto y el contenido como una escena de unboxing."
   },
   {
     "cat_pt": "Food homes and places",
@@ -3722,8 +3722,8 @@
     "cat_es": "Food homes and places",
     "Code": "/drinkshot",
     "Description_en": "Cocktail or coffee shot with condensation and steam",
-    "Description_pt": "Cocktail or coffee shot with condensation and steam",
-    "Description_es": "Cocktail or coffee shot with condensation and steam"
+    "Description_pt": "Coquetel ou dose de café com condensação e vapor",
+    "Description_es": "Cóctel o trago de café con condensación y vapor."
   },
   {
     "cat_pt": "Food homes and places",
@@ -3776,8 +3776,8 @@
     "cat_es": "Food homes and places",
     "Code": "/listingphoto",
     "Description_en": "Bright wide real estate photo of any room",
-    "Description_pt": "Bright wide real estate photo of any room",
-    "Description_es": "Bright wide real estate photo of any room"
+    "Description_pt": "Foto ampla e brilhante de qualquer cômodo",
+    "Description_es": "Foto amplia y luminosa de bienes raíces de cualquier habitación."
   },
   {
     "cat_pt": "Food homes and places",
@@ -3785,8 +3785,8 @@
     "cat_es": "Food homes and places",
     "Code": "/menuphoto",
     "Description_en": "Overhead menu photo with clean plating",
-    "Description_pt": "Overhead menu photo with clean plating",
-    "Description_es": "Overhead menu photo with clean plating"
+    "Description_pt": "Foto do menu suspenso com revestimento limpo",
+    "Description_es": "Foto del menú superior con un plato limpio"
   },
   {
     "cat_pt": "Food homes and places",
@@ -3803,8 +3803,8 @@
     "cat_es": "Food homes and places",
     "Code": "/nightshot",
     "Description_en": "The same building at dusk with lights on",
-    "Description_pt": "The same building at dusk with lights on",
-    "Description_es": "The same building at dusk with lights on"
+    "Description_pt": "O mesmo prédio ao entardecer com luzes acesas",
+    "Description_es": "El mismo edificio al anochecer con las luces encendidas."
   },
   {
     "cat_pt": "Food homes and places",
@@ -3812,8 +3812,8 @@
     "cat_es": "Food homes and places",
     "Code": "/officespace",
     "Description_en": "Your workspace redesigned for focus",
-    "Description_pt": "Your workspace redesigned for focus",
-    "Description_es": "Your workspace redesigned for focus"
+    "Description_pt": "Seu espaço de trabalho redesenhado para foco",
+    "Description_es": "Tu espacio de trabajo rediseñado para concentrarte"
   },
   {
     "cat_pt": "Food homes and places",
@@ -3830,8 +3830,8 @@
     "cat_es": "Food homes and places",
     "Code": "/roomredesign",
     "Description_en": "Your room redesigned in a style you name",
-    "Description_pt": "Your room redesigned in a style you name",
-    "Description_es": "Your room redesigned in a style you name"
+    "Description_pt": "Seu quarto redesenhado no estilo que você nomeia",
+    "Description_es": "Tu habitación rediseñada con el estilo que tú elijas"
   },
   {
     "cat_pt": "Food homes and places",
@@ -3840,7 +3840,7 @@
     "Code": "/virtualstaging",
     "Description_en": "Empty room furnished for a listing photo",
     "Description_pt": "Empty room furnished for a listing photo",
-    "Description_es": "Empty room furnished for a listing photo"
+    "Description_es": "Habitación vacía amueblada para una foto de anuncio"
   },
   {
     "cat_pt": "Datas Comemorativas",
@@ -3848,8 +3848,8 @@
     "cat_es": "Fechas Especiales",
     "Code": "/autumn cozy",
     "Description_en": "Product among fall leaves knits and warm tones",
-    "Description_pt": "Product among fall leaves knits and warm tones",
-    "Description_es": "Product among fall leaves knits and warm tones"
+    "Description_pt": "Produto entre malhas de folhas de outono e tons quentes",
+    "Description_es": "Producto entre tejidos de hojas otoñales y tonos cálidos."
   },
   {
     "cat_pt": "Datas Comemorativas",
@@ -3857,8 +3857,8 @@
     "cat_es": "Fechas Especiales",
     "Code": "/black friday",
     "Description_en": "A high contrast sale themed image with bold discount text",
-    "Description_pt": "A high contrast sale themed image with bold discount text",
-    "Description_es": "A high contrast sale themed image with bold discount text"
+    "Description_pt": "Uma imagem temática de promoção de alto contraste com texto de desconto em negrito",
+    "Description_es": "Una imagen temática de venta de alto contraste con texto de descuento en negrita"
   },
   {
     "cat_pt": "Datas Comemorativas",
@@ -3875,8 +3875,8 @@
     "cat_es": "Fechas Especiales",
     "Code": "/holiday scene",
     "Description_en": "Product styled with festive props",
-    "Description_pt": "Product styled with festive props",
-    "Description_es": "Product styled with festive props"
+    "Description_pt": "Produto estilizado com adereços festivos",
+    "Description_es": "Producto decorado con accesorios festivos."
   },
   {
     "cat_pt": "Datas Comemorativas",
@@ -3939,7 +3939,7 @@
     "Code": "/anime",
     "Description_en": "Anime-style illustration of your subject",
     "Description_pt": "Anime-style illustration of your subject",
-    "Description_es": "Anime-style illustration of your subject"
+    "Description_es": "Ilustración estilo anime de tu tema."
   },
   {
     "cat_pt": "Styles looks and effects",
@@ -3957,7 +3957,7 @@
     "Code": "/biopunk",
     "Description_en": "Blend biology and advanced technology",
     "Description_pt": "Blend biology and advanced technology",
-    "Description_es": "Blend biology and advanced technology"
+    "Description_es": "Mezcla biología y tecnología avanzada"
   },
   {
     "cat_pt": "Styles looks and effects",
@@ -3965,8 +3965,8 @@
     "cat_es": "Styles looks and effects",
     "Code": "/bluehour",
     "Description_en": "Use cool twilight lighting",
-    "Description_pt": "Use cool twilight lighting",
-    "Description_es": "Use cool twilight lighting"
+    "Description_pt": "Use iluminação crepuscular legal",
+    "Description_es": "Utilice una iluminación fresca del crepúsculo"
   },
   {
     "cat_pt": "Styles looks and effects",
@@ -3974,8 +3974,8 @@
     "cat_es": "Styles looks and effects",
     "Code": "/bokeh",
     "Description_en": "Turn background lights into soft circles",
-    "Description_pt": "Turn background lights into soft circles",
-    "Description_es": "Turn background lights into soft circles"
+    "Description_pt": "Transforme as luzes de fundo em círculos suaves",
+    "Description_es": "Convierte las luces de fondo en círculos suaves"
   },
   {
     "cat_pt": "Styles looks and effects",
@@ -3992,8 +3992,8 @@
     "cat_es": "Styles looks and effects",
     "Code": "/cartoonme",
     "Description_en": "You as a clean cartoon character",
-    "Description_pt": "You as a clean cartoon character",
-    "Description_es": "You as a clean cartoon character"
+    "Description_pt": "Você como um personagem de desenho animado limpo",
+    "Description_es": "Tú como un personaje de dibujos animados limpio."
   },
   {
     "cat_pt": "Styles looks and effects",
@@ -4001,8 +4001,8 @@
     "cat_es": "Styles looks and effects",
     "Code": "/chiaroscuro",
     "Description_en": "Use strong light and shadow contrast",
-    "Description_pt": "Use strong light and shadow contrast",
-    "Description_es": "Use strong light and shadow contrast"
+    "Description_pt": "Use forte contraste de luz e sombra",
+    "Description_es": "Utilice un fuerte contraste de luces y sombras."
   },
   {
     "cat_pt": "Styles looks and effects",
@@ -4019,8 +4019,8 @@
     "cat_es": "Styles looks and effects",
     "Code": "/chrome",
     "Description_en": "Give surfaces a reflective metal finish",
-    "Description_pt": "Give surfaces a reflective metal finish",
-    "Description_es": "Give surfaces a reflective metal finish"
+    "Description_pt": "Dê às superfícies um acabamento metálico reflexivo",
+    "Description_es": "Dar a las superficies un acabado metálico reflectante"
   },
   {
     "cat_pt": "Styles looks and effects",
@@ -4037,8 +4037,8 @@
     "cat_es": "Styles looks and effects",
     "Code": "/clayrender",
     "Description_en": "Make the subject look like a smooth clay model",
-    "Description_pt": "Make the subject look like a smooth clay model",
-    "Description_es": "Make the subject look like a smooth clay model"
+    "Description_pt": "Faça o objeto parecer um modelo de argila liso",
+    "Description_es": "Haz que el sujeto parezca un modelo de arcilla suave."
   },
   {
     "cat_pt": "Styles looks and effects",
@@ -4064,8 +4064,8 @@
     "cat_es": "Styles looks and effects",
     "Code": "/deboss",
     "Description_en": "Press elements into a surface",
-    "Description_pt": "Press elements into a surface",
-    "Description_es": "Press elements into a surface"
+    "Description_pt": "Pressione elementos em uma superfície",
+    "Description_es": "Presione elementos en una superficie"
   },
   {
     "cat_pt": "Styles looks and effects",
@@ -4091,8 +4091,8 @@
     "cat_es": "Styles looks and effects",
     "Code": "/emboss",
     "Description_en": "Raise elements above a surface",
-    "Description_pt": "Raise elements above a surface",
-    "Description_es": "Raise elements above a surface"
+    "Description_pt": "Elevar elementos acima de uma superfície",
+    "Description_es": "Elevar elementos sobre una superficie."
   },
   {
     "cat_pt": "Styles looks and effects",
@@ -4100,8 +4100,8 @@
     "cat_es": "Styles looks and effects",
     "Code": "/embroidery",
     "Description_en": "Your design as a stitched embroidery patch",
-    "Description_pt": "Your design as a stitched embroidery patch",
-    "Description_es": "Your design as a stitched embroidery patch"
+    "Description_pt": "Seu design como um patch de bordado costurado",
+    "Description_es": "Tu diseño como parche bordado cosido"
   },
   {
     "cat_pt": "Styles looks and effects",
@@ -4118,8 +4118,8 @@
     "cat_es": "Styles looks and effects",
     "Code": "/filmnoir",
     "Description_en": "Use a high-contrast black-and-white look",
-    "Description_pt": "Use a high-contrast black-and-white look",
-    "Description_es": "Use a high-contrast black-and-white look"
+    "Description_pt": "Use uma aparência em preto e branco de alto contraste",
+    "Description_es": "Utilice una apariencia en blanco y negro de alto contraste"
   },
   {
     "cat_pt": "Styles looks and effects",
@@ -4136,8 +4136,8 @@
     "cat_es": "Styles looks and effects",
     "Code": "/floating3d",
     "Description_en": "Present the subject as a clean floating 3D object",
-    "Description_pt": "Present the subject as a clean floating 3D object",
-    "Description_es": "Present the subject as a clean floating 3D object"
+    "Description_pt": "Apresente o assunto como um objeto 3D flutuante e limpo",
+    "Description_es": "Presentar al sujeto como un objeto 3D flotante y limpio."
   },
   {
     "cat_pt": "Styles looks and effects",
@@ -4145,8 +4145,8 @@
     "cat_es": "Styles looks and effects",
     "Code": "/foilstamp",
     "Description_en": "Add metallic foil printing",
-    "Description_pt": "Add metallic foil printing",
-    "Description_es": "Add metallic foil printing"
+    "Description_pt": "Adicione impressão em folha metálica",
+    "Description_es": "Agregar impresión de lámina metálica"
   },
   {
     "cat_pt": "Styles looks and effects",
@@ -4172,8 +4172,8 @@
     "cat_es": "Styles looks and effects",
     "Code": "/ghosted",
     "Description_en": "Show hidden parts as faint ghosted structures",
-    "Description_pt": "Show hidden parts as faint ghosted structures",
-    "Description_es": "Show hidden parts as faint ghosted structures"
+    "Description_pt": "Mostrar partes ocultas como estruturas fantasmas fracas",
+    "Description_es": "Mostrar partes ocultas como estructuras fantasmales tenues"
   },
   {
     "cat_pt": "Styles looks and effects",
@@ -4199,8 +4199,8 @@
     "cat_es": "Styles looks and effects",
     "Code": "/gothicrevival",
     "Description_en": "Use dramatic historic architecture",
-    "Description_pt": "Use dramatic historic architecture",
-    "Description_es": "Use dramatic historic architecture"
+    "Description_pt": "Use arquitetura histórica dramática",
+    "Description_es": "Utilice una arquitectura histórica espectacular."
   },
   {
     "cat_pt": "Styles looks and effects",
@@ -4217,8 +4217,8 @@
     "cat_es": "Styles looks and effects",
     "Code": "/graffiti",
     "Description_en": "Your word or logo as street art on a wall",
-    "Description_pt": "Your word or logo as street art on a wall",
-    "Description_es": "Your word or logo as street art on a wall"
+    "Description_pt": "Sua palavra ou logotipo como arte de rua em uma parede",
+    "Description_es": "Tu palabra o logo como arte callejero en una pared."
   },
   {
     "cat_pt": "Styles looks and effects",
@@ -4235,8 +4235,8 @@
     "cat_es": "Styles looks and effects",
     "Code": "/hardflash",
     "Description_en": "Use sharp direct flash lighting",
-    "Description_pt": "Use sharp direct flash lighting",
-    "Description_es": "Use sharp direct flash lighting"
+    "Description_pt": "Use iluminação de flash direta e nítida",
+    "Description_es": "Utilice una iluminación de flash directo y nítida"
   },
   {
     "cat_pt": "Styles looks and effects",
@@ -4262,8 +4262,8 @@
     "cat_es": "Styles looks and effects",
     "Code": "/lensflare",
     "Description_en": "Add bright camera flare and streaks",
-    "Description_pt": "Add bright camera flare and streaks",
-    "Description_es": "Add bright camera flare and streaks"
+    "Description_pt": "Adicione reflexos e listras brilhantes à câmera",
+    "Description_es": "Añade destellos y rayas de cámara brillantes"
   },
   {
     "cat_pt": "Styles looks and effects",
@@ -4271,8 +4271,8 @@
     "cat_es": "Styles looks and effects",
     "Code": "/lifecycle",
     "Description_en": "Show creation use aging and end of life",
-    "Description_pt": "Show creation use aging and end of life",
-    "Description_es": "Show creation use aging and end of life"
+    "Description_pt": "Mostrar criação usa envelhecimento e fim da vida",
+    "Description_es": "Mostrar creación uso envejecimiento y fin de vida"
   },
   {
     "cat_pt": "Styles looks and effects",
@@ -4289,8 +4289,8 @@
     "cat_es": "Styles looks and effects",
     "Code": "/lineart",
     "Description_en": "Minimal single-line black ink drawing",
-    "Description_pt": "Minimal single-line black ink drawing",
-    "Description_es": "Minimal single-line black ink drawing"
+    "Description_pt": "Desenho mínimo em tinta preta de linha única",
+    "Description_es": "Dibujo mínimo en tinta negra de una sola línea"
   },
   {
     "cat_pt": "Styles looks and effects",
@@ -4298,8 +4298,8 @@
     "cat_es": "Styles looks and effects",
     "Code": "/linocut",
     "Description_en": "Use carved printmaking shapes",
-    "Description_pt": "Use carved printmaking shapes",
-    "Description_es": "Use carved printmaking shapes"
+    "Description_pt": "Use formas de gravura esculpidas",
+    "Description_es": "Utilice formas de grabado talladas."
   },
   {
     "cat_pt": "Styles looks and effects",
@@ -4316,8 +4316,8 @@
     "cat_es": "Styles looks and effects",
     "Code": "/lowangle",
     "Description_en": "Make the subject look powerful from below",
-    "Description_pt": "Make the subject look powerful from below",
-    "Description_es": "Make the subject look powerful from below"
+    "Description_pt": "Faça o assunto parecer poderoso visto de baixo",
+    "Description_es": "Haz que el sujeto parezca poderoso desde abajo"
   },
   {
     "cat_pt": "Styles looks and effects",
@@ -4361,8 +4361,8 @@
     "cat_es": "Styles looks and effects",
     "Code": "/neonlight",
     "Description_en": "Use colorful neon illumination",
-    "Description_pt": "Use colorful neon illumination",
-    "Description_es": "Use colorful neon illumination"
+    "Description_pt": "Use iluminação neon colorida",
+    "Description_es": "Utilice iluminación de neón colorida"
   },
   {
     "cat_pt": "Styles looks and effects",
@@ -4370,8 +4370,8 @@
     "cat_es": "Styles looks and effects",
     "Code": "/oilpaint",
     "Description_en": "Use rich layered oil-paint texture",
-    "Description_pt": "Use rich layered oil-paint texture",
-    "Description_es": "Use rich layered oil-paint texture"
+    "Description_pt": "Use textura rica em camadas de tinta a óleo",
+    "Description_es": "Utilice una rica textura de pintura al óleo en capas."
   },
   {
     "cat_pt": "Styles looks and effects",
@@ -4388,8 +4388,8 @@
     "cat_es": "Styles looks and effects",
     "Code": "/origami",
     "Description_en": "Use folded-paper geometry",
-    "Description_pt": "Use folded-paper geometry",
-    "Description_es": "Use folded-paper geometry"
+    "Description_pt": "Use geometria de papel dobrado",
+    "Description_es": "Utilice geometría de papel doblado"
   },
   {
     "cat_pt": "Styles looks and effects",
@@ -4415,8 +4415,8 @@
     "cat_es": "Styles looks and effects",
     "Code": "/panorama",
     "Description_en": "Expand the scene into a wide view",
-    "Description_pt": "Expand the scene into a wide view",
-    "Description_es": "Expand the scene into a wide view"
+    "Description_pt": "Expanda a cena para uma visão ampla",
+    "Description_es": "Expande la escena a una vista amplia"
   },
   {
     "cat_pt": "Styles looks and effects",
@@ -4442,8 +4442,8 @@
     "cat_es": "Styles looks and effects",
     "Code": "/paperquilling",
     "Description_en": "Build the image from curled paper strips",
-    "Description_pt": "Build the image from curled paper strips",
-    "Description_es": "Build the image from curled paper strips"
+    "Description_pt": "Construa a imagem a partir de tiras de papel enroladas",
+    "Description_es": "Construye la imagen a partir de tiras de papel rizadas."
   },
   {
     "cat_pt": "Styles looks and effects",
@@ -4505,8 +4505,8 @@
     "cat_es": "Styles looks and effects",
     "Code": "/shotsetup",
     "Description_en": "Diagram the camera lighting and subject setup",
-    "Description_pt": "Diagram the camera lighting and subject setup",
-    "Description_es": "Diagram the camera lighting and subject setup"
+    "Description_pt": "Diagramar a iluminação da câmera e a configuração do assunto",
+    "Description_es": "Diagrama la iluminación de la cámara y la configuración del sujeto."
   },
   {
     "cat_pt": "Styles looks and effects",
@@ -4523,8 +4523,8 @@
     "cat_es": "Styles looks and effects",
     "Code": "/slowmotion",
     "Description_en": "Make movement look suspended",
-    "Description_pt": "Make movement look suspended",
-    "Description_es": "Make movement look suspended"
+    "Description_pt": "Faça o movimento parecer suspenso",
+    "Description_es": "Haz que el movimiento parezca suspendido"
   },
   {
     "cat_pt": "Styles looks and effects",
@@ -4532,8 +4532,8 @@
     "cat_es": "Styles looks and effects",
     "Code": "/softbox",
     "Description_en": "Use clean even studio lighting",
-    "Description_pt": "Use clean even studio lighting",
-    "Description_es": "Use clean even studio lighting"
+    "Description_pt": "Use iluminação de estúdio limpa e uniforme",
+    "Description_es": "Utilice una iluminación de estudio limpia y uniforme"
   },
   {
     "cat_pt": "Styles looks and effects",
@@ -4541,8 +4541,8 @@
     "cat_es": "Styles looks and effects",
     "Code": "/solarpunk",
     "Description_en": "Imagine an optimistic green future",
-    "Description_pt": "Imagine an optimistic green future",
-    "Description_es": "Imagine an optimistic green future"
+    "Description_pt": "Imagine um futuro verde otimista",
+    "Description_es": "Imagine un futuro verde optimista"
   },
   {
     "cat_pt": "Styles looks and effects",
@@ -4550,8 +4550,8 @@
     "cat_es": "Styles looks and effects",
     "Code": "/spaceopera",
     "Description_en": "Create a grand interstellar environment",
-    "Description_pt": "Create a grand interstellar environment",
-    "Description_es": "Create a grand interstellar environment"
+    "Description_pt": "Crie um grande ambiente interestelar",
+    "Description_es": "Crea un gran entorno interestelar"
   },
   {
     "cat_pt": "Styles looks and effects",
@@ -4559,8 +4559,8 @@
     "cat_es": "Styles looks and effects",
     "Code": "/speedlines",
     "Description_en": "Add graphic action streaks",
-    "Description_pt": "Add graphic action streaks",
-    "Description_es": "Add graphic action streaks"
+    "Description_pt": "Adicione faixas de ação gráfica",
+    "Description_es": "Agregar rachas de acción gráfica"
   },
   {
     "cat_pt": "Styles looks and effects",
@@ -4604,8 +4604,8 @@
     "cat_es": "Styles looks and effects",
     "Code": "/studio reconstruction",
     "Description_en": "Reconstruct the scene as a polished studio setup",
-    "Description_pt": "Reconstruct the scene as a polished studio setup",
-    "Description_es": "Reconstruct the scene as a polished studio setup"
+    "Description_pt": "Reconstrua a cena como uma configuração de estúdio sofisticada",
+    "Description_es": "Reconstruir la escena como una configuración de estudio pulida."
   },
   {
     "cat_pt": "Styles looks and effects",
@@ -4685,8 +4685,8 @@
     "cat_es": "Styles looks and effects",
     "Code": "/vintagefilm",
     "Description_en": "Create an aged analog film photograph",
-    "Description_pt": "Create an aged analog film photograph",
-    "Description_es": "Create an aged analog film photograph"
+    "Description_pt": "Crie uma fotografia de filme analógico antigo",
+    "Description_es": "Crea una fotografía de película analógica envejecida"
   },
   {
     "cat_pt": "Styles looks and effects",
@@ -4703,8 +4703,8 @@
     "cat_es": "Styles looks and effects",
     "Code": "/voxel",
     "Description_en": "Build the subject from block-like pixels",
-    "Description_pt": "Build the subject from block-like pixels",
-    "Description_es": "Build the subject from block-like pixels"
+    "Description_pt": "Construa o assunto a partir de pixels em forma de bloco",
+    "Description_es": "Construye el sujeto a partir de píxeles en forma de bloques"
   },
   {
     "cat_pt": "Styles looks and effects",
@@ -4739,8 +4739,8 @@
     "cat_es": "Styles looks and effects",
     "Code": "/woodcut",
     "Description_en": "Use a vintage engraved texture",
-    "Description_pt": "Use a vintage engraved texture",
-    "Description_es": "Use a vintage engraved texture"
+    "Description_pt": "Use uma textura gravada vintage",
+    "Description_es": "Utilice una textura grabada antigua"
   },
   {
     "cat_pt": "Styles looks and effects",
@@ -4775,8 +4775,8 @@
     "cat_es": "Diversión",
     "Code": "/ageprogression",
     "Description_en": "You at 20, 40, 60, and 80",
-    "Description_pt": "You at 20, 40, 60, and 80",
-    "Description_es": "You at 20, 40, 60, and 80"
+    "Description_pt": "Você aos 20, 40, 60 e 80",
+    "Description_es": "Tú a los 20, 40, 60 y 80"
   },
   {
     "cat_pt": "Diversão",
@@ -4793,8 +4793,8 @@
     "cat_es": "Diversión",
     "Code": "/caricature",
     "Description_en": "A friendly exaggerated caricature of you",
-    "Description_pt": "A friendly exaggerated caricature of you",
-    "Description_es": "A friendly exaggerated caricature of you"
+    "Description_pt": "Uma caricatura exagerada e amigável de você",
+    "Description_es": "Una caricatura amigable y exagerada de ti."
   },
   {
     "cat_pt": "Diversão",
@@ -4802,8 +4802,8 @@
     "cat_es": "Diversión",
     "Code": "/dreamcar",
     "Description_en": "You next to any car in any location",
-    "Description_pt": "You next to any car in any location",
-    "Description_es": "You next to any car in any location"
+    "Description_pt": "Você ao lado de qualquer carro em qualquer local",
+    "Description_es": "Estás al lado de cualquier coche en cualquier lugar."
   },
   {
     "cat_pt": "Diversão",
@@ -4811,8 +4811,8 @@
     "cat_es": "Diversión",
     "Code": "/fantasyme",
     "Description_en": "You as a fantasy character in full costume",
-    "Description_pt": "You as a fantasy character in full costume",
-    "Description_es": "You as a fantasy character in full costume"
+    "Description_pt": "Você como um personagem de fantasia fantasiado",
+    "Description_es": "Tú como un personaje de fantasía disfrazado."
   },
   {
     "cat_pt": "Diversão",
@@ -4820,8 +4820,8 @@
     "cat_es": "Diversión",
     "Code": "/holidaycard",
     "Description_en": "Family holiday card with your photo",
-    "Description_pt": "Family holiday card with your photo",
-    "Description_es": "Family holiday card with your photo"
+    "Description_pt": "Cartão de férias em família com sua foto",
+    "Description_es": "Tarjeta de vacaciones en familia con tu foto"
   },
   {
     "cat_pt": "Diversão",
@@ -4847,8 +4847,8 @@
     "cat_es": "Diversión",
     "Code": "/superhero",
     "Description_en": "You as an original superhero with a suit",
-    "Description_pt": "You as an original superhero with a suit",
-    "Description_es": "You as an original superhero with a suit"
+    "Description_pt": "Você como um super-herói original com um terno",
+    "Description_es": "Tú como un superhéroe original con traje."
   },
   {
     "cat_pt": "Diversão",
@@ -4928,8 +4928,8 @@
     "cat_es": "Videos",
     "Code": "/dronefootage",
     "Description_en": "Aerial flyover of a place or property",
-    "Description_pt": "Aerial flyover of a place or property",
-    "Description_es": "Aerial flyover of a place or property"
+    "Description_pt": "Sobrevoo aéreo de um local ou propriedade",
+    "Description_es": "Sobrevuelo aéreo de un lugar o propiedad."
   },
   {
     "cat_pt": "Vídeos",
@@ -4946,8 +4946,8 @@
     "cat_es": "Videos",
     "Code": "/facelessvideo",
     "Description_en": "A faceless b-roll video for a voiceover",
-    "Description_pt": "A faceless b-roll video for a voiceover",
-    "Description_es": "A faceless b-roll video for a voiceover"
+    "Description_pt": "Um vídeo b-roll sem rosto para uma narração",
+    "Description_es": "Un vídeo b-roll sin rostro para una voz en off."
   },
   {
     "cat_pt": "Vídeos",
@@ -4956,7 +4956,7 @@
     "Code": "/livingphoto",
     "Description_en": "A still photo animated with gentle movement",
     "Description_pt": "A still photo animated with gentle movement",
-    "Description_es": "A still photo animated with gentle movement"
+    "Description_es": "Una fotografía fija animada con un movimiento suave."
   },
   {
     "cat_pt": "Vídeos",
@@ -4964,8 +4964,8 @@
     "cat_es": "Videos",
     "Code": "/logoreveal",
     "Description_en": "A short animated logo reveal",
-    "Description_pt": "A short animated logo reveal",
-    "Description_es": "A short animated logo reveal"
+    "Description_pt": "Um breve logotipo animado revelado",
+    "Description_es": "Una breve revelación de logotipo animado."
   },
   {
     "cat_pt": "Vídeos",
@@ -4974,7 +4974,7 @@
     "Code": "/loopvideo",
     "Description_en": "A seamless looping hero video for your website",
     "Description_pt": "A seamless looping hero video for your website",
-    "Description_es": "A seamless looping hero video for your website"
+    "Description_es": "Un vídeo protagonista en bucle continuo para su sitio web"
   },
   {
     "cat_pt": "Vídeos",
@@ -5072,8 +5072,8 @@
     "cat_es": "Escritura",
     "Code": "/rewrite",
     "Description_en": "Rephrases the text while keeping the core meaning",
-    "Description_pt": "Rephrases the text while keeping the core meaning",
-    "Description_es": "Rephrases the text while keeping the core meaning"
+    "Description_pt": "Reformula o texto, mantendo o significado central",
+    "Description_es": "Reformula el texto manteniendo el significado central."
   },
   {
     "cat_pt": "Escrita",
@@ -5099,8 +5099,8 @@
     "cat_es": "Escritura",
     "Code": "/expand",
     "Description_en": "Adds detail depth and supporting context",
-    "Description_pt": "Adds detail depth and supporting context",
-    "Description_es": "Adds detail depth and supporting context"
+    "Description_pt": "Adiciona profundidade de detalhes e contexto de suporte",
+    "Description_es": "Añade profundidad de detalle y contexto de apoyo."
   },
   {
     "cat_pt": "Escrita",
@@ -5171,8 +5171,8 @@
     "cat_es": "Escritura",
     "Code": "/AUDIENCE [Target]",
     "Description_en": "Adapts complexity for a specific group (Beginners)",
-    "Description_pt": "Adapts complexity for a specific group (Beginners)",
-    "Description_es": "Adapts complexity for a specific group (Beginners)"
+    "Description_pt": "Adapta a complexidade para um grupo específico (iniciantes)",
+    "Description_es": "Adapta la complejidad para un grupo específico (Principiantes)"
   },
   {
     "cat_pt": "Explain & Teach",
@@ -5180,8 +5180,8 @@
     "cat_es": "Explain & Teach",
     "Code": "ELI5",
     "Description_en": "Explains something in very simple terms",
-    "Description_pt": "Explains something in very simple terms",
-    "Description_es": "Explains something in very simple terms"
+    "Description_pt": "Explica algo em termos muito simples",
+    "Description_es": "Explica algo en términos muy simples."
   },
   {
     "cat_pt": "Explain & Teach",
@@ -5207,8 +5207,8 @@
     "cat_es": "Explain & Teach",
     "Code": "ELICollege",
     "Description_en": "Explains a topic with more rigor and academic depth",
-    "Description_pt": "Explains a topic with more rigor and academic depth",
-    "Description_es": "Explains a topic with more rigor and academic depth"
+    "Description_pt": "Explica um tema com mais rigor e profundidade acadêmica",
+    "Description_es": "Explica un tema con más rigor y profundidad académica."
   },
   {
     "cat_pt": "Explain & Teach",
@@ -5216,8 +5216,8 @@
     "cat_es": "Explain & Teach",
     "Code": "ELIPhD",
     "Description_en": "Explains a topic at a highly advanced level",
-    "Description_pt": "Explains a topic at a highly advanced level",
-    "Description_es": "Explains a topic at a highly advanced level"
+    "Description_pt": "Explica um tópico em um nível altamente avançado",
+    "Description_es": "Explica un tema a un nivel muy avanzado."
   },
   {
     "cat_pt": "Explain & Teach",
@@ -5252,8 +5252,8 @@
     "cat_es": "Explain & Teach",
     "Code": "/firstprinciples",
     "Description_en": "Breaks an idea down into its most basic truths",
-    "Description_pt": "Breaks an idea down into its most basic truths",
-    "Description_es": "Breaks an idea down into its most basic truths"
+    "Description_pt": "Divide uma ideia em suas verdades mais básicas",
+    "Description_es": "Desglosa una idea en sus verdades más básicas."
   },
   {
     "cat_pt": "Formatação",
@@ -5270,8 +5270,8 @@
     "cat_es": "Formato",
     "Code": "BULLETS",
     "Description_en": "Turns the output into bullet points",
-    "Description_pt": "Turns the output into bullet points",
-    "Description_es": "Turns the output into bullet points"
+    "Description_pt": "Transforma a saída em marcadores",
+    "Description_es": "Convierte la salida en viñetas"
   },
   {
     "cat_pt": "Formatação",
@@ -5279,8 +5279,8 @@
     "cat_es": "Formato",
     "Code": "TABLE",
     "Description_en": "Formats the output as a table for easier comparison",
-    "Description_pt": "Formats the output as a table for easier comparison",
-    "Description_es": "Formats the output as a table for easier comparison"
+    "Description_pt": "Formata a saída como uma tabela para facilitar a comparação",
+    "Description_es": "Formatea la salida como una tabla para facilitar la comparación."
   },
   {
     "cat_pt": "Formatação",
@@ -5288,8 +5288,8 @@
     "cat_es": "Formato",
     "Code": "CHECKLIST",
     "Description_en": "Converts the answer into an actionable checklist",
-    "Description_pt": "Converts the answer into an actionable checklist",
-    "Description_es": "Converts the answer into an actionable checklist"
+    "Description_pt": "Converte a resposta em uma lista de verificação acionável",
+    "Description_es": "Convierte la respuesta en una lista de verificación procesable"
   },
   {
     "cat_pt": "Formatação",
@@ -5297,8 +5297,8 @@
     "cat_es": "Formato",
     "Code": "STEPS",
     "Description_en": "Turns the response into a step-by-step process",
-    "Description_pt": "Turns the response into a step-by-step process",
-    "Description_es": "Turns the response into a step-by-step process"
+    "Description_pt": "Transforma a resposta em um processo passo a passo",
+    "Description_es": "Convierte la respuesta en un proceso paso a paso"
   },
   {
     "cat_pt": "Formatação",
@@ -5315,8 +5315,8 @@
     "cat_es": "Formato",
     "Code": "/summary",
     "Description_en": "Provides a concise summary of the main points",
-    "Description_pt": "Provides a concise summary of the main points",
-    "Description_es": "Provides a concise summary of the main points"
+    "Description_pt": "Fornece um resumo conciso dos principais pontos",
+    "Description_es": "Proporciona un resumen conciso de los puntos principales."
   },
   {
     "cat_pt": "Formatação",
@@ -5351,8 +5351,8 @@
     "cat_es": "Estudios",
     "Code": "FLASHCARDS",
     "Description_en": "Turns the material into flashcard-style prompts",
-    "Description_pt": "Turns the material into flashcard-style prompts",
-    "Description_es": "Turns the material into flashcard-style prompts"
+    "Description_pt": "Transforma o material em prompts no estilo flashcard",
+    "Description_es": "Convierte el material en indicaciones estilo tarjeta didáctica."
   },
   {
     "cat_pt": "Estudos",
@@ -5379,7 +5379,7 @@
     "Code": "FEYNMAN",
     "Description_en": "Explains a concept as simply as possible",
     "Description_pt": "Explains a concept as simply as possible",
-    "Description_es": "Explains a concept as simply as possible"
+    "Description_es": "Explica un concepto de la forma más sencilla posible."
   },
   {
     "cat_pt": "Estudos",
@@ -5414,8 +5414,8 @@
     "cat_es": "Ideas",
     "Code": "HOOKS10",
     "Description_en": "Generates ten hook ideas for content",
-    "Description_pt": "Generates ten hook ideas for content",
-    "Description_es": "Generates ten hook ideas for content"
+    "Description_pt": "Gera dez ideias de gancho para conteúdo",
+    "Description_es": "Genera diez ideas gancho para el contenido"
   },
   {
     "cat_pt": "Ideias",
@@ -5423,8 +5423,8 @@
     "cat_es": "Ideas",
     "Code": "SCAMPER",
     "Description_en": "Improves ideas using the SCAMPER creativity framework",
-    "Description_pt": "Improves ideas using the SCAMPER creativity framework",
-    "Description_es": "Improves ideas using the SCAMPER creativity framework"
+    "Description_pt": "Melhora as ideias usando a estrutura de criatividade SCAMPER",
+    "Description_es": "Mejora las ideas utilizando el marco de creatividad SCAMPER."
   },
   {
     "cat_pt": "Ideias",
@@ -5450,8 +5450,8 @@
     "cat_es": "Lógica",
     "Code": "PROSCONS",
     "Description_en": "Lists the main advantages and disadvantages",
-    "Description_pt": "Lists the main advantages and disadvantages",
-    "Description_es": "Lists the main advantages and disadvantages"
+    "Description_pt": "Lista as principais vantagens e desvantagens",
+    "Description_es": "Enumera las principales ventajas y desventajas."
   },
   {
     "cat_pt": "Lógica",
@@ -5459,8 +5459,8 @@
     "cat_es": "Lógica",
     "Code": "SWOT",
     "Description_en": "Analyzes strengths weaknesses opportunities and threats",
-    "Description_pt": "Analyzes strengths weaknesses opportunities and threats",
-    "Description_es": "Analyzes strengths weaknesses opportunities and threats"
+    "Description_pt": "Analisa pontos fortes, pontos fracos, oportunidades e ameaças",
+    "Description_es": "Analiza fortalezas, debilidades, oportunidades y amenazas."
   },
   {
     "cat_pt": "Lógica",
@@ -5468,8 +5468,8 @@
     "cat_es": "Lógica",
     "Code": "COMPARE",
     "Description_en": "Compares two or more options side by side",
-    "Description_pt": "Compares two or more options side by side",
-    "Description_es": "Compares two or more options side by side"
+    "Description_pt": "Compara duas ou mais opções lado a lado",
+    "Description_es": "Compara dos o más opciones una al lado de la otra"
   },
   {
     "cat_pt": "Lógica",
@@ -5477,8 +5477,8 @@
     "cat_es": "Lógica",
     "Code": "/assumptions",
     "Description_en": "Identifies the hidden assumptions in a claim",
-    "Description_pt": "Identifies the hidden assumptions in a claim",
-    "Description_es": "Identifies the hidden assumptions in a claim"
+    "Description_pt": "Identifica as suposições ocultas em uma reivindicação",
+    "Description_es": "Identifica los supuestos ocultos en un reclamo."
   },
   {
     "cat_pt": "Lógica",
@@ -5531,8 +5531,8 @@
     "cat_es": "Lógica",
     "Code": "/STEP-BY-STEP",
     "Description_en": "Forces the AI to show its work to reduce errors",
-    "Description_pt": "Forces the AI to show its work to reduce errors",
-    "Description_es": "Forces the AI to show its work to reduce errors"
+    "Description_pt": "Força a IA a mostrar seu trabalho para reduzir erros",
+    "Description_es": "Obliga a la IA a mostrar su trabajo para reducir errores"
   },
   {
     "cat_pt": "Lógica",
