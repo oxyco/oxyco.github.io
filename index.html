@@ -4,30 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OXYLABZ | Ferramentas</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="js/global.js"></script>
-    
     <style>
         :root {
-            --bg-main: #13111c; 
-            --bg-card: #1c1a27;
-            --bg-card-hover: #242136;
-            --text-primary: #f8fafc;
-            --text-secondary: #a39eb5;
-            --accent: #a78bfa; 
-            --accent-glow: rgba(167, 139, 250, 0.25);
+            --bg-main: #13111c; --bg-card: #1c1a27; --bg-card-hover: #242136;
+            --text-primary: #f8fafc; --text-secondary: #a39eb5;
+            --accent: #a78bfa; --accent-glow: rgba(167, 139, 250, 0.25);
             --border: #35314d;
-            --badge-hot-bg: rgba(248, 81, 73, 0.15);
-            --badge-hot-text: #ff7b72;
+            --badge-hot-bg: rgba(248, 81, 73, 0.15); --badge-hot-text: #ff7b72;
             --badge-hot-border: rgba(248, 81, 73, 0.25);
-            --badge-new-bg: rgba(167, 139, 250, 0.15);
-            --badge-new-text: #c4b5fd;
+            --badge-new-bg: rgba(167, 139, 250, 0.15); --badge-new-text: #c4b5fd;
             --badge-new-border: rgba(167, 139, 250, 0.25);
         }
-
         body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background-color: var(--bg-main); color: var(--text-primary); margin: 0; padding: 0; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
         .navbar { width: 100%; padding: 16px 40px; box-sizing: border-box; display: flex; justify-content: space-between; align-items: center; gap: 24px; border-bottom: 1px solid var(--border); background: rgba(19, 17, 28, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); position: sticky; top: 0; z-index: 100; }
         .social-group { display: flex; gap: 20px; align-items: center; justify-content: center; }
@@ -55,8 +44,7 @@
         .badge { position: absolute; top: 24px; right: 24px; padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; }
         .badge.hot { background: var(--badge-hot-bg); color: var(--badge-hot-text); border: 1px solid var(--badge-hot-border); }
         .badge.new { background: var(--badge-new-bg); color: var(--badge-new-text); border: 1px solid var(--badge-new-border); }
-        .badge.secret { background: rgba(167, 139, 250, 0.1); color: var(--text-secondary); border: 1px dashed var(--border); }
-
+        
         @media (max-width: 768px) {
             .app-card.featured { flex-direction: column; align-items: flex-start; }
             .app-card.featured .icon-wrapper { margin-right: 0; margin-bottom: 24px; }
@@ -84,7 +72,7 @@
 
     <header class="hero">
         <h1>OXYLABZ TOOLS</h1>
-        <p data-i18n="subtitle">Eletrônica | Áudio | IA</p>
+        <p data-i18n="subtitle">Eletrônica | Áudio</p>
     </header>
 
     <main class="container">
@@ -109,11 +97,11 @@
             </a>
 
             <a href="mini-prompts/index.html" class="app-card">
-                <span class="badge secret" data-i18n="badge_prompt">Secreto</span>
+                <span class="badge new" data-i18n="badge_new">Ferramenta</span>
                 <div class="icon-wrapper">✨</div>
                 <div>
                     <h2 data-i18n="app0_title">Mini Prompts</h2>
-                    <p data-i18n="app0_desc">Biblioteca de comandos rápidos e atalhos visuais para ChatGPT e Gemini. Clique para copiar ou enviar direto para a IA.</p>
+                    <p data-i18n="app0_desc">Biblioteca de comandos rápidos e atalhos visuais para ChatGPT e Gemini. Clique para copiar ou enviar direto.</p>
                 </div>
             </a>
 
@@ -121,31 +109,31 @@
     </main>
 
     <script>
-        const i18n = {
+        const translations = {
             pt: {
-                subtitle: "Eletrônica | Áudio | IA", badge_hot: "Em Alta", badge_new: "Ferramenta", badge_prompt: "Secreto",
+                subtitle: "Eletrônica | Áudio", badge_hot: "Em Alta", badge_new: "Ferramenta",
                 app1_title: "Calculadora de Resistores", app1_desc: "Identifique valores, simule tolerâncias, verifique coeficientes e gere guias visuais em PNG.",
                 app2_title: "Gerador de Acordes", app2_desc: "Crie e exporte progressões harmônicas rapidamente via arquivo MIDI.",
-                app0_title: "Mini Prompts", app0_desc: "Biblioteca de comandos rápidos e atalhos visuais para ChatGPT e Gemini. Clique para copiar ou enviar direto para a IA."
+                app0_title: "Mini Prompts", app0_desc: "Biblioteca de comandos rápidos e atalhos visuais para ChatGPT e Gemini. Clique para copiar ou enviar direto."
             },
             en: {
-                subtitle: "Electronics | Audio | AI", badge_hot: "Trending", badge_new: "Tool", badge_prompt: "Secret",
+                subtitle: "Electronics | Audio", badge_hot: "Trending", badge_new: "Tool",
                 app1_title: "Resistor Calculator", app1_desc: "Identify values, simulate tolerances, check temp coefficients, and generate high-res PNG visual guides.",
                 app2_title: "Chord Generator", app2_desc: "Quickly create and export harmonic progressions via MIDI.",
-                app0_title: "Mini Prompts", app0_desc: "Visual command and shortcut library for ChatGPT and Gemini. Click to copy or send directly to the AI."
+                app0_title: "Mini Prompts", app0_desc: "Visual command and shortcut library for ChatGPT and Gemini. Click to copy or send directly."
             },
             es: {
-                subtitle: "Electrónica | Audio | IA", badge_hot: "Tendencia", badge_new: "Herramienta", badge_prompt: "Secreto",
+                subtitle: "Electrónica | Audio", badge_hot: "Tendencia", badge_new: "Herramienta",
                 app1_title: "Calculadora de Resistencias", app1_desc: "Identifica valores, simula tolerancias, verifica coeficientes de temperatura y genera guías visuales PNG.",
                 app2_title: "Generador de Acordes", app2_desc: "Crea y exporta progresiones armónicas rápidamente vía MIDI.",
-                app0_title: "Mini Prompts", app0_desc: "Biblioteca de comandos visuales para ChatGPT y Gemini. Haz clic para copiar o enviar directo a la IA."
+                app0_title: "Mini Prompts", app0_desc: "Biblioteca de comandos visuales para ChatGPT y Gemini. Haz clic para copiar o enviar directo."
             }
         };
 
         function mudarIdioma(lang) {
             if (typeof setGlobalLang === 'function') setGlobalLang(lang);
             document.querySelectorAll('[data-i18n]').forEach(el => {
-                if(i18n[lang][el.getAttribute('data-i18n')]) el.innerText = i18n[lang][el.getAttribute('data-i18n')];
+                if(translations[lang][el.getAttribute('data-i18n')]) el.innerText = translations[lang][el.getAttribute('data-i18n')];
             });
         }
 
