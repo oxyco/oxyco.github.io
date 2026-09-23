@@ -74,7 +74,7 @@
     </style>
 </head>
 <body onload="initializeApp()">
-    <a href="../index.html" style="display:inline-block; margin-bottom:20px; color:var(--accent); text-decoration:none; font-weight:bold; font-size:16px;" data-i18n="back">← Voltar / Back</a>
+    <a href="../index.html" data-i18n="back" style="display:inline-block; margin-bottom:20px; color:var(--accent); text-decoration:none; font-weight:bold; font-size:16px;">← Voltar / Back</a>
     <h1 data-i18n="title">ACORDES E PROGRESSÕES</h1>
 
     <div class="tabs">
@@ -188,26 +188,24 @@
     </div>
 
     <script>
-        
-    // Injeção de Tradução Global OXY
-    const i18n = {
-        pt: { back: "← Voltar", title: "ACORDES E PROGRESSÕES", tab1: "Escala Livre", tab2: "Composição por Estilo", root: "Tônica", scale: "Tonalidade", style: "Gênero Base", arr: "Arranjo / Ritmo", bpm: "BPM", bass: "Baixo", oct: "Oitava Central", gen: "Gerar Progressão", score: "Leitura Harmônica Simplificada" },
-        en: { back: "← Back", title: "CHORDS & PROGRESSIONS", tab1: "Free Scale", tab2: "Style Composition", root: "Root Note", scale: "Key / Scale", style: "Base Genre", arr: "Arrangement / Rhythm", bpm: "BPM", bass: "Bass", oct: "Center Octave", gen: "Generate Progression", score: "Simplified Harmonic Reading" },
-        es: { back: "← Volver", title: "ACORDES Y PROGRESIONES", tab1: "Escala Libre", tab2: "Composición por Estilo", root: "Tónica", scale: "Tonalidad", style: "Género Base", arr: "Arreglo / Ritmo", bpm: "BPM", bass: "Bajo", oct: "Octava Central", gen: "Generar Progresión", score: "Lectura Armónica Simplificada" }
-    };
-    function applyLang() {
-        const lang = getGlobalLang();
-        document.querySelectorAll('[data-i18n]').forEach(el => { 
-            if(i18n[lang][el.getAttribute('data-i18n')]) el.innerText = i18n[lang][el.getAttribute('data-i18n')]; 
-        });
-        const btn = document.getElementById('btn-generate');
-        if(!btn.disabled) btn.innerText = i18n[lang].gen;
-    }
-    window.addEventListener('idiomaMudou', applyLang);
-    document.addEventListener('DOMContentLoaded', applyLang);
+        // Injeção de Tradução Global OXY
+        const i18n = {
+            pt: { back: "← Voltar", title: "ACORDES E PROGRESSÕES", tab1: "Escala Livre", tab2: "Composição por Estilo", root: "Tônica", scale: "Tonalidade", style: "Gênero Base", arr: "Arranjo / Ritmo", bpm: "BPM", bass: "Baixo", oct: "Oitava Central", gen: "Gerar Progressão", score: "Leitura Harmônica Simplificada" },
+            en: { back: "← Back", title: "CHORDS & PROGRESSIONS", tab1: "Free Scale", tab2: "Style Composition", root: "Root Note", scale: "Key / Scale", style: "Base Genre", arr: "Arrangement / Rhythm", bpm: "BPM", bass: "Bass", oct: "Center Octave", gen: "Generate Progression", score: "Simplified Harmonic Reading" },
+            es: { back: "← Volver", title: "ACORDES Y PROGRESIONES", tab1: "Escala Libre", tab2: "Composición por Estilo", root: "Tónica", scale: "Tonalidad", style: "Género Base", arr: "Arreglo / Ritmo", bpm: "BPM", bass: "Bajo", oct: "Octava Central", gen: "Generar Progresión", score: "Lectura Armónica Simplificada" }
+        };
+        function applyLang() {
+            const lang = getGlobalLang();
+            document.querySelectorAll('[data-i18n]').forEach(el => { 
+                if(i18n[lang][el.getAttribute('data-i18n')]) el.innerText = i18n[lang][el.getAttribute('data-i18n')]; 
+            });
+            const btn = document.getElementById('btn-generate');
+            if(!btn.disabled) btn.innerText = i18n[lang].gen;
+        }
+        window.addEventListener('idiomaMudou', applyLang);
+        document.addEventListener('DOMContentLoaded', applyLang);
 
-    const VF = Vex.Flow;
-
+        const VF = Vex.Flow;
         const NOTES = ['C', 'C#', 'D', 'Eb', 'E', 'F', 'F#', 'G', 'Ab', 'A', 'Bb', 'B'];
         const VEX_KEYS = ['C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B'];
         const ACC_MAP = ['', '#', '', 'b', '', '', '#', '', 'b', '', 'b', ''];
@@ -241,35 +239,33 @@
         let progressionHistory = [];
         let historyIndex = -1;
 
-        // O NOVO CÉREBRO: DATASETS CURADOS TIPO RIPCHORD / SCALER
-        // Cada array interno é uma progressão clássica garantida, com os voicings corretos para o estilo.
         const CURATED_DATASETS = {
             'pop_rock': [
-                [{d:0, v:'add9'}, {d:4, v:'sus4'}, {d:5, v:'m7'}, {d:3, v:'add9'}], // Clássico Pop I-V-vi-IV melhorado
-                [{d:5, v:'m7'}, {d:3, v:'add9'}, {d:0, v:'maj7'}, {d:4, v:'sus4'}], // Pop Moderno vi-IV-I-V
+                [{d:0, v:'add9'}, {d:4, v:'sus4'}, {d:5, v:'m7'}, {d:3, v:'add9'}], 
+                [{d:5, v:'m7'}, {d:3, v:'add9'}, {d:0, v:'maj7'}, {d:4, v:'sus4'}], 
                 [{d:0, v:'maj7'}, {d:3, v:'maj7'}, {d:5, v:'m7'}, {d:4, v:'dom7'}],
                 [{d:0, v:'add9'}, {d:5, v:'m7'}, {d:1, v:'m7'}, {d:4, v:'sus4'}]
             ],
             'jazz_functional': [
-                [{d:1, v:'m9'}, {d:4, v:'dom13'}, {d:0, v:'maj9'}, {d:5, v:'dom7b9'}], // ii-V-I-VI (Jazz Clássico)
-                [{d:3, v:'maj9'}, {d:2, v:'m7'}, {d:1, v:'m9'}, {d:0, v:'maj7'}],      // Neo-Soul Walkdown IV-iii-ii-I
-                [{d:0, v:'maj9'}, {d:5, v:'m11'}, {d:1, v:'m9'}, {d:4, v:'dom13'}],    // Lo-Fi I-vi-ii-V
-                [{d:1, v:'m7b5'}, {d:4, v:'dom7b9'}, {d:0, v:'m9'}, {d:0, v:'m9'}]     // Minor ii-V-i
+                [{d:1, v:'m9'}, {d:4, v:'dom13'}, {d:0, v:'maj9'}, {d:5, v:'dom7b9'}], 
+                [{d:3, v:'maj9'}, {d:2, v:'m7'}, {d:1, v:'m9'}, {d:0, v:'maj7'}],      
+                [{d:0, v:'maj9'}, {d:5, v:'m11'}, {d:1, v:'m9'}, {d:4, v:'dom13'}],    
+                [{d:1, v:'m7b5'}, {d:4, v:'dom7b9'}, {d:0, v:'m9'}, {d:0, v:'m9'}]     
             ],
             'hiphop_trap': [
-                [{d:0, v:'m9'}, {d:5, v:'m7'}, {d:6, v:'maj7'}, {d:0, v:'m9'}],        // i-vi-VII-i (Dark Trap)
-                [{d:0, v:'m9'}, {d:4, v:'m9'}, {d:5, v:'m7'}, {d:0, v:'m9'}],          // i-v-vi-i
-                [{d:0, v:'minor'}, {d:1, v:'maj7'}, {d:0, v:'minor'}, {d:6, v:'maj7'}], // Phrygian Vibes
-                [{d:3, v:'maj7'}, {d:2, v:'m7'}, {d:0, v:'m9'}, {d:0, v:'m9'}]         // Emo Rap iv-iii-i
+                [{d:0, v:'m9'}, {d:5, v:'m7'}, {d:6, v:'maj7'}, {d:0, v:'m9'}],        
+                [{d:0, v:'m9'}, {d:4, v:'m9'}, {d:5, v:'m7'}, {d:0, v:'m9'}],          
+                [{d:0, v:'minor'}, {d:1, v:'maj7'}, {d:0, v:'minor'}, {d:6, v:'maj7'}], 
+                [{d:3, v:'maj7'}, {d:2, v:'m7'}, {d:0, v:'m9'}, {d:0, v:'m9'}]         
             ],
             'electronic_modern': [
-                [{d:5, v:'m9'}, {d:3, v:'maj9'}, {d:0, v:'maj7'}, {d:4, v:'dom9'}],    // House vi-IV-I-V
-                [{d:0, v:'m9'}, {d:3, v:'maj9'}, {d:4, v:'m9'}, {d:5, v:'m7'}],        // Deep House
-                [{d:0, v:'sus2'}, {d:6, v:'sus2'}, {d:5, v:'sus2'}, {d:4, v:'sus4'}],  // EDM Build
-                [{d:3, v:'maj7'}, {d:4, v:'dom7'}, {d:5, v:'m9'}, {d:5, v:'m9'}]       // Synthwave IV-V-vi
+                [{d:5, v:'m9'}, {d:3, v:'maj9'}, {d:0, v:'maj7'}, {d:4, v:'dom9'}],    
+                [{d:0, v:'m9'}, {d:3, v:'maj9'}, {d:4, v:'m9'}, {d:5, v:'m7'}],        
+                [{d:0, v:'sus2'}, {d:6, v:'sus2'}, {d:5, v:'sus2'}, {d:4, v:'sus4'}],  
+                [{d:3, v:'maj7'}, {d:4, v:'dom7'}, {d:5, v:'m9'}, {d:5, v:'m9'}]       
             ],
             'latin_bossa': [
-                [{d:0, v:'maj9'}, {d:1, v:'m9'}, {d:4, v:'dom13'}, {d:0, v:'maj7'}],   // I-ii-V-I
+                [{d:0, v:'maj9'}, {d:1, v:'m9'}, {d:4, v:'dom13'}, {d:0, v:'maj7'}],   
                 [{d:1, v:'m9'}, {d:4, v:'dom7b9'}, {d:0, v:'maj9'}, {d:5, v:'m7b5'}],
                 [{d:0, v:'m9'}, {d:3, v:'m9'}, {d:4, v:'dom7b9'}, {d:0, v:'m9'}],
                 [{d:0, v:'maj9'}, {d:6, v:'m7b5'}, {d:2, v:'dom7b9'}, {d:5, v:'m9'}]
@@ -366,7 +362,6 @@
                 case 'minor': intervals = [0, 3, 7]; break;
                 case 'triad': intervals = [0, 4, 7]; break;
             }
-            // Limpa as quintas se o acorde for denso para não embolar
             if (intervals.length > 4) intervals.splice(2, 1); 
             return intervals.map(i => rootMidiAbs + i);
         }
@@ -632,13 +627,16 @@
                     }
                 } else {
                     patternType = arrOverride === 'auto' ? 'auto' : (arrOverride === 'random' ? ALL_P[Math.floor(Math.random()*ALL_P.length)] : arrOverride);
+                    
                     const dataset = CURATED_DATASETS[styleId] || CURATED_DATASETS['pop_rock'];
                     const preset = dataset[Math.floor(Math.random() * dataset.length)];
 
                     for (let i = 0; i < preset.length; i++) {
                         const chordConfig = preset[i];
                         let rootMidiAbs = baseOctaveMidi + rootIdx + scaleIntervals[chordConfig.d];
+                        
                         const intervals = buildAbsoluteVoicing(rootMidiAbs, chordConfig.v);
+                        
                         let ledMidiNotes = applyVoiceLeading(intervals, previousNotes, baseOctaveMidi);
                         previousNotes = [...ledMidiNotes];
 
@@ -653,7 +651,15 @@
 
                         let bassNote = playBass ? (rootNoteAbs + 36) : null;
 
-                        progressionData.push({ chordName: chordName, midiNotes: ledMidiNotes, bassNote: bassNote, rootMidi: rootMidiAbs, functionLabel: `Grau ${chordConfig.d+1}`, voicing: displayVoicing, beats: 4 });
+                        progressionData.push({ 
+                            chordName: chordName, 
+                            midiNotes: ledMidiNotes, 
+                            bassNote: bassNote, 
+                            rootMidi: rootMidiAbs, 
+                            functionLabel: `Grau ${chordConfig.d+1}`, 
+                            voicing: displayVoicing, 
+                            beats: 4 
+                        });
                     }
                 }
 
