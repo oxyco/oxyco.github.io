@@ -4,58 +4,61 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OXYLABZ | Ferramentas</title>
-    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Script Global de Tradução -->
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="js/global.js"></script>
-
     <style>
-        /* Paleta Original OXYLABZ */
         :root {
-            --bg-main: #13111c; 
-            --bg-card: #1c1a27;
-            --bg-card-hover: #242136;
-            --text-primary: #f8fafc;
-            --text-secondary: #a39eb5;
-            --accent: #a78bfa; 
-            --accent-glow: rgba(167, 139, 250, 0.25);
-            --border: #35314d;
-            --badge-hot-bg: rgba(248, 81, 73, 0.15);
-            --badge-hot-text: #ff7b72;
-            --badge-new-bg: rgba(167, 139, 250, 0.15);
-            --badge-new-text: #c4b5fd;
+            --bg-main: #F8F5FF; --bg-card: #FFFFFF; --bg-card-hover: #F0E6FF;
+            --text-primary: #2B1B3D; --text-secondary: #7B6B8D;
+            --accent: #7B2CBF; --accent-glow: rgba(123, 44, 191, 0.25);
+            --border: #E0D4F5;
+            --badge-hot-bg: rgba(248, 81, 73, 0.15); --badge-hot-text: #dc2626;
+            --badge-new-bg: rgba(123, 44, 191, 0.15); --badge-new-text: #7B2CBF;
         }
 
-        body { font-family: 'Inter', sans-serif; background-color: var(--bg-main); color: var(--text-primary); margin: 0; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
-        .navbar { width: 100%; padding: 16px 40px; box-sizing: border-box; display: flex; justify-content: flex-end; align-items: center; gap: 24px; border-bottom: 1px solid var(--border); background: rgba(19, 17, 28, 0.85); backdrop-filter: blur(12px); position: sticky; top: 0; z-index: 100; }
-        .social-link { display: flex; align-items: center; gap: 8px; color: var(--text-secondary); text-decoration: none; font-size: 14px; font-weight: 600; transition: color 0.2s; }
+        body { font-family: 'Inter', sans-serif; background-color: var(--bg-main); color: var(--text-primary); margin: 0; padding: 0; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
+        
+        .navbar { 
+            width: 100%; padding: 16px 40px; box-sizing: border-box; display: flex; justify-content: space-between; align-items: center; 
+            border-bottom: 1px solid var(--border); background: rgba(248, 245, 255, 0.85); backdrop-filter: blur(12px); position: sticky; top: 0; z-index: 100; 
+        }
+        
+        .social-group { display: flex; flex-direction: row; gap: 20px; align-items: center; justify-content: center; flex-wrap: nowrap; }
+        
+        .social-link { display: flex; align-items: center; gap: 8px; color: var(--text-secondary); text-decoration: none; font-size: 14px; font-weight: 600; transition: color 0.2s; white-space: nowrap; }
         .social-link:hover { color: var(--accent); }
         .social-link svg { fill: currentColor; width: 20px; height: 20px; }
+        
         .lang-selector { background: var(--bg-card); border: 1px solid var(--border); color: var(--text-primary); padding: 8px 16px; border-radius: 6px; font-size: 14px; font-weight: 500; cursor: pointer; }
         .hero { text-align: center; padding: 80px 20px 60px; max-width: 800px; width: 100%; }
-        .hero h1 { font-size: 3rem; font-weight: 700; margin: 0 0 16px 0; letter-spacing: -1px; background: linear-gradient(180deg, #ffffff 0%, var(--text-secondary) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero h1 { font-size: 3rem; font-weight: 700; margin: 0 0 16px 0; letter-spacing: -1px; background: linear-gradient(180deg, var(--accent) 0%, var(--text-secondary) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .hero p { font-size: 1.15rem; color: var(--text-secondary); margin: 0; line-height: 1.6; }
         .container { max-width: 1000px; width: 100%; padding: 0 20px 80px; box-sizing: border-box; }
         .apps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; }
         .app-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 32px; text-decoration: none; color: inherit; transition: 0.2s; display: flex; flex-direction: column; align-items: flex-start; }
-        .app-card:hover { background: var(--bg-card-hover); transform: translateY(-4px); border-color: var(--accent); box-shadow: 0 12px 24px rgba(0,0,0, 0.25); }
-        .icon-wrapper { background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: 10px; width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; font-size: 26px; margin-bottom: 24px; }
+        .app-card:hover { background: var(--bg-card-hover); transform: translateY(-4px); border-color: var(--accent); box-shadow: 0 12px 24px rgba(123,44,191,0.1); }
+        .icon-wrapper { background: rgba(123,44,191,0.05); border: 1px solid var(--border); border-radius: 10px; width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; font-size: 26px; margin-bottom: 24px; }
         .app-card:hover .icon-wrapper { background: var(--accent-glow); border-color: var(--accent); }
-        .app-card h2 { margin: 0 0 12px 0; font-size: 1.25rem; font-weight: 600; color: #ffffff; }
+        .app-card h2 { margin: 0 0 12px 0; font-size: 1.25rem; font-weight: 600; color: var(--text-primary); }
         .app-card p { color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6; margin: 0; }
-        .app-card.featured { grid-column: 1 / -1; flex-direction: row; align-items: center; background: linear-gradient(145deg, var(--bg-card) 0%, rgba(167, 139, 250, 0.04) 100%); border: 1px solid rgba(167, 139, 250, 0.15); }
-        .app-card.featured .icon-wrapper { width: 80px; height: 80px; font-size: 38px; margin-bottom: 0; margin-right: 32px; flex-shrink: 0; }
+        
+        .app-card.featured { grid-column: 1 / -1; flex-direction: row; align-items: center; background: linear-gradient(145deg, var(--bg-card) 0%, rgba(123, 44, 191, 0.04) 100%); border: 1px solid rgba(123, 44, 191, 0.15); }
+        .app-card.featured .icon-wrapper { width: 80px; height: 80px; font-size: 38px; margin-bottom: 0; margin-right: 32px; flex-shrink: 0; background: rgba(123, 44, 191, 0.05); border-color: rgba(123, 44, 191, 0.2); }
+        
         .badge { position: absolute; top: 24px; right: 24px; padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; }
-        .badge.hot { background: var(--badge-hot-bg); color: var(--badge-hot-text); }
-        .badge.new { background: var(--badge-new-bg); color: var(--badge-new-text); }
-        @media (max-width: 768px) { .app-card.featured { flex-direction: column; align-items: flex-start; } .app-card.featured .icon-wrapper { margin-right: 0; margin-bottom: 24px; } .navbar { flex-direction: column-reverse; gap: 16px; } }
+        .badge.hot { background: var(--badge-hot-bg); color: var(--badge-hot-text); border: 1px solid var(--badge-hot-border); }
+        .badge.new { background: var(--badge-new-bg); color: var(--badge-new-text); border: 1px solid var(--badge-new-border); }
+        
+        @media (max-width: 768px) { 
+            .app-card.featured { flex-direction: column; align-items: flex-start; } 
+            .app-card.featured .icon-wrapper { margin-right: 0; margin-bottom: 24px; } 
+            .navbar { flex-direction: column; gap: 16px; align-items: center; justify-content: center; } 
+        }
     </style>
 </head>
 <body>
-
     <nav class="navbar">
         <div class="social-group">
             <a href="https://github.com/oxyco" target="_blank" class="social-link" title="GitHub">
@@ -74,28 +77,24 @@
 
     <header class="hero">
         <h1>OXYLABZ TOOLS</h1>
-        <p data-i18n="subtitle">Eletrônica | Áudio | IA</p>
+        <p data-i18n="subtitle">Eletrônica | Áudio</p>
     </header>
 
     <main class="container">
         <div class="apps-grid">
-            <a href="./mini-prompts/index.html" class="app-card featured">
+            
+            <!-- 1. Calculadora (Em destaque) -->
+            <a href="calculadora/index.html" class="app-card featured">
                 <span class="badge hot" data-i18n="badge_hot">Em Alta</span>
-                <div class="icon-wrapper">✨</div>
-                <div>
-                    <h2 data-i18n="app0_title">Mini Prompts</h2>
-                    <p data-i18n="app0_desc">Biblioteca de prompts rápidos e visuais para ChatGPT e Gemini. Clique para copiar ou enviar direto para a IA e fazer transformações incríveis.</p>
-                </div>
-            </a>
-            <a href="./calculadora/index.html" class="app-card">
-                <span class="badge new" data-i18n="badge_new">Ferramenta</span>
                 <div class="icon-wrapper">⚡</div>
                 <div>
                     <h2 data-i18n="app1_title">Calculadora de Resistores</h2>
-                    <p data-i18n="app1_desc">Identifique valores, simule tolerâncias, verifique coeficientes de temperatura e gere guias visuais em PNG de alta resolução.</p>
+                    <p data-i18n="app1_desc">Identifique valores, simule tolerâncias, verifique coeficientes de temperatura e gere guias visuais em PNG.</p>
                 </div>
             </a>
-            <a href="./acordes/index.html" class="app-card">
+            
+            <!-- 2. Acordes -->
+            <a href="acordes/index.html" class="app-card">
                 <span class="badge new" data-i18n="badge_new">Ferramenta</span>
                 <div class="icon-wrapper">🎹</div>
                 <div>
@@ -103,28 +102,39 @@
                     <p data-i18n="app2_desc">Crie e exporte progressões harmônicas rapidamente para integrar no seu software de produção de áudio.</p>
                 </div>
             </a>
+
+            <!-- 3. Mini Prompts -->
+            <a href="mini-prompts/index.html" class="app-card">
+                <span class="badge new" data-i18n="badge_prompt">Secreto</span>
+                <div class="icon-wrapper">✨</div>
+                <div>
+                    <h2 data-i18n="app0_title">Mini Prompts (Tema Tetê)</h2>
+                    <p data-i18n="app0_desc">Biblioteca de prompts rápidos e visuais para ChatGPT e Gemini. Clique para copiar ou enviar direto para a IA.</p>
+                </div>
+            </a>
+
         </div>
     </main>
 
     <script>
         const i18n = {
             pt: {
-                subtitle: "Eletrônica | Áudio | IA", badge_hot: "Em Alta", badge_new: "Ferramenta",
-                app0_title: "Mini Prompts", app0_desc: "Biblioteca de prompts rápidos e visuais para ChatGPT e Gemini. Clique para copiar ou enviar direto para a IA.",
+                subtitle: "Eletrônica | Áudio | IA", badge_hot: "Em Alta", badge_new: "Ferramenta", badge_prompt: "Secreto",
                 app1_title: "Calculadora de Resistores", app1_desc: "Identifique valores, simule tolerâncias, verifique coeficientes de temperatura e gere guias visuais em PNG.",
-                app2_title: "Gerador de Acordes", app2_desc: "Crie e exporte progressões harmônicas rapidamente via arquivo MIDI."
+                app2_title: "Gerador de Acordes", app2_desc: "Crie e exporte progressões harmônicas rapidamente via arquivo MIDI.",
+                app0_title: "Mini Prompts (Tema Tetê)", app0_desc: "Biblioteca secreta de prompts rápidos e visuais para ChatGPT e Gemini. Clique para copiar ou enviar direto."
             },
             en: {
-                subtitle: "Electronics | Audio | AI", badge_hot: "Trending", badge_new: "Tool",
-                app0_title: "Mini Prompts", app0_desc: "Visual prompt library for ChatGPT and Gemini. Click to copy or send directly to the AI.",
+                subtitle: "Electronics | Audio | AI", badge_hot: "Trending", badge_new: "Tool", badge_prompt: "Secret",
                 app1_title: "Resistor Calculator", app1_desc: "Identify values, simulate tolerances, check temp coefficients, and generate high-res PNG visual guides.",
-                app2_title: "Chord Generator", app2_desc: "Quickly create and export harmonic progressions via MIDI."
+                app2_title: "Chord Generator", app2_desc: "Quickly create and export harmonic progressions via MIDI.",
+                app0_title: "Mini Prompts (Tetê Theme)", app0_desc: "Secret visual prompt library for ChatGPT and Gemini. Click to copy or send directly."
             },
             es: {
-                subtitle: "Electrónica | Audio | IA", badge_hot: "Tendencia", badge_new: "Herramienta",
-                app0_title: "Mini Prompts", app0_desc: "Biblioteca de prompts visuales para ChatGPT y Gemini. Haz clic para copiar o enviar directo a la IA.",
+                subtitle: "Electrónica | Audio | IA", badge_hot: "Tendencia", badge_new: "Herramienta", badge_prompt: "Secreto",
                 app1_title: "Calculadora de Resistencias", app1_desc: "Identifica valores, simula tolerancias, verifica coeficientes de temperatura y genera guías visuales PNG.",
-                app2_title: "Generador de Acordes", app2_desc: "Crea y exporta progresiones armónicas rápidamente vía MIDI."
+                app2_title: "Generador de Acordes", app2_desc: "Crea y exporta progresiones armónicas rápidamente vía MIDI.",
+                app0_title: "Mini Prompts (Tema Tetê)", app0_desc: "Biblioteca secreta de prompts visuales para ChatGPT y Gemini. Haz clic para copiar o enviar directo."
             }
         };
 
