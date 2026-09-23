@@ -3,38 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <title>CALCULADORA DE RESISTORES</title>
-    <!-- Cérebro Global de Tradução -->
     <script src="../js/global.js"></script>
     <style>
-        body { font-family: Arial, sans-serif; background: #0f172a; color: #f8fafc; text-align: center; padding: 20px; margin: 0; padding-bottom: 80px; }
-        .container { background: #1e293b; padding: 30px; border-radius: 12px; max-width: 900px; margin: auto; box-shadow: 0 10px 25px rgba(0,0,0,0.5); position: relative; }
+        body { font-family: Arial, sans-serif; background: #0f172a; color: #f8fafc; text-align: center; padding: 20px; padding-bottom: 80px; margin: 0; }
+        .container { background: #1e293b; padding: 30px; border-radius: 12px; max-width: 900px; margin: auto; box-shadow: 0 10px 25px rgba(0,0,0,0.5); }
         .band-selector { margin-bottom: 25px; background: #334155; padding: 15px; border-radius: 8px; display: inline-block; }
         .band-selector label { font-weight: bold; font-size: 16px; margin: 0 15px; cursor: pointer; color: #bae6fd; }
-        .band-selector input[type="radio"] { transform: scale(1.2); margin-right: 5px; }
         .resistor-display { margin: 20px 0 40px 0; display: flex; justify-content: center; }
         .controls { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; text-align: left; }
         .control-group { display: flex; flex-direction: column; }
         .control-group label { font-weight: bold; font-size: 14px; color: #94a3b8; margin-bottom: 5px; }
-        select { width: 100%; padding: 10px; border-radius: 6px; border: none; background: #0f172a; color: white; font-size: 15px; outline: none; border: 1px solid #475569; }
+        select { padding: 10px; border-radius: 6px; background: #0f172a; color: white; border: 1px solid #475569; font-size: 15px; outline: none; }
         .results { margin-top: 30px; padding: 25px; background: #0f172a; border-radius: 8px; border: 1px solid #334155; }
         .results h2 { margin: 0 0 5px 0; color: #38bdf8; font-size: 28px; }
-        .ppm-result { color: #94a3b8; font-size: 16px; margin-bottom: 15px; min-height: 20px; }
-        .ohmmeter-btn { background: #10b981; color: white; border: none; padding: 12px 24px; border-radius: 6px; font-size: 16px; cursor: pointer; margin-top: 10px; font-weight: bold; width: 100%; transition: background 0.2s; }
-        .ohmmeter-btn:hover { background: #059669; }
+        .ohmmeter-btn { background: #10b981; color: white; padding: 12px; border-radius: 6px; cursor: pointer; width: 100%; border: none; font-weight: bold; margin-top:10px; font-size: 16px;}
         #ohmmeter-display { font-family: monospace; font-size: 24px; color: #a7f3d0; margin-top: 15px; background: #022c22; padding: 10px; border-radius: 6px; border: 1px solid #047857; }
+        .nav-back { display: inline-block; margin-bottom: 20px; color: #38bdf8; text-decoration: none; font-weight: bold; font-size: 16px; text-align: left; width: 100%;}
         .download-section { margin-top: 50px; padding-top: 30px; border-top: 2px dashed #334155; }
         .download-section h3 { color: #cbd5e1; margin-bottom: 20px; font-size: 22px; }
         .guide-preview { max-width: 100%; margin: 0 auto 20px auto; background: #f8fafc; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.6); border: 2px solid #475569; }
-        .download-btn { display: inline-block; background: #0284c7; color: white; border: none; padding: 14px 28px; border-radius: 6px; font-weight: bold; font-size: 16px; transition: background 0.2s; cursor: pointer; box-shadow: 0 4px 12px rgba(2,132,199,0.4); }
-        .download-btn:hover { background: #0369a1; }
-        
-        .github-link { display: inline-flex; align-items: center; gap: 8px; color: #94a3b8; text-decoration: none; font-weight: bold; font-size: 16px; transition: color 0.2s; margin-top: 25px; }
-        .github-link:hover { color: #38bdf8; }
-        .nav-back { display: inline-block; margin-bottom: 20px; color: #38bdf8; text-decoration: none; font-weight: bold; font-size: 16px; text-align: left; width: 100%;}
+        .download-btn { display: inline-block; background: #0284c7; color: white; border: none; padding: 14px 28px; border-radius: 6px; font-weight: bold; font-size: 16px; cursor: pointer; }
     </style>
 </head>
 <body>
-
 <div class="container">
     <a href="../index.html" class="nav-back" data-i18n="back">← Voltar / Back</a>
     <h1 data-i18n="calc_title">CALCULADORA DE RESISTORES</h1>
@@ -44,11 +35,10 @@
         <label><input type="radio" name="bandCount" value="5" onchange="updateMode()"> <span data-i18n="b5">5 Faixas</span></label>
         <label><input type="radio" name="bandCount" value="6" onchange="updateMode()"> <span data-i18n="b6">6 Faixas</span></label>
     </div>
+    
     <div class="resistor-display">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 100" width="100%" height="100">
-            <defs>
-                <clipPath id="body-clip"><rect x="91" y="16" width="218" height="68" rx="19"/></clipPath>
-            </defs>
+            <defs><clipPath id="body-clip"><rect x="91" y="16" width="218" height="68" rx="19"/></clipPath></defs>
             <line x1="20" y1="50" x2="380" y2="50" stroke="#64748b" stroke-width="8"/>
             <rect x="90" y="15" width="220" height="70" rx="20" fill="#fcd34d" stroke="#d97706" stroke-width="2"/>
             <g clip-path="url(#body-clip)">
@@ -61,94 +51,68 @@
             </g>
         </svg>
     </div>
-    
+
     <div class="controls">
         <div class="control-group">
             <label data-i18n="l_d1">1º Dígito</label>
             <select id="sel-d1" onchange="calculate()">
-                <optgroup label="PMV (0, 1, 2)">
-                    <option value="0" data-color="#18181b" data-color-name="black">Preto (0)</option>
-                    <option value="1" data-color="#78350f" data-color-name="brown" selected>Marrom (1)</option>
-                    <option value="2" data-color="#dc2626" data-color-name="red">Vermelho (2)</option>
-                </optgroup>
-                <optgroup label="LAVA (3, 4, 5, 6)">
-                    <option value="3" data-color="#ea580c" data-color-name="orange">Laranja (3)</option>
-                    <option value="4" data-color="#eab308" data-color-name="yellow">Amarelo (4)</option>
-                    <option value="5" data-color="#16a34a" data-color-name="green">Verde (5)</option>
-                    <option value="6" data-color="#2563eb" data-color-name="blue">Azul (6)</option>
-                </optgroup>
-                <optgroup label="RCB (7, 8, 9)">
-                    <option value="7" data-color="#7e22ce" data-color-name="purple">Roxo (7)</option>
-                    <option value="8" data-color="#64748b" data-color-name="gray">Cinza (8)</option>
-                    <option value="9" data-color="#ffffff" data-color-name="white">Branco (9)</option>
-                </optgroup>
+                <option value="0" data-color="#18181b" data-color-name="black">Preto (0)</option>
+                <option value="1" data-color="#78350f" data-color-name="brown" selected>Marrom (1)</option>
+                <option value="2" data-color="#dc2626" data-color-name="red">Vermelho (2)</option>
+                <option value="3" data-color="#ea580c" data-color-name="orange">Laranja (3)</option>
+                <option value="4" data-color="#eab308" data-color-name="yellow">Amarelo (4)</option>
+                <option value="5" data-color="#16a34a" data-color-name="green">Verde (5)</option>
+                <option value="6" data-color="#2563eb" data-color-name="blue">Azul (6)</option>
+                <option value="7" data-color="#7e22ce" data-color-name="purple">Roxo (7)</option>
+                <option value="8" data-color="#64748b" data-color-name="gray">Cinza (8)</option>
+                <option value="9" data-color="#ffffff" data-color-name="white">Branco (9)</option>
             </select>
         </div>
         <div class="control-group">
             <label data-i18n="l_d2">2º Dígito</label>
             <select id="sel-d2" onchange="calculate()">
-                <optgroup label="PMV (0, 1, 2)">
-                    <option value="0" data-color="#18181b" data-color-name="black" selected>Preto (0)</option>
-                    <option value="1" data-color="#78350f" data-color-name="brown">Marrom (1)</option>
-                    <option value="2" data-color="#dc2626" data-color-name="red">Vermelho (2)</option>
-                </optgroup>
-                <optgroup label="LAVA (3, 4, 5, 6)">
-                    <option value="3" data-color="#ea580c" data-color-name="orange">Laranja (3)</option>
-                    <option value="4" data-color="#eab308" data-color-name="yellow">Amarelo (4)</option>
-                    <option value="5" data-color="#16a34a" data-color-name="green">Verde (5)</option>
-                    <option value="6" data-color="#2563eb" data-color-name="blue">Azul (6)</option>
-                </optgroup>
-                <optgroup label="RCB (7, 8, 9)">
-                    <option value="7" data-color="#7e22ce" data-color-name="purple">Roxo (7)</option>
-                    <option value="8" data-color="#64748b" data-color-name="gray">Cinza (8)</option>
-                    <option value="9" data-color="#ffffff" data-color-name="white">Branco (9)</option>
-                </optgroup>
+                <option value="0" data-color="#18181b" data-color-name="black" selected>Preto (0)</option>
+                <option value="1" data-color="#78350f" data-color-name="brown">Marrom (1)</option>
+                <option value="2" data-color="#dc2626" data-color-name="red">Vermelho (2)</option>
+                <option value="3" data-color="#ea580c" data-color-name="orange">Laranja (3)</option>
+                <option value="4" data-color="#eab308" data-color-name="yellow">Amarelo (4)</option>
+                <option value="5" data-color="#16a34a" data-color-name="green">Verde (5)</option>
+                <option value="6" data-color="#2563eb" data-color-name="blue">Azul (6)</option>
+                <option value="7" data-color="#7e22ce" data-color-name="purple">Roxo (7)</option>
+                <option value="8" data-color="#64748b" data-color-name="gray">Cinza (8)</option>
+                <option value="9" data-color="#ffffff" data-color-name="white">Branco (9)</option>
             </select>
         </div>
         <div class="control-group" id="container-d3" style="display: none;">
             <label data-i18n="l_d3">3º Dígito</label>
             <select id="sel-d3" onchange="calculate()">
-                <optgroup label="PMV (0, 1, 2)">
-                    <option value="0" data-color="#18181b" data-color-name="black" selected>Preto (0)</option>
-                    <option value="1" data-color="#78350f" data-color-name="brown">Marrom (1)</option>
-                    <option value="2" data-color="#dc2626" data-color-name="red">Vermelho (2)</option>
-                </optgroup>
-                <optgroup label="LAVA (3, 4, 5, 6)">
-                    <option value="3" data-color="#ea580c" data-color-name="orange">Laranja (3)</option>
-                    <option value="4" data-color="#eab308" data-color-name="yellow">Amarelo (4)</option>
-                    <option value="5" data-color="#16a34a" data-color-name="green">Verde (5)</option>
-                    <option value="6" data-color="#2563eb" data-color-name="blue">Azul (6)</option>
-                </optgroup>
-                <optgroup label="RCB (7, 8, 9)">
-                    <option value="7" data-color="#7e22ce" data-color-name="purple">Roxo (7)</option>
-                    <option value="8" data-color="#64748b" data-color-name="gray">Cinza (8)</option>
-                    <option value="9" data-color="#ffffff" data-color-name="white">Branco (9)</option>
-                </optgroup>
+                <option value="0" data-color="#18181b" data-color-name="black" selected>Preto (0)</option>
+                <option value="1" data-color="#78350f" data-color-name="brown">Marrom (1)</option>
+                <option value="2" data-color="#dc2626" data-color-name="red">Vermelho (2)</option>
+                <option value="3" data-color="#ea580c" data-color-name="orange">Laranja (3)</option>
+                <option value="4" data-color="#eab308" data-color-name="yellow">Amarelo (4)</option>
+                <option value="5" data-color="#16a34a" data-color-name="green">Verde (5)</option>
+                <option value="6" data-color="#2563eb" data-color-name="blue">Azul (6)</option>
+                <option value="7" data-color="#7e22ce" data-color-name="purple">Roxo (7)</option>
+                <option value="8" data-color="#64748b" data-color-name="gray">Cinza (8)</option>
+                <option value="9" data-color="#ffffff" data-color-name="white">Branco (9)</option>
             </select>
         </div>
         <div class="control-group">
             <label data-i18n="l_mul">Multiplicador</label>
             <select id="sel-mul" onchange="calculate()">
-                <optgroup label="PMV">
-                    <option value="1" data-color="#18181b" data-color-name="black">Preto (x1)</option>
-                    <option value="10" data-color="#78350f" data-color-name="brown">Marrom (x10)</option>
-                    <option value="100" data-color="#dc2626" data-color-name="red" selected>Vermelho (x100)</option>
-                </optgroup>
-                <optgroup label="LAVA">
-                    <option value="1000" data-color="#ea580c" data-color-name="orange">Laranja (x1k)</option>
-                    <option value="10000" data-color="#eab308" data-color-name="yellow">Amarelo (x10k)</option>
-                    <option value="100000" data-color="#16a34a" data-color-name="green">Verde (x100k)</option>
-                    <option value="1000000" data-color="#2563eb" data-color-name="blue">Azul (x1M)</option>
-                </optgroup>
-                <optgroup label="RCB">
-                    <option value="10000000" data-color="#7e22ce" data-color-name="purple">Roxo (x10M)</option>
-                    <option value="100000000" data-color="#64748b" data-color-name="gray">Cinza (x100M)</option>
-                    <option value="1000000000" data-color="#ffffff" data-color-name="white">Branco (x1G)</option>
-                </optgroup>
-                <optgroup label="Especiais">
-                    <option value="0.1" data-color="#d97706" data-color-name="gold">Ouro (x0.1)</option>
-                    <option value="0.01" data-color="#94a3b8" data-color-name="silver">Prata (x0.01)</option>
-                </optgroup>
+                <option value="1" data-color="#18181b" data-color-name="black">Preto (x1)</option>
+                <option value="10" data-color="#78350f" data-color-name="brown">Marrom (x10)</option>
+                <option value="100" data-color="#dc2626" data-color-name="red" selected>Vermelho (x100)</option>
+                <option value="1000" data-color="#ea580c" data-color-name="orange">Laranja (x1k)</option>
+                <option value="10000" data-color="#eab308" data-color-name="yellow">Amarelo (x10k)</option>
+                <option value="100000" data-color="#16a34a" data-color-name="green">Verde (x100k)</option>
+                <option value="1000000" data-color="#2563eb" data-color-name="blue">Azul (x1M)</option>
+                <option value="10000000" data-color="#7e22ce" data-color-name="purple">Roxo (x10M)</option>
+                <option value="100000000" data-color="#64748b" data-color-name="gray">Cinza (x100M)</option>
+                <option value="1000000000" data-color="#ffffff" data-color-name="white">Branco (x1G)</option>
+                <option value="0.1" data-color="#d97706" data-color-name="gold">Ouro (x0.1)</option>
+                <option value="0.01" data-color="#94a3b8" data-color-name="silver">Prata (x0.01)</option>
             </select>
         </div>
         <div class="control-group">
@@ -176,15 +140,16 @@
             </select>
         </div>
     </div>
+    
     <div class="results">
         <h2><span id="nominal-value">1 kΩ</span> <span id="tolerance-value">±5%</span></h2>
-        <div class="ppm-result" id="ppm-display"></div>
+        <div id="ppm-display" style="color:#94a3b8; margin-bottom: 10px; min-height: 20px;"></div>
         <button class="ohmmeter-btn" onclick="simulateOhmmeter()" data-i18n="btn_sim">Simular Leitura no Ohmímetro</button>
         <div id="ohmmeter-display">--- Ω</div>
     </div>
 
     <div class="download-section">
-        <h3 data-i18n="guide_title">Guia Visual de Resistores (PMV LAVA RCB)</h3>
+        <h3 data-i18n="guide_title">Guia Visual de Resistores</h3>
         <div class="guide-preview">
             <svg id="resistorSvg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 630" width="100%" height="auto" style="background:#f8fafc; font-family:Arial, Helvetica, sans-serif; display:block;">
               <rect x="120" y="12" width="760" height="42" rx="8" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
@@ -324,62 +289,31 @@
               <text x="842" y="527" text-anchor="middle" font-size="10" fill="#64748b">(Resistores de 5ª Bandas)</text>
               <text x="842" y="555" text-anchor="middle" font-size="14" font-weight="bold" fill="#78350f">MARROM (±1%)</text>
               <text x="842" y="582" text-anchor="middle" font-size="14" font-weight="bold" fill="#dc2626">VERMELHO (±2%)</text>
-              
-              <g transform="translate(870, 595)">
-                <text x="25" y="15" font-family="Arial" font-size="15" font-weight="bold" fill="#64748b">/oxyco</text>
-              </g>
+              <g transform="translate(870, 595)"><text x="25" y="15" font-family="Arial" font-size="15" font-weight="bold" fill="#64748b">/oxyco</text></g>
             </svg>
         </div>
-        
         <button id="btnDownloadGuia" class="download-btn" data-i18n="btn_dl">📥 Baixar Guia em Alta Resolução (PNG)</button>
-        <br>
-        <a href="https://github.com/oxyco" target="_blank" class="github-link">
-            <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-            /oxyco
-        </a>
     </div>
 </div>
 
 <script>
     const i18n = {
-        pt: { 
-            back: "← Voltar", calc_title: "CALCULADORA DE RESISTORES", b4: "4 Faixas", b5: "5 Faixas", b6: "6 Faixas", 
-            l_d1: "1º Dígito", l_d2: "2º Dígito", l_d3: "3º Dígito", l_mul: "Multiplicador", l_tol: "Tolerância", l_ppm: "Coef. Temp. (PPM)", 
-            btn_sim: "Simular Leitura no Ohmímetro", guide_title: "Guia Visual de Resistores (PMV LAVA RCB)", btn_dl: "📥 Baixar Guia em Alta Resolução (PNG)"
-        },
-        en: { 
-            back: "← Back", calc_title: "RESISTOR CALCULATOR", b4: "4 Bands", b5: "5 Bands", b6: "6 Bands", 
-            l_d1: "1st Digit", l_d2: "2nd Digit", l_d3: "3rd Digit", l_mul: "Multiplier", l_tol: "Tolerance", l_ppm: "Temp. Coeff. (PPM)", 
-            btn_sim: "Simulate Ohmmeter Reading", guide_title: "Visual Resistor Guide (PMV LAVA RCB)", btn_dl: "📥 Download High-Res Guide (PNG)"
-        },
-        es: { 
-            back: "← Volver", calc_title: "CALCULADORA DE RESISTENCIAS", b4: "4 Bandas", b5: "5 Bandas", b6: "6 Bandas", 
-            l_d1: "1er Dígito", l_d2: "2do Dígito", l_d3: "3er Dígito", l_mul: "Multiplicador", l_tol: "Tolerancia", l_ppm: "Coef. Temp. (PPM)", 
-            btn_sim: "Simular Lectura de Óhmetro", guide_title: "Guía Visual de Resistencias (PMV LAVA RCB)", btn_dl: "📥 Descargar Guía en Alta Resolución (PNG)"
-        }
+        pt: { back: "← Voltar", calc_title: "CALCULADORA DE RESISTORES", b4: "4 Faixas", b5: "5 Faixas", b6: "6 Faixas", l_d1: "1º Dígito", l_d2: "2º Dígito", l_d3: "3º Dígito", l_mul: "Multiplicador", l_tol: "Tolerância", l_ppm: "Coef. Temp. (PPM)", btn_sim: "Simular Leitura no Ohmímetro", guide_title: "Guia Visual de Resistores", btn_dl: "📥 Baixar Guia em Alta Resolução (PNG)" },
+        en: { back: "← Back", calc_title: "RESISTOR CALCULATOR", b4: "4 Bands", b5: "5 Bands", b6: "6 Bands", l_d1: "1st Digit", l_d2: "2nd Digit", l_d3: "3rd Digit", l_mul: "Multiplier", l_tol: "Tolerance", l_ppm: "Temp. Coeff. (PPM)", btn_sim: "Simulate Ohmmeter Reading", guide_title: "Visual Resistor Guide", btn_dl: "📥 Download High-Res Guide (PNG)" },
+        es: { back: "← Volver", calc_title: "CALCULADORA DE RESISTENCIAS", b4: "4 Bandas", b5: "5 Bandas", b6: "6 Bandas", l_d1: "1er Dígito", l_d2: "2do Dígito", l_d3: "3er Dígito", l_mul: "Multiplicador", l_tol: "Tolerancia", l_ppm: "Coef. Temp. (PPM)", btn_sim: "Simular Lectura de Óhmetro", guide_title: "Guía Visual de Resistencias", btn_dl: "📥 Descargar Guía en Alta Resolución (PNG)" }
     };
-
     const colorI18n = {
-        black: { pt: "Preto", en: "Black", es: "Negro" },
-        brown: { pt: "Marrom", en: "Brown", es: "Marrón" },
-        red: { pt: "Vermelho", en: "Red", es: "Rojo" },
-        orange: { pt: "Laranja", en: "Orange", es: "Naranja" },
-        yellow: { pt: "Amarelo", en: "Yellow", es: "Amarillo" },
-        green: { pt: "Verde", en: "Green", es: "Verde" },
-        blue: { pt: "Azul", en: "Blue", es: "Azul" },
-        purple: { pt: "Roxo", en: "Purple", es: "Morado" },
-        gray: { pt: "Cinza", en: "Gray", es: "Gris" },
-        white: { pt: "Branco", en: "White", es: "Blanco" },
-        gold: { pt: "Ouro", en: "Gold", es: "Oro" },
-        silver: { pt: "Prata", en: "Silver", es: "Plata" }
+        black: { pt: "Preto", en: "Black", es: "Negro" }, brown: { pt: "Marrom", en: "Brown", es: "Marrón" },
+        red: { pt: "Vermelho", en: "Red", es: "Rojo" }, orange: { pt: "Laranja", en: "Orange", es: "Naranja" },
+        yellow: { pt: "Amarelo", en: "Yellow", es: "Amarillo" }, green: { pt: "Verde", en: "Green", es: "Verde" },
+        blue: { pt: "Azul", en: "Blue", es: "Azul" }, purple: { pt: "Roxo", en: "Purple", es: "Morado" },
+        gray: { pt: "Cinza", en: "Gray", es: "Gris" }, white: { pt: "Branco", en: "White", es: "Blanco" },
+        gold: { pt: "Ouro", en: "Gold", es: "Oro" }, silver: { pt: "Prata", en: "Silver", es: "Plata" }
     };
 
     function applyLang() {
         const lang = getGlobalLang();
-        document.querySelectorAll('[data-i18n]').forEach(el => { 
-            if(i18n[lang][el.getAttribute('data-i18n')]) el.innerText = i18n[lang][el.getAttribute('data-i18n')]; 
-        });
-
+        document.querySelectorAll('[data-i18n]').forEach(el => { if(i18n[lang][el.getAttribute('data-i18n')]) el.innerText = i18n[lang][el.getAttribute('data-i18n')]; });
         document.querySelectorAll('select option').forEach(opt => {
             const colorName = opt.getAttribute('data-color-name');
             if (colorName && colorI18n[colorName] && colorI18n[colorName][lang]) {
@@ -390,71 +324,64 @@
         });
         calculate(); 
     }
-
     window.addEventListener('idiomaMudou', applyLang);
     document.addEventListener('DOMContentLoaded', () => { applyLang(); updateMode(); });
 
     let currentResistance = 1000;
     let currentTolerance = 5;
     let currentBands = 4;
+    
     function updateMode() {
         const radios = document.getElementsByName('bandCount');
         for (let radio of radios) { if (radio.checked) { currentBands = parseInt(radio.value); break; } }
-        const d3Container = document.getElementById('container-d3');
-        const ppmContainer = document.getElementById('container-ppm');
-        const svgB1 = document.getElementById('svg-b1');
-        const svgB2 = document.getElementById('svg-b2');
-        const svgB3 = document.getElementById('svg-b3');
-        const svgMul = document.getElementById('svg-mul');
-        const svgTol = document.getElementById('svg-tol');
-        const svgPpm = document.getElementById('svg-ppm');
-
+        document.getElementById('container-d3').style.display = currentBands >= 5 ? 'flex' : 'none';
+        document.getElementById('container-ppm').style.display = currentBands === 6 ? 'flex' : 'none';
+        document.getElementById('svg-b3').setAttribute('display', currentBands >= 5 ? 'block' : 'none');
+        document.getElementById('svg-ppm').setAttribute('display', currentBands === 6 ? 'block' : 'none');
+        
         if (currentBands === 4) {
-            d3Container.style.display = 'none'; ppmContainer.style.display = 'none';
-            svgB1.setAttribute('x', '110'); svgB2.setAttribute('x', '160'); svgB3.setAttribute('display', 'none');
-            svgMul.setAttribute('x', '210'); svgTol.setAttribute('x', '270'); svgPpm.setAttribute('display', 'none');
+            document.getElementById('svg-b1').setAttribute('x', '110'); document.getElementById('svg-b2').setAttribute('x', '160');
+            document.getElementById('svg-mul').setAttribute('x', '210'); document.getElementById('svg-tol').setAttribute('x', '270');
         } else if (currentBands === 5) {
-            d3Container.style.display = 'flex'; ppmContainer.style.display = 'none';
-            svgB1.setAttribute('x', '105'); svgB2.setAttribute('x', '145'); svgB3.setAttribute('display', 'block');
-            svgB3.setAttribute('x', '185'); svgMul.setAttribute('x', '225'); svgTol.setAttribute('x', '275'); svgPpm.setAttribute('display', 'none');
+            document.getElementById('svg-b1').setAttribute('x', '105'); document.getElementById('svg-b2').setAttribute('x', '145');
+            document.getElementById('svg-b3').setAttribute('x', '185'); document.getElementById('svg-mul').setAttribute('x', '225');
+            document.getElementById('svg-tol').setAttribute('x', '275');
         } else if (currentBands === 6) {
-            d3Container.style.display = 'flex'; ppmContainer.style.display = 'flex';
-            svgB1.setAttribute('x', '100'); svgB2.setAttribute('x', '135'); svgB3.setAttribute('display', 'block');
-            svgB3.setAttribute('x', '170'); svgMul.setAttribute('x', '205'); svgTol.setAttribute('x', '240');
-            svgPpm.setAttribute('display', 'block'); svgPpm.setAttribute('x', '280');
+            document.getElementById('svg-b1').setAttribute('x', '100'); document.getElementById('svg-b2').setAttribute('x', '135');
+            document.getElementById('svg-b3').setAttribute('x', '170'); document.getElementById('svg-mul').setAttribute('x', '205');
+            document.getElementById('svg-tol').setAttribute('x', '240'); document.getElementById('svg-ppm').setAttribute('x', '280');
         }
         calculate();
     }
 
     function formatResistance(ohms) {
-        if (ohms >= 1000000000) return (ohms / 1000000000).toFixed(2).replace(/\.00$/, '') + ' GΩ';
-        if (ohms >= 1000000) return (ohms / 1000000).toFixed(2).replace(/\.00$/, '') + ' MΩ';
-        if (ohms >= 1000) return (ohms / 1000).toFixed(2).replace(/\.00$/, '') + ' kΩ';
+        if (ohms >= 1e9) return (ohms / 1e9).toFixed(2).replace(/\.00$/, '') + ' GΩ';
+        if (ohms >= 1e6) return (ohms / 1e6).toFixed(2).replace(/\.00$/, '') + ' MΩ';
+        if (ohms >= 1e3) return (ohms / 1e3).toFixed(2).replace(/\.00$/, '') + ' kΩ';
         return ohms.toFixed(2).replace(/\.00$/, '') + ' Ω';
     }
 
     function calculate() {
-        const b1 = document.getElementById("sel-d1"); const b2 = document.getElementById("sel-d2");
-        const b3 = document.getElementById("sel-d3"); const mul = document.getElementById("sel-mul");
-        const tol = document.getElementById("sel-tol"); const ppm = document.getElementById("sel-ppm");
+        const b1 = document.getElementById("sel-d1"); const b2 = document.getElementById("sel-d2"); const b3 = document.getElementById("sel-d3");
+        const mul = document.getElementById("sel-mul"); const tol = document.getElementById("sel-tol"); const ppm = document.getElementById("sel-ppm");
+        
         document.getElementById("svg-b1").setAttribute("fill", b1.options[b1.selectedIndex].dataset.color);
         document.getElementById("svg-b2").setAttribute("fill", b2.options[b2.selectedIndex].dataset.color);
         document.getElementById("svg-b3").setAttribute("fill", b3.options[b3.selectedIndex].dataset.color);
         document.getElementById("svg-mul").setAttribute("fill", mul.options[mul.selectedIndex].dataset.color);
         document.getElementById("svg-tol").setAttribute("fill", tol.options[tol.selectedIndex].dataset.color);
         document.getElementById("svg-ppm").setAttribute("fill", ppm.options[ppm.selectedIndex].dataset.color);
-        const d1_val = parseFloat(b1.value); const d2_val = parseFloat(b2.value);
-        const d3_val = parseFloat(b3.value); const mul_val = parseFloat(mul.value);
+        
+        const d1_val = parseFloat(b1.value); const d2_val = parseFloat(b2.value); const d3_val = parseFloat(b3.value); const mul_val = parseFloat(mul.value);
         currentTolerance = parseFloat(tol.value);
+        
         if (currentBands === 4) {
             currentResistance = ((d1_val * 10) + d2_val) * mul_val;
             document.getElementById("ppm-display").innerText = "";
         } else {
             currentResistance = ((d1_val * 100) + (d2_val * 10) + d3_val) * mul_val;
-            if (currentBands === 6) {
-                const ppmText = getGlobalLang() === 'pt' ? 'Coeficiente de Temperatura: ' : (getGlobalLang() === 'es' ? 'Coeficiente de Temperatura: ' : 'Temp. Coefficient: ');
-                document.getElementById("ppm-display").innerText = ppmText + ppm.value + " ppm/K";
-            } else document.getElementById("ppm-display").innerText = "";
+            const ppmText = getGlobalLang() === 'pt' ? 'Coeficiente: ' : (getGlobalLang() === 'es' ? 'Coeficiente: ' : 'Coeff: ');
+            document.getElementById("ppm-display").innerText = currentBands === 6 ? ppmText + ppm.value + " ppm/K" : "";
         }
         document.getElementById("nominal-value").innerText = formatResistance(currentResistance);
         document.getElementById("tolerance-value").innerText = "±" + currentTolerance + "%";
@@ -462,8 +389,7 @@
     }
 
     function simulateOhmmeter() {
-        const maxVariation = currentTolerance / 100;
-        const randomNoise = (Math.random() * 2 - 1) * maxVariation; 
+        const randomNoise = (Math.random() * 2 - 1) * (currentTolerance / 100); 
         let measured = currentResistance + (currentResistance * randomNoise);
         const measureText = getGlobalLang() === 'pt' ? ' (Medido)' : (getGlobalLang() === 'es' ? ' (Medido)' : ' (Measured)');
         document.getElementById("ohmmeter-display").innerText = formatResistance(measured) + measureText;
@@ -471,38 +397,24 @@
 
     document.getElementById('btnDownloadGuia').addEventListener('click', function() {
         const btn = this;
-        const genText = getGlobalLang() === 'pt' ? '⏳ Gerando Arquivo...' : (getGlobalLang() === 'es' ? '⏳ Generando Archivo...' : '⏳ Generating File...');
-        btn.innerText = genText;
+        btn.innerText = "⏳ ...";
         btn.disabled = true;
-
         const svg = document.getElementById('resistorSvg');
         const svgData = new XMLSerializer().serializeToString(svg);
         const canvas = document.createElement('canvas'); 
         const ctx = canvas.getContext('2d'); 
         const img = new Image();
-
-        canvas.width = 2400; 
-        canvas.height = 1512;
-
+        canvas.width = 2400; canvas.height = 1512;
         const svgBlob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' });
         const URL = window.URL || window.webkitURL || window; 
         const blobURL = URL.createObjectURL(svgBlob);
-
         img.onload = function() {
-            ctx.fillStyle = '#f8fafc'; 
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#f8fafc'; ctx.fillRect(0, 0, canvas.width, canvas.height);
             ctx.drawImage(img, 0, 0, canvas.width, canvas.height); 
             URL.revokeObjectURL(blobURL);
-
-            const dataUrl = canvas.toDataURL('image/png');
-
             const a = document.createElement('a'); 
-            a.download = 'guia_cores_resistores_pmv_lava_rcb.png';
-            a.href = dataUrl; 
-            document.body.appendChild(a); 
-            a.click(); 
-            document.body.removeChild(a);
-
+            a.download = 'guia_resistores.png'; a.href = canvas.toDataURL('image/png');
+            document.body.appendChild(a); a.click(); document.body.removeChild(a);
             applyLang();
             btn.disabled = false;
         }; 
