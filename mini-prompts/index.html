@@ -7,7 +7,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <script src="../js/global.js"></script>
     <style>
-        /* TEMA: Paleta Escura Original */
         :root {
             --bg-color: #13111c;
             --sidebar-bg: #1c1a27;
@@ -99,7 +98,7 @@
         const searchInput = document.getElementById('searchInput');
         const toast = document.getElementById('toast');
 
-        if (window.location.search.includes('admin=tete')) { document.getElementById('addBtn').style.display = 'block'; }
+        if (window.location.search.includes('admin=teste')) { document.getElementById('addBtn').style.display = 'block'; }
         window.addEventListener('idiomaMudou', () => aplicarIdioma(getGlobalLang()));
 
         fetch('prompts.json').then(r => r.json()).then(data => {
@@ -142,7 +141,7 @@
             data.forEach(p => {
                 const card = document.createElement('div'); card.className = 'card';
                 const descLocal = p[`Description_${currentLang}`] || p.Description_en;
-                const cleanPrompt = encodeURIComponent(`${p.Code}\\n${descLocal}`);
+                const cleanPrompt = encodeURIComponent(`${p.Code}\n${descLocal}`);
                 card.innerHTML = `
                     <div class="card-code" onclick="copyOnly('${p.Code}')">${p.Code}</div>
                     <div class="card-desc"><b>${i18n[currentLang].does}</b> ${descLocal}</div>
