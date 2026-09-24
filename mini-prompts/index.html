@@ -7,6 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <script src="../js/global.js"></script>
     <style>
+        /* TEMA: Paleta Escura Original */
         :root {
             --bg-color: #13111c;
             --sidebar-bg: #1c1a27;
@@ -25,8 +26,9 @@
         
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: var(--font-ui); background-color: var(--bg-color); color: var(--text-main); display: flex; height: 100vh; overflow: hidden; }
+        
+        /* BARRA LATERAL CORRIGIDA PARA CELULAR E DESKTOP */
         .sidebar { width: 280px; background-color: var(--sidebar-bg); border-right: 1px solid var(--border); display: flex; flex-direction: column; transition: transform 0.3s ease; z-index: 1000; box-shadow: 2px 0 15px rgba(0,0,0,0.5); }
-        .sidebar.collapsed { transform: translateX(-100%); position: absolute; height: 100%; }
         .sidebar-header { padding: 24px 20px; font-size: 2.4rem; font-family: var(--font-hand); color: var(--accent); text-align: center; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
         .close-sidebar-btn { background: none; border: none; color: var(--accent); font-size: 1.8rem; cursor: pointer; display: none; }
         .lang-selector { display: flex; justify-content: center; gap: 10px; padding: 10px; border-bottom: 1px solid var(--border); background-color: var(--sidebar-bg); }
@@ -36,14 +38,15 @@
         .category-btn { width: 100%; background: none; border: none; color: var(--text-muted); text-align: left; padding: 12px 16px; font-size: 0.95rem; border-radius: 8px; cursor: pointer; margin-bottom: 4px; font-weight: 500;}
         .category-btn:hover { background-color: rgba(167, 139, 250, 0.1); color: var(--accent); }
         .category-btn.active { background-color: rgba(167, 139, 250, 0.15); color: var(--accent); font-weight: 600; border: 1px solid var(--accent); }
+        
         .main-content { flex: 1; display: flex; flex-direction: column; overflow: hidden; position: relative; }
         .topbar { padding: 16px 24px; border-bottom: 1px solid var(--border); display: flex; gap: 16px; align-items: center; background-color: var(--bg-color); }
-        .toggle-btn { background: none; border: none; color: var(--accent); font-size: 1.5rem; cursor: pointer; }
+        .toggle-btn { background: none; border: none; color: var(--accent); font-size: 1.5rem; cursor: pointer; display: none; } /* Escondido no Desktop */
         .search-input { flex: 1; padding: 12px 20px; border-radius: 20px; border: 1px solid var(--border); outline: none; background-color: var(--sidebar-bg); color: var(--text-main); font-size: 1rem; }
         .search-input::placeholder { color: var(--text-muted); }
         .search-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.2); }
-        .btn-update { background-color: var(--accent); color: #13111c; border: none; padding: 10px 16px; border-radius: 20px; cursor: pointer; display: none; font-weight: bold; }
         .nav-back { display: inline-block; margin-right: 15px; color: var(--accent); text-decoration: none; font-weight: bold; font-size: 18px; }
+        
         .prompts-container { flex: 1; padding: 24px; overflow-y: auto; display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; align-items: start; align-content: start; }
         .card { background-color: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 20px; display: flex; flex-direction: column; gap: 12px; position: relative; height: 100%; box-shadow: 0 4px 10px rgba(0,0,0,0.2); transition: 0.2s; }
         .card:hover { transform: translateY(-4px); border-color: var(--accent); background-color: var(--card-hover); }
@@ -56,8 +59,19 @@
         .btn-gpt:hover { background-color: #0d8a6a; }
         .btn-gemini { background-color: var(--gemini); }
         .btn-gemini:hover { background-color: #155cb0; }
-        @media (max-width: 768px) { .sidebar { position: absolute; height: 100%; transform: translateX(-100%); } .sidebar.mobile-open { transform: translateX(0); box-shadow: 4px 0 15px rgba(0,0,0,0.5); } .close-sidebar-btn { display: block; } .prompts-container { padding: 16px; grid-template-columns: 1fr; } .topbar { flex-wrap: wrap; } .search-input { order: 3; min-width: 100%; margin-top: 10px; } }
-        .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(100px); background: var(--accent); color: #13111c; padding: 12px 24px; border-radius: 8px; font-weight: 600; opacity: 0; transition: all 0.3s; z-index: 2000; }
+        
+        /* CORREÇÕES PARA CELULAR */
+        @media (max-width: 768px) { 
+            .sidebar { position: fixed; top: 0; left: 0; height: 100%; transform: translateX(-100%); z-index: 2000; } 
+            .sidebar.mobile-open { transform: translateX(0); box-shadow: 4px 0 15px rgba(0,0,0,0.8); } 
+            .close-sidebar-btn { display: block; } 
+            .toggle-btn { display: block; } /* Mostra o botão hamburguer no celular */
+            .prompts-container { padding: 16px; grid-template-columns: 1fr; } 
+            .topbar { flex-wrap: wrap; } 
+            .search-input { order: 3; min-width: 100%; margin-top: 10px; } 
+        }
+        
+        .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(100px); background: var(--accent); color: #13111c; padding: 12px 24px; border-radius: 8px; font-weight: 600; opacity: 0; transition: all 0.3s; z-index: 3000; }
         .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
     </style>
 </head>
@@ -71,12 +85,12 @@
         </div>
         <ul class="category-list" id="categoryList"></ul>
     </div>
+    
     <div class="main-content">
         <div class="topbar">
             <a href="../index.html" class="nav-back">←</a>
             <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
             <input type="text" class="search-input" id="searchInput" placeholder="Pesquisar...">
-            <button class="btn-update" id="addBtn" onclick="alert('Execute gerar_json.py no Pydroid.')">+ Novo</button>
         </div>
         <div class="prompts-container" id="promptsContainer"></div>
     </div>
@@ -85,9 +99,9 @@
     <script>
         let promptsData = []; 
         const i18n = { 
-            pt: { search: "Pesquisar comandos...", all: "Todos", does: "O que faz:", gpt: "Abrir ChatGPT", gemini: "Abrir Gemini" }, 
-            en: { search: "Search codes...", all: "All", does: "What it does:", gpt: "Open ChatGPT", gemini: "Open Gemini" }, 
-            es: { search: "Buscar comandos...", all: "Todos", does: "Qué hace:", gpt: "Abrir ChatGPT", gemini: "Abrir Gemini" } 
+            pt: { search: "Pesquisar comandos...", all: "Todos", does: "O que faz:", gpt: "Abrir ChatGPT", gemini: "Abrir Gemini", copied: "Copiado!" }, 
+            en: { search: "Search codes...", all: "All", does: "What it does:", gpt: "Open ChatGPT", gemini: "Open Gemini", copied: "Copied!" }, 
+            es: { search: "Buscar comandos...", all: "Todos", does: "Qué hace:", gpt: "Abrir ChatGPT", gemini: "Abrir Gemini", copied: "¡Copiado!" } 
         };
         let currentLang = getGlobalLang(); 
         let currentCategory = i18n[currentLang].all;
@@ -98,31 +112,52 @@
         const searchInput = document.getElementById('searchInput');
         const toast = document.getElementById('toast');
 
-        if (window.location.search.includes('admin=teste')) { document.getElementById('addBtn').style.display = 'block'; }
         window.addEventListener('idiomaMudou', () => aplicarIdioma(getGlobalLang()));
 
         fetch('prompts.json').then(r => r.json()).then(data => {
-            promptsData = data; aplicarIdioma(currentLang);
-        }).catch(err => { promptsContainerEl.innerHTML = '<p style="padding:20px; color:var(--text-muted);">Carregando banco de dados...</p>'; });
+            promptsData = data; 
+            aplicarIdioma(currentLang);
+        }).catch(err => { 
+            promptsContainerEl.innerHTML = '<p style="padding:20px; color:var(--text-muted);">Carregando banco de dados (prompts.json)...</p>'; 
+        });
 
-        function mudarIdioma(lang) { setGlobalLang(lang); aplicarIdioma(lang); }
+        function mudarIdioma(lang) { 
+            setGlobalLang(lang); 
+            aplicarIdioma(lang); 
+        }
 
         function aplicarIdioma(lang) {
             currentLang = lang;
             document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
             const btn = document.getElementById(`btn-${lang}`);
             if(btn) btn.classList.add('active');
+            
             searchInput.placeholder = i18n[lang].search;
-            currentCategory = i18n[lang].all;
-            renderCategories(); filterPrompts();
+            
+            // Se estava na categoria "Todos" no idioma anterior, atualiza para o "Todos" do novo idioma
+            if (currentCategory === i18n['pt'].all || currentCategory === i18n['en'].all || currentCategory === i18n['es'].all) {
+                currentCategory = i18n[lang].all;
+            }
+            
+            renderCategories(); 
+            filterPrompts();
         }
 
-        function toggleSidebar() { if (window.innerWidth <= 768) sidebarEl.classList.toggle('mobile-open'); else sidebarEl.classList.toggle('collapsed'); }
-        if (window.innerWidth > 768) sidebarEl.classList.remove('collapsed');
+        function toggleSidebar() { 
+            if (window.innerWidth <= 768) {
+                sidebarEl.classList.toggle('mobile-open'); 
+            }
+        }
+        
+        // Mantém a barra lateral sempre aberta no desktop
+        if (window.innerWidth > 768) {
+            sidebarEl.classList.remove('collapsed');
+        }
 
         function renderCategories() {
             categoryListEl.innerHTML = '';
             if (promptsData.length === 0) return; 
+            
             const key = "cat_" + currentLang;
             const rawCategories = [...new Set(promptsData.map(p => p[key]))];
             const categories = [i18n[currentLang].all, ...rawCategories];
@@ -131,17 +166,31 @@
                 const btn = document.createElement('button');
                 btn.className = `category-btn ${cat === currentCategory ? 'active' : ''}`;
                 btn.textContent = cat;
-                btn.onclick = () => { currentCategory = cat; renderCategories(); filterPrompts(); if (window.innerWidth <= 768) toggleSidebar(); };
+                btn.onclick = () => { 
+                    currentCategory = cat; 
+                    renderCategories(); 
+                    filterPrompts(); 
+                    if (window.innerWidth <= 768) toggleSidebar(); 
+                };
                 categoryListEl.appendChild(btn);
             });
         }
 
         function renderPrompts(data) {
             promptsContainerEl.innerHTML = '';
+            
+            if (data.length === 0) {
+                promptsContainerEl.innerHTML = '<p style="color:var(--text-muted);">Nenhum comando encontrado.</p>';
+                return;
+            }
+
             data.forEach(p => {
-                const card = document.createElement('div'); card.className = 'card';
+                const card = document.createElement('div'); 
+                card.className = 'card';
                 const descLocal = p[`Description_${currentLang}`] || p.Description_en;
                 const cleanPrompt = encodeURIComponent(`${p.Code}\n${descLocal}`);
+                
+                // Agora o rótulo "O que faz:" obedece ao idioma atual (i18n[currentLang].does)
                 card.innerHTML = `
                     <div class="card-code" onclick="copyOnly('${p.Code}')">${p.Code}</div>
                     <div class="card-desc"><b>${i18n[currentLang].does}</b> ${descLocal}</div>
@@ -165,11 +214,21 @@
         }
 
         searchInput.addEventListener('input', filterPrompts);
-        window.copyOnly = function(text) { navigator.clipboard.writeText(text).then(() => { toast.innerText = "Copiado!"; toast.classList.add('show'); setTimeout(() => toast.classList.remove('show'), 2000); }); };
+        
+        window.copyOnly = function(text) { 
+            navigator.clipboard.writeText(text).then(() => { 
+                toast.innerText = i18n[currentLang].copied; 
+                toast.classList.add('show'); 
+                setTimeout(() => toast.classList.remove('show'), 2000); 
+            }); 
+        };
         
         window.openAI = function(platform, encodedPrompt, rawCode) {
             navigator.clipboard.writeText(rawCode).catch(e => console.log(e));
-            toast.innerText = "Pronto! Cole no chat e anexe sua imagem."; toast.classList.add('show'); setTimeout(() => toast.classList.remove('show'), 4000);
+            toast.innerText = i18n[currentLang].copied; 
+            toast.classList.add('show'); 
+            setTimeout(() => toast.classList.remove('show'), 4000);
+            
             let url = platform === 'chatgpt' ? 'https://chatgpt.com/?q=' + encodedPrompt : 'https://gemini.google.com/app';
             window.open(url, '_blank');
         };
