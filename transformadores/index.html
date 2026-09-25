@@ -39,7 +39,20 @@
         .results-box h3 { margin-top: 0; color: var(--gold); font-size: 1.2rem; }
         .result-item { margin: 10px 0; font-size: 1.05rem; display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 6px; }
         .result-item span:last-child { font-weight: 700; color: #fff; }
-        
+
+        /* Estilos da Animação do Transformador */
+        .anim-container { display: flex; flex-direction: column; align-items: center; background: rgba(0,0,0,0.25); border-radius: 10px; padding: 20px; margin-bottom: 20px; border: 1px dashed var(--border); }
+        .transformer-svg { width: 100%; max-width: 380px; height: 220px; }
+        @keyframes pulseFlux {
+            0% { opacity: 0.3; stroke-dashoffset: 24; }
+            50% { opacity: 1; stroke-dashoffset: 0; }
+            100% { opacity: 0.3; stroke-dashoffset: -24; }
+        }
+        .flux-line { stroke: var(--gold); stroke-width: 2.5; stroke-dasharray: 6 6; animation: pulseFlux 1.5s linear infinite; fill: none; }
+        .coil-primary { stroke: #ff7b72; stroke-width: 4; fill: none; }
+        .coil-secondary { stroke: #79c0ff; stroke-width: 4; fill: none; }
+        .core-iron { fill: #484f58; stroke: #8b949e; stroke-width: 2; }
+
         .theory-content h3 { color: var(--gold); margin-top: 20px; font-size: 1.1rem; }
         .theory-content h2 { color: #fff; border-bottom: 1px solid var(--border); padding-bottom: 8px; margin-top: 0; }
         .theory-content p, .theory-content li { color: var(--text-secondary); line-height: 1.6; font-size: 0.95rem; }
@@ -62,7 +75,7 @@
 
     <div class="container">
         <h1 data-i18n="title">Calculadora de Transformadores Pro</h1>
-        <p class="subtitle" data-i18n="subtitle">Dimensionamento profissional com especificações de materiais e manuais clássicos de áudio/força.</p>
+        <p class="subtitle" data-i18n="subtitle">Dimensionamento profissional com especificações de materiais e animação interativa do núcleo.</p>
 
         <div class="tabs">
             <button class="tab-btn active" onclick="switchTab(0)" data-i18n="tab1">Linear (Força)</button>
@@ -74,13 +87,34 @@
         <!-- PAINEL 1: LINEAR -->
         <div id="panel-0" class="panel active">
             <div class="card">
+                <!-- Animação Interativa do Transformador -->
+                <div class="anim-container">
+                    <svg class="transformer-svg" viewBox="0 0 400 220">
+                        <!-- Núcleo E-I de Ferro Silício -->
+                        <path class="core-iron" d="M 60 20 L 340 20 L 340 60 L 280 60 L 280 160 L 340 160 L 340 200 L 60 200 L 60 160 L 120 160 L 120 60 L 60 60 Z" />
+                        <!-- Perna Central do Núcleo -->
+                        <rect x="180" y="60" width="40" height="100" fill="#30363d" stroke="#8b949e" stroke-width="2" />
+                        <!-- Linhas de Fluxo Magnético Animadas -->
+                        <path class="flux-line" d="M 140 90 Q 100 110 140 130" />
+                        <path class="flux-line" d="M 260 90 Q 300 110 260 130" />
+                        <!-- Bobina Primária (Esquerda) -->
+                        <path class="coil-primary" d="M 120 70 Q 140 80 120 90 Q 140 100 120 110 Q 140 120 120 130 Q 140 140 120 150" />
+                        <!-- Bobina Secundária (Direita) -->
+                        <path class="coil-secondary" d="M 280 70 Q 260 80 280 90 Q 260 100 280 110 Q 260 120 280 130 Q 260 140 280 150" />
+                        <!-- Rótulos explicativos -->
+                        <text x="85" y="45" fill="#f8fafc" font-size="11" font-weight="600">Primário (Np)</text>
+                        <text x="290" y="45" fill="#f8fafc" font-size="11" font-weight="600">Secundário (Ns)</text>
+                        <text x="165" y="195" fill="#D4AF37" font-size="11" font-weight="700" id="svg-core-txt">Núcleo E-I (A)</text>
+                    </svg>
+                </div>
+
                 <div class="form-group">
                     <label data-i18n="lbl_area">Área do Núcleo Central - A (cm²)</label>
-                    <input type="number" id="lin_area" value="12.0" step="0.1">
+                    <input type="number" id="lin_area" value="12.0" step="0.1" oninput="updateVisuals()">
                 </div>
                 <div class="form-group">
                     <label data-i18n="lbl_vpri">Tensão Primária (V)</label>
-                    <input type="number" id="lin_vpri" value="120">
+                    <input type="number" id="lin_vpri" value="120" oninput="updateVisuals()">
                 </div>
                 <div class="form-group">
                     <label data-i18n="lbl_vsec">Tensão Secundária (V)</label>
@@ -191,16 +225,16 @@
                 <h2 data-i18n="ref_title" style="margin-top: 35px;">Referências Bibliográficas e Manuais Clássicos</h2>
                 
                 <div class="ref-box">
-                    <p><b>Radiotron Designer's Handbook</b> (F. Langford-Smith) — Seção de Transformadores e Indutores com Núcleo de Ferro, cálculo de impedâncias e teoria de indutores acoplados.</p>
+                    <p><b>Radiotron Designer's Handbook</b> (F. Langford-Smith) — Seção de Transformadores e Indutores com Núcleo de Ferro, cálculo de impedâncias e teoria de indutores acoplados[span_0](start_span)[span_0](end_span).</p>
                 </div>
                 <div class="ref-box">
-                    <p><b>Audio Transformer Design</b> (N. H. Crowhurst) — Estudos aprofundados sobre arranjos de enrolamento, redução de indutância de fuga e capacitância distribuída.</p>
+                    <p><b>Audio Transformer Design</b> (N. H. Crowhurst) — Estudos aprofundados sobre arranjos de enrolamento, redução de indutância de fuga e capacitância distribuída[span_1](start_span)[span_1](end_span).</p>
                 </div>
                 <div class="ref-box">
-                    <p><b>Winding Your Own Output Transformers</b> (Ed Francis, Popular Electronics) — Técnicas simplificadas de reaproveitamento de núcleos, cálculo prático para baixa impedância e testes em bancada.</p>
+                    <p><b>Winding Your Own Output Transformers</b> (Ed Francis, Popular Electronics) — Técnicas simplificadas de reaproveitamento de núcleos, cálculo prático para baixa impedância e testes em bancada[span_2](start_span)[span_2](end_span).</p>
                 </div>
                 <div class="ref-box">
-                    <p><b>Handbook for Sound Engineers / Audio Transformers Chapter</b> (Bill Whitlock, Jensen Transformers) — Fundamentos de acoplamento magnético, rejeição de ruído comum (CMRR) e blindagens eletrostáticas/magnéticas.</p>
+                    <p><b>Handbook for Sound Engineers / Audio Transformers Chapter</b> (Bill Whitlock, Jensen Transformers) — Fundamentos de acoplamento magnético, rejeição de ruído comum (CMRR) e blindagens eletrostáticas/magnéticas[span_3](start_span)[span_3](end_span).</p>
                 </div>
             </div>
         </div>
@@ -211,7 +245,7 @@
             pt: {
                 back: "← Voltar para Ferramentas",
                 title: "Calculadora de Transformadores Pro",
-                subtitle: "Dimensionamento profissional com especificações de materiais e manuais clássicos de áudio/força.",
+                subtitle: "Dimensionamento profissional com especificações de materiais e animação interativa do núcleo.",
                 tab1: "Linear (Força)", tab2: "Áudio / Linha", tab3: "Saída Valvulada", tab4: "Guia & Referências",
                 lbl_area: "Área do Núcleo Central - A (cm²)", lbl_vpri: "Tensão Primária (V)", lbl_vsec: "Tensão Secundária (V)",
                 lbl_freq: "Frequência da Rede (Hz)", lbl_core_mat: "Material do Núcleo", lbl_aud_area: "Área do Núcleo (cm²)",
@@ -230,7 +264,7 @@
             en: {
                 back: "← Back to Tools",
                 title: "Transformer Calculator Pro",
-                subtitle: "Professional sizing with material specifications and classic audio/power engineering guides.",
+                subtitle: "Professional sizing with material specifications and interactive core animation.",
                 tab1: "Linear (Power)", tab2: "Audio / Line", tab3: "Tube Output", tab4: "Guide & References",
                 lbl_area: "Core Center Area - A (cm²)", lbl_vpri: "Primary Voltage (V)", lbl_vsec: "Secondary Voltage (V)",
                 lbl_freq: "Line Frequency (Hz)", lbl_core_mat: "Core Material", lbl_aud_area: "Core Area (cm²)",
@@ -249,14 +283,14 @@
             es: {
                 back: "← Volver a Herramientas",
                 title: "Calculadora de Transformadores Pro",
-                subtitle: "Dimensionamiento profesional con especificaciones de materiales y guías clásicas de ingeniería.",
+                subtitle: "Dimensionamiento profesional con especificaciones de materiales y animación interactiva.",
                 tab1: "Lineal (Potencia)", tab2: "Audio / Línea", tab3: "Salida a Válvulas", tab4: "Guía y Referencias",
                 lbl_area: "Área del Núcleo Central - A (cm²)", lbl_vpri: "Tensión Primaria (V)", lbl_vsec: "Tensión Secundaria (V)",
                 lbl_freq: "Frecuencia de Red (Hz)", lbl_core_mat: "Material del Núcleo", lbl_aud_area: "Área del Núcleo (cm²)",
                 lbl_z1: "Impedancia Primaria - Z1 (Ω)", lbl_z2: "Impedancia Secundaria - Z2 (Ω)", lbl_minf: "Frecuencia Mínima de Respuesta (Hz)",
                 lbl_tub_area: "Área del Núcleo (cm²)", lbl_r_pp: "Impedancia de Placa a Placa (Ω - Zaa)", lbl_spk: "Impedancia del Altavoz (Ω)",
                 btn_calc: "Calcular Espiras y Alambres", res_title: "Especificaciones de Fabricación",
-                r_np: "Espiras Primarias:", r_ns: "Espiras Secundarias:", r_ratio: "Relación de Espiras:", r_lp: "Inductancia Primaria Mínima:",
+                r_np: "Espiras Primarias:", r_ns: "Espiras Secundarias:", r_ratio: "Relación de Espiras:", r_lp: "Indutancia Primaria Mínima:",
                 r_awgp: "Calibre Sugerido:",
                 g_title: "Guía de Montaje y Buenas Prácticas",
                 th_title1: "1. Factor de Empacamiento", th_desc1: "Las láminas de acero al silicio poseen rebabas y óxido, resultando en un factor de apilamiento real entre 0.87 y 0.94.",
@@ -270,6 +304,12 @@
         function switchTab(index) {
             document.querySelectorAll('.tab-btn').forEach((btn, i) => btn.classList.toggle('active', i === index));
             document.querySelectorAll('.panel').forEach((panel, i) => panel.classList.toggle('active', i === index));
+        }
+
+        function updateVisuals() {
+            const area = document.getElementById('lin_area').value;
+            const vpri = document.getElementById('lin_vpri').value;
+            document.getElementById('svg-core-txt').textContent = `Núcleo E-I (${area} cm²)`;
         }
 
         function calcLinear() {
