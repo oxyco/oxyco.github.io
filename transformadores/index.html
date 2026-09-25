@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora de Transformadores</title>
+    <title>OXYLABZ | Calculadora Avançada de Transformadores Pro</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="../js/global.js"></script>
     <style>
@@ -14,7 +14,7 @@
             --border: #35314d; --gold: #D4AF37;
             --safe: #2ea043; --warn: #d29922; --danger: #f85149;
         }
-        body { font-family: 'Inter', sans-serif; background-color: var(--bg-main); color: var(--text-primary); margin: 0; padding: 0; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
+        body { font-family: 'Inter', sans-serif; background-color: var(--bg-main); color: var(--text-primary); margin: 0; padding: 0; display: flex; flex-direction: column; align-items: center; min-height: 100vh; overflow-x: hidden; }
         .navbar { width: 100%; padding: 16px 40px; box-sizing: border-box; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); background: rgba(19, 17, 28, 0.9); backdrop-filter: blur(12px); position: sticky; top: 0; z-index: 100; }
         .back-link { color: var(--text-secondary); text-decoration: none; font-weight: 600; font-size: 14px; transition: color 0.2s; }
         .back-link:hover { color: var(--gold); }
@@ -25,11 +25,13 @@
         .subtitle { text-align: center; color: var(--text-secondary); margin-bottom: 32px; font-size: 1.05rem; }
         
         .tabs { display: flex; gap: 8px; margin-bottom: 24px; justify-content: center; flex-wrap: wrap; }
-        .tab-btn { background: var(--bg-card); border: 1px solid var(--border); color: var(--text-secondary); padding: 12px 18px; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 0.9rem; transition: all 0.2s; }
+        .tab-btn { background: var(--bg-card); border: 1px solid var(--border); color: var(--text-secondary); padding: 12px 16px; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 0.9rem; transition: all 0.2s; }
         .tab-btn:hover { background: var(--bg-card-hover); border-color: var(--accent); }
         .tab-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); box-shadow: 0 0 15px var(--accent-glow); }
 
         .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 32px; box-sizing: border-box; margin-bottom: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        @media (max-width: 600px) { .card { padding: 20px; } }
+
         .form-group { margin-bottom: 20px; }
         label { display: block; font-size: 0.9rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 8px; }
         input, select { width: 100%; padding: 14px 16px; background: rgba(0,0,0,0.4); border: 1px solid var(--border); border-radius: 8px; color: #fff; font-size: 1rem; box-sizing: border-box; transition: 0.2s; }
@@ -38,9 +40,12 @@
         .calc-btn { background: linear-gradient(135deg, var(--gold) 0%, #b38f22 100%); color: #13111c; border: none; width: 100%; padding: 16px; border-radius: 8px; font-size: 1.05rem; font-weight: 700; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3); margin-bottom: 16px;}
         .calc-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4); }
 
+        /* Status do Preset Ativo */
+        .active-preset-banner { background: rgba(212, 175, 55, 0.1); border: 1px dashed var(--gold); color: var(--gold); padding: 10px 16px; border-radius: 8px; margin-bottom: 20px; font-weight: 600; text-align: center; display: none; font-size: 0.95rem; }
+
         /* Animação Audiófila 3D do Transformador */
         .anim-container { display: flex; justify-content: center; align-items: center; background: radial-gradient(circle at center, rgba(36,33,54,1) 0%, rgba(19,17,28,1) 100%); border-radius: 12px; padding: 20px; margin-bottom: 24px; border: 1px solid var(--border); box-shadow: inset 0 0 40px rgba(0,0,0,0.5); overflow: hidden; }
-        .transformer-svg { width: 100%; max-width: 600px; height: auto; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.5)); }
+        .transformer-svg { width: 100%; max-width: 500px; height: auto; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.5)); }
         
         @keyframes flowFlux {
             0% { stroke-dashoffset: 40; opacity: 0.6; }
@@ -76,16 +81,18 @@
         .btn-audio:hover { background: #30363d; border-color: #8b949e; }
         .btn-audio.playing { background: rgba(46, 160, 67, 0.15); color: var(--safe); border-color: var(--safe); }
 
-        /* Tabelas de Presets */
-        .preset-table { width: 100%; border-collapse: collapse; margin-top: 16px; margin-bottom: 32px; font-size: 0.9rem; }
-        .preset-table th, .preset-table td { padding: 12px; text-align: left; border-bottom: 1px solid var(--border); }
-        .preset-table th { color: var(--gold); font-weight: 600; background: rgba(0,0,0,0.4); }
+        /* Tabelas de Presets Responsivas */
+        .table-responsive { width: 100%; overflow-x: auto; margin-bottom: 32px; border-radius: 8px; border: 1px solid var(--border); }
+        .preset-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; min-width: 500px; }
+        .preset-table th, .preset-table td { padding: 12px 16px; text-align: left; border-bottom: 1px solid var(--border); }
+        .preset-table th { color: var(--gold); font-weight: 600; background: rgba(0,0,0,0.4); white-space: nowrap; }
         .preset-table tr:hover { background: rgba(255,255,255,0.03); }
         .preset-table td { color: var(--text-secondary); }
         .preset-table td:first-child { color: #fff; font-weight: 500; }
-        .btn-load { background: var(--bg-card-hover); border: 1px solid var(--border); color: var(--text-primary); padding: 6px 12px; border-radius: 4px; cursor: pointer; transition: 0.2s; font-size: 0.8rem; }
+        .btn-load { background: var(--bg-card-hover); border: 1px solid var(--border); color: var(--text-primary); padding: 6px 14px; border-radius: 4px; cursor: pointer; transition: 0.2s; font-size: 0.85rem; font-weight: 600; white-space: nowrap; }
         .btn-load:hover { background: var(--accent); border-color: var(--accent); }
 
+        /* Guias e Referências */
         .theory-content h2 { color: #fff; border-bottom: 1px solid var(--border); padding-bottom: 8px; margin-top: 0; font-size: 1.5rem; }
         .theory-content h3 { color: var(--gold); margin-top: 24px; font-size: 1.15rem; }
         .theory-content p { color: var(--text-secondary); line-height: 1.7; font-size: 0.95rem; margin-bottom: 16px; }
@@ -110,8 +117,8 @@
     </nav>
 
     <div class="container">
-        <h1 data-i18n="title">Calculadora de Transformadores</h1>
-        <p class="subtitle" data-i18n="subtitle">Dimensionamento interativo com banco de presets e simulação.</p>
+        <h1 data-i18n="title">Calculadora de Transformadores Pro</h1>
+        <p class="subtitle" data-i18n="subtitle">Dimensionamento interativo com banco de presets e simulação em bancada.</p>
 
         <!-- Esquema Gráfico 3D Dinâmico -->
         <div class="anim-container">
@@ -172,6 +179,7 @@
         <!-- PAINEL 1: LINEAR -->
         <div id="panel-0" class="panel active">
             <div class="card">
+                <div id="active-preset-0" class="active-preset-banner"></div>
                 <div class="form-group">
                     <label data-i18n="lbl_area">Área do Núcleo Central - A (cm²)</label>
                     <input type="number" id="lin_area" value="12.0" step="0.1" oninput="calcLinear()">
@@ -219,6 +227,7 @@
         <!-- PAINEL 2: ÁUDIO -->
         <div id="panel-1" class="panel">
             <div class="card">
+                <div id="active-preset-1" class="active-preset-banner"></div>
                 <div class="form-group">
                     <label data-i18n="lbl_core_mat">Material do Núcleo</label>
                     <select id="aud_mat" onchange="calcAudio()">
@@ -267,6 +276,7 @@
         <!-- PAINEL 3: VALVULADO -->
         <div id="panel-2" class="panel">
             <div class="card">
+                <div id="active-preset-2" class="active-preset-banner"></div>
                 <div class="form-group">
                     <label data-i18n="lbl_tub_area">Área do Núcleo (cm²)</label>
                     <input type="number" id="tub_area" value="16.0" step="0.1" oninput="calcTube()">
@@ -304,40 +314,30 @@
             </div>
         </div>
 
-        <!-- PAINEL 4: PRESETS -->
+        <!-- PAINEL 4: PRESETS (Geração Dinâmica no JS) -->
         <div id="panel-3" class="panel">
             <div class="card theory-content">
                 <h2 data-i18n="pre_title">Presets Clássicos e de Bancada</h2>
                 <p data-i18n="pre_desc">Carregue configurações pré-definidas de circuitos clássicos e fontes comuns para simulação rápida.</p>
 
                 <h3 data-i18n="pre_lin_title">Fontes de Alimentação (Linear)</h3>
-                <table class="preset-table">
-                    <tr><th>Aplicação</th><th>Pri (V)</th><th>Sec (V)</th><th>Ação</th></tr>
-                    <tr><td>Pedal 9V (1A)</td><td>120</td><td>12</td><td><button class="btn-load" onclick="loadLinearPreset(12.0, 120, 12, 1.0)">Carregar</button></td></tr>
-                    <tr><td>Preamp Valvulado (B+)</td><td>120</td><td>250</td><td><button class="btn-load" onclick="loadLinearPreset(9.0, 120, 250, 0.05)">Carregar</button></td></tr>
-                    <tr><td>Amp Solid State 50W</td><td>120</td><td>35</td><td><button class="btn-load" onclick="loadLinearPreset(16.0, 120, 35, 3.0)">Carregar</button></td></tr>
-                </table>
+                <div class="table-responsive">
+                    <table class="preset-table" id="table-presets-linear"></table>
+                </div>
 
                 <h3 data-i18n="pre_aud_title">Áudio / Linha (Op-Amps & Estúdio)</h3>
-                <table class="preset-table">
-                    <tr><th>Aplicação / Referência</th><th>Z1 (Ω)</th><th>Z2 (Ω)</th><th>Ação</th></tr>
-                    <tr><td>GSSL Bus Comp / Line In[span_0](start_span)[span_0](end_span)</td><td>10000</td><td>600</td><td><button class="btn-load" onclick="loadAudioPreset(6.0, 10000, 600, 30)">Carregar</button></td></tr>
-                    <tr><td>Mic Preamp Input[span_1](start_span)[span_1](end_span)</td><td>150</td><td>15000</td><td><button class="btn-load" onclick="loadAudioPreset(4.0, 150, 15000, 20)">Carregar</button></td></tr>
-                    <tr><td>Direct Box (Passiva)[span_2](start_span)[span_2](end_span)</td><td>100000</td><td>600</td><td><button class="btn-load" onclick="loadAudioPreset(5.0, 100000, 600, 30)">Carregar</button></td></tr>
-                </table>
+                <div class="table-responsive">
+                    <table class="preset-table" id="table-presets-audio"></table>
+                </div>
 
                 <h3 data-i18n="pre_tub_title">Saídas Valvuladas Clássicas</h3>
-                <table class="preset-table">
-                    <tr><th>Válvula / Topologia</th><th>Zaa/Z (Ω)</th><th>Carga (Ω)</th><th>Ação</th></tr>
-                    <tr><td>ECL82 / 6BM8 (Single-Ended)</td><td>5000</td><td>8</td><td><button class="btn-load" onclick="loadTubePreset(12.0, 5000, 8, 40)">Carregar</button></td></tr>
-                    <tr><td>6BL8 / ECF80 (Baixa Potência)</td><td>10000</td><td>32</td><td><button class="btn-load" onclick="loadTubePreset(6.0, 10000, 32, 50)">Carregar</button></td></tr>
-                    <tr><td>EL84 (Push-Pull / Dynaco ST-35)</td><td>8000</td><td>8</td><td><button class="btn-load" onclick="loadTubePreset(16.0, 8000, 8, 30)">Carregar</button></td></tr>
-                    <tr><td>12AU7 (Line Driver PP)[span_3](start_span)[span_3](end_span)</td><td>15000</td><td>600</td><td><button class="btn-load" onclick="loadTubePreset(8.0, 15000, 600, 40)">Carregar</button></td></tr>
-                </table>
+                <div class="table-responsive">
+                    <table class="preset-table" id="table-presets-tube"></table>
+                </div>
             </div>
         </div>
 
-        <!-- PAINEL 5: GUIA PARA FABRICAÇÃO -->
+        <!-- PAINEL 5: GUIA CONSTRUTIVO E REFERÊNCIAS -->
         <div id="panel-4" class="panel">
             <div class="card theory-content">
                 <h2 data-i18n="g_title">Guia de Montagem e Boas Práticas</h2>
@@ -357,26 +357,52 @@
                 <h2 data-i18n="ref_title" style="margin-top: 35px;">Referências Bibliográficas e Manuais Clássicos</h2>
                 
                 <div class="ref-box">
-                    <p><b data-i18n="ref1_title">Radiotron Designer's Handbook</b> <span data-i18n="ref1_desc">(F. Langford-Smith) — Seção de Transformadores e Indutores com Núcleo de Ferro, cálculo de impedâncias e teoria de indutores acoplados[span_4](start_span)[span_4](end_span)[span_5](start_span)[span_5](end_span).</span></p>
+                    <p><b data-i18n="ref1_title">Radiotron Designer's Handbook</b> <span data-i18n="ref1_desc">(F. Langford-Smith) — Seção de Transformadores e Indutores com Núcleo de Ferro, cálculo de impedâncias e teoria de indutores acoplados.</span></p>
                 </div>
                 <div class="ref-box">
-                    <p><b data-i18n="ref2_title">Audio Transformer Design</b> <span data-i18n="ref2_desc">(N. H. Crowhurst) — Estudos aprofundados sobre arranjos de enrolamento, redução de indutância de fuga e capacitância distribuída[span_6](start_span)[span_6](end_span).</span></p>
+                    <p><b data-i18n="ref2_title">Audio Transformer Design</b> <span data-i18n="ref2_desc">(N. H. Crowhurst) — Estudos aprofundados sobre arranjos de enrolamento, redução de indutância de fuga e capacitância distribuída.</span></p>
                 </div>
                 <div class="ref-box">
-                    <p><b data-i18n="ref3_title">Winding Your Own Output Transformers</b> <span data-i18n="ref3_desc">(Ed Francis, Popular Electronics) — Técnicas simplificadas de reaproveitamento de núcleos, cálculo prático para baixa impedância e testes em bancada[span_7](start_span)[span_7](end_span).</span></p>
+                    <p><b data-i18n="ref3_title">Winding Your Own Output Transformers</b> <span data-i18n="ref3_desc">(Ed Francis, Popular Electronics) — Técnicas simplificadas de reaproveitamento de núcleos, cálculo prático para baixa impedância e testes em bancada.</span></p>
                 </div>
                 <div class="ref-box">
-                    <p><b data-i18n="ref4_title">Handbook for Sound Engineers / Audio Transformers Chapter</b> <span data-i18n="ref4_desc">(Bill Whitlock, Jensen Transformers) — Fundamentos de acoplamento magnético, rejeição de ruído comum (CMRR) e blindagens eletrostáticas/magnéticas[span_8](start_span)[span_8](end_span).</span></p>
+                    <p><b data-i18n="ref4_title">Handbook for Sound Engineers / Audio Transformers Chapter</b> <span data-i18n="ref4_desc">(Bill Whitlock, Jensen Transformers) — Fundamentos de acoplamento magnético, rejeição de ruído comum (CMRR) e blindagens eletrostáticas/magnéticas.</span></p>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
+        // CONFIGURAÇÕES DE PRESETS (Você pode adicionar/remover itens aqui facilmente)
+        const userPresets = {
+            linear: [
+                { name: "Fonte Lógica 5V (1A)", area: 8.0, vpri: 120, vsec: 9, isec: 1.0 },
+                { name: "Pedal 9V (1A)", area: 12.0, vpri: 120, vsec: 12, isec: 1.0 },
+                { name: "Amp Solid State 50W", area: 16.0, vpri: 120, vsec: 35, isec: 3.0 },
+                { name: "Fonte de Bancada (5A)", area: 20.0, vpri: 120, vsec: 24, isec: 5.0 },
+                { name: "Preamp Valvulado (B+)", area: 9.0, vpri: 120, vsec: 250, isec: 0.05 }
+            ],
+            audio: [
+                { name: "Mic Preamp Input (Estúdio)", area: 4.0, z1: 150, z2: 15000, fmin: 20 },
+                { name: "Direct Box Passiva (Instrumento)", area: 5.0, z1: 100000, z2: 600, fmin: 30 },
+                { name: "GSSL Bus Compressor / Line In", area: 6.0, z1: 10000, z2: 600, fmin: 20 },
+                { name: "Isolador de Linha 1:1 (NE5532/OPA2134)", area: 5.0, z1: 600, z2: 600, fmin: 20 },
+                { name: "Sistema 70V Line-to-Voice-Coil (10W)", area: 8.0, z1: 500, z2: 8, fmin: 50 }
+            ],
+            tube: [
+                { name: "ECL82 / 6BM8 (Single-Ended)", area: 12.0, zpp: 5000, spk: 8, fmin: 40 },
+                { name: "6BL8 / ECF80 (Baixa Potência)", area: 6.0, zpp: 10000, spk: 32, fmin: 50 },
+                { name: "EL84 / 6BQ5 (PP / Dynaco ST-35)", area: 16.0, zpp: 8000, spk: 8, fmin: 30 },
+                { name: "EL34 / 6L6GC (Push-Pull Clássico)", area: 24.0, zpp: 6600, spk: 8, fmin: 30 },
+                { name: "300B (Single-Ended Audiófilo)", area: 22.0, zpp: 3000, spk: 8, fmin: 20 },
+                { name: "12AU7 / 12BH7 (Line Driver PP)", area: 8.0, zpp: 15000, spk: 600, fmin: 40 },
+                { name: "Classe A MOSFET (Match de Saída)", area: 14.0, zpp: 24, spk: 8, fmin: 20 }
+            ]
+        };
+
         const translations = {
             pt: {
-                back: "← Voltar para Ferramentas",
-                title: "Calculadora de Transformadores Pro",
+                back: "← Voltar para Ferramentas", title: "Calculadora de Transformadores Pro",
                 subtitle: "Dimensionamento audiófilo interativo. Projeto visual reativo aos cálculos.",
                 tab1: "Linear (Força)", tab2: "Áudio / Linha", tab3: "Saída Valvulada", tab4: "Guia & Referências", tab5: "Presets Clássicos",
                 lbl_area: "Área do Núcleo Central - A (cm²)", lbl_vpri: "Tensão Primária (V)", lbl_vsec: "Tensão Secundária (V)",
@@ -397,14 +423,14 @@
                 th_title3: "3. Cuidados contra Saturação DC (Air-Gaps)", th_desc3: "Circuitos Single-Ended geram forte polarização DC no primário, o que satura o núcleo rapidamente se não houver um entreferro (air-gap) calculado.",
                 th_title4: "4. Teste Prático em Bancada", th_desc4: "Utilize um gerador de áudio a 1000 Hz com um potenciômetro de referência e multímetro AC para validar a impedância refletida antes de integrar o componente ao circuito final.",
                 ref_title: "Referências Bibliográficas e Manuais Clássicos",
-                ref1_title: "Radiotron Designer's Handbook", ref1_desc: "(F. Langford-Smith) — Seção de Transformadores e Indutores com Núcleo de Ferro, cálculo de impedâncias e teoria de indutores acoplados[span_9](start_span)[span_9](end_span)[span_10](start_span)[span_10](end_span).",
-                ref2_title: "Audio Transformer Design", ref2_desc: "(N. H. Crowhurst) — Estudos aprofundados sobre arranjos de enrolamento, redução de indutância de fuga e capacitância distribuída[span_11](start_span)[span_11](end_span).",
-                ref3_title: "Winding Your Own Output Transformers", ref3_desc: "(Ed Francis, Popular Electronics) — Técnicas simplificadas de reaproveitamento de núcleos, cálculo prático para baixa impedância e testes em bancada[span_12](start_span)[span_12](end_span).",
-                ref4_title: "Handbook for Sound Engineers / Audio Transformers Chapter", ref4_desc: "(Bill Whitlock, Jensen Transformers) — Fundamentos de acoplamento magnético, rejeição de ruído comum (CMRR) e blindagens eletrostáticas/magnéticas[span_13](start_span)[span_13](end_span)."
+                ref1_title: "Radiotron Designer's Handbook", ref1_desc: "(F. Langford-Smith) — Seção de Transformadores e Indutores com Núcleo de Ferro, cálculo de impedâncias e teoria de indutores acoplados.",
+                ref2_title: "Audio Transformer Design", ref2_desc: "(N. H. Crowhurst) — Estudos aprofundados sobre arranjos de enrolamento, redução de indutância de fuga e capacitância distribuída.",
+                ref3_title: "Winding Your Own Output Transformers", ref3_desc: "(Ed Francis, Popular Electronics) — Técnicas simplificadas de reaproveitamento de núcleos, cálculo prático para baixa impedância e testes em bancada.",
+                ref4_title: "Handbook for Sound Engineers / Audio Transformers Chapter", ref4_desc: "(Bill Whitlock, Jensen Transformers) — Fundamentos de acoplamento magnético, rejeição de ruído comum (CMRR) e blindagens eletrostáticas/magnéticas.",
+                th_app: "Aplicação", th_action: "Ação", th_load: "Carregar"
             },
             en: {
-                back: "← Back to Tools",
-                title: "Transformer Calculator",
+                back: "← Back to Tools", title: "Transformer Calculator Pro",
                 subtitle: "Interactive audiophile sizing. Visual design reacts to calculations.",
                 tab1: "Linear (Power)", tab2: "Audio / Line", tab3: "Tube Output", tab4: "Guide & References", tab5: "Classic Presets",
                 lbl_area: "Core Center Area - A (cm²)", lbl_vpri: "Primary Voltage (V)", lbl_vsec: "Secondary Voltage (V)",
@@ -425,14 +451,14 @@
                 th_title3: "3. DC Saturation & Air-Gaps", th_desc3: "Single-ended circuits require calculated air-gaps to prevent core saturation from unbalanced DC currents.",
                 th_title4: "4. Bench Testing", th_desc4: "Verify finished transformers using an audio generator and AC meters to check reflected impedance prior to final installation.",
                 ref_title: "Bibliographic References and Classic Manuals",
-                ref1_title: "Radiotron Designer's Handbook", ref1_desc: "(F. Langford-Smith) — Section on Iron-Core Transformers and Inductors, impedance calculations and coupled inductor theory[span_14](start_span)[span_14](end_span)[span_15](start_span)[span_15](end_span).",
-                ref2_title: "Audio Transformer Design", ref2_desc: "(N. H. Crowhurst) — In-depth studies on winding arrangements, leakage inductance reduction, and distributed capacitance[span_16](start_span)[span_16](end_span).",
-                ref3_title: "Winding Your Own Output Transformers", ref3_desc: "(Ed Francis, Popular Electronics) — Simplified core salvage techniques, practical low-impedance calculations, and bench testing[span_17](start_span)[span_17](end_span).",
-                ref4_title: "Handbook for Sound Engineers / Audio Transformers Chapter", ref4_desc: "(Bill Whitlock, Jensen Transformers) — Fundamentals of magnetic coupling, common-mode noise rejection (CMRR), and electrostatic/magnetic shielding[span_18](start_span)[span_18](end_span)."
+                ref1_title: "Radiotron Designer's Handbook", ref1_desc: "(F. Langford-Smith) — Section on Iron-Core Transformers and Inductors, impedance calculations and coupled inductor theory.",
+                ref2_title: "Audio Transformer Design", ref2_desc: "(N. H. Crowhurst) — In-depth studies on winding arrangements, leakage inductance reduction, and distributed capacitance.",
+                ref3_title: "Winding Your Own Output Transformers", ref3_desc: "(Ed Francis, Popular Electronics) — Simplified core salvage techniques, practical low-impedance calculations, and bench testing.",
+                ref4_title: "Handbook for Sound Engineers / Audio Transformers Chapter", ref4_desc: "(Bill Whitlock, Jensen Transformers) — Fundamentals of magnetic coupling, common-mode noise rejection (CMRR), and electrostatic/magnetic shielding.",
+                th_app: "Application", th_action: "Action", th_load: "Load"
             },
             es: {
-                back: "← Volver a Herramientas",
-                title: "Calculadora de Transformadores",
+                back: "← Volver a Herramientas", title: "Calculadora de Transformadores Pro",
                 subtitle: "Dimensionamiento audiófilo interactivo. Diseño visual reactivo a los cálculos.",
                 tab1: "Lineal (Potencia)", tab2: "Audio / Línea", tab3: "Salida a Válvulas", tab4: "Guía y Referencias", tab5: "Presets Clásicos",
                 lbl_area: "Área del Núcleo Central - A (cm²)", lbl_vpri: "Tensión Primaria (V)", lbl_vsec: "Tensión Secundaria (V)",
@@ -453,10 +479,11 @@
                 th_title3: "3. Saturación DC y Entrehierros (Air-Gaps)", th_desc3: "Los circuitos Single-Ended generan corriente DC desbalanceada, requiriendo entrehierros calculados para evitar la saturación del núcleo.",
                 th_title4: "4. Pruebas de Banco", th_desc4: "Valide el transformador terminado utilizando un generador de audio y multímetros AC para comprobar la impedancia reflejada.",
                 ref_title: "Referencias Bibliográficas y Manuales Clásicos",
-                ref1_title: "Radiotron Designer's Handbook", ref1_desc: "(F. Langford-Smith) — Sección de Transformadores e Inductores con Núcleo de Hierro, cálculo de impedancias y teoría de inductores acoplados[span_19](start_span)[span_19](end_span)[span_20](start_span)[span_20](end_span).",
-                ref2_title: "Audio Transformer Design", ref2_desc: "(N. H. Crowhurst) — Estudios profundos sobre arreglos de bobinado, reducción de inductancia de fuga y capacitancia distribuida[span_21](start_span)[span_21](end_span).",
-                ref3_title: "Winding Your Own Output Transformers", ref3_desc: "(Ed Francis, Popular Electronics) — Técnicas simplificadas de reaproveitamiento de núcleos, cálculo práctico para baja impedancia y pruebas de banco[span_22](start_span)[span_22](end_span).",
-                ref4_title: "Handbook for Sound Engineers / Audio Transformers Chapter", ref4_desc: "(Bill Whitlock, Jensen Transformers) — Fundamentos de acoplamiento magnético, rechazo de ruido común (CMRR) y blindajes electrostáticos/magnéticos[span_23](start_span)[span_23](end_span)."
+                ref1_title: "Radiotron Designer's Handbook", ref1_desc: "(F. Langford-Smith) — Sección de Transformadores e Inductores con Núcleo de Hierro, cálculo de impedancias y teoría de inductores acoplados.",
+                ref2_title: "Audio Transformer Design", ref2_desc: "(N. H. Crowhurst) — Estudios profundos sobre arreglos de bobinado, reducción de inductancia de fuga y capacitancia distribuida.",
+                ref3_title: "Winding Your Own Output Transformers", ref3_desc: "(Ed Francis, Popular Electronics) — Técnicas simplificadas de reaproveitamiento de núcleos, cálculo práctico para baja impedancia y pruebas de banco.",
+                ref4_title: "Handbook for Sound Engineers / Audio Transformers Chapter", ref4_desc: "(Bill Whitlock, Jensen Transformers) — Fundamentos de acoplamiento magnético, rechazo de ruido común (CMRR) y blindajes electrostáticos/magnéticos.",
+                th_app: "Aplicación", th_action: "Acción", th_load: "Cargar"
             }
         };
 
@@ -467,6 +494,16 @@
         let animFrame;
         let currentCalculatedFreq = 30; 
         const currentLang = () => document.getElementById('langMenu').value;
+
+        function showActivePreset(tabIndex, name) {
+            document.querySelectorAll('.active-preset-banner').forEach(el => el.style.display = 'none');
+            const banner = document.getElementById(`active-preset-${tabIndex}`);
+            if(banner && name) {
+                const prefix = currentLang() === 'pt' ? 'Carregado: ' : (currentLang() === 'en' ? 'Loaded: ' : 'Cargado: ');
+                banner.innerText = prefix + name;
+                banner.style.display = 'block';
+            }
+        }
 
         function switchTab(index) {
             if (isPlaying) toggleAudioSimulation('all');
@@ -479,29 +516,56 @@
             if (index === 2) calcTube();
         }
 
-        // Funções de Preset
-        function loadLinearPreset(area, vpri, vsec, isec) {
+        function renderPresets() {
+            const lang = currentLang();
+            const thApp = translations[lang]['th_app'];
+            const thAction = translations[lang]['th_action'];
+            const btnLoad = translations[lang]['th_load'];
+
+            let htmlLin = `<tr><th>${thApp}</th><th>Pri (V)</th><th>Sec (V)</th><th>${thAction}</th></tr>`;
+            userPresets.linear.forEach(p => {
+                htmlLin += `<tr><td>${p.name}</td><td>${p.vpri}</td><td>${p.vsec}</td><td><button class="btn-load" onclick="loadLinearPreset('${p.name}', ${p.area}, ${p.vpri}, ${p.vsec}, ${p.isec})">${btnLoad}</button></td></tr>`;
+            });
+            document.getElementById('table-presets-linear').innerHTML = htmlLin;
+
+            let htmlAud = `<tr><th>${thApp}</th><th>Z1 (Ω)</th><th>Z2 (Ω)</th><th>${thAction}</th></tr>`;
+            userPresets.audio.forEach(p => {
+                htmlAud += `<tr><td>${p.name}</td><td>${p.z1}</td><td>${p.z2}</td><td><button class="btn-load" onclick="loadAudioPreset('${p.name}', ${p.area}, ${p.z1}, ${p.z2}, ${p.fmin})">${btnLoad}</button></td></tr>`;
+            });
+            document.getElementById('table-presets-audio').innerHTML = htmlAud;
+
+            let htmlTub = `<tr><th>Válvula / Topologia</th><th>Zaa/Z (Ω)</th><th>Carga (Ω)</th><th>${thAction}</th></tr>`;
+            userPresets.tube.forEach(p => {
+                htmlTub += `<tr><td>${p.name}</td><td>${p.zpp}</td><td>${p.spk}</td><td><button class="btn-load" onclick="loadTubePreset('${p.name}', ${p.area}, ${p.zpp}, ${p.spk}, ${p.fmin})">${btnLoad}</button></td></tr>`;
+            });
+            document.getElementById('table-presets-tube').innerHTML = htmlTub;
+        }
+
+        function loadLinearPreset(name, area, vpri, vsec, isec) {
             document.getElementById('lin_area').value = area;
             document.getElementById('lin_vpri').value = vpri;
             document.getElementById('lin_vsec').value = vsec;
             document.getElementById('lin_isec').value = isec;
             switchTab(0);
+            showActivePreset(0, name);
         }
 
-        function loadAudioPreset(area, z1, z2, fmin) {
+        function loadAudioPreset(name, area, z1, z2, fmin) {
             document.getElementById('aud_area').value = area;
             document.getElementById('aud_z1').value = z1;
             document.getElementById('aud_z2').value = z2;
             document.getElementById('aud_freq').value = fmin;
             switchTab(1);
+            showActivePreset(1, name);
         }
 
-        function loadTubePreset(area, zpp, spk, fmin) {
+        function loadTubePreset(name, area, zpp, spk, fmin) {
             document.getElementById('tub_area').value = area;
             document.getElementById('tub_zpp').value = zpp;
             document.getElementById('tub_spk').value = spk;
             document.getElementById('tub_freq').value = fmin;
             switchTab(2);
+            showActivePreset(2, name);
         }
 
         function currentToAwg(amps) {
@@ -737,6 +801,7 @@
             const savedLang = getGlobalLang();
             document.getElementById('langMenu').value = savedLang;
             mudarIdioma(savedLang);
+            renderPresets();
             if(currentTab === 0) calcLinear();
         });
 
@@ -744,6 +809,7 @@
             const savedLang = (typeof getGlobalLang === 'function') ? getGlobalLang() : 'pt';
             document.getElementById('langMenu').value = savedLang;
             mudarIdioma(savedLang);
+            renderPresets();
             calcLinear(); 
         };
     </script>
