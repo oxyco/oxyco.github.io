@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OXYLABZ | Calculadora de Transformadores</title>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="../js/global.js"></script>
+    <style>
+        :root {
+            --bg-main: #13111c; --bg-card: #1c1a27; --bg-card-hover: #242136;
+            --text-primary: #f8fafc; --text-secondary: #a39eb5;
+            --accent: #B87333; --accent-glow: rgba(184, 115, 51, 0.25);
+            --border: #35314d; --gold: #D4AF37;
+        }
+        body { font-family: 'Inter', sans-serif; background-color: var(--bg-main); color: var(--text-primary); margin: 0; padding: 0; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
+        .navbar { width: 100%; padding: 16px 40px; box-sizing: border-box; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); background: rgba(19, 17, 28, 0.85); backdrop-filter: blur(12px); position: sticky; top: 0; z-index: 100; }
+        .back-link { color: var(--text-secondary); text-decoration: none; font-weight: 600; font-size: 14px; transition: color 0.2s; }
+        .back-link:hover { color: var(--gold); }
+        .lang-selector { background: var(--bg-card); border: 1px solid var(--border); color: var(--text-primary); padding: 8px 16px; border-radius: 6px; font-size: 14px; cursor: pointer; }
+        .container { max-width: 800px; width: 100%; padding: 40px 20px 80px; box-sizing: border-box; }
+        h1 { font-size: 2.2rem; margin-bottom: 8px; color: #fff; text-align: center; }
+        .subtitle { text-align: center; color: var(--text-secondary); margin-bottom: 32px; font-size: 1rem; }
+        
+        .tabs { display: flex; gap: 10px; margin-bottom: 24px; justify-content: center; flex-wrap: wrap; }
+        .tab-btn { background: var(--bg-card); border: 1px solid var(--border); color: var(--text-secondary); padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.2s; }
+        .tab-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); box-shadow: 0 0 15px var(--accent-glow); }
+
+        .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 32px; box-sizing: border-box; margin-bottom: 24px; }
+        .form-group { margin-bottom: 20px; }
+        label { display: block; font-size: 0.9rem; font-weight: 500; color: var(--text-secondary); margin-bottom: 8px; }
+        input { width: 100%; padding: 12px 16px; background: rgba(0,0,0,0.3); border: 1px solid var(--border); border-radius: 8px; color: #fff; font-size: 1rem; box-sizing: border-box; }
+        input:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2); }
+        
+        .calc-btn { background: var(--gold); color: #13111c; border: none; width: 100%; padding: 14px; border-radius: 8px; font-size: 1rem; font-weight: 700; cursor: pointer; transition: opacity 0.2s; }
+        .calc-btn:hover { opacity: 0.9; }
+
+        .results-box { margin-top: 24px; background: rgba(0,0,0,0.4); border: 1px solid var(--gold); border-radius: 8px; padding: 20px; display: none; }
+        .results-box h3 { margin-top: 0; color: var(--gold); font-size: 1.2rem; }
+        .result-item { margin: 10px 0; font-size: 1.05rem; display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 6px; }
+        .result-item span:last-child { font-weight: 700; color: #fff; }
+        .panel { display: none; }
+        .panel.active { display: block; }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="../index.html" class="back-link" data-i18n="back">← Voltar para Ferramentas</a>
+        <select class="lang-selector" id="langMenu" onchange="mudarIdioma(this.value)">
+            <option value="pt">🇧🇷 Português</option>
+            <option value="en">🇺🇸 English</option>
+            <option value="es">🇪🇸 Español</option>
+        </select>
+    </nav>
+
+    <div class="container">
+        <h1 data-i18n="title">Calculadora de Transformadores</h1>
+        <p class="subtitle" data-i18n="subtitle">Dimensionamento profissional para projetos lineares, de áudio e saídas valvuladas.</p>
+
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab(0)" data-i18n="tab1">Linear (Força)</button>
+            <button class="tab-btn" onclick="switchTab(1)" data-i18n="tab2">Áudio / Linha</button>
+            <button class="tab-btn" onclick="switchTab(2)" data-i18n="tab3">Saída Valvulada</button>
+        </div>
+
+        <!-- PAINEL 1: LINEAR -->
+        <div id="panel-0" class="panel active">
+            <div class="card">
+                <div class="form-group">
+                    <label data-i18n="lbl_area">Área do Núcleo Central (cm²)</label>
+                    <input type="number" id="lin_area" value="12.0" step="0.1">
+                </div>
+                <div class="form-group">
+                    <label data-i18n="lbl_vpri">Tensão Primária (V)</label>
+                    <input type="number" id="lin_vpri" value="120">
+                </div>
+                <div class="form-group">
+                    <label data-i18n="lbl_vsec">Tensão Secundária (V)</label>
+                    <input type="number" id="lin_vsec" value="24">
+                </div>
+                <div class="form-group">
+                    <label data-i18n="lbl_freq">Frequência da Rede (Hz)</label>
+                    <input type="number" id="lin_freq" value="60">
+                </div>
+                <button class="calc-btn" onclick="calcLinear()" data-i18n="btn_calc">Calcular Espiras e Fios</button>
+                
+                <div id="res-0" class="results-box">
+                    <h3 data-i18n="res_title">Especificações de Construção</h3>
+                    <div class="result-item"><span data-i18n="r_np">Espiras Primário:</span> <span id="r_lin_np">-</span></div>
+                    <div class="result-item"><span data-i18n="r_ns">Espiras Secundário:</span> <span id="r_lin_ns">-</span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PAINEL 2: ÁUDIO -->
+        <div id="panel-1" class="panel">
+            <div class="card">
+                <div class="form-group">
+                    <label data-i18n="lbl_aud_area">Área do Núcleo (cm²)</label>
+                    <input type="number" id="aud_area" value="6.0" step="0.1">
+                </div>
+                <div class="form-group">
+                    <label data-i18n="lbl_z1">Impedância Primária - Z1 (Ω)</label>
+                    <input type="number" id="aud_z1" value="10000">
+                </div>
+                <div class="form-group">
+                    <label data-i18n="lbl_z2">Impedância Secundária - Z2 (Ω)</label>
+                    <input type="number" id="aud_z2" value="600">
+                </div>
+                <div class="form-group">
+                    <label data-i18n="lbl_minf">Frequência Mínima de Resposta (Hz)</label>
+                    <input type="number" id="aud_freq" value="30">
+                </div>
+                <button class="calc-btn" onclick="calcAudio()" data-i18n="btn_calc">Calcular Espiras e Fios</button>
+                
+                <div id="res-1" class="results-box">
+                    <h3 data-i18n="res_title">Especificações de Construção</h3>
+                    <div class="result-item"><span data-i18n="r_ratio">Relação de Espiras:</span> <span id="r_aud_ratio">-</span></div>
+                    <div class="result-item"><span data-i18n="r_np">Espiras Primário:</span> <span id="r_aud_np">-</span></div>
+                    <div class="result-item"><span data-i18n="r_ns">Espiras Secundário:</span> <span id="r_aud_ns">-</span></div>
+                    <div class="result-item"><span data-i18n="r_lp">Indutância Primária Mínima:</span> <span id="r_aud_lp">-</span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PAINEL 3: VALVULADO -->
+        <div id="panel-2" class="panel">
+            <div class="card">
+                <div class="form-group">
+                    <label data-i18n="lbl_tub_area">Área do Núcleo (cm²)</label>
+                    <input type="number" id="tub_area" value="16.0" step="0.1">
+                </div>
+                <div class="form-group">
+                    <label data-i18n="lbl_r_pp">Impedância de Placa a Placa (Ω - Zaa)</label>
+                    <input type="number" id="tub_zpp" value="5000">
+                </div>
+                <div class="form-group">
+                    <label data-i18n="lbl_spk">Impedância do Alto-falante (Ω)</label>
+                    <input type="number" id="tub_spk" value="8">
+                </div>
+                <div class="form-group">
+                    <label data-i18n="lbl_minf">Frequência Mínima (Hz)</label>
+                    <input type="number" id="tub_freq" value="40">
+                </div>
+                <button class="calc-btn" onclick="calcTube()" data-i18n="btn_calc">Calcular Espiras e Fios</button>
+                
+                <div id="res-2" class="results-box">
+                    <h3 data-i18n="res_title">Especificações de Construção</h3>
+                    <div class="result-item"><span data-i18n="r_ratio">Relação de Espiras:</span> <span id="r_tub_ratio">-</span></div>
+                    <div class="result-item"><span data-i18n="r_np">Espiras Primário (Total):</span> <span id="r_tub_np">-</span></div>
+                    <div class="result-item"><span data-i18n="r_ns">Espiras Secundário:</span> <span id="r_tub_ns">-</span></div>
+                    <div class="result-item"><span data-i18n="r_lp">Indutância Primária Mínima:</span> <span id="r_tub_lp">-</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const translations = {
+            pt: {
+                back: "← Voltar para Ferramentas",
+                title: "Calculadora de Transformadores",
+                subtitle: "Dimensionamento profissional para projetos lineares, de áudio e saídas valvuladas.",
+                tab1: "Linear (Força)", tab2: "Áudio / Linha", tab3: "Saída Valvulada",
+                lbl_area: "Área do Núcleo Central (cm²)", lbl_vpri: "Tensão Primária (V)", lbl_vsec: "Tensão Secundária (V)",
+                lbl_freq: "Frequência da Rede (Hz)", lbl_aud_area: "Área do Núcleo (cm²)", lbl_z1: "Impedância Primária - Z1 (Ω)",
+                lbl_z2: "Impedância Secundária - Z2 (Ω)", lbl_minf: "Frequência Mínima de Resposta (Hz)", lbl_tub_area: "Área do Núcleo (cm²)",
+                lbl_r_pp: "Impedância de Placa a Placa (Ω - Zaa)", lbl_spk: "Impedância do Alto-falante (Ω)",
+                btn_calc: "Calcular Espiras e Fios", res_title: "Especificações de Construção",
+                r_np: "Espiras Primário:", r_ns: "Espiras Secundário:", r_ratio: "Relação de Espiras:", r_lp: "Indutância Primária Mínima:"
+            },
+            en: {
+                back: "← Back to Tools",
+                title: "Transformer Calculator",
+                subtitle: "Professional sizing for linear power, audio, and tube amplifier output transformers.",
+                tab1: "Linear (Power)", tab2: "Audio / Line", tab3: "Tube Output",
+                lbl_area: "Core Area (cm²)", lbl_vpri: "Primary Voltage (V)", lbl_vsec: "Secondary Voltage (V)",
+                lbl_freq: "Line Frequency (Hz)", lbl_aud_area: "Core Area (cm²)", lbl_z1: "Primary Impedance - Z1 (Ω)",
+                lbl_z2: "Secondary Impedance - Z2 (Ω)", lbl_minf: "Min Frequency Response (Hz)", lbl_tub_area: "Core Area (cm²)",
+                lbl_r_pp: "Plate-to-Plate Impedance (Ω - Zaa)", lbl_spk: "Speaker Impedance (Ω)",
+                btn_calc: "Calculate Turns & Wires", res_title: "Manufacturing Specifications",
+                r_np: "Primary Turns:", r_ns: "Secondary Turns:", r_ratio: "Turns Ratio:", r_lp: "Min Primary Inductance:"
+            },
+            es: {
+                back: "← Volver a Herramientas",
+                title: "Calculadora de Transformadores",
+                subtitle: "Dimensionamiento profesional para transformadores lineales, de audio y de salida a válvulas.",
+                tab1: "Lineal (Potencia)", tab2: "Audio / Línea", tab3: "Salida a Válvulas",
+                lbl_area: "Área del Núcleo (cm²)", lbl_vpri: "Tensión Primaria (V)", lbl_vsec: "Tensión Secundaria (V)",
+                lbl_freq: "Frecuencia de Red (Hz)", lbl_aud_area: "Área del Núcleo (cm²)", lbl_z1: "Impedancia Primaria - Z1 (Ω)",
+                lbl_z2: "Impedancia Secundaria - Z2 (Ω)", lbl_minf: "Frecuencia Mínima de Respuesta (Hz)", lbl_tub_area: "Área del Núcleo (cm²)",
+                lbl_r_pp: "Impedancia de Placa a Placa (Ω - Zaa)", lbl_spk: "Impedancia del Altavoz (Ω)",
+                btn_calc: "Calcular Espiras y Alambres", res_title: "Especificaciones de Fabricación",
+                r_np: "Espiras Primarias:", r_ns: "Espiras Secundarias:", r_ratio: "Relación de Espiras:", r_lp: "Inductancia Primaria Mínima:"
+            }
+        };
+
+        function switchTab(index) {
+            document.querySelectorAll('.tab-btn').forEach((btn, i) => btn.classList.toggle('active', i === index));
+            document.querySelectorAll('.panel').forEach((panel, i) => panel.classList.toggle('active', i === index));
+        }
+
+        function calcLinear() {
+            const area = parseFloat(document.getElementById('lin_area').value);
+            const vpri = parseFloat(document.getElementById('lin_vpri').value);
+            const vsec = parseFloat(document.getElementById('lin_vsec').value);
+            const freq = parseFloat(document.getElementById('lin_freq').value);
+            if (!area || !vpri || !vsec || !freq) return;
+
+            // Fórmula padrão de engenharia para transformadores de força (B ~ 10000 Gauss, stacking factor 0.9)
+            const np = Math.round((vpri * 100000000) / (4 * freq * 10000 * area));
+            const ns = Math.round(np * (vsec / vpri) / 0.95);
+
+            document.getElementById('r_lin_np').innerText = np;
+            document.getElementById('r_lin_ns').innerText = ns;
+            document.getElementById('res-0').style.display = 'block';
+        }
+
+        function calcAudio() {
+            const area = parseFloat(document.getElementById('aud_area').value);
+            const z1 = parseFloat(document.getElementById('aud_z1').value);
+            const z2 = parseFloat(document.getElementById('aud_z2').value);
+            const freq = parseFloat(document.getElementById('aud_freq').value);
+            if (!area || !z1 || !z2 || !freq) return;
+
+            const ratio = Math.sqrt(z1 / z2);
+            const lp = (2 * z1) / (2 * Math.PI * freq);
+            const np = Math.round(Math.sqrt((lp * 100000000 * 7.5) / (3.2 * area * 1500)));
+            const ns = Math.round(np / ratio);
+
+            document.getElementById('r_aud_ratio').innerText = `1:${ratio.toFixed(2)}`;
+            document.getElementById('r_aud_np').innerText = np;
+            document.getElementById('r_aud_ns').innerText = ns;
+            document.getElementById('r_aud_lp').innerText = `${lp.toFixed(2)} H`;
+            document.getElementById('res-1').style.display = 'block';
+        }
+
+        function calcTube() {
+            const area = parseFloat(document.getElementById('tub_area').value);
+            const zpp = parseFloat(document.getElementById('tub_zpp').value);
+            const spk = parseFloat(document.getElementById('tub_spk').value);
+            const freq = parseFloat(document.getElementById('tub_freq').value);
+            if (!area || !zpp || !spk || !freq) return;
+
+            const ratio = Math.sqrt(zpp / spk);
+            const rA = zpp / 2.0;
+            const lp = (1.94 * rA) / (2 * Math.PI * freq);
+            const np = Math.round(Math.sqrt((lp * 100000000 * 8.0) / (3.2 * area * 1200)));
+            const ns = Math.round(np / ratio);
+
+            document.getElementById('r_tub_ratio').innerText = `1:${ratio.toFixed(2)}`;
+            document.getElementById('r_tub_np').innerText = np;
+            document.getElementById('r_tub_ns').innerText = ns;
+            document.getElementById('r_tub_lp').innerText = `${lp.toFixed(2)} H`;
+            document.getElementById('res-2').style.display = 'block';
+        }
+
+        function mudarIdioma(lang) {
+            if (typeof setGlobalLang === 'function') setGlobalLang(lang);
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) {
+                    el.innerText = translations[lang][key];
+                }
+            });
+        }
+
+        window.addEventListener('idiomaMudou', () => {
+            const savedLang = getGlobalLang();
+            document.getElementById('langMenu').value = savedLang;
+            mudarIdioma(savedLang);
+        });
+
+        window.onload = () => {
+            const savedLang = (typeof getGlobalLang === 'function') ? getGlobalLang() : 'pt';
+            document.getElementById('langMenu').value = savedLang;
+            mudarIdioma(savedLang);
+        };
+    </script>
+</body>
+</html>
