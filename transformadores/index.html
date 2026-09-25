@@ -3,62 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OXYLABZ | Calculadora Avançada de Transformadores</title>
-    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>OXYLABZ | Calculadora Avançada de Transformadores Pro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="../js/global.js"></script>
     <style>
         :root {
             --bg-main: #13111c; --bg-card: #1c1a27; --bg-card-hover: #242136;
             --text-primary: #f8fafc; --text-secondary: #a39eb5;
-            --accent: #B87333; --accent-glow: rgba(184, 115, 51, 0.25);
+            --accent: #B87333; --accent-glow: rgba(184, 115, 51, 0.35);
             --border: #35314d; --gold: #D4AF37;
+            --coil-pri: #e57b42; --coil-sec: #4e8ef7;
         }
         body { font-family: 'Inter', sans-serif; background-color: var(--bg-main); color: var(--text-primary); margin: 0; padding: 0; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
-        .navbar { width: 100%; padding: 16px 40px; box-sizing: border-box; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); background: rgba(19, 17, 28, 0.85); backdrop-filter: blur(12px); position: sticky; top: 0; z-index: 100; }
+        .navbar { width: 100%; padding: 16px 40px; box-sizing: border-box; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); background: rgba(19, 17, 28, 0.9); backdrop-filter: blur(12px); position: sticky; top: 0; z-index: 100; }
         .back-link { color: var(--text-secondary); text-decoration: none; font-weight: 600; font-size: 14px; transition: color 0.2s; }
         .back-link:hover { color: var(--gold); }
-        .lang-selector { background: var(--bg-card); border: 1px solid var(--border); color: var(--text-primary); padding: 8px 16px; border-radius: 6px; font-size: 14px; cursor: pointer; }
+        .lang-selector { background: var(--bg-card); border: 1px solid var(--border); color: var(--text-primary); padding: 8px 16px; border-radius: 6px; font-size: 14px; cursor: pointer; transition: 0.2s; }
+        .lang-selector:hover { border-color: var(--gold); }
         .container { max-width: 900px; width: 100%; padding: 40px 20px 80px; box-sizing: border-box; }
-        h1 { font-size: 2.2rem; margin-bottom: 8px; color: #fff; text-align: center; }
-        .subtitle { text-align: center; color: var(--text-secondary); margin-bottom: 32px; font-size: 1rem; }
+        h1 { font-size: 2.2rem; margin-bottom: 8px; color: #fff; text-align: center; font-weight: 700; letter-spacing: -0.5px; }
+        .subtitle { text-align: center; color: var(--text-secondary); margin-bottom: 32px; font-size: 1.05rem; }
         
-        .tabs { display: flex; gap: 8px; margin-bottom: 24px; justify-content: center; flex-wrap: wrap; }
-        .tab-btn { background: var(--bg-card); border: 1px solid var(--border); color: var(--text-secondary); padding: 10px 16px; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 0.9rem; transition: all 0.2s; }
+        .tabs { display: flex; gap: 10px; margin-bottom: 24px; justify-content: center; flex-wrap: wrap; }
+        .tab-btn { background: var(--bg-card); border: 1px solid var(--border); color: var(--text-secondary); padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 0.95rem; transition: all 0.2s; }
+        .tab-btn:hover { background: var(--bg-card-hover); border-color: var(--accent); }
         .tab-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); box-shadow: 0 0 15px var(--accent-glow); }
 
-        .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 32px; box-sizing: border-box; margin-bottom: 24px; }
+        .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 32px; box-sizing: border-box; margin-bottom: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
         .form-group { margin-bottom: 20px; }
-        label { display: block; font-size: 0.9rem; font-weight: 500; color: var(--text-secondary); margin-bottom: 8px; }
-        input, select { width: 100%; padding: 12px 16px; background: rgba(0,0,0,0.3); border: 1px solid var(--border); border-radius: 8px; color: #fff; font-size: 1rem; box-sizing: border-box; }
+        label { display: block; font-size: 0.9rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 8px; }
+        input, select { width: 100%; padding: 14px 16px; background: rgba(0,0,0,0.4); border: 1px solid var(--border); border-radius: 8px; color: #fff; font-size: 1rem; box-sizing: border-box; transition: 0.2s; }
         input:focus, select:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2); }
         
-        .calc-btn { background: var(--gold); color: #13111c; border: none; width: 100%; padding: 14px; border-radius: 8px; font-size: 1rem; font-weight: 700; cursor: pointer; transition: opacity 0.2s; }
-        .calc-btn:hover { opacity: 0.9; }
+        .calc-btn { background: linear-gradient(135deg, var(--gold) 0%, #b38f22 100%); color: #13111c; border: none; width: 100%; padding: 16px; border-radius: 8px; font-size: 1.05rem; font-weight: 700; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3); }
+        .calc-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4); }
 
-        .results-box { margin-top: 24px; background: rgba(0,0,0,0.4); border: 1px solid var(--gold); border-radius: 8px; padding: 20px; display: none; }
-        .results-box h3 { margin-top: 0; color: var(--gold); font-size: 1.2rem; }
-        .result-item { margin: 10px 0; font-size: 1.05rem; display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 6px; }
-        .result-item span:last-child { font-weight: 700; color: #fff; }
+        /* Animação Audiófila 3D do Transformador */
+        .anim-container { display: flex; justify-content: center; align-items: center; background: radial-gradient(circle at center, rgba(36,33,54,1) 0%, rgba(19,17,28,1) 100%); border-radius: 12px; padding: 20px; margin-bottom: 24px; border: 1px solid var(--border); box-shadow: inset 0 0 40px rgba(0,0,0,0.5); overflow: hidden; }
+        .transformer-svg { width: 100%; max-width: 600px; height: auto; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.5)); }
+        
+        @keyframes flowFlux {
+            0% { stroke-dashoffset: 40; opacity: 0.6; }
+            50% { opacity: 1; }
+            100% { stroke-dashoffset: 0; opacity: 0.6; }
+        }
+        
+        .flux-glow { stroke: var(--gold); stroke-width: 4; stroke-dasharray: 10 10; fill: none; opacity: 0.8; filter: blur(3px); animation: flowFlux linear infinite; }
+        .flux-core { stroke: #fff; stroke-width: 1.5; stroke-dasharray: 10 10; fill: none; opacity: 0.9; animation: flowFlux linear infinite; }
 
-        /* Área do Esquema Dinâmico do Transformador */
-        .anim-container { display: flex; flex-direction: column; align-items: center; background: rgba(0,0,0,0.3); border-radius: 10px; padding: 15px; margin-bottom: 24px; border: 1px dashed var(--border); }
-        .transformer-svg { width: 100%; max-width: 420px; height: 210px; }
-        .core-iron { fill: #484f58; stroke: #8b949e; stroke-width: 2; }
-        .coil-line { stroke-width: 3.5; fill: none; stroke-linecap: round; }
-        .flux-line { stroke: var(--gold); stroke-width: 2; stroke-dasharray: 4 4; fill: none; opacity: 0.7; }
+        .coil-back { fill: none; stroke-linecap: round; opacity: 0.5; filter: blur(0.5px); }
+        .coil-front { fill: none; stroke-linecap: round; filter: drop-shadow(0 3px 2px rgba(0,0,0,0.6)); }
+        
+        .lbl-box { fill: rgba(19, 17, 28, 0.85); stroke: var(--border); stroke-width: 1.5; rx: 6; ry: 6; }
+        .lbl-title { fill: var(--gold); font-size: 13px; font-weight: 700; font-family: 'Inter', sans-serif; }
+        .lbl-data { fill: #f8fafc; font-size: 12px; font-weight: 500; font-family: 'Inter', sans-serif; }
+        .lbl-data-sec { fill: var(--text-secondary); font-size: 11px; font-family: 'Inter', sans-serif; }
 
-        .theory-content h3 { color: var(--gold); margin-top: 20px; font-size: 1.1rem; }
-        .theory-content h2 { color: #fff; border-bottom: 1px solid var(--border); padding-bottom: 8px; margin-top: 0; }
-        .theory-content p, .theory-content li { color: var(--text-secondary); line-height: 1.6; font-size: 0.95rem; }
-        .ref-box { background: rgba(0,0,0,0.2); border-left: 3px solid var(--gold); padding: 12px 16px; margin: 15px 0; border-radius: 0 8px 8px 0; }
+        .results-box { margin-top: 24px; background: rgba(0,0,0,0.5); border: 1px solid var(--border); border-left: 4px solid var(--gold); border-radius: 8px; padding: 24px; display: none; }
+        .results-box h3 { margin-top: 0; color: var(--gold); font-size: 1.2rem; margin-bottom: 16px; }
+        .result-item { margin: 12px 0; font-size: 1.05rem; display: flex; justify-content: space-between; border-bottom: 1px dashed rgba(255,255,255,0.1); padding-bottom: 8px; }
+        .result-item span:last-child { font-weight: 700; color: #fff; text-align: right; }
 
-        .panel { display: none; }
+        /* Guia Técnico e Referências Limpas */
+        .theory-content h2 { color: #fff; border-bottom: 1px solid var(--border); padding-bottom: 8px; margin-top: 0; font-size: 1.5rem; }
+        .theory-content h3 { color: var(--gold); margin-top: 24px; font-size: 1.15rem; }
+        .theory-content p { color: var(--text-secondary); line-height: 1.7; font-size: 0.95rem; margin-bottom: 16px; }
+        .ref-box { background: rgba(0,0,0,0.3); border-left: 3px solid var(--accent); padding: 16px; margin: 16px 0; border-radius: 0 8px 8px 0; transition: 0.2s; }
+        .ref-box:hover { background: rgba(184, 115, 51, 0.1); border-color: var(--gold); }
+        .ref-box b { color: #fff; font-size: 1.05rem; display: block; margin-bottom: 4px; }
+        .ref-box span { color: var(--text-secondary); font-size: 0.9rem; line-height: 1.5; display: block; }
+
+        .panel { display: none; animation: fadeIn 0.3s ease; }
         .panel.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
         @media print {
             body { background: #fff; color: #000; }
             .navbar, .tabs, .form-group, .calc-btn { display: none; }
-            .card { border: none; background: none; }
+            .card, .anim-container { border: none; background: none; box-shadow: none; filter: none; }
             .results-box { display: block !important; border: 2px solid #000; color: #000; background: #fff; }
+            .lbl-box { fill: #fff; stroke: #000; }
+            .lbl-title, .lbl-data, .lbl-data-sec { fill: #000; }
         }
     </style>
 </head>
@@ -74,23 +99,68 @@
 
     <div class="container">
         <h1 data-i18n="title">Calculadora de Transformadores Pro</h1>
-        <p class="subtitle" data-i18n="subtitle">Dimensionamento profissional com esquema interativo de enrolamento para montagem e impressão.</p>
+        <p class="subtitle" data-i18n="subtitle">Dimensionamento audiófilo interativo. Projeto visual reativo aos cálculos.</p>
 
-        <!-- Esquema Gráfico Dinâmico e Interativo -->
+        <!-- Esquema Gráfico 3D Dinâmico -->
         <div class="anim-container">
-            <svg class="transformer-svg" id="dyn-transformer-svg" viewBox="0 0 420 210">
-                <!-- Núcleo E-I -->
-                <path class="core-iron" d="M 70 20 L 350 20 L 350 55 L 290 55 L 290 155 L 350 155 L 350 190 L 70 190 L 70 155 L 130 155 L 130 55 L 70 55 Z" />
-                <rect x="190" y="55" width="40" height="100" fill="#21262d" stroke="#8b949e" stroke-width="2" />
-                <!-- Linhas de Fluxo Magnético -->
-                <path class="flux-line" d="M 155 85 Q 110 105 155 125" />
-                <path class="flux-line" d="M 265 85 Q 310 105 265 125" />
-                <!-- Bobinas dinâmicas injetadas via JS -->
-                <g id="svg-coils-group"></g>
-                <!-- Textos Informativos -->
-                <text x="80" y="42" fill="#f8fafc" font-size="11" font-weight="600" id="svg-lbl-pri">Primário (Np)</text>
-                <text x="280" y="42" fill="#f8fafc" font-size="11" font-weight="600" id="svg-lbl-sec">Secundário (Ns)</text>
-                <text x="175" y="110" fill="#D4AF37" font-size="10" font-weight="700" text-anchor="middle" id="svg-core-lbl">E-I</text>
+            <svg class="transformer-svg" id="dyn-transformer-svg" viewBox="0 0 600 320" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="coreGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#4e5661" />
+                        <stop offset="50%" stop-color="#2a2e35" />
+                        <stop offset="100%" stop-color="#181a1f" />
+                    </linearGradient>
+                    <linearGradient id="priWire" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stop-color="#a65227" />
+                        <stop offset="50%" stop-color="#f0884d" />
+                        <stop offset="100%" stop-color="#7a3715" />
+                    </linearGradient>
+                    <linearGradient id="secWire" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stop-color="#2152a6" />
+                        <stop offset="50%" stop-color="#60a5fa" />
+                        <stop offset="100%" stop-color="#17366b" />
+                    </linearGradient>
+                </defs>
+
+                <!-- Grupo Dinâmico: Bobinas Traseiras -->
+                <g id="svg-coils-back"></g>
+
+                <!-- Núcleo E-I Metálico -->
+                <!-- Perna Esquerda (100 a 180), Janela (180 a 420), Perna Direita (420 a 500) -->
+                <!-- Topo/Base alt=60 -->
+                <path d="M 100 40 L 500 40 L 500 280 L 100 280 Z M 180 100 L 420 100 L 420 220 L 180 220 Z" fill="url(#coreGrad)" stroke="#111" stroke-width="2" fill-rule="evenodd" />
+                
+                <!-- Linhas de Fluxo Animadas -->
+                <rect x="140" y="70" width="320" height="180" rx="15" class="flux-glow" id="flux-glow" />
+                <rect x="140" y="70" width="320" height="180" rx="15" class="flux-core" id="flux-core" />
+
+                <!-- Grupo Dinâmico: Bobinas Frontais -->
+                <g id="svg-coils-front"></g>
+
+                <!-- Rótulos de Informação UI -->
+                <!-- Core Info (Centro Baixo) -->
+                <g transform="translate(225, 240)">
+                    <rect class="lbl-box" width="150" height="60" />
+                    <text x="75" y="22" text-anchor="middle" class="lbl-title" id="lbl-core-title">Núcleo E-I</text>
+                    <text x="75" y="38" text-anchor="middle" class="lbl-data" id="lbl-core-area">12.0 cm²</text>
+                    <text x="75" y="52" text-anchor="middle" class="lbl-data-sec" id="lbl-core-mat">Aço Silício</text>
+                </g>
+
+                <!-- Primário Info (Esquerda) -->
+                <g transform="translate(10, 10)">
+                    <rect class="lbl-box" width="130" height="60" />
+                    <text x="10" y="22" class="lbl-title" id="lbl-pri-title">Primário (Np)</text>
+                    <text x="10" y="38" class="lbl-data" id="lbl-pri-val1">120V</text>
+                    <text x="10" y="52" class="lbl-data-sec" id="lbl-pri-val2">Calculando...</text>
+                </g>
+
+                <!-- Secundário Info (Direita) -->
+                <g transform="translate(460, 10)">
+                    <rect class="lbl-box" width="130" height="60" />
+                    <text x="10" y="22" class="lbl-title" id="lbl-sec-title">Secundário (Ns)</text>
+                    <text x="10" y="38" class="lbl-data" id="lbl-sec-val1">24V</text>
+                    <text x="10" y="52" class="lbl-data-sec" id="lbl-sec-val2">Calculando...</text>
+                </g>
             </svg>
         </div>
 
@@ -126,7 +196,7 @@
                     <h3 data-i18n="res_title">Especificações de Construção</h3>
                     <div class="result-item"><span data-i18n="r_np">Espiras Primário:</span> <span id="r_lin_np">-</span></div>
                     <div class="result-item"><span data-i18n="r_ns">Espiras Secundário:</span> <span id="r_lin_ns">-</span></div>
-                    <div class="result-item"><span data-i18n="r_awgp">Bitola Sugerida:</span> <span id="r_lin_awg">-</span></div>
+                    <div class="result-item"><span data-i18n="r_awgp">Bitola Sugerida (Pri/Sec):</span> <span id="r_lin_awg">-</span></div>
                 </div>
             </div>
         </div>
@@ -137,9 +207,9 @@
                 <div class="form-group">
                     <label data-i18n="lbl_core_mat">Material do Núcleo</label>
                     <select id="aud_mat" onchange="calcAudio()">
-                        <option value="mumetal">Mumetal (Baixo nível / Alta permeabilidade)</option>
-                        <option value="radiometal">Radiometal</option>
-                        <option value="silicon">Aço Silício M6 / Silcor (Padrão Áudio)</option>
+                        <option value="Mumetal">Mumetal (Baixo nível / Alta permeabilidade)</option>
+                        <option value="Radiometal">Radiometal</option>
+                        <option value="Aço Silício M6" selected>Aço Silício M6 / Silcor (Padrão Áudio)</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -241,7 +311,7 @@
             pt: {
                 back: "← Voltar para Ferramentas",
                 title: "Calculadora de Transformadores Pro",
-                subtitle: "Dimensionamento profissional com esquema interativo de enrolamento para montagem e impressão.",
+                subtitle: "Dimensionamento audiófilo interativo. Projeto visual reativo aos cálculos.",
                 tab1: "Linear (Força)", tab2: "Áudio / Linha", tab3: "Saída Valvulada", tab4: "Guia & Referências",
                 lbl_area: "Área do Núcleo Central - A (cm²)", lbl_vpri: "Tensão Primária (V)", lbl_vsec: "Tensão Secundária (V)",
                 lbl_freq: "Frequência da Rede (Hz)", lbl_core_mat: "Material do Núcleo", lbl_aud_area: "Área do Núcleo (cm²)",
@@ -249,7 +319,7 @@
                 lbl_tub_area: "Área do Núcleo (cm²)", lbl_r_pp: "Impedância de Placa a Placa (Ω - Zaa)", lbl_spk: "Impedância do Alto-falante (Ω)",
                 btn_calc: "Calcular e Atualizar Esquema", res_title: "Especificações de Construção",
                 r_np: "Espiras Primário:", r_ns: "Espiras Secundário:", r_ratio: "Relação de Espiras:", r_lp: "Indutância Primária Mínima:",
-                r_awgp: "Bitola Sugerida:",
+                r_awgp: "Bitola Sugerida (Pri/Sec):",
                 g_title: "Guia de Montagem e Boas Práticas",
                 th_title1: "1. Fator de Empacotamento (Stacking Factor)", th_desc1: "Lâminas de aço silício possuem micro-rebarbas e camadas de óxido isolante. O fator real de ocupação do núcleo oscila tipicamente entre 0.87 e 0.94, exigindo correção na seção transversal útil do ferro.",
                 th_title2: "2. Técnicas de Bobinagem: Bifilar e Seccionamento", th_desc2: "Para eliminar distorções em push-pull de áudio e garantir simetria exata no centro-tap (CT), utilize o método de enrolamento bifilar. Para minimizar a indutância de fuga e estender a resposta em altas frequências, adote o seccionamento intercalado (sandwiching).",
@@ -264,7 +334,7 @@
             en: {
                 back: "← Back to Tools",
                 title: "Transformer Calculator Pro",
-                subtitle: "Professional sizing with interactive winding diagrams for assembly and printing.",
+                subtitle: "Interactive audiophile sizing. Visual design reacts to calculations.",
                 tab1: "Linear (Power)", tab2: "Audio / Line", tab3: "Tube Output", tab4: "Guide & References",
                 lbl_area: "Core Center Area - A (cm²)", lbl_vpri: "Primary Voltage (V)", lbl_vsec: "Secondary Voltage (V)",
                 lbl_freq: "Line Frequency (Hz)", lbl_core_mat: "Core Material", lbl_aud_area: "Core Area (cm²)",
@@ -287,14 +357,14 @@
             es: {
                 back: "← Volver a Herramientas",
                 title: "Calculadora de Transformadores Pro",
-                subtitle: "Dimensionamiento profesional con esquema interactivo de bobinado para montaje e impresión.",
+                subtitle: "Dimensionamiento audiófilo interactivo. Diseño visual reactivo a los cálculos.",
                 tab1: "Lineal (Potencia)", tab2: "Audio / Línea", tab3: "Salida a Válvulas", tab4: "Guía y Referencias",
                 lbl_area: "Área del Núcleo Central - A (cm²)", lbl_vpri: "Tensión Primaria (V)", lbl_vsec: "Tensión Secundaria (V)",
                 lbl_freq: "Frecuencia de Red (Hz)", lbl_core_mat: "Material del Núcleo", lbl_aud_area: "Área del Núcleo (cm²)",
                 lbl_z1: "Impedancia Primaria - Z1 (Ω)", lbl_z2: "Impedancia Secundaria - Z2 (Ω)", lbl_minf: "Frecuencia Mínima de Respuesta (Hz)",
                 lbl_tub_area: "Área del Núcleo (cm²)", lbl_r_pp: "Impedancia de Placa a Placa (Ω - Zaa)", lbl_spk: "Impedancia del Altavoz (Ω)",
                 btn_calc: "Calcular y Actualizar Esquema", res_title: "Especificaciones de Fabricación",
-                r_np: "Espiras Primarias:", r_ns: "Espiras Secundarias:", r_ratio: "Relación de Espiras:", r_lp: "Indutancia Primaria Mínima:",
+                r_np: "Espiras Primarias:", r_ns: "Espiras Secundarias:", r_ratio: "Relación de Espiras:", r_lp: "Inductancia Primaria Mínima:",
                 r_awgp: "Calibre Sugerido:",
                 g_title: "Guía de Montaje y Buenas Prácticas",
                 th_title1: "1. Factor de Empacamiento", th_desc1: "Las láminas de acero al silicio poseen rebabas y óxido, resultando en un factor de apilamiento real entre 0.87 y 0.94.",
@@ -302,48 +372,81 @@
                 th_title3: "3. Saturación DC y Entrehierros (Air-Gaps)", th_desc3: "Los circuitos Single-Ended generan corriente DC desbalanceada, requiriendo entrehierros calculados para evitar la saturación del núcleo.",
                 th_title4: "4. Pruebas de Banco", th_desc4: "Valide el transformador terminado utilizando un generador de audio y multímetros AC para comprobar la impedancia reflejada.",
                 ref_title: "Referencias Bibliográficas y Manuales Clásicos",
-                ref1_title: "Radiotron Designer's Handbook", ref1_desc: "(F. Langford-Smith) — Sección de Transformadores e Inductores con Núcleo de Hierro, cálculo de impedâncias y teoría de inductores acoplados.",
+                ref1_title: "Radiotron Designer's Handbook", ref1_desc: "(F. Langford-Smith) — Sección de Transformadores e Inductores con Núcleo de Hierro, cálculo de impedancias y teoría de inductores acoplados.",
                 ref2_title: "Audio Transformer Design", ref2_desc: "(N. H. Crowhurst) — Estudios profundos sobre arreglos de bobinado, reducción de inductancia de fuga y capacitancia distribuida.",
-                ref3_title: "Winding Your Own Output Transformers", ref3_desc: "(Ed Francis, Popular Electronics) — Técnicas simplificadas de reaproveitamiento de núcleos, cálculo práctico para baja impedância y pruebas en banco.",
+                ref3_title: "Winding Your Own Output Transformers", ref3_desc: "(Ed Francis, Popular Electronics) — Técnicas simplificadas de reaproveitamiento de núcleos, cálculo práctico para baja impedancia y pruebas de banco.",
                 ref4_title: "Handbook for Sound Engineers / Audio Transformers Chapter", ref4_desc: "(Bill Whitlock, Jensen Transformers) — Fundamentos de acoplamiento magnético, rechazo de ruido común (CMRR) y blindajes electrostáticos/magnéticos."
             }
         };
 
+        let currentTab = 0;
+
         function switchTab(index) {
+            currentTab = index;
             document.querySelectorAll('.tab-btn').forEach((btn, i) => btn.classList.toggle('active', i === index));
             document.querySelectorAll('.panel').forEach((panel, i) => panel.classList.toggle('active', i === index));
+            
+            if (index === 0) calcLinear();
+            if (index === 1) calcAudio();
+            if (index === 2) calcTube();
         }
 
-        // Desenha dinamicamente as espiras reais no SVG de acordo com o cálculo
-        function renderDynamicCoils(np, ns, labelType) {
-            const group = document.getElementById('svg-coils-group');
-            group.innerHTML = ''; // Limpa bobinas anteriores
+        // Renderizador 3D Matemático para as Espiras
+        function render3DCoils(np, ns, freq, area, matName, val1, val2) {
+            const backGroup = document.getElementById('svg-coils-back');
+            const frontGroup = document.getElementById('svg-coils-front');
+            backGroup.innerHTML = ''; frontGroup.innerHTML = '';
 
-            // Normaliza visualmente a quantidade de voltas desenhadas (de 4 a 12 espiras no SVG)
-            const loopsPri = Math.min(Math.max(Math.round(np / 150), 4), 12);
-            const loopsSec = Math.min(Math.max(Math.round(ns / 20), 4), 12);
+            // Limite de visualização para não poluir o desenho (entre 6 e 18 loops)
+            const visualLoopsPri = Math.min(Math.max(Math.round(np / 40), 6), 18);
+            const visualLoopsSec = Math.min(Math.max(Math.round(ns / 20), 6), 18);
 
-            let priPath = "";
-            let startY = 65;
-            let heightStep = 80 / loopsPri;
-            for (let i = 0; i < loopsPri; i++) {
-                let y = startY + (i * heightStep);
-                priPath += `M 130 ${y} Q 110 ${y + heightStep/2} 130 ${y + heightStep} `;
+            // Animação do fluxo ligada à frequência inserida
+            const animSpeed = Math.max(0.4, 60 / freq).toFixed(2);
+            document.getElementById('flux-glow').style.animationDuration = `${animSpeed}s`;
+            document.getElementById('flux-core').style.animationDuration = `${animSpeed}s`;
+
+            // Construção Matemática da Hélice 3D (Primário na Esquerda, Secundário na Direita)
+            // Left Leg: x=100 to 180 (Center = 140)
+            const priPathBack = [], priPathFront = [];
+            const yStart = 110, yTotal = 100;
+            const yStepPri = yTotal / visualLoopsPri;
+            
+            for(let i=0; i<visualLoopsPri; i++) {
+                let y = yStart + (i * yStepPri);
+                priPathBack.push(`M 90 ${y} Q 140 ${y - 12} 190 ${y + yStepPri * 0.2}`);
+                priPathFront.push(`M 90 ${y} Q 140 ${y + 15} 190 ${y + yStepPri * 0.8}`);
             }
 
-            let secPath = "";
-            let heightStepSec = 80 / loopsSec;
-            for (let i = 0; i < loopsSec; i++) {
-                let y = startY + (i * heightStepSec);
-                secPath += `M 290 ${y} Q 310 ${y + heightStepSec/2} 290 ${y + heightStepSec} `;
+            // Right Leg: x=420 to 500 (Center = 460)
+            const secPathBack = [], secPathFront = [];
+            const yStepSec = yTotal / visualLoopsSec;
+
+            for(let i=0; i<visualLoopsSec; i++) {
+                let y = yStart + (i * yStepSec);
+                secPathBack.push(`M 410 ${y} Q 460 ${y - 12} 510 ${y + yStepSec * 0.2}`);
+                secPathFront.push(`M 410 ${y} Q 460 ${y + 15} 510 ${y + yStepSec * 0.8}`);
             }
 
-            group.innerHTML = `
-                <path class="coil-line" stroke="#ff7b72" d="${priPath}" />
-                <path class="coil-line" stroke="#79c0ff" d="${secPath}" />
+            // Injeta SVG
+            backGroup.innerHTML = `
+                <path class="coil-line coil-back" stroke="url(#priWire)" d="${priPathBack.join(' ')}" />
+                <path class="coil-line coil-back" stroke="url(#secWire)" d="${secPathBack.join(' ')}" />
+            `;
+            frontGroup.innerHTML = `
+                <path class="coil-line coil-front" stroke="url(#priWire)" d="${priPathFront.join(' ')}" />
+                <path class="coil-line coil-front" stroke="url(#secWire)" d="${secPathFront.join(' ')}" />
             `;
 
-            document.getElementById('svg-core-lbl').textContent = `${labelType} (Np:${np} | Ns:${ns})`;
+            // Atualiza Rótulos
+            document.getElementById('lbl-core-area').textContent = `${area} cm²`;
+            document.getElementById('lbl-core-mat').textContent = matName;
+            
+            document.getElementById('lbl-pri-val1').textContent = val1;
+            document.getElementById('lbl-pri-val2').textContent = `${np} Espiras`;
+
+            document.getElementById('lbl-sec-val1').textContent = val2;
+            document.getElementById('lbl-sec-val2').textContent = `${ns} Espiras`;
         }
 
         function calcLinear() {
@@ -358,10 +461,10 @@
 
             document.getElementById('r_lin_np').innerText = np;
             document.getElementById('r_lin_ns').innerText = ns;
-            document.getElementById('r_lin_awg').innerText = "AWG 22 / 24";
+            document.getElementById('r_lin_awg').innerText = "AWG 22 (Pri) / 18 (Sec)";
             document.getElementById('res-0').style.display = 'block';
-            
-            renderDynamicCoils(np, ns, "Linear (Força)");
+
+            if(currentTab === 0) render3DCoils(np, ns, freq, area, "Aço Silício Padrão", `${vpri}V`, `${vsec}V`);
         }
 
         function calcAudio() {
@@ -369,6 +472,8 @@
             const z1 = parseFloat(document.getElementById('aud_z1').value);
             const z2 = parseFloat(document.getElementById('aud_z2').value);
             const freq = parseFloat(document.getElementById('aud_freq').value);
+            const matSelect = document.getElementById('aud_mat');
+            const matName = matSelect.options[matSelect.selectedIndex].text.split('(')[0].trim();
             if (!area || !z1 || !z2 || !freq) return;
 
             const ratio = Math.sqrt(z1 / z2);
@@ -382,7 +487,7 @@
             document.getElementById('r_aud_lp').innerText = `${lp.toFixed(2)} H`;
             document.getElementById('res-1').style.display = 'block';
 
-            renderDynamicCoils(np, ns, "Áudio / Linha");
+            if(currentTab === 1) render3DCoils(np, ns, freq, area, matName, `${z1}Ω (Z1)`, `${z2}Ω (Z2)`);
         }
 
         function calcTube() {
@@ -404,7 +509,7 @@
             document.getElementById('r_tub_lp').innerText = `${lp.toFixed(2)} H`;
             document.getElementById('res-2').style.display = 'block';
 
-            renderDynamicCoils(np, ns, "Saída Valvulada");
+            if(currentTab === 2) render3DCoils(np, ns, freq, area, "Aço Silício M6", `${zpp}Ω (Zaa)`, `${spk}Ω (Spk)`);
         }
 
         function mudarIdioma(lang) {
@@ -427,7 +532,7 @@
             const savedLang = (typeof getGlobalLang === 'function') ? getGlobalLang() : 'pt';
             document.getElementById('langMenu').value = savedLang;
             mudarIdioma(savedLang);
-            calcLinear(); // Executa o cálculo inicial para desenhar o esquema ao abrir
+            calcLinear(); // Inicializa visual
         };
     </script>
 </body>
