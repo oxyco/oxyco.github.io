@@ -118,7 +118,7 @@
 
     <div class="container">
         <h1 data-i18n="title">Calculadora de Transformadores Pro</h1>
-        <p class="subtitle" data-i18n="subtitle">Dimensionamento audiófilo com presets de bancada e análise visual.</p>
+        <p class="subtitle" data-i18n="subtitle">Dimensionamento audiófilo interativo com banco de presets e simulação em bancada.</p>
 
         <!-- Esquema Gráfico 3D Dinâmico -->
         <div class="anim-container">
@@ -382,38 +382,47 @@
 
     <script>
         // ==========================================
-        // 🎛️ BANCO DE DADOS DE PRESETS (PODE EDITAR!)
-        // Adicione novas linhas abaixo para criar novos presets.
+        // 🎛️ BANCO DE DADOS DE PRESETS (PODE EDITAR/EXPANDIR AQUI!)
         // ==========================================
         const userPresets = {
             linear: [
-                { name: "Pedal de Efeito 9V", area: 8.0, vpri: 120, vsec: 12, isec: 1.0 },
-                { name: "Fonte Simples (TDA2030 / LM1875)", area: 10.0, vpri: 120, vsec: 15, isec: 2.0 },
-                { name: "Fonte Simétrica (TDA2050 / LM3886)", area: 16.0, vpri: 120, vsec: 35, isec: 3.0 },
+                { name: "Fonte Arduino / NodeMCU ESP32 (1A)", area: 8.0, vpri: 120, vsec: 9, isec: 1.0 },
+                { name: "Fonte USB / Powerbank DIY (2A)", area: 9.0, vpri: 120, vsec: 9, isec: 2.0 },
+                { name: "Fonte Simétrica Op-Amps (±15V)", area: 8.0, vpri: 120, vsec: 30, isec: 0.5 },
+                { name: "Carregador Flutuação Chumbo-Ácido 12V/18Ah", area: 12.0, vpri: 120, vsec: 18, isec: 2.0 },
+                { name: "Inversor Nobreak DIY (12V DC -> 120V AC) 200W", area: 20.0, vpri: 10, vsec: 120, isec: 1.6 },
+                { name: "Inversor de Backup Pesado 12V/100Ah (500W)", area: 32.0, vpri: 10, vsec: 120, isec: 4.1 },
+                { name: "Fonte de Bancada LM338K (5A)", area: 20.0, vpri: 120, vsec: 24, isec: 5.0 },
+                { name: "Máquina de Solda Ponto DIY (MOT)", area: 35.0, vpri: 120, vsec: 2, isec: 500.0 },
+                { name: "Gerador de Alta Tensão / Jacob's Ladder", area: 25.0, vpri: 120, vsec: 2000, isec: 0.05 },
+                { name: "TDA2030 (Fonte Simples)", area: 10.0, vpri: 120, vsec: 15, isec: 2.0 },
+                { name: "TDA2050 / LM3886 (Fonte Simétrica)", area: 16.0, vpri: 120, vsec: 35, isec: 3.0 },
                 { name: "Amp Classe AB 100W", area: 22.0, vpri: 120, vsec: 70, isec: 4.0 },
                 { name: "Amp Classe D 300W (SMPS/Linear)", area: 28.0, vpri: 120, vsec: 100, isec: 6.0 },
-                { name: "Preamp Valvulado (Placa B+ Alta Tensão)", area: 9.0, vpri: 120, vsec: 250, isec: 0.05 },
-                { name: "Preamp Valvulado (Filamentos 6.3V)", area: 8.0, vpri: 120, vsec: 6.3, isec: 2.0 },
-                { name: "Fonte de Bancada Ajustável", area: 20.0, vpri: 120, vsec: 24, isec: 5.0 },
-                { name: "Carregador de Bateria Automotiva", area: 24.0, vpri: 120, vsec: 14, isec: 10.0 }
+                { name: "Preamp Valvulado (B+ Alta Tensão)", area: 9.0, vpri: 120, vsec: 250, isec: 0.05 },
+                { name: "Preamp Valvulado (Filamentos 6.3V)", area: 8.0, vpri: 120, vsec: 6.3, isec: 2.0 }
             ],
             audio: [
                 { name: "Mic Preamp Input", area: 4.0, z1: 150, z2: 15000, fmin: 20 },
                 { name: "Direct Box Passiva", area: 5.0, z1: 100000, z2: 600, fmin: 30 },
-                { name: "Bus Compressor / Line In", area: 6.0, z1: 10000, z2: 600, fmin: 20 },
+                { name: "GSSL Bus Compressor / Line In", area: 6.0, z1: 10000, z2: 600, fmin: 20 },
                 { name: "Isolador de Linha 1:1 (NE5532/OPA2134)", area: 5.0, z1: 600, z2: 600, fmin: 20 },
                 { name: "Matching 111C Repeat Coil", area: 8.0, z1: 600, z2: 600, fmin: 30 },
                 { name: "Sistema 70V Line-to-Voice-Coil (10W)", area: 8.0, z1: 500, z2: 8, fmin: 50 },
                 { name: "Sistema 70V Line-to-Voice-Coil (5W)", area: 6.0, z1: 1000, z2: 8, fmin: 50 },
-                { name: "Moving Coil Phono Step-Up", area: 4.0, z1: 40, z2: 47000, fmin: 20 }
+                { name: "Moving Coil Phono Step-Up", area: 4.0, z1: 40, z2: 47000, fmin: 20 },
+                { name: "Pultec EQP-1A Interstage", area: 6.0, z1: 600, z2: 10000, fmin: 20 },
+                { name: "LA-2A Output Transformer", area: 10.0, z1: 15000, z2: 600, fmin: 30 }
             ],
             tube: [
                 { name: "ECL82 / 6BM8 (Single-Ended)", area: 12.0, zpp: 5000, spk: 8, fmin: 40 },
                 { name: "6BL8 / ECF80 (Baixa Potência SE)", area: 6.0, zpp: 10000, spk: 32, fmin: 50 },
+                { name: "Champ 5F1 (Single-Ended)", area: 10.0, zpp: 7000, spk: 4, fmin: 60 },
                 { name: "EL84 (Single-Ended Class A)", area: 14.0, zpp: 5200, spk: 8, fmin: 40 },
                 { name: "EL84 / 6BQ5 (Push-Pull / Dynaco ST-35)", area: 16.0, zpp: 8000, spk: 8, fmin: 30 },
                 { name: "6V6GT (Push-Pull Fender Deluxe)", area: 18.0, zpp: 8000, spk: 8, fmin: 40 },
                 { name: "EL34 / 6L6GC (Push-Pull Clássico)", area: 24.0, zpp: 6600, spk: 8, fmin: 30 },
+                { name: "JCM800 50W (Push-Pull EL34)", area: 22.0, zpp: 3400, spk: 4, fmin: 45 },
                 { name: "KT88 / 6550 (Push-Pull Hi-Fi)", area: 28.0, zpp: 4300, spk: 8, fmin: 25 },
                 { name: "300B (Single-Ended Audiófilo)", area: 22.0, zpp: 3000, spk: 8, fmin: 20 },
                 { name: "12AU7 / 12BH7 (Line Driver PP)", area: 8.0, zpp: 15000, spk: 600, fmin: 40 },
@@ -444,10 +453,10 @@
                 th_title3: "3. Cuidados contra Saturação DC (Air-Gaps)", th_desc3: "Circuitos Single-Ended geram forte polarização DC no primário, o que satura o núcleo rapidamente se não houver um entreferro (air-gap) calculado.",
                 th_title4: "4. Teste Prático em Bancada", th_desc4: "Utilize um gerador de áudio a 1000 Hz com um potenciômetro de referência e multímetro AC para validar a impedância refletida antes de integrar o componente ao circuito final.",
                 ref_title: "Referências Bibliográficas e Manuais Clássicos",
-                ref1_title: "Radiotron Designer's Handbook", ref1_desc: "(F. Langford-Smith) — Seção de Transformadores e Indutores com Núcleo de Ferro, cálculo de impedâncias e teoria de indutores acoplados.",
-                ref2_title: "Audio Transformer Design", ref2_desc: "(N. H. Crowhurst) — Estudos aprofundados sobre arranjos de enrolamento, redução de indutância de fuga e capacitância distribuída.",
-                ref3_title: "Winding Your Own Output Transformers", ref3_desc: "(Ed Francis, Popular Electronics) — Técnicas simplificadas de reaproveitamento de núcleos, cálculo prático para baixa impedância e testes em bancada.",
-                ref4_title: "Handbook for Sound Engineers / Audio Transformers Chapter", ref4_desc: "(Bill Whitlock, Jensen Transformers) — Fundamentos de acoplamento magnético, rejeição de ruído comum (CMRR) e blindagens eletrostáticas/magnéticas.",
+                ref1_title: "Radiotron Designer's Handbook", ref1_desc: "(F. Langford-Smith) — Seção de Transformadores e Indutores com Núcleo de Ferro, cálculo de impedâncias e teoria de indutores acoplados[span_0](start_span)[span_0](end_span)[span_1](start_span)[span_1](end_span).",
+                ref2_title: "Audio Transformer Design", ref2_desc: "(N. H. Crowhurst) — Estudos aprofundados sobre arranjos de enrolamento, redução de indutância de fuga e capacitância distribuída[span_2](start_span)[span_2](end_span).",
+                ref3_title: "Winding Your Own Output Transformers", ref3_desc: "(Ed Francis, Popular Electronics) — Técnicas simplificadas de reaproveitamento de núcleos, cálculo prático para baixa impedância e testes em bancada[span_3](start_span)[span_3](end_span).",
+                ref4_title: "Handbook for Sound Engineers / Audio Transformers Chapter", ref4_desc: "(Bill Whitlock, Jensen Transformers) — Fundamentos de acoplamento magnético, rejeição de ruído comum (CMRR) e blindagens eletrostáticas/magnéticas[span_4](start_span)[span_4](end_span).",
                 th_app: "Aplicação", th_action: "Ação", th_load: "Carregar"
             },
             en: {
@@ -472,10 +481,10 @@
                 th_title3: "3. DC Saturation & Air-Gaps", th_desc3: "Single-ended circuits require calculated air-gaps to prevent core saturation from unbalanced DC currents.",
                 th_title4: "4. Bench Testing", th_desc4: "Verify finished transformers using an audio generator and AC meters to check reflected impedance prior to final installation.",
                 ref_title: "Bibliographic References and Classic Manuals",
-                ref1_title: "Radiotron Designer's Handbook", ref1_desc: "(F. Langford-Smith) — Section on Iron-Core Transformers and Inductors, impedance calculations and coupled inductor theory.",
-                ref2_title: "Audio Transformer Design", ref2_desc: "(N. H. Crowhurst) — In-depth studies on winding arrangements, leakage inductance reduction, and distributed capacitance.",
-                ref3_title: "Winding Your Own Output Transformers", ref3_desc: "(Ed Francis, Popular Electronics) — Simplified core salvage techniques, practical low-impedance calculations, and bench testing.",
-                ref4_title: "Handbook for Sound Engineers / Audio Transformers Chapter", ref4_desc: "(Bill Whitlock, Jensen Transformers) — Fundamentals of magnetic coupling, common-mode noise rejection (CMRR), and electrostatic/magnetic shielding.",
+                ref1_title: "Radiotron Designer's Handbook", ref1_desc: "(F. Langford-Smith) — Section on Iron-Core Transformers and Inductors, impedance calculations and coupled inductor theory[span_5](start_span)[span_5](end_span)[span_6](start_span)[span_6](end_span).",
+                ref2_title: "Audio Transformer Design", ref2_desc: "(N. H. Crowhurst) — In-depth studies on winding arrangements, leakage inductance reduction, and distributed capacitance[span_7](start_span)[span_7](end_span).",
+                ref3_title: "Winding Your Own Output Transformers", ref3_desc: "(Ed Francis, Popular Electronics) — Simplified core salvage techniques, practical low-impedance calculations, and bench testing[span_8](start_span)[span_8](end_span).",
+                ref4_title: "Handbook for Sound Engineers / Audio Transformers Chapter", ref4_desc: "(Bill Whitlock, Jensen Transformers) — Fundamentals of magnetic coupling, common-mode noise rejection (CMRR), and electrostatic/magnetic shielding[span_9](start_span)[span_9](end_span).",
                 th_app: "Application", th_action: "Action", th_load: "Load"
             },
             es: {
@@ -500,10 +509,10 @@
                 th_title3: "3. Saturación DC y Entrehierros (Air-Gaps)", th_desc3: "Los circuitos Single-Ended generan corriente DC desbalanceada, requiriendo entrehierros calculados para evitar la saturación del núcleo.",
                 th_title4: "4. Pruebas de Banco", th_desc4: "Valide el transformador terminado utilizando un generador de audio y multímetros AC para comprobar la impedancia reflejada.",
                 ref_title: "Referencias Bibliográficas y Manuales Clásicos",
-                ref1_title: "Radiotron Designer's Handbook", ref1_desc: "(F. Langford-Smith) — Sección de Transformadores e Inductores con Núcleo de Hierro, cálculo de impedancias y teoría de inductores acoplados.",
-                ref2_title: "Audio Transformer Design", ref2_desc: "(N. H. Crowhurst) — Estudios profundos sobre arreglos de bobinado, reducción de inductancia de fuga y capacitancia distribuida.",
-                ref3_title: "Winding Your Own Output Transformers", ref3_desc: "(Ed Francis, Popular Electronics) — Técnicas simplificadas de reaproveitamiento de núcleos, cálculo práctico para baja impedancia y pruebas de banco.",
-                ref4_title: "Handbook for Sound Engineers / Audio Transformers Chapter", ref4_desc: "(Bill Whitlock, Jensen Transformers) — Fundamentos de acoplamiento magnético, rechazo de ruido común (CMRR) y blindajes electrostáticos/magnéticos.",
+                ref1_title: "Radiotron Designer's Handbook", ref1_desc: "(F. Langford-Smith) — Sección de Transformadores e Inductores con Núcleo de Hierro, cálculo de impedancias y teoría de inductores acoplados[span_10](start_span)[span_10](end_span)[span_11](start_span)[span_11](end_span).",
+                ref2_title: "Audio Transformer Design", ref2_desc: "(N. H. Crowhurst) — Estudios profundos sobre arreglos de bobinado, reducción de inductancia de fuga y capacitancia distribuida[span_12](start_span)[span_12](end_span).",
+                ref3_title: "Winding Your Own Output Transformers", ref3_desc: "(Ed Francis, Popular Electronics) — Técnicas simplificadas de reaproveitamiento de núcleos, cálculo práctico para baja impedancia y pruebas de banco[span_13](start_span)[span_13](end_span).",
+                ref4_title: "Handbook for Sound Engineers / Audio Transformers Chapter", ref4_desc: "(Bill Whitlock, Jensen Transformers) — Fundamentos de acoplamiento magnético, rechazo de ruido común (CMRR) y blindajes electrostáticos/magnéticos[span_14](start_span)[span_14](end_span).",
                 th_app: "Aplicación", th_action: "Acción", th_load: "Cargar"
             }
         };
@@ -516,7 +525,7 @@
         let currentCalculatedFreq = 30; 
         const currentLang = () => document.getElementById('langMenu').value;
 
-        // Remoção da chamada ao setGlobalLang para evitar loop infinito
+        // Limpa e atualiza os textos de tradução sem causar erros
         function mudarIdioma(lang) {
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
@@ -524,6 +533,7 @@
                     el.innerHTML = translations[lang][key];
                 }
             });
+            renderPresets();
         }
 
         function showActivePreset(tabIndex, name) {
@@ -832,10 +842,6 @@
             const savedLang = getGlobalLang();
             document.getElementById('langMenu').value = savedLang;
             mudarIdioma(savedLang);
-            renderPresets();
-            if(currentTab === 0) calcLinear();
-            if(currentTab === 1) calcAudio();
-            if(currentTab === 2) calcTube();
         });
 
         window.onload = () => {
