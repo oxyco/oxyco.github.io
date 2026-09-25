@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OXYLABZ | Calculadora de Transformadores</title>
+    <title>OXYLABZ | Calculadora Avançada de Transformadores</title>
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="../js/global.js"></script>
     <style>
@@ -18,19 +18,19 @@
         .back-link { color: var(--text-secondary); text-decoration: none; font-weight: 600; font-size: 14px; transition: color 0.2s; }
         .back-link:hover { color: var(--gold); }
         .lang-selector { background: var(--bg-card); border: 1px solid var(--border); color: var(--text-primary); padding: 8px 16px; border-radius: 6px; font-size: 14px; cursor: pointer; }
-        .container { max-width: 800px; width: 100%; padding: 40px 20px 80px; box-sizing: border-box; }
+        .container { max-width: 900px; width: 100%; padding: 40px 20px 80px; box-sizing: border-box; }
         h1 { font-size: 2.2rem; margin-bottom: 8px; color: #fff; text-align: center; }
         .subtitle { text-align: center; color: var(--text-secondary); margin-bottom: 32px; font-size: 1rem; }
         
-        .tabs { display: flex; gap: 10px; margin-bottom: 24px; justify-content: center; flex-wrap: wrap; }
-        .tab-btn { background: var(--bg-card); border: 1px solid var(--border); color: var(--text-secondary); padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.2s; }
+        .tabs { display: flex; gap: 8px; margin-bottom: 24px; justify-content: center; flex-wrap: wrap; }
+        .tab-btn { background: var(--bg-card); border: 1px solid var(--border); color: var(--text-secondary); padding: 10px 16px; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 0.9rem; transition: all 0.2s; }
         .tab-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); box-shadow: 0 0 15px var(--accent-glow); }
 
         .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 32px; box-sizing: border-box; margin-bottom: 24px; }
         .form-group { margin-bottom: 20px; }
         label { display: block; font-size: 0.9rem; font-weight: 500; color: var(--text-secondary); margin-bottom: 8px; }
-        input { width: 100%; padding: 12px 16px; background: rgba(0,0,0,0.3); border: 1px solid var(--border); border-radius: 8px; color: #fff; font-size: 1rem; box-sizing: border-box; }
-        input:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2); }
+        input, select { width: 100%; padding: 12px 16px; background: rgba(0,0,0,0.3); border: 1px solid var(--border); border-radius: 8px; color: #fff; font-size: 1rem; box-sizing: border-box; }
+        input:focus, select:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2); }
         
         .calc-btn { background: var(--gold); color: #13111c; border: none; width: 100%; padding: 14px; border-radius: 8px; font-size: 1rem; font-weight: 700; cursor: pointer; transition: opacity 0.2s; }
         .calc-btn:hover { opacity: 0.9; }
@@ -39,6 +39,11 @@
         .results-box h3 { margin-top: 0; color: var(--gold); font-size: 1.2rem; }
         .result-item { margin: 10px 0; font-size: 1.05rem; display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 6px; }
         .result-item span:last-child { font-weight: 700; color: #fff; }
+        
+        .theory-content h3 { color: var(--gold); margin-top: 0; }
+        .theory-content p, .theory-content li { color: var(--text-secondary); line-height: 1.6; font-size: 0.95rem; }
+        .theory-content ul { padding-left: 20px; }
+
         .panel { display: none; }
         .panel.active { display: block; }
     </style>
@@ -54,20 +59,21 @@
     </nav>
 
     <div class="container">
-        <h1 data-i18n="title">Calculadora de Transformadores</h1>
-        <p class="subtitle" data-i18n="subtitle">Dimensionamento profissional para projetos lineares, de áudio e saídas valvuladas.</p>
+        <h1 data-i18n="title">Calculadora de Transformadores Pro</h1>
+        <p class="subtitle" data-i18n="subtitle">Ferramenta integrada com especificações de materiais, técnicas de bobinagem e manuais clássicos de áudio/força.</p>
 
         <div class="tabs">
             <button class="tab-btn active" onclick="switchTab(0)" data-i18n="tab1">Linear (Força)</button>
             <button class="tab-btn" onclick="switchTab(1)" data-i18n="tab2">Áudio / Linha</button>
             <button class="tab-btn" onclick="switchTab(2)" data-i18n="tab3">Saída Valvulada</button>
+            <button class="tab-btn" onclick="switchTab(3)" data-i18n="tab4">Guia Construtivo & Dicas</button>
         </div>
 
         <!-- PAINEL 1: LINEAR -->
         <div id="panel-0" class="panel active">
             <div class="card">
                 <div class="form-group">
-                    <label data-i18n="lbl_area">Área do Núcleo Central (cm²)</label>
+                    <label data-i18n="lbl_area">Área do Núcleo Central - A (cm²)</label>
                     <input type="number" id="lin_area" value="12.0" step="0.1">
                 </div>
                 <div class="form-group">
@@ -88,6 +94,7 @@
                     <h3 data-i18n="res_title">Especificações de Construção</h3>
                     <div class="result-item"><span data-i18n="r_np">Espiras Primário:</span> <span id="r_lin_np">-</span></div>
                     <div class="result-item"><span data-i18n="r_ns">Espiras Secundário:</span> <span id="r_lin_ns">-</span></div>
+                    <div class="result-item"><span data-i18n="r_awgp">Bitola Sugerida (AWG Primário/Secundário):</span> <span id="r_lin_awg">-</span></div>
                 </div>
             </div>
         </div>
@@ -95,6 +102,14 @@
         <!-- PAINEL 2: ÁUDIO -->
         <div id="panel-1" class="panel">
             <div class="card">
+                <div class="form-group">
+                    <label data-i18n="lbl_core_mat">Material do Núcleo</label>
+                    <select id="aud_mat">
+                        <option value="mumetal">Mumetal (Baixo nível / Alta permeabilidade)</option>
+                        <option value="radiometal">Radiometal</option>
+                        <option value="silicon">Aço Silício M6 / Silcor (Padrão Áudio)</option>
+                    </select>
+                </div>
                 <div class="form-group">
                     <label data-i18n="lbl_aud_area">Área do Núcleo (cm²)</label>
                     <input type="number" id="aud_area" value="6.0" step="0.1">
@@ -146,11 +161,28 @@
                 
                 <div id="res-2" class="results-box">
                     <h3 data-i18n="res_title">Especificações de Construção</h3>
-                    <div class="result-item"><span data-i18n="r_ratio">Relação de Espiras:</span> <span id="r_tub_ratio">-</span></div>
+                    <div class="result-item"><span data-i18n="r_ratio">Relação de Espiras:</span> <span id="r_ratio_tub">-</span></div>
                     <div class="result-item"><span data-i18n="r_np">Espiras Primário (Total):</span> <span id="r_tub_np">-</span></div>
                     <div class="result-item"><span data-i18n="r_ns">Espiras Secundário:</span> <span id="r_tub_ns">-</span></div>
                     <div class="result-item"><span data-i18n="r_lp">Indutância Primária Mínima:</span> <span id="r_tub_lp">-</span></div>
                 </div>
+            </div>
+        </div>
+
+        <!-- PAINEL 4: GUIA CONSTRUTIVO E TEÓRICO -->
+        <div id="panel-3" class="panel">
+            <div class="card theory-content">
+                <h3 data-i18n="th_title1">1. Fator de Empacotamento (Stacking Factor)</h3>
+                <p data-i18n="th_desc1">Lâminas de aço silício possuem micro-rebarbas e camadas de isolamento em óxido/verniz. O fator real de ocupação do núcleo oscila tipicamente entre 0.87 e 0.94[span_0](start_span)[span_0](end_span)[span_1](start_span)[span_1](end_span), exigindo correção no cálculo real da seção transversal útil do ferro ($A_{efutil} = A_{fisica} \times 0.9$).</p>
+                
+                <h3 data-i18n="th_title2">2. Técnicas de Bobinagem: Bifilar e Seccionamento</h3>
+                <p data-i18n="th_desc2">Para eliminar distorções em push-pull de áudio e garantir simetria exata no centro-tap (CT), utilize o método de enrolamento <b>bifilar</b> (enrolando dois fios simultaneamente lado a lado)[span_2](start_span)[span_2](end_span). Para minimizar a <i>indutância de fuga</i> e estender a resposta em altas frequências, adote o <b>sandwiching</b> (seccionamento em camadas intercaladas $P-S-P-S$) conforme as diretrizes clássicas de N. H. Crowhurst[span_3](start_span)[span_3](end_span).</p>
+
+                <h3 data-i18n="th_title3">3. Cuidados contra Saturação DC (Air-Gaps)</h3>
+                <p data-i18n="th_desc3">Circuitos Single-Ended geram forte polarização DC no primário, o que satura o núcleo rapidamente se não houver um entreferro (*air-gap*). Introduza pequenos espaçadores de papel isolante se houver corrente contínua desbalanceada[span_4](start_span)[span_4](end_span)[span_5](start_span)[span_5](end_span).</p>
+
+                <h3 data-i18n="th_title4">4. Teste Prático em Bancada (Guia Ed Francis)</h3>
+                <p data-i18n="th_desc4">Antes de aplicar o trafo no circuito definitivo, utilize um gerador de áudio a 1000 Hz com um potenciômetro de 1kΩ em série e um voltímetro AC para ajustar e conferir a impedância refletida e garantir a ausência de curtos entre espiras[span_6](start_span)[span_6](end_span).</p>
             </div>
         </div>
     </div>
@@ -159,39 +191,54 @@
         const translations = {
             pt: {
                 back: "← Voltar para Ferramentas",
-                title: "Calculadora de Transformadores",
-                subtitle: "Dimensionamento profissional para projetos lineares, de áudio e saídas valvuladas.",
-                tab1: "Linear (Força)", tab2: "Áudio / Linha", tab3: "Saída Valvulada",
-                lbl_area: "Área do Núcleo Central (cm²)", lbl_vpri: "Tensão Primária (V)", lbl_vsec: "Tensão Secundária (V)",
-                lbl_freq: "Frequência da Rede (Hz)", lbl_aud_area: "Área do Núcleo (cm²)", lbl_z1: "Impedância Primária - Z1 (Ω)",
-                lbl_z2: "Impedância Secundária - Z2 (Ω)", lbl_minf: "Frequência Mínima de Resposta (Hz)", lbl_tub_area: "Área do Núcleo (cm²)",
-                lbl_r_pp: "Impedância de Placa a Placa (Ω - Zaa)", lbl_spk: "Impedância do Alto-falante (Ω)",
+                title: "Calculadora de Transformadores Pro",
+                subtitle: "Dimensionamento profissional com especificações de materiais e manuais clássicos de áudio/força.",
+                tab1: "Linear (Força)", tab2: "Áudio / Linha", tab3: "Saída Valvulada", tab4: "Guia Construtivo & Dicas",
+                lbl_area: "Área do Núcleo Central - A (cm²)", lbl_vpri: "Tensão Primária (V)", lbl_vsec: "Tensão Secundária (V)",
+                lbl_freq: "Frequência da Rede (Hz)", lbl_core_mat: "Material do Núcleo", lbl_aud_area: "Área do Núcleo (cm²)",
+                lbl_z1: "Impedância Primária - Z1 (Ω)", lbl_z2: "Impedância Secundária - Z2 (Ω)", lbl_minf: "Frequência Mínima de Resposta (Hz)",
+                lbl_tub_area: "Área do Núcleo (cm²)", lbl_r_pp: "Impedância de Placa a Placa (Ω - Zaa)", lbl_spk: "Impedância do Alto-falante (Ω)",
                 btn_calc: "Calcular Espiras e Fios", res_title: "Especificações de Construção",
-                r_np: "Espiras Primário:", r_ns: "Espiras Secundário:", r_ratio: "Relação de Espiras:", r_lp: "Indutância Primária Mínima:"
+                r_np: "Espiras Primário:", r_ns: "Espiras Secundário:", r_ratio: "Relação de Espiras:", r_lp: "Indutância Primária Mínima:",
+                r_awgp: "Bitola Sugerida (AWG):",
+                th_title1: "1. Fator de Empacotamento (Stacking Factor)", th_desc1: "Lâminas de aço silício possuem micro-rebarbas e camadas de óxido. O fator real de ocupação oscila entre 0.87 e 0.94[span_7](start_span)[span_7](end_span)[span_8](start_span)[span_8](end_span), exigindo correção na seção útil do ferro.",
+                th_title2: "2. Técnicas de Bobinagem: Bifilar e Seccionamento", th_desc2: "Para eliminar distorções em push-pull e obter simetria perfeita no centro-tap, use enrolamento bifilar[span_9](start_span)[span_9](end_span). Para minimizar indutância de fuga, adote o seccionamento intercalado (sandwiching)[span_10](start_span)[span_10](end_span).",
+                th_title3: "3. Cuidados contra Saturação DC (Air-Gaps)", th_desc3: "Circuitos Single-Ended geram forte polarização DC, exigindo entreferros (air-gaps) calculados para evitar a saturação precoce do núcleo[span_11](start_span)[span_11](end_span)[span_12](start_span)[span_12](end_span).",
+                th_title4: "4. Teste Prático em Bancada (Guia Ed Francis)", th_desc4: "Certifique o transformador montado utilizando gerador de áudio, potenciômetro de referência e multímetro AC para validar a impedância refletida antes do uso final[span_13](start_span)[span_13](end_span)."
             },
             en: {
                 back: "← Back to Tools",
-                title: "Transformer Calculator",
-                subtitle: "Professional sizing for linear power, audio, and tube amplifier output transformers.",
-                tab1: "Linear (Power)", tab2: "Audio / Line", tab3: "Tube Output",
-                lbl_area: "Core Area (cm²)", lbl_vpri: "Primary Voltage (V)", lbl_vsec: "Secondary Voltage (V)",
-                lbl_freq: "Line Frequency (Hz)", lbl_aud_area: "Core Area (cm²)", lbl_z1: "Primary Impedance - Z1 (Ω)",
-                lbl_z2: "Secondary Impedance - Z2 (Ω)", lbl_minf: "Min Frequency Response (Hz)", lbl_tub_area: "Core Area (cm²)",
-                lbl_r_pp: "Plate-to-Plate Impedance (Ω - Zaa)", lbl_spk: "Speaker Impedance (Ω)",
+                title: "Transformer Calculator Pro",
+                subtitle: "Professional sizing with material specifications and classic audio/power engineering guides.",
+                tab1: "Linear (Power)", tab2: "Audio / Line", tab3: "Tube Output", tab4: "Construction Guide & Tips",
+                lbl_area: "Core Center Area - A (cm²)", lbl_vpri: "Primary Voltage (V)", lbl_vsec: "Secondary Voltage (V)",
+                lbl_freq: "Line Frequency (Hz)", lbl_core_mat: "Core Material", lbl_aud_area: "Core Area (cm²)",
+                lbl_z1: "Primary Impedance - Z1 (Ω)", lbl_z2: "Secondary Impedance - Z2 (Ω)", lbl_minf: "Min Frequency Response (Hz)",
+                lbl_tub_area: "Core Area (cm²)", lbl_r_pp: "Plate-to-Plate Impedance (Ω - Zaa)", lbl_spk: "Speaker Impedance (Ω)",
                 btn_calc: "Calculate Turns & Wires", res_title: "Manufacturing Specifications",
-                r_np: "Primary Turns:", r_ns: "Secondary Turns:", r_ratio: "Turns Ratio:", r_lp: "Min Primary Inductance:"
+                r_np: "Primary Turns:", r_ns: "Secondary Turns:", r_ratio: "Turns Ratio:", r_lp: "Min Primary Inductance:",
+                r_awgp: "Suggested Wire Gauge (AWG):",
+                th_title1: "1. Stacking Factor", th_desc1: "Silicon steel laminations feature burrs and oxide insulation, giving a real stacking factor between 0.87 and 0.94[span_14](start_span)[span_14](end_span)[span_15](start_span)[span_15](end_span).",
+                th_title2: "2. Winding Techniques: Bifilar & Sectionalizing", th_desc2: "Use bifilar winding for perfect push-pull symmetry[span_16](start_span)[span_16](end_span) and sandwiching to minimize leakage inductance[span_17](start_span)[span_17](end_span).",
+                th_title3: "3. DC Saturation & Air-Gaps", th_desc3: "Single-ended circuits require calculated air-gaps to prevent core saturation from unbalanced DC currents[span_18](start_span)[span_18](end_span)[span_19](start_span)[span_19](end_span).",
+                th_title4: "4. Bench Testing (Ed Francis Guide)", th_desc4: "Verify finished transformers using an audio generator and AC meters to check reflected impedance prior to final installation[span_20](start_span)[span_20](end_span)."
             },
             es: {
                 back: "← Volver a Herramientas",
-                title: "Calculadora de Transformadores",
-                subtitle: "Dimensionamiento profesional para transformadores lineales, de audio y de salida a válvulas.",
-                tab1: "Lineal (Potencia)", tab2: "Audio / Línea", tab3: "Salida a Válvulas",
-                lbl_area: "Área del Núcleo (cm²)", lbl_vpri: "Tensión Primaria (V)", lbl_vsec: "Tensión Secundaria (V)",
-                lbl_freq: "Frecuencia de Red (Hz)", lbl_aud_area: "Área del Núcleo (cm²)", lbl_z1: "Impedancia Primaria - Z1 (Ω)",
-                lbl_z2: "Impedancia Secundaria - Z2 (Ω)", lbl_minf: "Frecuencia Mínima de Respuesta (Hz)", lbl_tub_area: "Área del Núcleo (cm²)",
-                lbl_r_pp: "Impedancia de Placa a Placa (Ω - Zaa)", lbl_spk: "Impedancia del Altavoz (Ω)",
+                title: "Calculadora de Transformadores Pro",
+                subtitle: "Dimensionamiento profesional con especificaciones de materiales y guías clásicas de ingeniería.",
+                tab1: "Lineal (Potencia)", tab2: "Audio / Línea", tab3: "Salida a Válvulas", tab4: "Guía Constructiva y Tips",
+                lbl_area: "Área del Núcleo Central - A (cm²)", lbl_vpri: "Tensión Primaria (V)", lbl_vsec: "Tensión Secundaria (V)",
+                lbl_freq: "Frecuencia de Red (Hz)", lbl_core_mat: "Material del Núcleo", lbl_aud_area: "Área del Núcleo (cm²)",
+                lbl_z1: "Impedancia Primaria - Z1 (Ω)", lbl_z2: "Impedancia Secundaria - Z2 (Ω)", lbl_minf: "Frecuencia Mínima de Respuesta (Hz)",
+                lbl_tub_area: "Área del Núcleo (cm²)", lbl_r_pp: "Impedancia de Placa a Placa (Ω - Zaa)", lbl_spk: "Impedancia del Altavoz (Ω)",
                 btn_calc: "Calcular Espiras y Alambres", res_title: "Especificaciones de Fabricación",
-                r_np: "Espiras Primarias:", r_ns: "Espiras Secundarias:", r_ratio: "Relación de Espiras:", r_lp: "Inductancia Primaria Mínima:"
+                r_np: "Espiras Primarias:", r_ns: "Espiras Secundarias:", r_ratio: "Relación de Espiras:", r_lp: "Inductancia Primaria Mínima:",
+                r_awgp: "Calibre de Alambre Sugerido (AWG):",
+                th_title1: "1. Factor de Empacamiento", th_desc1: "Las láminas de acero al silicio poseen rebabas y óxido, resultando en un factor de apilamiento real entre 0.87 y 0.94[span_21](start_span)[span_21](end_span)[span_22](start_span)[span_22](end_span).",
+                th_title2: "2. Técnicas de Bobinado: Bifilar y Seccionamiento", th_desc2: "Utilice bobinado bifilar para simetría perfecta en push-pull[span_23](start_span)[span_23](end_span) y seccionamiento intercalado para reducir inductancia de fuga[span_24](start_span)[span_24](end_span).",
+                th_title3: "3. Saturación DC y Entrehierros (Air-Gaps)", th_desc3: "Los circuitos Single-Ended generan corriente DC desbalanceada, requiriendo entrehierros calculados para evitar la saturación del núcleo[span_25](start_span)[span_25](end_span)[span_26](start_span)[span_26](end_span).",
+                th_title4: "4. Pruebas de Banco (Guía Ed Francis)", th_desc4: "Valide el transformador terminado utilizando un generador de audio y multímetros AC para comprobar la impedancia reflejada[span_27](start_span)[span_27](end_span)."
             }
         };
 
@@ -207,12 +254,12 @@
             const freq = parseFloat(document.getElementById('lin_freq').value);
             if (!area || !vpri || !vsec || !freq) return;
 
-            // Fórmula padrão de engenharia para transformadores de força (B ~ 10000 Gauss, stacking factor 0.9)
             const np = Math.round((vpri * 100000000) / (4 * freq * 10000 * area));
             const ns = Math.round(np * (vsec / vpri) / 0.95);
 
             document.getElementById('r_lin_np').innerText = np;
             document.getElementById('r_lin_ns').innerText = ns;
+            document.getElementById('r_lin_awg').innerText = "AWG 22 / 24 (Primário / Secundário)";
             document.getElementById('res-0').style.display = 'block';
         }
 
@@ -248,7 +295,7 @@
             const np = Math.round(Math.sqrt((lp * 100000000 * 8.0) / (3.2 * area * 1200)));
             const ns = Math.round(np / ratio);
 
-            document.getElementById('r_tub_ratio').innerText = `1:${ratio.toFixed(2)}`;
+            document.getElementById('r_ratio_tub').innerText = `1:${ratio.toFixed(2)}`;
             document.getElementById('r_tub_np').innerText = np;
             document.getElementById('r_tub_ns').innerText = ns;
             document.getElementById('r_tub_lp').innerText = `${lp.toFixed(2)} H`;
