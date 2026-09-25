@@ -13,103 +13,176 @@
   --accent:#B87333; --accent-glow:rgba(184,115,51,.35);
   --border:#35314d; --gold:#D4AF37;
   --safe:#2ea043; --warn:#d29922; --danger:#f85149;
+  --canvas-bg:#010409; --canvas-grid:#21262d; --canvas-grid-strong:#30363d;
+  --canvas-text:#8b949e; --canvas-title:#fff;
 }
-body{font-family:'Inter',sans-serif;background:var(--bg-main);color:var(--text-primary);margin:0;padding:0;display:flex;flex-direction:column;align-items:center;min-height:100vh;overflow-x:hidden}
-.navbar{width:100%;padding:16px 40px;box-sizing:border-box;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);background:rgba(19,17,28,.9);backdrop-filter:blur(12px);position:sticky;top:0;z-index:100}
+body.light-theme {
+  --bg-main:#f2eff5; --bg-card:#ffffff; --bg-card-hover:#f7f3fa;
+  --text-primary:#2a2430; --text-secondary:#6a6375;
+  --accent:#a0522d; --accent-glow:rgba(160,82,45,.2);
+  --border:#ded5e2; --gold:#8a6d1e;
+  --safe:#1e8a3c; --warn:#b8860b; --danger:#c7332e;
+  --canvas-bg:#faf8fc; --canvas-grid:#e8dff0; --canvas-grid-strong:#d0c4d8;
+  --canvas-text:#6a6375; --canvas-title:#2a2430;
+}
+body{font-family:'Inter',sans-serif;background:var(--bg-main);color:var(--text-primary);margin:0;padding:0;display:flex;flex-direction:column;align-items:center;min-height:100vh;overflow-x:hidden;transition:background .3s,color .3s}
+.navbar{width:100%;padding:16px 40px;box-sizing:border-box;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);background:color-mix(in srgb, var(--bg-main) 90%, transparent);backdrop-filter:blur(12px);position:sticky;top:0;z-index:100;gap:10px;flex-wrap:wrap}
 .back-link{color:var(--text-secondary);text-decoration:none;font-weight:600;font-size:14px;transition:color .2s}
 .back-link:hover{color:var(--gold)}
+.nav-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.icon-btn{background:var(--bg-card);border:1px solid var(--border);color:var(--text-primary);padding:8px 12px;border-radius:6px;font-size:14px;cursor:pointer;transition:.2s;font-weight:600;display:flex;align-items:center;gap:6px}
+.icon-btn:hover{border-color:var(--gold);color:var(--gold)}
 .lang-selector{background:var(--bg-card);border:1px solid var(--border);color:var(--text-primary);padding:8px 16px;border-radius:6px;font-size:14px;cursor:pointer;transition:.2s}
 .lang-selector:hover{border-color:var(--gold)}
 .container{max-width:900px;width:100%;padding:40px 20px 80px;box-sizing:border-box}
-h1{font-size:2.2rem;margin-bottom:8px;color:#fff;text-align:center;font-weight:700;letter-spacing:-.5px}
+h1{font-size:2.2rem;margin-bottom:8px;color:var(--text-primary);text-align:center;font-weight:700;letter-spacing:-.5px}
 .subtitle{text-align:center;color:var(--text-secondary);margin-bottom:32px;font-size:1.05rem}
 .tabs{display:flex;gap:8px;margin-bottom:24px;justify-content:center;flex-wrap:wrap}
 .tab-btn{background:var(--bg-card);border:1px solid var(--border);color:var(--text-secondary);padding:12px 18px;border-radius:8px;cursor:pointer;font-weight:600;font-size:.9rem;transition:all .2s}
 .tab-btn:hover{background:var(--bg-card-hover);border-color:var(--accent)}
 .tab-btn.active{background:var(--accent);color:#fff;border-color:var(--accent);box-shadow:0 0 15px var(--accent-glow)}
 .card{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:32px;box-sizing:border-box;margin-bottom:24px;box-shadow:0 10px 30px rgba(0,0,0,.2)}
+body.light-theme .card{box-shadow:0 10px 30px rgba(80,40,120,.08)}
 @media (max-width:600px){.card{padding:20px}}
 .form-group{margin-bottom:20px}
 label{display:block;font-size:.9rem;font-weight:600;color:var(--text-secondary);margin-bottom:8px}
-input,select{width:100%;padding:14px 16px;background:rgba(0,0,0,.4);border:1px solid var(--border);border-radius:8px;color:#fff;font-size:1rem;box-sizing:border-box;transition:.2s}
-input:focus,select:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(212,175,55,.2)}
-
-.calc-btn{background:linear-gradient(135deg,var(--gold) 0%,#b38f22 100%);color:#13111c;border:none;width:100%;padding:16px;border-radius:8px;font-size:1.05rem;font-weight:700;cursor:pointer;transition:transform .2s,box-shadow .2s;box-shadow:0 4px 15px rgba(212,175,55,.3);margin-bottom:16px; display:block;}
+input,select{width:100%;padding:14px 16px;background:color-mix(in srgb, var(--bg-main) 60%, transparent);border:1px solid var(--border);border-radius:8px;color:var(--text-primary);font-size:1rem;box-sizing:border-box;transition:.2s;font-family:inherit}
+input:focus,select:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px color-mix(in srgb, var(--gold) 20%, transparent)}
+.calc-btn{background:linear-gradient(135deg,var(--gold) 0%,#8a6d1e 100%);color:#13111c;border:none;width:100%;padding:16px;border-radius:8px;font-size:1.05rem;font-weight:700;cursor:pointer;transition:transform .2s,box-shadow .2s;box-shadow:0 4px 15px rgba(212,175,55,.3);margin-bottom:12px;display:block;font-family:inherit}
+body.light-theme .calc-btn{color:#fff}
 .calc-btn:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(212,175,55,.4)}
 .calc-btn:active{transform:translateY(0);box-shadow:0 2px 8px rgba(212,175,55,.3)}
 
-.active-preset-banner{background:rgba(212,175,55,.1);border:1px dashed var(--gold);color:var(--gold);padding:10px 16px;border-radius:8px;margin-bottom:20px;font-weight:600;text-align:center;display:none;font-size:.95rem}
-.anim-container{display:flex;justify-content:center;align-items:center;background:radial-gradient(circle at center,rgba(36,33,54,1) 0%,rgba(19,17,28,1) 100%);border-radius:12px;padding:20px;margin-bottom:24px;border:1px solid var(--border);box-shadow:inset 0 0 40px rgba(0,0,0,.5);overflow:hidden}
+/* ✅ NOVO: Linha de botões de ação (Salvar / PDF) */
+.action-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+@media (max-width:500px){.action-row{grid-template-columns:1fr}}
+.action-btn{padding:13px 16px;border-radius:8px;font-weight:600;cursor:pointer;transition:all .2s;font-size:.9rem;display:flex;align-items:center;justify-content:center;gap:8px;border:1px solid var(--border);background:var(--bg-card-hover);color:var(--text-primary);font-family:inherit;letter-spacing:.2px}
+.action-btn:hover{transform:translateY(-1px);box-shadow:0 6px 16px rgba(0,0,0,.2)}
+body.light-theme .action-btn:hover{box-shadow:0 6px 16px rgba(80,40,120,.15)}
+.action-btn .action-icon{font-size:1.05rem;line-height:1}
+.action-btn.save{background:linear-gradient(135deg,rgba(212,175,55,.22),rgba(212,175,55,.06));border-color:var(--gold);color:var(--gold)}
+.action-btn.save:hover{background:linear-gradient(135deg,rgba(212,175,55,.38),rgba(212,175,55,.15));border-color:var(--gold)}
+.action-btn.pdf{background:linear-gradient(135deg,rgba(139,92,246,.18),rgba(139,92,246,.05));border-color:#8b5cf6;color:#a78bfa}
+.action-btn.pdf:hover{background:linear-gradient(135deg,rgba(139,92,246,.35),rgba(139,92,246,.15));border-color:#8b5cf6;color:#c4b5fd}
+body.light-theme .action-btn.save{color:#8a6d1e;border-color:#8a6d1e}
+body.light-theme .action-btn.pdf{color:#6d28d9;border-color:#7c3aed}
+body.light-theme .action-btn.pdf:hover{color:#5b21b6;background:linear-gradient(135deg,rgba(139,92,246,.25),rgba(139,92,246,.1))}
+
+.active-preset-banner{background:color-mix(in srgb, var(--gold) 10%, transparent);border:1px dashed var(--gold);color:var(--gold);padding:10px 16px;border-radius:8px;margin-bottom:20px;font-weight:600;text-align:center;display:none;font-size:.95rem}
+.anim-container{display:flex;justify-content:center;align-items:center;background:radial-gradient(circle at center,color-mix(in srgb, var(--bg-card-hover) 100%, transparent) 0%,var(--bg-main) 100%);border-radius:12px;padding:20px;margin-bottom:24px;border:1px solid var(--border);box-shadow:inset 0 0 40px rgba(0,0,0,.3);overflow:hidden;transition:background .3s}
+body.light-theme .anim-container{box-shadow:inset 0 0 40px rgba(180,160,200,.15)}
 .transformer-svg{width:100%;max-width:650px;height:auto;filter:drop-shadow(0 15px 25px rgba(0,0,0,.6))}
+body.light-theme .transformer-svg{filter:drop-shadow(0 15px 25px rgba(80,40,120,.2))}
 @keyframes flowFlux{0%{stroke-dashoffset:40;opacity:.6}50%{opacity:1}100%{stroke-dashoffset:0;opacity:.6}}
 .flux-glow{stroke:var(--gold);stroke-width:4;stroke-dasharray:10 10;fill:none;opacity:.8;filter:blur(3px);animation:flowFlux linear infinite}
-.flux-core{stroke:#fff;stroke-width:1.5;stroke-dasharray:10 10;fill:none;opacity:.9;animation:flowFlux linear infinite}
+.flux-core{stroke:var(--text-primary);stroke-width:1.5;stroke-dasharray:10 10;fill:none;opacity:.9;animation:flowFlux linear infinite}
 .coil-line{fill:none;stroke-linecap:round}
 .coil-back{opacity:.5;filter:blur(.5px)}
 .coil-front{filter:drop-shadow(0 4px 3px rgba(0,0,0,.7))}
-.lbl-box{fill:rgba(28,26,39,.95);stroke:var(--gold);stroke-width:1.5;rx:8;ry:8}
+body.light-theme .coil-front{filter:drop-shadow(0 4px 3px rgba(80,40,120,.2))}
+.lbl-box{fill:color-mix(in srgb, var(--bg-card) 95%, transparent);stroke:var(--gold);stroke-width:1.5;rx:8;ry:8}
 .lbl-title{fill:var(--gold);font-size:13px;font-weight:700;font-family:'Inter',sans-serif}
-.lbl-data{fill:#fff;font-size:15px;font-weight:600;font-family:'Inter',sans-serif}
-.lbl-data-sec{fill:#a39eb5;font-size:12px;font-weight:500;font-family:'Inter',sans-serif}
-.results-box{margin-top:16px;background:rgba(0,0,0,.5);border:1px solid var(--border);border-left:4px solid var(--gold);border-radius:8px;padding:24px;display:none}
+.lbl-data{fill:var(--text-primary);font-size:15px;font-weight:600;font-family:'Inter',sans-serif}
+.lbl-data-sec{fill:var(--text-secondary);font-size:12px;font-weight:500;font-family:'Inter',sans-serif}
+.results-box{margin-top:16px;background:color-mix(in srgb, var(--bg-main) 50%, transparent);border:1px solid var(--border);border-left:4px solid var(--gold);border-radius:8px;padding:24px;display:none}
 .results-box h3{margin-top:0;color:var(--gold);font-size:1.2rem;margin-bottom:16px}
-.result-item{margin:12px 0;font-size:1.05rem;display:flex;justify-content:space-between;border-bottom:1px dashed rgba(255,255,255,.1);padding-bottom:8px;gap:12px;flex-wrap:wrap}
-.result-item span:last-child{font-weight:700;color:#fff;text-align:right}
-.sim-box{background:#0d1117;border:1px solid #30363d;border-radius:8px;padding:16px;margin-top:20px}
+.result-item{margin:12px 0;font-size:1.05rem;display:flex;justify-content:space-between;border-bottom:1px dashed color-mix(in srgb, var(--text-secondary) 25%, transparent);padding-bottom:8px;gap:12px;flex-wrap:wrap}
+.result-item span:last-child{font-weight:700;color:var(--text-primary);text-align:right}
+.sim-box{background:var(--canvas-bg);border:1px solid var(--canvas-grid-strong);border-radius:8px;padding:16px;margin-top:20px;transition:background .3s,border .3s}
 .sim-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;gap:8px;flex-wrap:wrap}
-.sim-title{font-size:1rem;font-weight:600;color:#fff;display:flex;align-items:center;gap:8px}
-.canvas-osc{width:100%;height:100px;background:#010409;border-radius:4px;border:1px solid #21262d;display:block}
-.canvas-freq{width:100%;height:180px;background:#010409;border-radius:4px;border:1px solid #21262d;margin-top:12px;display:block}
-
+.sim-title{font-size:1rem;font-weight:600;color:var(--text-primary);display:flex;align-items:center;gap:8px}
+.canvas-osc{width:100%;height:120px;background:var(--canvas-bg);border-radius:4px;border:1px solid var(--canvas-grid);display:block}
+.canvas-freq{width:100%;height:180px;background:var(--canvas-bg);border-radius:4px;border:1px solid var(--canvas-grid);margin-top:12px;display:block}
+.canvas-winding{width:100%;height:120px;background:var(--canvas-bg);border-radius:4px;border:1px solid var(--canvas-grid);margin-top:12px;display:block}
 @media (max-width:600px){
-  .canvas-freq{height:240px; margin-top:16px;}
-  .canvas-osc{height:120px;}
-  .freq-legend{font-size:.7rem; gap:10px;}
+  .canvas-freq{height:240px;margin-top:16px}
+  .canvas-osc{height:140px}
+  .canvas-winding{height:150px}
+  .freq-legend{font-size:.7rem;gap:10px}
 }
-
-.freq-legend{display:flex;gap:16px;font-size:.75rem;color:var(--text-secondary);margin-top:8px;flex-wrap:wrap;justify-content:center;}
+.freq-legend{display:flex;gap:16px;font-size:.75rem;color:var(--text-secondary);margin-top:8px;flex-wrap:wrap;justify-content:center}
 .freq-legend span::before{content:'●';margin-right:4px}
-.freq-legend .l-low::before{color:#60a5fa}
+.freq-legend .l-low::before{color:#3b82f6}
 .freq-legend .l-mid::before{color:var(--gold)}
-.freq-legend .l-high::before{color:#f0884d}
-.freq-legend .l-3db::before{color:#f85149}
+.freq-legend .l-high::before{color:#ea6a25}
+.freq-legend .l-3db::before{color:var(--danger)}
 .badge{padding:4px 10px;border-radius:6px;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px}
-.badge.safe{background:rgba(46,160,67,.15);color:var(--safe);border:1px solid rgba(46,160,67,.4)}
-.badge.warn{background:rgba(210,153,34,.15);color:var(--warn);border:1px solid rgba(210,153,34,.4)}
-.badge.danger{background:rgba(248,81,73,.15);color:var(--danger);border:1px solid rgba(248,81,73,.4)}
-.btn-audio{background:#21262d;border:1px solid #30363d;color:#c9d1d9;padding:10px 16px;border-radius:6px;font-weight:600;cursor:pointer;transition:.2s;display:flex;align-items:center;gap:8px;width:100%;justify-content:center}
-.btn-audio:hover{background:#30363d;border-color:#8b949e}
-.btn-audio.playing{background:rgba(46,160,67,.15);color:var(--safe);border-color:var(--safe)}
+.badge.safe{background:color-mix(in srgb, var(--safe) 15%, transparent);color:var(--safe);border:1px solid color-mix(in srgb, var(--safe) 40%, transparent)}
+.badge.warn{background:color-mix(in srgb, var(--warn) 15%, transparent);color:var(--warn);border:1px solid color-mix(in srgb, var(--warn) 40%, transparent)}
+.badge.danger{background:color-mix(in srgb, var(--danger) 15%, transparent);color:var(--danger);border:1px solid color-mix(in srgb, var(--danger) 40%, transparent)}
+.btn-audio{background:var(--bg-card-hover);border:1px solid var(--border);color:var(--text-primary);padding:10px 16px;border-radius:6px;font-weight:600;cursor:pointer;transition:.2s;display:flex;align-items:center;gap:8px;width:100%;justify-content:center;font-family:inherit}
+.btn-audio:hover{border-color:var(--gold);color:var(--gold)}
+.btn-audio.playing{background:color-mix(in srgb, var(--safe) 15%, transparent);color:var(--safe);border-color:var(--safe)}
 .table-responsive{width:100%;overflow-x:auto;margin-bottom:32px;border-radius:8px;border:1px solid var(--border);-webkit-overflow-scrolling:touch}
 .preset-table{width:100%;border-collapse:collapse;font-size:.9rem;min-width:500px}
 .preset-table th,.preset-table td{padding:12px 16px;text-align:left;border-bottom:1px solid var(--border)}
-.preset-table th{color:var(--gold);font-weight:600;background:rgba(0,0,0,.4);white-space:nowrap}
-.preset-table tr:hover{background:rgba(255,255,255,.03)}
+.preset-table th{color:var(--gold);font-weight:600;background:color-mix(in srgb, var(--bg-main) 40%, transparent);white-space:nowrap}
+.preset-table tr:hover{background:color-mix(in srgb, var(--text-primary) 3%, transparent)}
 .preset-table td{color:var(--text-secondary)}
-.preset-table td:first-child{color:#fff;font-weight:500}
-.btn-load{background:var(--bg-card-hover);border:1px solid var(--border);color:var(--text-primary);padding:6px 14px;border-radius:4px;cursor:pointer;transition:.2s;font-size:.85rem;font-weight:600;white-space:nowrap}
+.preset-table td:first-child{color:var(--text-primary);font-weight:500}
+.btn-load{background:var(--bg-card-hover);border:1px solid var(--border);color:var(--text-primary);padding:6px 10px;border-radius:4px;cursor:pointer;transition:.2s;font-size:.8rem;font-weight:600;white-space:nowrap;margin:2px;font-family:inherit}
 .btn-load:hover{background:var(--accent);border-color:var(--accent);color:#fff}
-.theory-content h2{color:#fff;border-bottom:1px solid var(--border);padding-bottom:8px;margin-top:0;font-size:1.5rem}
+.btn-load.danger:hover{background:var(--danger);border-color:var(--danger);color:#fff}
+.theory-content h2{color:var(--text-primary);border-bottom:1px solid var(--border);padding-bottom:8px;margin-top:0;font-size:1.5rem}
 .theory-content h3{color:var(--gold);margin-top:24px;font-size:1.15rem}
 .theory-content p{color:var(--text-secondary);line-height:1.7;font-size:.95rem;margin-bottom:16px}
-.ref-scientific{background:rgba(0,0,0,.2);border-left:2px solid var(--border);padding:12px 16px;margin:8px 0;border-radius:0 8px 8px 0;transition:.2s}
-.ref-scientific:hover{border-color:var(--gold);background:rgba(212,175,55,.05)}
-.ref-scientific p{margin:0;font-size:.8rem;line-height:1.4;color:#8b949e}
-.ref-scientific b{color:var(--text-secondary)}
+.ref-scientific{background:color-mix(in srgb, var(--bg-main) 30%, transparent);border-left:2px solid var(--border);padding:12px 16px;margin:8px 0;border-radius:0 8px 8px 0;transition:.2s}
+.ref-scientific:hover{border-color:var(--gold);background:color-mix(in srgb, var(--gold) 5%, transparent)}
+.ref-scientific p{margin:0;font-size:.8rem;line-height:1.4;color:var(--text-secondary)}
+.ref-scientific b{color:var(--text-primary)}
 .panel{display:none;animation:fadeIn .3s ease}
 .panel.active{display:block}
 @keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.history-panel{position:fixed;top:70px;right:20px;width:320px;max-height:70vh;overflow-y:auto;background:var(--bg-card);border:1px solid var(--gold);border-radius:12px;padding:20px;box-shadow:0 20px 60px rgba(0,0,0,.5);z-index:200;display:none}
+.history-panel.active{display:block}
+.history-item{background:color-mix(in srgb, var(--bg-main) 40%, transparent);border-radius:6px;padding:10px;margin-bottom:8px;font-size:.85rem;border-left:3px solid var(--gold)}
+.history-item .h-title{font-weight:700;color:var(--gold);margin-bottom:4px}
+.history-item .h-meta{color:var(--text-secondary);font-size:.75rem}
+.compare-bar{position:fixed;bottom:0;left:0;right:0;background:var(--bg-card);border-top:2px solid var(--gold);padding:12px 20px;box-shadow:0 -10px 30px rgba(0,0,0,.3);z-index:150;display:none;box-sizing:border-box}
+.compare-bar.active{display:block}
+.compare-bar .compare-content{max-width:900px;margin:0 auto;display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.compare-slot{flex:1;min-width:180px;background:color-mix(in srgb, var(--bg-main) 40%, transparent);border:1px dashed var(--border);border-radius:6px;padding:8px 12px;font-size:.85rem;color:var(--text-secondary)}
+.core-info{font-size:.8rem;color:var(--text-secondary);margin-top:4px}
+.toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(100px);background:var(--safe);color:#fff;padding:14px 24px;border-radius:8px;font-weight:600;font-size:.9rem;box-shadow:0 10px 30px rgba(0,0,0,.4);transition:transform .3s;z-index:300}
+.toast.active{transform:translateX(-50%) translateY(0)}
+.toast.error{background:var(--danger)}
+.airgap-box{background:color-mix(in srgb, var(--gold) 8%, transparent);border:1px solid var(--gold);border-radius:8px;padding:14px;margin:12px 0;font-size:.9rem;color:var(--text-primary);display:none}
+.airgap-box.active{display:block}
+@media print {
+  .navbar,.tabs,.calc-btn,.action-row,.btn-audio,.btn-load,.anim-container,.sim-box canvas,.history-panel,.compare-bar,.icon-btn,.lang-selector,.toast,.freq-legend,.badge{display:none !important}
+  body{background:#fff;color:#000}
+  body.light-theme{background:#fff}
+  .container{max-width:100%;padding:0}
+  .card{background:#fff;border:1px solid #999;box-shadow:none;page-break-inside:avoid;break-inside:avoid}
+  .results-box{background:#fff;border:1px solid #999;display:block !important;page-break-inside:avoid}
+  .panel{display:none !important}
+  .panel.active{display:block !important}
+  h1,.subtitle{color:#000}
+  .result-item span:last-child{color:#000}
+  .result-item{border-color:#ccc}
+  .card::before{content:"OXYLABZ — Ficha Técnica do Transformador";display:block;font-weight:700;font-size:1.1rem;margin-bottom:12px;color:#000}
+}
 </style>
 </head>
 <body>
 <nav class="navbar">
 <a href="../index.html" class="back-link" data-i18n="back">← Voltar para Ferramentas</a>
+<div class="nav-actions">
+<button class="icon-btn" id="themeToggle" onclick="toggleTheme()" title="Alternar tema">🌙</button>
+<button class="icon-btn" onclick="toggleHistory()" title="Histórico">📜 <span id="histCount">0</span></button>
 <select class="lang-selector" id="langMenu" onchange="setGlobalLang(this.value)">
 <option value="pt">🇧🇷 Português</option>
 <option value="en">🇺🇸 English</option>
 <option value="es">🇪🇸 Español</option>
 </select>
+</div>
 </nav>
+
+<div class="history-panel" id="historyPanel">
+<h3 style="margin-top:0;color:var(--gold)">📜 Histórico (últimos 10)</h3>
+<div id="historyList"></div>
+<button class="btn-outline" style="width:100%;margin-top:12px;padding:10px;background:var(--bg-card-hover);border:1px solid var(--border);color:var(--text-primary);border-radius:6px;cursor:pointer;font-family:inherit;font-weight:600" onclick="clearHistory()">Limpar histórico</button>
+</div>
 
 <div class="container">
 <h1 data-i18n="title">Calculadora de Transformadores Pro</h1>
@@ -166,6 +239,24 @@ input:focus,select:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 
 <div id="panel-0" class="panel active">
 <div class="card">
 <div id="active-preset-0" class="active-preset-banner"></div>
+
+<div class="form-group">
+<label data-i18n="lbl_core">Núcleo Comercial (opcional)</label>
+<select id="lin_core" onchange="applyCoreSelection('lin')">
+<option value="">— Personalizado / Manual —</option>
+<option value="EI-48">EI-48 (~3.2 cm²)</option>
+<option value="EI-66">EI-66 (~4.8 cm²)</option>
+<option value="EI-76">EI-76 (~6.5 cm²)</option>
+<option value="EI-84">EI-84 (~8.0 cm²)</option>
+<option value="EI-96">EI-96 (~10.5 cm²)</option>
+<option value="EI-105">EI-105 (~13.0 cm²)</option>
+<option value="EI-114">EI-114 (~16.0 cm²)</option>
+<option value="EI-133">EI-133 (~22.0 cm²)</option>
+<option value="EI-150">EI-150 (~30.0 cm²)</option>
+</select>
+<div class="core-info" id="core-info-lin"></div>
+</div>
+
 <div class="form-group"><label data-i18n="lbl_area">Área do Núcleo Central - A (cm²)</label>
 <input type="number" id="lin_area" value="12.0" step="0.1" oninput="calcLinear()"></div>
 <div class="form-group"><label data-i18n="lbl_vpri">Tensão Primária (V)</label>
@@ -179,8 +270,11 @@ input:focus,select:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 
 <div class="form-group"><label data-i18n="lbl_freq">Frequência da Rede (Hz)</label>
 <input type="number" id="lin_freq" value="60" oninput="calcLinear()"></div>
 
-<!-- BOTÃO DE CALCULAR RECUPERADO -->
 <button class="calc-btn" onclick="calcLinear()" data-i18n="btn_calc">Calcular e Atualizar Esquema</button>
+<div class="action-row">
+<button class="action-btn save" onclick="saveCurrentPreset('linear')"><span class="action-icon">💾</span> Salvar Preset</button>
+<button class="action-btn pdf" onclick="exportPDF()"><span class="action-icon">📄</span> Exportar PDF</button>
+</div>
 
 <div id="res-0" class="results-box">
 <h3 data-i18n="res_title">Especificações de Construção</h3>
@@ -197,7 +291,7 @@ input:focus,select:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 
 
 <div class="sim-box">
 <div class="sim-header">
-<span class="sim-title">⚡ <span data-i18n="sim_lin_title">Estabilidade Magnética (Curva B-H)</span></span>
+<span class="sim-title">⚡ <span data-i18n="sim_lin_title">Osciloscópio — Curva B-H</span></span>
 <span id="lin-badge" class="badge safe">SEGURO</span>
 </div>
 <canvas id="canvas-osc" class="canvas-osc"></canvas>
@@ -225,9 +319,14 @@ input:focus,select:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 
 <input type="number" id="aud_z2" value="600" oninput="calcAudio()"></div>
 <div class="form-group"><label data-i18n="lbl_minf">Frequência Mínima de Resposta (Hz)</label>
 <input type="number" id="aud_freq" value="30" oninput="calcAudio()"></div>
-<button class="calc-btn" onclick="calcAudio()" data-i18n="btn_calc">Calcular e Atualizar Esquema</button>
 
-<div id="res-1" class="results-box" style="padding-bottom: 20px;">
+<button class="calc-btn" onclick="calcAudio()" data-i18n="btn_calc">Calcular e Atualizar Esquema</button>
+<div class="action-row">
+<button class="action-btn save" onclick="saveCurrentPreset('audio')"><span class="action-icon">💾</span> Salvar Preset</button>
+<button class="action-btn pdf" onclick="exportPDF()"><span class="action-icon">📄</span> Exportar PDF</button>
+</div>
+
+<div id="res-1" class="results-box" style="padding-bottom:20px;">
 <h3 data-i18n="res_title">Especificações de Construção</h3>
 <div class="result-item"><span data-i18n="r_ratio">Relação de Espiras:</span> <span id="r_aud_ratio">-</span></div>
 <div class="result-item"><span data-i18n="r_np">Espiras Primário:</span> <span id="r_aud_np">-</span></div>
@@ -249,6 +348,18 @@ input:focus,select:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 
 <span class="l-3db">Pontos -3 dB</span>
 </div>
 </div>
+
+<div class="sim-box">
+<div class="sim-header">
+<span class="sim-title">🧵 <span data-i18n="sim_wind_title">Diagrama de Bobinagem</span></span>
+<div style="display:flex;gap:6px">
+<button class="btn-load" onclick="setWinding('simple')" id="wbtn-simple">Simples</button>
+<button class="btn-load" onclick="setWinding('bifilar')" id="wbtn-bifilar">Bifilar</button>
+<button class="btn-load" onclick="setWinding('sandwich')" id="wbtn-sandwich">Sandwich</button>
+</div>
+</div>
+<canvas id="canvas-winding-aud" class="canvas-winding"></canvas>
+</div>
 </div>
 </div>
 </div>
@@ -257,6 +368,19 @@ input:focus,select:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 
 <div id="panel-2" class="panel">
 <div class="card">
 <div id="active-preset-2" class="active-preset-banner"></div>
+
+<div class="form-group">
+<label data-i18n="lbl_tub_type">Topologia</label>
+<select id="tub_type" onchange="onTubeTypeChange()">
+<option value="pp">Push-Pull (sem gap)</option>
+<option value="se">Single-Ended (com air-gap)</option>
+</select>
+</div>
+<div class="form-group" id="tub_dc_group" style="display:none">
+<label data-i18n="lbl_tub_dc">Corrente DC no Primário (mA)</label>
+<input type="number" id="tub_idc" value="60" step="5" oninput="calcTube()">
+</div>
+
 <div class="form-group"><label data-i18n="lbl_tub_area">Área do Núcleo (cm²)</label>
 <input type="number" id="tub_area" value="16.0" step="0.1" oninput="calcTube()"></div>
 <div class="form-group"><label data-i18n="lbl_r_pp">Impedância de Placa a Placa (Ω - Zaa)</label>
@@ -265,14 +389,24 @@ input:focus,select:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 
 <input type="number" id="tub_spk" value="8" oninput="calcTube()"></div>
 <div class="form-group"><label data-i18n="lbl_minf">Frequência Mínima (Hz)</label>
 <input type="number" id="tub_freq" value="40" oninput="calcTube()"></div>
-<button class="calc-btn" onclick="calcTube()" data-i18n="btn_calc">Calcular e Atualizar Esquema</button>
 
-<div id="res-2" class="results-box" style="padding-bottom: 20px;">
+<button class="calc-btn" onclick="calcTube()" data-i18n="btn_calc">Calcular e Atualizar Esquema</button>
+<div class="action-row">
+<button class="action-btn save" onclick="saveCurrentPreset('tube')"><span class="action-icon">💾</span> Salvar Preset</button>
+<button class="action-btn pdf" onclick="exportPDF()"><span class="action-icon">📄</span> Exportar PDF</button>
+</div>
+
+<div id="res-2" class="results-box" style="padding-bottom:20px;">
 <h3 data-i18n="res_title">Especificações de Construção</h3>
 <div class="result-item"><span data-i18n="r_ratio">Relação de Espiras:</span> <span id="r_ratio_tub">-</span></div>
 <div class="result-item"><span data-i18n="r_np">Espiras Primário (Total):</span> <span id="r_tub_np">-</span></div>
 <div class="result-item"><span data-i18n="r_ns">Espiras Secundário:</span> <span id="r_tub_ns">-</span></div>
 <div class="result-item"><span data-i18n="r_lp">Indutância Primária Mínima:</span> <span id="r_tub_lp">-</span></div>
+
+<div class="airgap-box" id="airgap-box">
+<strong>🕳️ Air-Gap Sugerido (SE):</strong> <span id="r_tub_gap">-</span>
+<div style="font-size:.8rem;color:var(--text-secondary);margin-top:6px">Paper spacer entre pernas do núcleo E-I. Ajuste fino na bancada medindo a indutância.</div>
+</div>
 
 <div class="sim-box">
 <div class="sim-header">
@@ -289,6 +423,18 @@ input:focus,select:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 
 <span class="l-3db">Pontos -3 dB</span>
 </div>
 </div>
+
+<div class="sim-box">
+<div class="sim-header">
+<span class="sim-title">🧵 <span data-i18n="sim_wind_title">Diagrama de Bobinagem</span></span>
+<div style="display:flex;gap:6px">
+<button class="btn-load" onclick="setWinding('simple')" id="wbtn-simple-t">Simples</button>
+<button class="btn-load" onclick="setWinding('bifilar')" id="wbtn-bifilar-t">Bifilar</button>
+<button class="btn-load" onclick="setWinding('sandwich')" id="wbtn-sandwich-t">Sandwich</button>
+</div>
+</div>
+<canvas id="canvas-winding-tub" class="canvas-winding"></canvas>
+</div>
 </div>
 </div>
 </div>
@@ -296,15 +442,20 @@ input:focus,select:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 
 <!-- PAINEL 4: PRESETS -->
 <div id="panel-3" class="panel">
 <div class="card theory-content">
-<h2 data-i18n="pre_title">Presets Clássicos e de Bancada</h2>
-<p data-i18n="pre_desc">Carregue configurações pré-definidas para simulação rápida.</p>
-
+<h2 style="color:var(--gold)">💾 Meus Presets Salvos</h2>
+<p style="font-size:.9rem;margin-bottom:16px">Clique em "💾 Salvar Preset" nos painéis de cálculo para guardar configurações personalizadas.</p>
+<h3>Minhas Fontes (Linear)</h3>
+<div class="table-responsive"><table class="preset-table" id="table-my-linear"></table></div>
+<h3>Meus Trafos de Áudio</h3>
+<div class="table-responsive"><table class="preset-table" id="table-my-audio"></table></div>
+<h3>Minhas Saídas Valvuladas</h3>
+<div class="table-responsive"><table class="preset-table" id="table-my-tube"></table></div>
+<h2 data-i18n="pre_title" style="margin-top:40px">Presets Clássicos e de Bancada</h2>
+<p data-i18n="pre_desc">Carregue configurações pré-definidas. Use ⇄ para comparar.</p>
 <h3 data-i18n="pre_lin_title">Fontes e Inversores (Linear)</h3>
 <div class="table-responsive"><table class="preset-table" id="table-presets-linear"></table></div>
-
 <h3 data-i18n="pre_aud_title">Áudio / Linha (Estúdio, Pedais, Microfones)</h3>
 <div class="table-responsive"><table class="preset-table" id="table-presets-audio"></table></div>
-
 <h3 data-i18n="pre_tub_title">Saídas Valvuladas Clássicas</h3>
 <div class="table-responsive"><table class="preset-table" id="table-presets-tube"></table></div>
 </div>
@@ -319,11 +470,10 @@ input:focus,select:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 
 <h3 data-i18n="th_title2">2. Técnicas de Bobinagem: Bifilar e Seccionamento</h3>
 <p data-i18n="th_desc2">Para eliminar distorções em push-pull de áudio e garantir simetria exata no centro-tap (CT), utilize o método de enrolamento bifilar. Para minimizar a indutância de fuga e estender a resposta em altas frequências, adote o seccionamento intercalado (sandwiching).</p>
 <h3 data-i18n="th_title3">3. Cuidados contra Saturação DC (Air-Gaps)</h3>
-<p data-i18n="th_desc3">Circuitos Single-Ended geram forte polarização DC no primário, o que satura o núcleo rapidamente se não houver um entreferro (air-gap) calculado.</p>
+<p data-i18n="th_desc3">Circuitos Single-Ended geram forte polarização DC no primário, o que satura o núcleo rapidamente se não houver um entreferro calculado.</p>
 <h3 data-i18n="th_title4">4. Teste Prático em Bancada</h3>
-<p data-i18n="th_desc4">Utilize um gerador de áudio a 1000 Hz com um potenciômetro de referência e multímetro AC para validar a impedância refletida antes de integrar o componente ao circuito final.</p>
-
-<h2 data-i18n="ref_title" style="margin-top:35px;">Referências Bibliográficas e Normas</h2>
+<p data-i18n="th_desc4">Utilize um gerador de áudio a 1000 Hz com potenciômetro de referência e multímetro AC para validar a impedância refletida.</p>
+<h2 data-i18n="ref_title" style="margin-top:35px">Referências Bibliográficas e Normas</h2>
 <div class="ref-scientific"><p><b data-i18n="ref1_title">[1] Langford-Smith, F. (1953). Radiotron Designer's Handbook. 4th ed.</b> <span data-i18n="ref1_desc">Seção 5: Iron-Cored Transformers and Inductors.</span></p></div>
 <div class="ref-scientific"><p><b data-i18n="ref2_title">[2] Crowhurst, N. H. (1949). Leakage Inductance & Winding Capacitance.</b> <span data-i18n="ref2_desc">Electronic Engineering.</span></p></div>
 <div class="ref-scientific"><p><b data-i18n="ref3_title">[3] Francis, E. (1970). Winding Your Own Output Transformers.</b> <span data-i18n="ref3_desc">Popular Electronics.</span></p></div>
@@ -331,11 +481,24 @@ input:focus,select:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 
 <div class="ref-scientific"><p><b data-i18n="ref5_title">[5] Schure, A. (1961). Transformers.</b> <span data-i18n="ref5_desc">John F. Rider Publisher.</span></p></div>
 </div>
 </div>
+
+<div class="compare-bar" id="compareBar">
+<div class="compare-content">
+<div style="flex:0 0 auto;font-weight:700;color:var(--gold)">⚖️ Comparar:</div>
+<div class="compare-slot" id="compareSlotA">Slot A vazio</div>
+<div class="compare-slot" id="compareSlotB">Slot B vazio</div>
+<div style="display:flex;gap:6px">
+<button class="btn-load" onclick="showComparison()" style="padding:8px 14px">Ver detalhes</button>
+<button class="btn-load" onclick="clearCompare()" style="padding:8px 14px">Limpar</button>
 </div>
+</div>
+</div>
+
+<div class="toast" id="toast"></div>
 
 <script>
 // =========================================================================
-// ✅ TABELA AWG REAL — NBR NM 280 / IEC 60228 (cobre nu, 20°C)
+// CONSTANTES E TABELAS
 // =========================================================================
 const AWG_TABLE = {
 10:{mm2:5.261,d_mm:2.588,ohm_km:3.277},12:{mm2:3.309,d_mm:2.053,ohm_km:5.211},
@@ -351,6 +514,18 @@ const STACKING_FACTOR = 0.90;
 const J_AUDIO = 2.2, J_POWER = 2.8, J_TUBE = 2.5;
 const WINDOW_FILL_MAX = 70, WINDOW_RATIO = 0.5;
 
+const CORE_LIBRARY = {
+  'EI-48':  { area: 3.2,  window_mm2: 180 },
+  'EI-66':  { area: 4.8,  window_mm2: 320 },
+  'EI-76':  { area: 6.5,  window_mm2: 520 },
+  'EI-84':  { area: 8.0,  window_mm2: 700 },
+  'EI-96':  { area: 10.5, window_mm2: 1000 },
+  'EI-105': { area: 13.0, window_mm2: 1400 },
+  'EI-114': { area: 16.0, window_mm2: 1900 },
+  'EI-133': { area: 22.0, window_mm2: 3000 },
+  'EI-150': { area: 30.0, window_mm2: 4500 }
+};
+
 function selectWire(currentA, J = J_POWER) {
   const needed_mm2 = currentA / J;
   let best = AWG_ORDER[0];
@@ -358,9 +533,23 @@ function selectWire(currentA, J = J_POWER) {
   return { awg: best, ...AWG_TABLE[best], mm2_req: needed_mm2 };
 }
 
-// =========================================================================
-// ✅ CANVAS RESPONSIVO — ajusta resolução interna ao tamanho real exibido
-// =========================================================================
+// ✅ Helper de cores adaptado ao tema
+function getThemeColors() {
+  const light = document.body.classList.contains('light-theme');
+  return {
+    bg: light ? '#faf8fc' : '#010409',
+    grid: light ? '#e8dff0' : '#21262d',
+    gridStrong: light ? '#d0c4d8' : '#30363d',
+    text: light ? '#6a6375' : '#8b949e',
+    title: light ? '#2a2430' : '#fff',
+    curve: light ? '#8a6d1e' : '#D4AF37',
+    curveWarn: light ? '#c7332e' : '#f85149',
+    low: light ? '#3b82f6' : '#60a5fa',
+    high: light ? '#ea6a25' : '#f0884d',
+    marker: light ? '#dc2626' : '#f85149'
+  };
+}
+
 function fitCanvas(canvas) {
   const dpr = window.devicePixelRatio || 1;
   const w = canvas.clientWidth;
@@ -375,85 +564,521 @@ function fitCanvas(canvas) {
   return { ctx, w, h };
 }
 
-let resizeTimer;
-window.addEventListener('resize', () => {
-  clearTimeout(resizeTimer);
-  resizeTimer = setTimeout(() => {
-    if (currentTab === 0) calcLinear();
-    if (currentTab === 1) calcAudio();
-    if (currentTab === 2) calcTube();
-  }, 150);
-});
-
 // =========================================================================
 // BANCO DE PRESETS
 // =========================================================================
 const userPresets = {
 linear:[
 {name:"Pedalboard Isolada (9V / 2A)",area:10.0,vpri:120,vsec:12,isec:2.0},
+{name:"Pedalboard Grande (9V / 5A)",area:14.0,vpri:120,vsec:12,isec:5.0},
+{name:"Pedal Preamp 18V (Cioks DC7)",area:8.0,vpri:120,vsec:20,isec:0.5},
 {name:"Arduino / ESP32 / RPi (5V / 3A)",area:9.0,vpri:120,vsec:9,isec:3.0},
+{name:"Rádio FM Valvulado (B+ 250V)",area:12.0,vpri:120,vsec:280,isec:0.15},
+{name:"Rádio AM/FM Transistorizado (12V)",area:10.0,vpri:120,vsec:14,isec:1.0},
+{name:"MP3 Player / Bluetooth (5V / 1A)",area:8.0,vpri:120,vsec:6,isec:1.0},
+{name:"Gravador K7 Deck (Fonte Simples)",area:11.0,vpri:120,vsec:15,isec:1.5},
+{name:"Headphone Amp Op-Amp (±15V / 500mA)",area:11.0,vpri:120,vsec:30,isec:0.5},
+{name:"Headphone Amp Valvulado OTL (B+ 150V)",area:12.0,vpri:120,vsec:160,isec:0.2},
 {name:"Amp TDA2030 (Fonte Simples)",area:10.0,vpri:120,vsec:15,isec:2.0},
-{name:"Amp TDA2050 / LM3886 (Simétrica)",area:16.0,vpri:120,vsec:35,isec:3.0},
+{name:"Amp LM1875 / Gainclone (±25V)",area:14.0,vpri:120,vsec:50,isec:2.0},
+{name:"Amp TDA2050 / LM3886 (Simétrica ±35V)",area:16.0,vpri:120,vsec:70,isec:3.0},
+{name:"Amp TDA7294 (±40V / 70W)",area:20.0,vpri:120,vsec:80,isec:4.0},
+{name:"Amp Classe A Pass Aleph",area:28.0,vpri:120,vsec:60,isec:6.0},
 {name:"Amp Classe AB 100W (Transistorizado)",area:22.0,vpri:120,vsec:70,isec:4.0},
 {name:"Amp Classe D 500W (SMPS / Linear)",area:32.0,vpri:120,vsec:100,isec:10.0},
+{name:"Pré-Amp Op-Amp Simétrico (±15V / 1A)",area:12.0,vpri:120,vsec:30,isec:1.0},
+{name:"Mesa de Som Analógica (Fonte ±18V)",area:20.0,vpri:120,vsec:36,isec:3.0},
+{name:"Phantom Power 48V (Mic Condensador)",area:9.0,vpri:120,vsec:52,isec:0.2},
+{name:"Pré-Amp Valvulado B+ (350V)",area:10.0,vpri:120,vsec:350,isec:0.08},
+{name:"Pré-Amp Valvulado Filamentos (6.3V / 3A)",area:9.0,vpri:120,vsec:6.3,isec:3.0},
+{name:"Compressor Valvulado (LA-2A estilo)",area:12.0,vpri:120,vsec:250,isec:0.15},
 {name:"Carregador Flutuação Chumbo 12V/18Ah",area:12.0,vpri:120,vsec:18,isec:2.0},
 {name:"Carregador Automotivo Rápido (10A)",area:24.0,vpri:120,vsec:14,isec:10.0},
+{name:"Carregador Li-Ion 24V/5A (CC-CV)",area:16.0,vpri:120,vsec:30,isec:5.0},
+{name:"Carregador NiMH 12V/3A",area:12.0,vpri:120,vsec:18,isec:3.0},
 {name:"Inversor Nobreak DIY (200W)",area:20.0,vpri:10,vsec:120,isec:1.6},
+{name:"Inversor Senoidal DIY 12V (500W)",area:30.0,vpri:10,vsec:120,isec:4.2},
 {name:"Inversor Senoidal DIY 12V (1000W)",area:45.0,vpri:10,vsec:120,isec:8.3},
 {name:"Inversor Senoidal DIY 24V (2000W)",area:65.0,vpri:20,vsec:120,isec:16.6},
+{name:"Auto-Trafo 220V→110V (1000VA)",area:40.0,vpri:220,vsec:110,isec:9.0},
+{name:"Trafo Isolamento 1:1 (500VA)",area:30.0,vpri:120,vsec:120,isec:4.2},
 {name:"Fonte de Bancada Ajustável (5A)",area:20.0,vpri:120,vsec:24,isec:5.0},
-{name:"Preamp Valvulado (B+ Alta Tensão)",area:9.0,vpri:120,vsec:250,isec:0.05},
-{name:"Preamp Valvulado (Filamentos 6.3V)",area:8.0,vpri:120,vsec:6.3,isec:2.0},
-{name:"Máquina Solda Ponto DIY (Trafo Micro-ondas)",area:35.0,vpri:120,vsec:2,isec:500.0}
+{name:"Fonte de Bancada Dupla Simétrica (±30V)",area:22.0,vpri:120,vsec:60,isec:3.0},
+{name:"Máquina Solda Ponto DIY (Trafo Micro-ondas)",area:35.0,vpri:120,vsec:2,isec:500.0},
+{name:"Trafo de Forno Micro-ondas (Rewound)",area:40.0,vpri:120,vsec:12,isec:100.0}
 ],
 audio:[
-{name:"Direct Box Passiva (Guitarra -> Mic)",area:5.0,z1:50000,z2:600,fmin:30},
-{name:"Direct Box Ativa (Line -> Mic)",area:4.0,z1:600,z2:150,fmin:20},
-{name:"Mic Preamp Input",area:4.0,z1:150,z2:15000,fmin:20},
-{name:"Saída Cápsula Mic Condensador",area:3.0,z1:10000,z2:150,fmin:20},
-{name:"Re-Amp Box (Linha -> Amp Guitarra)",area:4.0,z1:600,z2:10000,fmin:30},
-{name:"Splitter de Sinal Guitarra (1:1)",area:5.0,z1:10000,z2:10000,fmin:40},
-{name:"Isolador de Linha 1:1 (Op-Amp NE5532)",area:5.0,z1:600,z2:600,fmin:20},
+{name:"DI Box Passiva (Guitarra → Mic)",area:5.0,z1:50000,z2:600,fmin:30},
+{name:"DI Box Passiva 12:1 (Radial JDI)",area:5.0,z1:100000,z2:600,fmin:25},
+{name:"DI Box Ativa com Trafo",area:4.0,z1:600,z2:150,fmin:20},
+{name:"Re-Amp Box (Linha → Amp Guitarra)",area:4.0,z1:600,z2:10000,fmin:30},
+{name:"Isolador de Linha 1:1 (NE5532)",area:5.0,z1:600,z2:600,fmin:20},
+{name:"Isolador de Linha Passivo (Hammond 560G)",area:6.0,z1:600,z2:600,fmin:20},
+{name:"Mic Preamp Input (150Ω → 15kΩ)",area:4.0,z1:150,z2:15000,fmin:20},
+{name:"Mic Preamp Input 1:5 (Transistor)",area:4.0,z1:200,z2:5000,fmin:20},
+{name:"Saída Cápsula Mic Condensador (8:1)",area:3.0,z1:10000,z2:150,fmin:20},
+{name:"Step-Up Ribbon Mic 1:37 (Whitlock)",area:4.0,z1:3,z2:4000,fmin:30},
+{name:"Step-Up Moving Coil Phono 1:10",area:3.0,z1:40,z2:4000,fmin:20},
+{name:"Moving Coil Phono 1:20 (Jensen JT-34K)",area:4.0,z1:10,z2:4000,fmin:20},
+{name:"Dynamic Mic Input Impedance Adapter",area:4.0,z1:200,z2:50000,fmin:40},
+{name:"Splitter de Sinal Guitarra (1:1 + 1:1)",area:5.0,z1:10000,z2:10000,fmin:40},
+{name:"Splitter Ativo para Pedalboard",area:4.0,z1:10000,z2:10000,fmin:30},
+{name:"Transformer Fuzz (Tycobrahe Octavia)",area:3.0,z1:10000,z2:2000,fmin:50},
+{name:"Wah-Wah Inductor (Custom)",area:2.5,z1:47000,z2:47000,fmin:100},
+{name:"Pedal Ring Modulator (Transformer)",area:4.0,z1:600,z2:600,fmin:60},
+{name:"Treble Booster (Impedance Match)",area:3.0,z1:50000,z2:50000,fmin:100},
 {name:"Bus Compressor / GSSL Line In",area:6.0,z1:10000,z2:600,fmin:20},
 {name:"Matching 111C Repeat Coil",area:8.0,z1:600,z2:600,fmin:30},
-{name:"Sistema 70V Line-to-Voice-Coil (10W)",area:8.0,z1:500,z2:8,fmin:50},
-{name:"Filtro de Áudio Indutivo Custom",area:4.0,z1:1000,z2:1000,fmin:100},
 {name:"Pultec EQP-1A Interstage",area:6.0,z1:600,z2:10000,fmin:20},
-{name:"LA-2A Output Transformer",area:10.0,z1:15000,z2:600,fmin:30}
+{name:"Pultec EQP-1A Output",area:8.0,z1:10000,z2:600,fmin:20},
+{name:"LA-2A Input Transformer",area:6.0,z1:600,z2:50000,fmin:20},
+{name:"LA-2A Output Transformer",area:10.0,z1:15000,z2:600,fmin:30},
+{name:"UREI 1176 Line Input",area:5.0,z1:600,z2:10000,fmin:20},
+{name:"Neve 1073 Mic Input",area:6.0,z1:200,z2:1200,fmin:20},
+{name:"Neve 1073 Line Output",area:8.0,z1:600,z2:600,fmin:20},
+{name:"Sistema 70V Line-to-Voice-Coil (10W)",area:8.0,z1:500,z2:8,fmin:50},
+{name:"Sistema 100V Line-to-Voice-Coil (10W)",area:8.0,z1:1000,z2:8,fmin:50},
+{name:"Sistema 25V Line-to-Voice-Coil (5W)",area:7.0,z1:125,z2:8,fmin:50},
+{name:"Auto-Trafo 70V (Step-Up)",area:10.0,z1:8,z2:500,fmin:60},
+{name:"Balun FM 300Ω ↔ 75Ω (Match)",area:3.0,z1:300,z2:75,fmin:1000},
+{name:"Balun Antena Dipolo HF (1:1)",area:4.0,z1:50,z2:50,fmin:100},
+{name:"Balun Antena Dipolo 4:1",area:5.0,z1:50,z2:200,fmin:100},
+{name:"Repeat Coil 600:600 Telefônico",area:8.0,z1:600,z2:600,fmin:30},
+{name:"Hybrid Coil Telefônico 1:1:1",area:9.0,z1:600,z2:600,fmin:30},
+{name:"Filtro Passa-Baixa Indutivo",area:5.0,z1:1000,z2:1000,fmin:100},
+{name:"Filtro Equalizador Passivo (Pultec)",area:6.0,z1:600,z2:600,fmin:20},
+{name:"Indutor Crossover Passivo (2 mH)",area:6.0,z1:8,z2:8,fmin:100}
 ],
 tube:[
-{name:"ECL82 / 6BM8 (Single-Ended)",area:12.0,zpp:5000,spk:8,fmin:40},
 {name:"6BL8 / ECF80 (Baixa Potência SE)",area:6.0,zpp:10000,spk:32,fmin:50},
-{name:"Champ 5F1 (Single-Ended 6V6)",area:10.0,zpp:7000,spk:4,fmin:60},
-{name:"EL84 (Single-Ended Class A)",area:14.0,zpp:5200,spk:8,fmin:40},
-{name:"EL84 / 6BQ5 (Push-Pull / Dynaco ST-35)",area:16.0,zpp:8000,spk:8,fmin:30},
-{name:"6V6GT (Push-Pull Fender Deluxe)",area:18.0,zpp:8000,spk:8,fmin:40},
-{name:"EL34 / 6L6GC (Push-Pull Clássico 50W)",area:24.0,zpp:6600,spk:8,fmin:30},
+{name:"ECL82 / 6BM8 (Single-Ended)",area:12.0,zpp:5000,spk:8,fmin:40},
+{name:"EL84 Single-Ended Class A",area:14.0,zpp:5200,spk:8,fmin:40},
+{name:"6V6 Single-Ended (Champ 5F1)",area:10.0,zpp:7000,spk:4,fmin:60},
+{name:"6V6 SE Audiófilo",area:14.0,zpp:5000,spk:8,fmin:30},
+{name:"6L6 Single-Ended Class A",area:18.0,zpp:4500,spk:8,fmin:30},
+{name:"300B Single-Ended Audiófilo",area:22.0,zpp:3000,spk:8,fmin:20},
+{name:"2A3 Single-Ended Audiófilo",area:20.0,zpp:2500,spk:8,fmin:20},
+{name:"45 Single-Ended Audiófilo",area:18.0,zpp:4600,spk:8,fmin:25},
+{name:"KT88 Single-Ended Class A",area:24.0,zpp:5000,spk:8,fmin:25},
+{name:"Fender Princeton (6V6 PP)",area:14.0,zpp:8500,spk:8,fmin:50},
+{name:"Fender Deluxe 5E3 (6V6 PP)",area:18.0,zpp:8000,spk:8,fmin:40},
+{name:"Fender Bassman 5F6-A (5881 PP)",area:22.0,zpp:4000,spk:4,fmin:40},
+{name:"Fender Twin Reverb (6L6 PP 85W)",area:28.0,zpp:2000,spk:4,fmin:35},
+{name:"Marshall JTM45 (KT66 PP)",area:24.0,zpp:8000,spk:8,fmin:30},
+{name:"Marshall Plexi 50W (EL34 PP)",area:24.0,zpp:3400,spk:8,fmin:40},
 {name:"JCM800 50W (Push-Pull EL34)",area:22.0,zpp:3400,spk:4,fmin:45},
-{name:"KT88 / 6550 (Push-Pull Hi-Fi 100W)",area:28.0,zpp:4300,spk:8,fmin:25},
-{name:"300B (Single-Ended Audiófilo)",area:22.0,zpp:3000,spk:8,fmin:20},
-{name:"12AU7 / 12BH7 (Line Driver PP)",area:8.0,zpp:15000,spk:600,fmin:40}
+{name:"Vox AC15 (EL84 PP)",area:16.0,zpp:8000,spk:8,fmin:40},
+{name:"Vox AC30 (EL84 PP)",area:20.0,zpp:4000,spk:8,fmin:35},
+{name:"HiWatt DR103 (EL34 PP)",area:26.0,zpp:1800,spk:8,fmin:30},
+{name:"Orange Tiny Terror (EL84 PP)",area:16.0,zpp:8000,spk:8,fmin:40},
+{name:"Mesa Boogie Dual Rectifier (6L6 PP)",area:30.0,zpp:2000,spk:8,fmin:30},
+{name:"Matchless DC-30 (EL84 PP)",area:20.0,zpp:4000,spk:8,fmin:35},
+{name:"Dynaco ST-35 (EL84 PP)",area:16.0,zpp:8000,spk:8,fmin:30},
+{name:"Dynaco ST-70 (EL34 PP)",area:22.0,zpp:4300,spk:8,fmin:25},
+{name:"Williamson Amplifier (KT66 PP)",area:24.0,zpp:10000,spk:8,fmin:20},
+{name:"Quad II (KT66 PP)",area:22.0,zpp:8000,spk:8,fmin:25},
+{name:"Leak Stereo 20 (EL84 PP)",area:18.0,zpp:8000,spk:8,fmin:25},
+{name:"Heathkit W-5M (KT66 PP)",area:24.0,zpp:6000,spk:8,fmin:20},
+{name:"KT88 / 6550 Push-Pull Hi-Fi 100W",area:28.0,zpp:4300,spk:8,fmin:25},
+{name:"EL34 Push-Pull Class AB2 100W",area:30.0,zpp:3000,spk:8,fmin:30},
+{name:"6L6GC Push-Pull 60W",area:26.0,zpp:4000,spk:8,fmin:30},
+{name:"KT120 Push-Pull 150W",area:36.0,zpp:2500,spk:8,fmin:25},
+{name:"12AU7 / 12BH7 Line Driver PP",area:8.0,zpp:15000,spk:600,fmin:40},
+{name:"6SN7 Line Stage SE",area:10.0,zpp:20000,spk:10000,fmin:20},
+{name:"ECC99 Line Driver (Output)",area:8.0,zpp:10000,spk:600,fmin:20},
+{name:"6AS7 / 6080 OTL Output",area:8.0,zpp:600,spk:32,fmin:40},
+{name:"6C33C OTL Output (High Current)",area:10.0,zpp:400,spk:16,fmin:30}
 ]
 };
+
+// =========================================================================
+// PRESETS CUSTOMIZADOS
+// =========================================================================
+function getMyPresets(type) {
+  try { return JSON.parse(localStorage.getItem('oxydz_my_presets_' + type) || '[]'); }
+  catch(e) { return []; }
+}
+function setMyPresets(type, arr) {
+  localStorage.setItem('oxydz_my_presets_' + type, JSON.stringify(arr));
+}
+function saveCurrentPreset(type) {
+  let preset, name;
+  if (type === 'linear') {
+    preset = { area: parseFloat(document.getElementById('lin_area').value),
+      vpri: parseFloat(document.getElementById('lin_vpri').value),
+      vsec: parseFloat(document.getElementById('lin_vsec').value),
+      isec: parseFloat(document.getElementById('lin_isec').value) };
+    name = prompt('Nome do preset:', `Linear ${preset.vsec}V/${preset.isec}A`);
+  } else if (type === 'audio') {
+    preset = { area: parseFloat(document.getElementById('aud_area').value),
+      z1: parseFloat(document.getElementById('aud_z1').value),
+      z2: parseFloat(document.getElementById('aud_z2').value),
+      fmin: parseFloat(document.getElementById('aud_freq').value) };
+    name = prompt('Nome do preset:', `Áudio ${preset.z1}Ω:${preset.z2}Ω`);
+  } else if (type === 'tube') {
+    preset = { area: parseFloat(document.getElementById('tub_area').value),
+      zpp: parseFloat(document.getElementById('tub_zpp').value),
+      spk: parseFloat(document.getElementById('tub_spk').value),
+      fmin: parseFloat(document.getElementById('tub_freq').value) };
+    name = prompt('Nome do preset:', `Válvula ${preset.zpp}Ω:${preset.spk}Ω`);
+  }
+  if (!name || !preset) return;
+  preset.name = name;
+  const arr = getMyPresets(type);
+  arr.push(preset);
+  setMyPresets(type, arr);
+  renderMyPresets();
+  showToast('✅ Preset "' + name + '" salvo!');
+}
+
+function renderMyPresets() {
+  const types = [
+    { key: 'linear', tableId: 'table-my-linear', cols: ['Pri (V)', 'Sec (V)', 'Isec (A)'] },
+    { key: 'audio',  tableId: 'table-my-audio',  cols: ['Z1 (Ω)', 'Z2 (Ω)', 'Fmin (Hz)'] },
+    { key: 'tube',   tableId: 'table-my-tube',   cols: ['Zaa (Ω)', 'Spk (Ω)', 'Fmin (Hz)'] }
+  ];
+  types.forEach(t => {
+    const arr = getMyPresets(t.key);
+    const el = document.getElementById(t.tableId);
+    if (!el) return;
+    if (arr.length === 0) {
+      el.innerHTML = `<tr><td style="text-align:center;color:var(--text-secondary);padding:20px">Nenhum preset salvo ainda</td></tr>`;
+      return;
+    }
+    let html = `<tr><th>Aplicação</th><th>${t.cols[0]}</th><th>${t.cols[1]}</th><th>${t.cols[2]}</th><th>Ação</th></tr>`;
+    arr.forEach((p, i) => {
+      const v1 = t.key === 'linear' ? p.vpri : (t.key === 'audio' ? p.z1 : p.zpp);
+      const v2 = t.key === 'linear' ? p.vsec : (t.key === 'audio' ? p.z2 : p.spk);
+      const v3 = t.key === 'linear' ? p.isec : p.fmin;
+      html += `<tr><td>${p.name}</td><td>${v1}</td><td>${v2}</td><td>${v3}</td>
+        <td>
+          <button class="btn-load" onclick="loadMyPreset('${t.key}',${i})">Carregar</button>
+          <button class="btn-load" onclick="addToCompare('${t.key}',${i},true)">⇄</button>
+          <button class="btn-load danger" onclick="deleteMyPreset('${t.key}',${i})">🗑</button>
+        </td></tr>`;
+    });
+    el.innerHTML = html;
+  });
+}
+
+function loadMyPreset(type, i) {
+  const p = getMyPresets(type)[i];
+  if (!p) return;
+  if (type === 'linear') {
+    document.getElementById('lin_area').value = p.area;
+    document.getElementById('lin_vpri').value = p.vpri;
+    document.getElementById('lin_vsec').value = p.vsec;
+    document.getElementById('lin_isec').value = p.isec;
+    switchTab(0); showActivePreset(0, p.name);
+  } else if (type === 'audio') {
+    document.getElementById('aud_area').value = p.area;
+    document.getElementById('aud_z1').value = p.z1;
+    document.getElementById('aud_z2').value = p.z2;
+    document.getElementById('aud_freq').value = p.fmin;
+    switchTab(1); showActivePreset(1, p.name);
+  } else if (type === 'tube') {
+    document.getElementById('tub_area').value = p.area;
+    document.getElementById('tub_zpp').value = p.zpp;
+    document.getElementById('tub_spk').value = p.spk;
+    document.getElementById('tub_freq').value = p.fmin;
+    switchTab(2); showActivePreset(2, p.name);
+  }
+}
+function deleteMyPreset(type, i) {
+  if (!confirm('Remover este preset?')) return;
+  const arr = getMyPresets(type);
+  arr.splice(i, 1);
+  setMyPresets(type, arr);
+  renderMyPresets();
+  showToast('🗑 Preset removido');
+}
+
+function exportPDF() {
+  window.print();
+  showToast('📄 Abrindo diálogo de impressão…');
+}
+
+// =========================================================================
+// WINDING DIAGRAM
+// =========================================================================
+let currentWinding = 'simple';
+function setWinding(type) {
+  currentWinding = type;
+  ['simple','bifilar','sandwich'].forEach(t => {
+    const b1 = document.getElementById('wbtn-'+t);
+    const b2 = document.getElementById('wbtn-'+t+'-t');
+    if (t === type) {
+      b1?.style.setProperty('background', 'var(--accent)');
+      b1?.style.setProperty('color', '#fff');
+      b2?.style.setProperty('background', 'var(--accent)');
+      b2?.style.setProperty('color', '#fff');
+    } else {
+      b1?.style.removeProperty('background');
+      b1?.style.removeProperty('color');
+      b2?.style.removeProperty('background');
+      b2?.style.removeProperty('color');
+    }
+  });
+  drawWindingDiagram('canvas-winding-aud', type);
+  drawWindingDiagram('canvas-winding-tub', type);
+}
+
+function drawWindingDiagram(canvasId, type) {
+  const cv = document.getElementById(canvasId);
+  if (!cv) return;
+  const fit = fitCanvas(cv);
+  if (!fit) return;
+  const { ctx, w, h } = fit;
+  const colors = getThemeColors();
+  ctx.clearRect(0, 0, w, h);
+
+  const P = colors.high;
+  const S = colors.low;
+  const I = colors.gridStrong;
+
+  ctx.font = 'bold 11px Inter';
+  ctx.fillStyle = colors.title;
+  const title = type === 'simple' ? 'Simples (P + S)' :
+                type === 'bifilar' ? 'Bifilar (P/S intercalado)' :
+                'Sandwich (S | P | S)';
+  ctx.fillText(title, 8, 16);
+
+  const y = h / 2 + 8;
+  const blockH = 40;
+  const startX = 20;
+  const endX = w - 20;
+  const totalW = endX - startX;
+
+  function drawBlock(x, bw, color, label) {
+    ctx.fillStyle = color;
+    ctx.globalAlpha = 0.85;
+    ctx.fillRect(x, y - blockH/2, bw, blockH);
+    ctx.globalAlpha = 1;
+    ctx.strokeStyle = colors.text;
+    ctx.lineWidth = 1;
+    ctx.strokeRect(x, y - blockH/2, bw, blockH);
+    if (bw > 30) {
+      ctx.fillStyle = '#fff';
+      ctx.font = 'bold 12px Inter';
+      ctx.textAlign = 'center';
+      ctx.fillText(label, x + bw/2, y + 4);
+      ctx.textAlign = 'left';
+    }
+  }
+
+  if (type === 'simple') {
+    drawBlock(startX, totalW * 0.55, P, 'PRIM');
+    ctx.fillStyle = I;
+    ctx.fillRect(startX + totalW * 0.55, y - blockH/2, totalW * 0.05, blockH);
+    drawBlock(startX + totalW * 0.60, totalW * 0.40, S, 'SEC');
+  } else if (type === 'bifilar') {
+    const segs = 8;
+    const segW = totalW / segs;
+    for (let i = 0; i < segs; i++) {
+      const col = i % 2 === 0 ? P : S;
+      const lbl = i % 2 === 0 ? 'P' : 'S';
+      drawBlock(startX + i * segW, segW * 0.95, col, lbl);
+    }
+  } else {
+    drawBlock(startX, totalW * 0.25, S, 'SEC');
+    ctx.fillStyle = I;
+    ctx.fillRect(startX + totalW * 0.25, y - blockH/2, totalW * 0.03, blockH);
+    drawBlock(startX + totalW * 0.28, totalW * 0.44, P, 'PRIM');
+    ctx.fillStyle = I;
+    ctx.fillRect(startX + totalW * 0.72, y - blockH/2, totalW * 0.03, blockH);
+    drawBlock(startX + totalW * 0.75, totalW * 0.25, S, 'SEC');
+  }
+}
+
+// =========================================================================
+// HISTÓRICO
+// =========================================================================
+function getHistory() {
+  try { return JSON.parse(localStorage.getItem('oxydz_history') || '[]'); }
+  catch(e) { return []; }
+}
+function pushHistory(entry) {
+  const h = getHistory();
+  h.unshift({ ...entry, ts: Date.now() });
+  localStorage.setItem('oxydz_history', JSON.stringify(h.slice(0, 10)));
+  updateHistCount();
+  renderHistory();
+}
+function updateHistCount() {
+  const c = getHistory().length;
+  const el = document.getElementById('histCount');
+  if (el) el.textContent = c;
+}
+function toggleHistory() {
+  document.getElementById('historyPanel').classList.toggle('active');
+}
+function renderHistory() {
+  const h = getHistory();
+  const el = document.getElementById('historyList');
+  if (!el) return;
+  if (h.length === 0) {
+    el.innerHTML = '<p style="color:var(--text-secondary);font-size:.85rem">Sem cálculos ainda.</p>';
+    return;
+  }
+  el.innerHTML = h.map((e) => {
+    const d = new Date(e.ts);
+    const time = `${d.getHours().toString().padStart(2,'0')}:${d.getMinutes().toString().padStart(2,'0')}`;
+    return `<div class="history-item">
+      <div class="h-title">${e.title}</div>
+      <div class="h-meta">${e.detail}</div>
+      <div class="h-meta">${time} · ${e.tipo}</div>
+    </div>`;
+  }).join('');
+}
+function clearHistory() {
+  if (!confirm('Limpar histórico?')) return;
+  localStorage.removeItem('oxydz_history');
+  updateHistCount();
+  renderHistory();
+  showToast('🗑 Histórico limpo');
+}
+
+// =========================================================================
+// COMPARADOR
+// =========================================================================
+let compareA = null, compareB = null;
+function addToCompare(type, i, isMine = false) {
+  const arr = isMine ? getMyPresets(type) : userPresets[type];
+  const p = arr[i];
+  if (!p) return;
+  const slot = { type, preset: p };
+  if (!compareA) compareA = slot;
+  else if (!compareB) compareB = slot;
+  else { compareA = compareB; compareB = slot; }
+  updateCompareBar();
+  showToast('⇄ Adicionado ao comparador');
+}
+function updateCompareBar() {
+  const bar = document.getElementById('compareBar');
+  if (!bar) return;
+  if (!compareA && !compareB) { bar.classList.remove('active'); return; }
+  bar.classList.add('active');
+  const fmt = (s) => s ? `[${s.type}] ${s.preset.name}` : '<em style="opacity:.5">Slot vazio</em>';
+  document.getElementById('compareSlotA').innerHTML = 'A: ' + fmt(compareA);
+  document.getElementById('compareSlotB').innerHTML = 'B: ' + fmt(compareB);
+}
+function clearCompare() {
+  compareA = compareB = null;
+  updateCompareBar();
+}
+function showComparison() {
+  if (!compareA || !compareB) { showToast('⚠ Adicione 2 itens', true); return; }
+  const a = compareA, b = compareB;
+  const lines = [
+    `━━━ COMPARAÇÃO ━━━`,
+    `A: [${a.type}] ${a.preset.name}`,
+    `B: [${b.type}] ${b.preset.name}`,
+    ``,
+    `Área A: ${a.preset.area} cm² | B: ${b.preset.area} cm²`,
+    `Δ Área: ${(b.preset.area - a.preset.area).toFixed(2)} cm²`
+  ];
+  if (a.type === 'linear' && b.type === 'linear') {
+    lines.push(`Vsec A: ${a.preset.vsec}V | B: ${b.preset.vsec}V`);
+    lines.push(`Isec A: ${a.preset.isec}A | B: ${b.preset.isec}A`);
+  }
+  if (a.type === 'audio' && b.type === 'audio') {
+    lines.push(`Z1 A: ${a.preset.z1}Ω | B: ${b.preset.z1}Ω`);
+    lines.push(`Z2 A: ${a.preset.z2}Ω | B: ${b.preset.z2}Ω`);
+  }
+  if (a.type === 'tube' && b.type === 'tube') {
+    lines.push(`Zaa A: ${a.preset.zpp}Ω | B: ${b.preset.zpp}Ω`);
+    lines.push(`Spk A: ${a.preset.spk}Ω | B: ${b.preset.spk}Ω`);
+  }
+  alert(lines.join('\n'));
+}
+
+// =========================================================================
+// TEMA
+// =========================================================================
+function toggleTheme() {
+  document.body.classList.toggle('light-theme');
+  const isLight = document.body.classList.contains('light-theme');
+  localStorage.setItem('oxydz_theme', isLight ? 'light' : 'dark');
+  document.getElementById('themeToggle').textContent = isLight ? '☀️' : '🌙';
+  if (currentTab === 0) calcLinear();
+  if (currentTab === 1) { calcAudio(); drawWindingDiagram('canvas-winding-aud', currentWinding); }
+  if (currentTab === 2) { calcTube(); drawWindingDiagram('canvas-winding-tub', currentWinding); }
+}
+function applySavedTheme() {
+  const saved = localStorage.getItem('oxydz_theme') || 'dark';
+  if (saved === 'light') {
+    document.body.classList.add('light-theme');
+    document.getElementById('themeToggle').textContent = '☀️';
+  }
+}
+
+// =========================================================================
+// TOAST
+// =========================================================================
+let toastTimer;
+function showToast(msg, isError = false) {
+  const t = document.getElementById('toast');
+  if (!t) return;
+  t.textContent = msg;
+  t.classList.toggle('error', isError);
+  t.classList.add('active');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('active'), 2200);
+}
+
+// =========================================================================
+// AIR-GAP
+// =========================================================================
+function calcAirGap(np, area_cm2, Lp_target) {
+  const mu_0 = 4 * Math.PI * 1e-7;
+  const A_m2 = area_cm2 * 1e-4 * STACKING_FACTOR;
+  const g_m = (mu_0 * np * np * A_m2) / Lp_target;
+  return g_m * 1000;
+}
+function onTubeTypeChange() {
+  const type = document.getElementById('tub_type').value;
+  document.getElementById('tub_dc_group').style.display = type === 'se' ? 'block' : 'none';
+  const gapBox = document.getElementById('airgap-box');
+  if (type === 'se') gapBox.classList.add('active');
+  else gapBox.classList.remove('active');
+  calcTube();
+}
+
+function applyCoreSelection(prefix) {
+  const sel = document.getElementById(prefix + '_core');
+  const info = document.getElementById('core-info-' + prefix);
+  if (!sel || !info) return;
+  const key = sel.value;
+  if (key && CORE_LIBRARY[key]) {
+    const c = CORE_LIBRARY[key];
+    document.getElementById(prefix + '_area').value = c.area;
+    info.textContent = `Área típica: ${c.area} cm² · Janela: ${c.window_mm2} mm²`;
+    if (prefix === 'lin') calcLinear();
+  } else {
+    info.textContent = '';
+  }
+}
 
 // =========================================================================
 // TRADUÇÕES
 // =========================================================================
 const translations = {
-pt:{back:"← Voltar para Ferramentas",title:"Calculadora de Transformadores Pro",subtitle:"Dimensionamento audiófilo interativo. Projeto visual reativo aos cálculos.",
+pt:{back:"← Voltar para Ferramentas",title:"Calculadora de Transformadores Pro",subtitle:"Dimensionamento audiófilo interativo com banco de presets e simulação em tempo real.",
 tab1:"Linear (Força)",tab2:"Áudio / Linha",tab3:"Saída Valvulada",tab4:"Guia & Referências",tab5:"Presets",
 lbl_area:"Área do Núcleo Central - A (cm²)",lbl_vpri:"Tensão Primária (V)",lbl_vsec:"Tensão Secundária (V)",
 lbl_isec:"Corrente Secundária Alvo (A)",lbl_flux:"Densidade de Fluxo Alvo (Gauss)",
 lbl_freq:"Frequência da Rede (Hz)",lbl_core_mat:"Material do Núcleo",lbl_aud_area:"Área do Núcleo (cm²)",
 lbl_z1:"Impedância Primária - Z1 (Ω)",lbl_z2:"Impedância Secundária - Z2 (Ω)",lbl_minf:"Frequência Mínima de Resposta (Hz)",
 lbl_tub_area:"Área do Núcleo (cm²)",lbl_r_pp:"Impedância de Placa a Placa (Ω - Zaa)",lbl_spk:"Impedância do Alto-falante (Ω)",
+lbl_core:"Núcleo Comercial (opcional)",lbl_tub_type:"Topologia",lbl_tub_dc:"Corrente DC no Primário (mA)",
 btn_calc:"Calcular e Atualizar Esquema",res_title:"Especificações de Construção",
 r_np:"Espiras Primário:",r_ns:"Espiras Secundário:",r_ratio:"Relação de Espiras:",r_lp:"Indutância Primária:",
 r_awgp:"Fio Sugerido (Pri / Sec):",r_ie:"Corrente de Excitação (Ie):",r_pcu:"Perda no Cobre (Pcu):",
 r_pfe:"Perda no Ferro (Pfe):",r_eff:"Eficiência Estimada:",r_reg:"Regulação de Carga:",r_fill:"Ocupação da Janela:",
-sim_lin_title:"Estabilidade Magnética (Curva B-H)",sim_aud_title:"Simulador de Resposta",
+sim_lin_title:"Osciloscópio — Curva B-H",sim_aud_title:"Simulador de Resposta",
+sim_wind_title:"Diagrama de Bobinagem",
 sim_btn_play:"Ouvir Resposta Simulada",sim_btn_stop:"Parar Simulação",
-pre_title:"Presets Clássicos e de Bancada",pre_desc:"Carregue configurações pré-definidas de circuitos e fontes comuns para simulação rápida.",
+pre_title:"Presets Clássicos e de Bancada",pre_desc:"Carregue configurações pré-definidas. Use ⇄ para comparar.",
 pre_lin_title:"Fontes e Inversores (Linear)",pre_aud_title:"Áudio / Linha (Estúdio, Pedais, Microfones)",pre_tub_title:"Saídas Valvuladas Clássicas",
 g_title:"Guia de Montagem e Boas Práticas",
 th_title1:"1. Fator de Empacotamento (Stacking Factor)",th_desc1:"Lâminas de aço silício possuem micro-rebarbas e camadas de óxido isolante. O fator real de ocupação do núcleo oscila tipicamente entre 0.87 e 0.94.",
@@ -475,13 +1100,15 @@ lbl_isec:"Target Secondary Current (A)",lbl_flux:"Target Flux Density (Gauss)",
 lbl_freq:"Line Frequency (Hz)",lbl_core_mat:"Core Material",lbl_aud_area:"Core Area (cm²)",
 lbl_z1:"Primary Impedance - Z1 (Ω)",lbl_z2:"Secondary Impedance - Z2 (Ω)",lbl_minf:"Min Frequency Response (Hz)",
 lbl_tub_area:"Core Area (cm²)",lbl_r_pp:"Plate-to-Plate Impedance (Ω - Zaa)",lbl_spk:"Speaker Impedance (Ω)",
+lbl_core:"Commercial Core (optional)",lbl_tub_type:"Topology",lbl_tub_dc:"DC Current in Primary (mA)",
 btn_calc:"Calculate & Update Diagram",res_title:"Manufacturing Specifications",
 r_np:"Primary Turns:",r_ns:"Secondary Turns:",r_ratio:"Turns Ratio:",r_lp:"Primary Inductance:",
 r_awgp:"Suggested Wire (Pri / Sec):",r_ie:"Excitation Current (Ie):",r_pcu:"Copper Loss (Pcu):",
 r_pfe:"Iron Loss (Pfe):",r_eff:"Estimated Efficiency:",r_reg:"Load Regulation:",r_fill:"Window Fill:",
-sim_lin_title:"Magnetic Stability (B-H Curve)",sim_aud_title:"Frequency Response Simulator",
+sim_lin_title:"Oscilloscope — B-H Curve",sim_aud_title:"Frequency Response Simulator",
+sim_wind_title:"Winding Diagram",
 sim_btn_play:"Hear Simulated Response",sim_btn_stop:"Stop Simulation",
-pre_title:"Classic & Bench Presets",pre_desc:"Load pre-defined configurations for quick simulation.",
+pre_title:"Classic & Bench Presets",pre_desc:"Load pre-defined configurations. Use ⇄ to compare.",
 pre_lin_title:"Power Supplies & Inverters",pre_aud_title:"Audio / Line (Studio, Pedals, Mics)",pre_tub_title:"Classic Tube Outputs",
 g_title:"Assembly Guide & Best Practices",
 th_title1:"1. Stacking Factor",th_desc1:"Silicon steel laminations feature burrs and oxide insulation, giving a real stacking factor between 0.87 and 0.94.",
@@ -503,11 +1130,13 @@ lbl_isec:"Corriente Secundaria Objetivo (A)",lbl_flux:"Densidad de Flujo (Gauss)
 lbl_freq:"Frecuencia de Red (Hz)",lbl_core_mat:"Material del Núcleo",lbl_aud_area:"Área del Núcleo (cm²)",
 lbl_z1:"Impedancia Primaria - Z1 (Ω)",lbl_z2:"Impedancia Secundaria - Z2 (Ω)",lbl_minf:"Frecuencia Mínima (Hz)",
 lbl_tub_area:"Área del Núcleo (cm²)",lbl_r_pp:"Impedancia de Placa a Placa (Ω)",lbl_spk:"Impedancia del Altavoz (Ω)",
+lbl_core:"Núcleo Comercial (opcional)",lbl_tub_type:"Topología",lbl_tub_dc:"Corriente DC en Primario (mA)",
 btn_calc:"Calcular y Actualizar Esquema",res_title:"Especificaciones de Fabricación",
 r_np:"Espiras Primarias:",r_ns:"Espiras Secundarias:",r_ratio:"Relación de Espiras:",r_lp:"Inductancia Primaria:",
 r_awgp:"Calibre Sugerido:",r_ie:"Corriente de Excitación (Ie):",r_pcu:"Pérdida en Cobre:",
 r_pfe:"Pérdida en Hierro:",r_eff:"Eficiencia Estimada:",r_reg:"Regulación de Carga:",r_fill:"Ocupación Ventana:",
-sim_lin_title:"Estabilidad Magnética (Curva B-H)",sim_aud_title:"Simulador de Respuesta",
+sim_lin_title:"Osciloscopio — Curva B-H",sim_aud_title:"Simulador de Respuesta",
+sim_wind_title:"Diagrama de Bobinado",
 sim_btn_play:"Escuchar Respuesta Simulada",sim_btn_stop:"Detener Simulación",
 pre_title:"Presets Clásicos y de Banco",pre_desc:"Carga configuraciones predefinidas.",
 pre_lin_title:"Fuentes e Inversores",pre_aud_title:"Audio / Línea (Estudio, Pedales, Micrófonos)",pre_tub_title:"Salidas a Válvulas Clásicas",
@@ -531,6 +1160,9 @@ let audioCtx;
 let isPlaying = false;
 let osc1, osc2, lpf, hpf, masterGain;
 let currentCalculatedFreq = 30;
+let bhAnimFrame = null;
+let bhPhase = 0;
+let bhLastFlux = 12000;
 const currentLang = () => document.getElementById('langMenu').value;
 
 function mudarIdioma(lang){
@@ -557,8 +1189,9 @@ currentTab = index;
 document.querySelectorAll('.tab-btn').forEach((btn,i)=>btn.classList.toggle('active',i===index));
 document.querySelectorAll('.panel').forEach((panel,i)=>panel.classList.toggle('active',i===index));
 if(index===0) calcLinear();
-if(index===1) calcAudio();
-if(index===2) calcTube();
+if(index===1) { calcAudio(); drawWindingDiagram('canvas-winding-aud', currentWinding); }
+if(index===2) { calcTube(); drawWindingDiagram('canvas-winding-tub', currentWinding); }
+if(index===3) renderMyPresets();
 }
 
 function renderPresets(){
@@ -569,19 +1202,31 @@ const btnLoad = translations[lang]['th_load'];
 
 let htmlLin = `<tr><th>${thApp}</th><th>Pri (V)</th><th>Sec (V)</th><th>${thAction}</th></tr>`;
 userPresets.linear.forEach((p,i)=>{
-htmlLin += `<tr><td>${p.name}</td><td>${p.vpri}</td><td>${p.vsec}</td><td><button class="btn-load" onclick="loadLinearPreset(${i})">${btnLoad}</button></td></tr>`;
+htmlLin += `<tr><td>${p.name}</td><td>${p.vpri}</td><td>${p.vsec}</td>
+<td>
+<button class="btn-load" onclick="loadLinearPreset(${i})">${btnLoad}</button>
+<button class="btn-load" onclick="addToCompare('linear',${i})">⇄</button>
+</td></tr>`;
 });
 document.getElementById('table-presets-linear').innerHTML = htmlLin;
 
 let htmlAud = `<tr><th>${thApp}</th><th>Z1 (Ω)</th><th>Z2 (Ω)</th><th>${thAction}</th></tr>`;
 userPresets.audio.forEach((p,i)=>{
-htmlAud += `<tr><td>${p.name}</td><td>${p.z1}</td><td>${p.z2}</td><td><button class="btn-load" onclick="loadAudioPreset(${i})">${btnLoad}</button></td></tr>`;
+htmlAud += `<tr><td>${p.name}</td><td>${p.z1}</td><td>${p.z2}</td>
+<td>
+<button class="btn-load" onclick="loadAudioPreset(${i})">${btnLoad}</button>
+<button class="btn-load" onclick="addToCompare('audio',${i})">⇄</button>
+</td></tr>`;
 });
 document.getElementById('table-presets-audio').innerHTML = htmlAud;
 
 let htmlTub = `<tr><th>Válvula / Topologia</th><th>Zaa/Z (Ω)</th><th>Carga (Ω)</th><th>${thAction}</th></tr>`;
 userPresets.tube.forEach((p,i)=>{
-htmlTub += `<tr><td>${p.name}</td><td>${p.zpp}</td><td>${p.spk}</td><td><button class="btn-load" onclick="loadTubePreset(${i})">${btnLoad}</button></td></tr>`;
+htmlTub += `<tr><td>${p.name}</td><td>${p.zpp}</td><td>${p.spk}</td>
+<td>
+<button class="btn-load" onclick="loadTubePreset(${i})">${btnLoad}</button>
+<button class="btn-load" onclick="addToCompare('tube',${i})">⇄</button>
+</td></tr>`;
 });
 document.getElementById('table-presets-tube').innerHTML = htmlTub;
 }
@@ -592,6 +1237,8 @@ document.getElementById('lin_area').value=p.area;
 document.getElementById('lin_vpri').value=p.vpri;
 document.getElementById('lin_vsec').value=p.vsec;
 document.getElementById('lin_isec').value=p.isec;
+document.getElementById('lin_core').value = '';
+document.getElementById('core-info-lin').textContent = '';
 switchTab(0);
 showActivePreset(0,p.name);
 }
@@ -652,129 +1299,187 @@ document.getElementById('lbl-sec-val1').textContent = val2;
 document.getElementById('lbl-sec-val2').textContent = `${ns} Espiras`;
 }
 
-// ✅ Curva B-H (responsiva e nítida)
-function drawBHCurve(flux, matBsat = 15000){
-const canvas = document.getElementById('canvas-osc');
-if(!canvas) return;
-const fit = fitCanvas(canvas);
-if(!fit) return;
-const { ctx, w, h } = fit;
-ctx.clearRect(0,0,w,h);
-ctx.strokeStyle='#21262d'; ctx.lineWidth=1;
-ctx.beginPath(); ctx.moveTo(w/2,0); ctx.lineTo(w/2,h);
-ctx.moveTo(0,h/2); ctx.lineTo(w,h/2); ctx.stroke();
-const ratio = flux / matBsat;
-ctx.beginPath();
-ctx.strokeStyle = ratio >= 0.9 ? '#f85149' : '#D4AF37';
-ctx.lineWidth = 2.5;
-for(let i=0;i<=200;i++){
-const t = (i/200) * Math.PI * 2;
-const H = Math.sin(t);
-const B = (H * flux) / (1 + Math.abs(H) * ratio * 0.8);
-const x = w/2 + H * (w/2 * 0.85);
-const y = h/2 - (B / matBsat) * (h/2 * 0.85);
-i===0 ? ctx.moveTo(x,y) : ctx.lineTo(x,y);
-}
-ctx.stroke();
-ctx.fillStyle='#8b949e'; ctx.font='10px Inter';
-ctx.fillText('H →', w-30, h/2-5);
-ctx.fillText('↑ B', w/2+5, 12);
-ctx.fillText(`Bsat alvo: ${matBsat} G`, 8, 14);
+// =========================================================================
+// ✅ OSCILOSCÓPIO ANIMADO — Curva B-H com cursor
+// =========================================================================
+function drawBHCurve(flux, matBsat = 15000) {
+  bhLastFlux = flux;
+  bhPhase = 0;
+  if (!bhAnimFrame) {
+    const loop = (time) => {
+      const canvas = document.getElementById('canvas-osc');
+      if (!canvas) { bhAnimFrame = null; return; }
+      const fit = fitCanvas(canvas);
+      if (!fit) { bhAnimFrame = requestAnimationFrame(loop); return; }
+      const { ctx, w, h } = fit;
+      const colors = getThemeColors();
+
+      // Background
+      ctx.clearRect(0, 0, w, h);
+
+      // Grid
+      ctx.strokeStyle = colors.grid;
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(w/2, 0); ctx.lineTo(w/2, h);
+      ctx.moveTo(0, h/2); ctx.lineTo(w, h/2);
+      ctx.stroke();
+
+      // B-H curve
+      const ratio = bhLastFlux / matBsat;
+      ctx.beginPath();
+      ctx.strokeStyle = ratio >= 0.9 ? colors.curveWarn : colors.curve;
+      ctx.lineWidth = 2.5;
+      const pts = [];
+      for (let i = 0; i <= 200; i++) {
+        const t = (i/200) * Math.PI * 2;
+        const H = Math.sin(t);
+        const B = (H * bhLastFlux) / (1 + Math.abs(H) * ratio * 0.8);
+        const x = w/2 + H * (w/2 * 0.85);
+        const y = h/2 - (B / matBsat) * (h/2 * 0.85);
+        pts.push({x, y});
+        i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+      }
+      ctx.stroke();
+
+      // Animated cursor dot
+      const idx = Math.floor(bhPhase) % pts.length;
+      const p = pts[idx];
+      // Glow
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, 9, 0, Math.PI * 2);
+      ctx.fillStyle = ratio >= 0.9 ? 'rgba(248,81,73,.25)' : 'rgba(212,175,55,.25)';
+      ctx.fill();
+      // Dot
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, 4.5, 0, Math.PI * 2);
+      ctx.fillStyle = ratio >= 0.9 ? colors.curveWarn : colors.curve;
+      ctx.fill();
+      ctx.strokeStyle = colors.title;
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+
+      // Labels
+      ctx.fillStyle = colors.text;
+      ctx.font = '10px Inter';
+      ctx.fillText('H →', w - 30, h/2 - 5);
+      ctx.fillText('↑ B', w/2 + 5, 12);
+      ctx.fillStyle = colors.title;
+      ctx.font = 'bold 10px Inter';
+      ctx.fillText(`Bsat alvo: ${matBsat} G`, 8, 14);
+
+      bhPhase += 3;
+      if (bhPhase > pts.length) bhPhase = 0;
+
+      bhAnimFrame = requestAnimationFrame(loop);
+    };
+    bhAnimFrame = requestAnimationFrame(loop);
+  }
 }
 
-// ✅ Gráfico de Resposta em Frequência (responsivo e nítido)
+function stopBHAnimation() {
+  if (bhAnimFrame) {
+    cancelAnimationFrame(bhAnimFrame);
+    bhAnimFrame = null;
+  }
+}
+
+// =========================================================================
+// FREQ RESPONSE
+// =========================================================================
 function drawFreqResponse(canvasId, fmin, Lp, Rsource, Lleak, Cw) {
-const cv = document.getElementById(canvasId);
-if (!cv) return;
-const fit = fitCanvas(cv);
-if (!fit) return;
-const { ctx, w, h } = fit;
-const pad = { l: 48, r: 20, t: 22, b: 30 };
-const plotW = w - pad.l - pad.r;
-const plotH = h - pad.t - pad.b;
-ctx.clearRect(0, 0, w, h);
+  const cv = document.getElementById(canvasId);
+  if (!cv) return;
+  const fit = fitCanvas(cv);
+  if (!fit) return;
+  const { ctx, w, h } = fit;
+  const colors = getThemeColors();
+  const pad = { l: 48, r: 20, t: 22, b: 30 };
+  const plotW = w - pad.l - pad.r;
+  const plotH = h - pad.t - pad.b;
+  ctx.clearRect(0, 0, w, h);
 
-const fMin = 20, fMax = 20000;
-const logMin = Math.log10(fMin), logMax = Math.log10(fMax);
+  const fMin = 20, fMax = 20000;
+  const logMin = Math.log10(fMin), logMax = Math.log10(fMax);
 
-const gridFreqs = [20, 50, 100, 200, 500, 1000, 2000, 5000, 10000, 20000];
-ctx.strokeStyle = '#21262d';
-ctx.lineWidth = 1;
-ctx.font = '10px Inter';
-ctx.fillStyle = '#8b949e';
-gridFreqs.forEach(f => {
-const x = pad.l + ((Math.log10(f) - logMin) / (logMax - logMin)) * plotW;
-ctx.beginPath(); ctx.moveTo(x, pad.t); ctx.lineTo(x, pad.t + plotH); ctx.stroke();
-const label = f >= 1000 ? (f/1000) + 'k' : f;
-ctx.fillText(label, x - 8, h - 10);
-});
+  const gridFreqs = [20, 50, 100, 200, 500, 1000, 2000, 5000, 10000, 20000];
+  ctx.strokeStyle = colors.grid;
+  ctx.lineWidth = 1;
+  ctx.font = '10px Inter';
+  ctx.fillStyle = colors.text;
+  gridFreqs.forEach(f => {
+    const x = pad.l + ((Math.log10(f) - logMin) / (logMax - logMin)) * plotW;
+    ctx.beginPath(); ctx.moveTo(x, pad.t); ctx.lineTo(x, pad.t + plotH); ctx.stroke();
+    const label = f >= 1000 ? (f/1000) + 'k' : f;
+    ctx.fillText(label, x - 8, h - 10);
+  });
 
-const dBsteps = [0, -3, -6, -12, -20, -40];
-dBsteps.forEach(dB => {
-const y = pad.t + (Math.abs(dB) / 40) * plotH;
-ctx.beginPath(); ctx.moveTo(pad.l, y); ctx.lineTo(pad.l + plotW, y); ctx.stroke();
-ctx.fillText(dB + ' dB', 4, y + 3);
-});
+  const dBsteps = [0, -3, -6, -12, -20, -40];
+  dBsteps.forEach(dB => {
+    const y = pad.t + (Math.abs(dB) / 40) * plotH;
+    ctx.beginPath(); ctx.moveTo(pad.l, y); ctx.lineTo(pad.l + plotW, y); ctx.stroke();
+    ctx.fillText(dB + ' dB', 4, y + 3);
+  });
 
-ctx.strokeStyle = '#30363d';
-ctx.beginPath();
-ctx.moveTo(pad.l, pad.t);
-ctx.lineTo(pad.l + plotW, pad.t);
-ctx.stroke();
+  ctx.strokeStyle = colors.gridStrong;
+  ctx.beginPath();
+  ctx.moveTo(pad.l, pad.t);
+  ctx.lineTo(pad.l + plotW, pad.t);
+  ctx.stroke();
 
-const fLow  = Rsource / (2 * Math.PI * Lp);
-const fHigh = 1 / (2 * Math.PI * Math.sqrt(Lleak * Cw));
+  const fLow  = Rsource / (2 * Math.PI * Lp);
+  const fHigh = 1 / (2 * Math.PI * Math.sqrt(Lleak * Cw));
 
-function gain(f) {
-const gLow  = 1 / Math.sqrt(1 + Math.pow(fLow / f, 2));
-const gHigh = 1 / Math.sqrt(1 + Math.pow(f / fHigh, 2));
-return gLow * gHigh;
-}
+  function gain(f) {
+    const gLow  = 1 / Math.sqrt(1 + Math.pow(fLow / f, 2));
+    const gHigh = 1 / Math.sqrt(1 + Math.pow(f / fHigh, 2));
+    return gLow * gHigh;
+  }
 
-ctx.beginPath();
-ctx.strokeStyle = '#D4AF37';
-ctx.lineWidth = 2.5;
-let first = true;
-const N = 400;
-for (let i = 0; i <= N; i++) {
-const t = i / N;
-const f = fMin * Math.pow(fMax / fMin, t);
-const g = gain(f);
-const dB = 20 * Math.log10(g);
-const x = pad.l + t * plotW;
-const y = pad.t + (Math.max(0, -dB) / 40) * plotH;
-if (first) { ctx.moveTo(x, y); first = false; }
-else ctx.lineTo(x, y);
-}
-ctx.stroke();
+  ctx.beginPath();
+  ctx.strokeStyle = colors.curve;
+  ctx.lineWidth = 2.5;
+  let first = true;
+  const N = 400;
+  for (let i = 0; i <= N; i++) {
+    const t = i / N;
+    const f = fMin * Math.pow(fMax / fMin, t);
+    const g = gain(f);
+    const dB = 20 * Math.log10(g);
+    const x = pad.l + t * plotW;
+    const y = pad.t + (Math.max(0, -dB) / 40) * plotH;
+    if (first) { ctx.moveTo(x, y); first = false; }
+    else ctx.lineTo(x, y);
+  }
+  ctx.stroke();
 
-function draw3dBMarker(f, color, label) {
-if (f < fMin || f > fMax) return;
-const x = pad.l + ((Math.log10(f) - logMin) / (logMax - logMin)) * plotW;
-const y = pad.t + (3 / 40) * plotH;
-ctx.beginPath();
-ctx.arc(x, y, 4, 0, Math.PI * 2);
-ctx.fillStyle = color;
-ctx.fill();
-ctx.strokeStyle = '#fff';
-ctx.lineWidth = 1;
-ctx.stroke();
-ctx.fillStyle = color;
-ctx.font = 'bold 10px Inter';
-const text = label + ': ' + (f >= 1000 ? (f/1000).toFixed(2) + ' kHz' : f.toFixed(1) + ' Hz');
-const tx = Math.min(Math.max(x - 40, pad.l + 2), pad.l + plotW - 100);
-ctx.fillText(text, tx, y - 8);
-}
+  function draw3dBMarker(f, color, label) {
+    if (f < fMin || f > fMax) return;
+    const x = pad.l + ((Math.log10(f) - logMin) / (logMax - logMin)) * plotW;
+    const y = pad.t + (3 / 40) * plotH;
+    ctx.beginPath();
+    ctx.arc(x, y, 4, 0, Math.PI * 2);
+    ctx.fillStyle = color;
+    ctx.fill();
+    ctx.strokeStyle = colors.title;
+    ctx.lineWidth = 1;
+    ctx.stroke();
+    ctx.fillStyle = color;
+    ctx.font = 'bold 10px Inter';
+    const text = label + ': ' + (f >= 1000 ? (f/1000).toFixed(2) + ' kHz' : f.toFixed(1) + ' Hz');
+    const tx = Math.min(Math.max(x - 40, pad.l + 2), pad.l + plotW - 100);
+    ctx.fillText(text, tx, y - 8);
+  }
 
-draw3dBMarker(fLow,  '#60a5fa', '-3dB graves');
-draw3dBMarker(fHigh, '#f0884d', '-3dB agudos');
+  draw3dBMarker(fLow,  colors.low, '-3dB graves');
+  draw3dBMarker(fHigh, colors.high, '-3dB agudos');
 
-ctx.fillStyle = '#fff';
-ctx.font = 'bold 11px Inter';
-ctx.fillText('Resposta em Frequência (dB vs Hz)', pad.l + 2, 14);
-ctx.fillStyle = '#8b949e';
-ctx.font = '9px Inter';
-ctx.fillText(`Lp=${Lp.toFixed(2)} H · Rsrc=${Rsource.toFixed(0)} Ω · Lk=${(Lleak*1000).toFixed(2)} mH · Cw=${(Cw*1e12).toFixed(0)} pF`, pad.l + 2, h - 2);
+  ctx.fillStyle = colors.title;
+  ctx.font = 'bold 11px Inter';
+  ctx.fillText('Resposta em Frequência (dB vs Hz)', pad.l + 2, 14);
+  ctx.fillStyle = colors.text;
+  ctx.font = '9px Inter';
+  ctx.fillText(`Lp=${Lp.toFixed(2)} H · Rsrc=${Rsource.toFixed(0)} Ω · Lk=${(Lleak*1000).toFixed(2)} mH · Cw=${(Cw*1e12).toFixed(0)} pF`, pad.l + 2, h - 2);
 }
 
 function toggleAudioSimulation(type){
@@ -814,6 +1519,9 @@ btn.classList.add('playing');
 }
 }
 
+// =========================================================================
+// CALC LINEAR
+// =========================================================================
 function calcLinear(){
 const area_cm2 = parseFloat(document.getElementById('lin_area').value);
 const vpri = parseFloat(document.getElementById('lin_vpri').value);
@@ -890,8 +1598,19 @@ msg.innerText = lang==='pt'?'Operação magnética estável.':(lang==='en'?'Stab
 
 drawBHCurve(targetFlux);
 render3DCoils(np,ns,freq,area_cm2,"Aço Silício Padrão",`${vpri}V`,`${vsec}V`);
+
+if (typeof pushHistory === 'function') {
+  const last = getHistory()[0];
+  const sig = `lin|${vpri}|${vsec}|${isec}|${np}`;
+  if (!last || last.sig !== sig) {
+    pushHistory({ tipo: 'Linear', title: `${vpri}V → ${vsec}V @ ${isec}A`, detail: `Np=${np} · Ns=${ns} · η=${eficiencia.toFixed(1)}%`, sig });
+  }
+}
 }
 
+// =========================================================================
+// CALC AUDIO
+// =========================================================================
 function calcAudio(){
 const area_cm2 = parseFloat(document.getElementById('aud_area').value);
 const z1 = parseFloat(document.getElementById('aud_z1').value);
@@ -922,19 +1641,37 @@ const Lleak_aud = Lp * 0.001;
 const Cw_aud = 300e-12;
 drawFreqResponse('canvas-freq-aud', freq, Lp, z1, Lleak_aud, Cw_aud);
 render3DCoils(np,ns,freq,area_cm2,matName,`${z1}Ω (Z1)`,`${z2}Ω (Z2)`);
+
+if (typeof pushHistory === 'function') {
+  const last = getHistory()[0];
+  const sig = `aud|${z1}|${z2}|${freq}|${np}`;
+  if (!last || last.sig !== sig) {
+    pushHistory({ tipo: 'Áudio', title: `${z1}Ω : ${z2}Ω @ ${freq}Hz`, detail: `Np=${np} · Ns=${ns} · Ratio 1:${ratio.toFixed(2)}`, sig });
+  }
+}
 }
 
+// =========================================================================
+// CALC TUBE
+// =========================================================================
 function calcTube(){
 const area_cm2 = parseFloat(document.getElementById('tub_area').value);
 const zpp = parseFloat(document.getElementById('tub_zpp').value);
 const spk = parseFloat(document.getElementById('tub_spk').value);
 const freq = parseFloat(document.getElementById('tub_freq').value);
+const tubType = document.getElementById('tub_type')?.value || 'pp';
+const idc = parseFloat(document.getElementById('tub_idc')?.value || '0');
 if(!area_cm2||!zpp||!spk||!freq) return;
 
 const ratio = Math.sqrt(zpp / spk);
 const rA = zpp / 2.0;
-const Lp = (1.94 * rA) / (2 * Math.PI * freq);
-const mu_r = 2000;
+let Lp;
+if (tubType === 'se') {
+  Lp = (1.94 * rA) / (2 * Math.PI * freq) * 1.25;
+} else {
+  Lp = (1.94 * rA) / (2 * Math.PI * freq);
+}
+const mu_r = tubType === 'se' ? 1200 : 2000;
 const a_pol2 = area_cm2 / 6.4516;
 const l_pol = 6 * Math.sqrt(area_cm2) / 2.54;
 const np = Math.round(Math.sqrt((Lp * 1e8 * l_pol) / (3.2 * mu_r * a_pol2)));
@@ -946,23 +1683,64 @@ document.getElementById('r_tub_ns').innerText = ns;
 document.getElementById('r_tub_lp').innerText = `${Lp.toFixed(2)} H`;
 document.getElementById('res-2').style.display='block';
 
+if (tubType === 'se') {
+  const gap_mm = calcAirGap(np, area_cm2, Lp);
+  document.getElementById('r_tub_gap').innerText = `${gap_mm.toFixed(3)} mm (≈ ${(gap_mm*39.37).toFixed(1)} mil)`;
+  document.getElementById('airgap-box').classList.add('active');
+} else {
+  document.getElementById('airgap-box').classList.remove('active');
+}
+
 currentCalculatedFreq = freq;
 if(isPlaying) hpf.frequency.setTargetAtTime(freq,audioCtx.currentTime,0.1);
 
-const Lleak_tub = Lp * 0.002;
-const Cw_tub = 800e-12;
+const Lleak_tub = Lp * (tubType === 'se' ? 0.003 : 0.002);
+const Cw_tub = tubType === 'se' ? 1200e-12 : 800e-12;
 const Rsource_tub = (zpp / 2) * 0.3;
 drawFreqResponse('canvas-freq-tub', freq, Lp, Rsource_tub, Lleak_tub, Cw_tub);
 render3DCoils(np,ns,freq,area_cm2,"Aço Silício M6",`${zpp}Ω (Zaa)`,`${spk}Ω (Spk)`);
+
+if (typeof pushHistory === 'function') {
+  const last = getHistory()[0];
+  const sig = `tub|${tubType}|${zpp}|${spk}|${freq}|${np}`;
+  if (!last || last.sig !== sig) {
+    pushHistory({ tipo: tubType === 'se' ? 'Válvula SE' : 'Válvula PP', title: `${zpp}Ω : ${spk}Ω @ ${freq}Hz`, detail: `Np=${np} · Ns=${ns} · Lp=${Lp.toFixed(1)}H`, sig });
+  }
+}
 }
 
+// =========================================================================
+// RESIZE
+// =========================================================================
+let resizeTimer;
+window.addEventListener('resize', () => {
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(() => {
+    if (currentTab === 0) calcLinear();
+    if (currentTab === 1) { calcAudio(); drawWindingDiagram('canvas-winding-aud', currentWinding); }
+    if (currentTab === 2) { calcTube(); drawWindingDiagram('canvas-winding-tub', currentWinding); }
+  }, 150);
+});
+
+// =========================================================================
+// INICIALIZAÇÃO
+// =========================================================================
 window.onload = () => {
-const savedLang = (typeof getGlobalLang === 'function') ? getGlobalLang() : 'pt';
-document.getElementById('langMenu').value = savedLang;
-mudarIdioma(savedLang);
-renderPresets();
-calcLinear();
+  applySavedTheme();
+  const savedLang = (typeof getGlobalLang === 'function') ? getGlobalLang() : 'pt';
+  document.getElementById('langMenu').value = savedLang;
+  mudarIdioma(savedLang);
+  renderPresets();
+  renderMyPresets();
+  updateHistCount();
+  renderHistory();
+  updateCompareBar();
+  calcLinear();
+  drawWindingDiagram('canvas-winding-aud', 'simple');
+  drawWindingDiagram('canvas-winding-tub', 'simple');
+  setWinding('simple');
 };
 </script>
 </body>
 </html>
+
