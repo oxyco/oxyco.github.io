@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OXYLABZ | Calculadora de Transformadores</title>
+    <title>Calculadora de Transformadores</title>
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="../js/global.js"></script>
     <style>
@@ -40,9 +40,11 @@
         .result-item { margin: 10px 0; font-size: 1.05rem; display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 6px; }
         .result-item span:last-child { font-weight: 700; color: #fff; }
         
-        .theory-content h3 { color: var(--gold); margin-top: 0; }
+        .theory-content h3 { color: var(--gold); margin-top: 20px; font-size: 1.1rem; }
+        .theory-content h2 { color: #fff; border-bottom: 1px solid var(--border); padding-bottom: 8px; margin-top: 0; }
         .theory-content p, .theory-content li { color: var(--text-secondary); line-height: 1.6; font-size: 0.95rem; }
         .theory-content ul { padding-left: 20px; }
+        .ref-box { background: rgba(0,0,0,0.2); border-left: 3px solid var(--gold); padding: 12px 16px; margin: 15px 0; border-radius: 0 8px 8px 0; }
 
         .panel { display: none; }
         .panel.active { display: block; }
@@ -59,14 +61,14 @@
     </nav>
 
     <div class="container">
-        <h1 data-i18n="title">Calculadora de Transformadores</h1>
-        <p class="subtitle" data-i18n="subtitle">Ferramenta integrada com especificações de materiais, técnicas de bobinagem e manuais clássicos de áudio/força.</p>
+        <h1 data-i18n="title">Calculadora de Transformadores Pro</h1>
+        <p class="subtitle" data-i18n="subtitle">Dimensionamento profissional com especificações de materiais e manuais clássicos de áudio/força.</p>
 
         <div class="tabs">
             <button class="tab-btn active" onclick="switchTab(0)" data-i18n="tab1">Linear (Força)</button>
             <button class="tab-btn" onclick="switchTab(1)" data-i18n="tab2">Áudio / Linha</button>
             <button class="tab-btn" onclick="switchTab(2)" data-i18n="tab3">Saída Valvulada</button>
-            <button class="tab-btn" onclick="switchTab(3)" data-i18n="tab4">Guia Construtivo & Dicas</button>
+            <button class="tab-btn" onclick="switchTab(3)" data-i18n="tab4">Guia & Referências</button>
         </div>
 
         <!-- PAINEL 1: LINEAR -->
@@ -94,7 +96,7 @@
                     <h3 data-i18n="res_title">Especificações de Construção</h3>
                     <div class="result-item"><span data-i18n="r_np">Espiras Primário:</span> <span id="r_lin_np">-</span></div>
                     <div class="result-item"><span data-i18n="r_ns">Espiras Secundário:</span> <span id="r_lin_ns">-</span></div>
-                    <div class="result-item"><span data-i18n="r_awgp">Bitola Sugerida (AWG Primário/Secundário):</span> <span id="r_lin_awg">-</span></div>
+                    <div class="result-item"><span data-i18n="r_awgp">Bitola Sugerida:</span> <span id="r_lin_awg">-</span></div>
                 </div>
             </div>
         </div>
@@ -169,20 +171,37 @@
             </div>
         </div>
 
-        <!-- PAINEL 4: GUIA CONSTRUTIVO E TEÓRICO -->
+        <!-- PAINEL 4: GUIA CONSTRUTIVO E REFERÊNCIAS -->
         <div id="panel-3" class="panel">
             <div class="card theory-content">
+                <h2 data-i18n="g_title">Guia de Montagem e Boas Práticas</h2>
+                
                 <h3 data-i18n="th_title1">1. Fator de Empacotamento (Stacking Factor)</h3>
-                <p data-i18n="th_desc1">Lâminas de aço silício possuem micro-rebarbas e camadas de isolamento em óxido/verniz. O fator real de ocupação do núcleo oscila tipicamente entre 0.87 e 0.94[span_0](start_span)[span_0](end_span)[span_1](start_span)[span_1](end_span), exigindo correção no cálculo real da seção transversal útil do ferro ($A_{efutil} = A_{fisica} \times 0.9$).</p>
+                <p data-i18n="th_desc1">Lâminas de aço silício possuem micro-rebarbas e camadas de óxido isolante. O fator real de ocupação do núcleo oscila tipicamente entre 0.87 e 0.94, exigindo correção na seção transversal útil do ferro.</p>
                 
                 <h3 data-i18n="th_title2">2. Técnicas de Bobinagem: Bifilar e Seccionamento</h3>
-                <p data-i18n="th_desc2">Para eliminar distorções em push-pull de áudio e garantir simetria exata no centro-tap (CT), utilize o método de enrolamento <b>bifilar</b> (enrolando dois fios simultaneamente lado a lado)[span_2](start_span)[span_2](end_span). Para minimizar a <i>indutância de fuga</i> e estender a resposta em altas frequências, adote o <b>sandwiching</b> (seccionamento em camadas intercaladas $P-S-P-S$) conforme as diretrizes clássicas de N. H. Crowhurst[span_3](start_span)[span_3](end_span).</p>
+                <p data-i18n="th_desc2">Para eliminar distorções em push-pull de áudio e garantir simetria exata no centro-tap (CT), utilize o método de enrolamento bifilar. Para minimizar a indutância de fuga e estender a resposta em altas frequências, adote o seccionamento intercalado (sandwiching).</p>
 
                 <h3 data-i18n="th_title3">3. Cuidados contra Saturação DC (Air-Gaps)</h3>
-                <p data-i18n="th_desc3">Circuitos Single-Ended geram forte polarização DC no primário, o que satura o núcleo rapidamente se não houver um entreferro (*air-gap*). Introduza pequenos espaçadores de papel isolante se houver corrente contínua desbalanceada[span_4](start_span)[span_4](end_span)[span_5](start_span)[span_5](end_span).</p>
+                <p data-i18n="th_desc3">Circuitos Single-Ended geram forte polarização DC no primário, o que satura o núcleo rapidamente se não houver um entreferro (air-gap) calculado.</p>
 
-                <h3 data-i18n="th_title4">4. Teste Prático em Bancada (Guia Ed Francis)</h3>
-                <p data-i18n="th_desc4">Antes de aplicar o trafo no circuito definitivo, utilize um gerador de áudio a 1000 Hz com um potenciômetro de 1kΩ em série e um voltímetro AC para ajustar e conferir a impedância refletida e garantir a ausência de curtos entre espiras[span_6](start_span)[span_6](end_span).</p>
+                <h3 data-i18n="th_title4">4. Teste Prático em Bancada</h3>
+                <p data-i18n="th_desc4">Utilize um gerador de áudio a 1000 Hz com um potenciômetro de referência e multímetro AC para validar a impedância refletida antes de integrar o componente ao circuito final.</p>
+
+                <h2 data-i18n="ref_title" style="margin-top: 35px;">Referências Bibliográficas e Manuais Clássicos</h2>
+                
+                <div class="ref-box">
+                    <p><b>Radiotron Designer's Handbook</b> (F. Langford-Smith) — Seção de Transformadores e Indutores com Núcleo de Ferro, cálculo de impedâncias e teoria de indutores acoplados.</p>
+                </div>
+                <div class="ref-box">
+                    <p><b>Audio Transformer Design</b> (N. H. Crowhurst) — Estudos aprofundados sobre arranjos de enrolamento, redução de indutância de fuga e capacitância distribuída.</p>
+                </div>
+                <div class="ref-box">
+                    <p><b>Winding Your Own Output Transformers</b> (Ed Francis, Popular Electronics) — Técnicas simplificadas de reaproveitamento de núcleos, cálculo prático para baixa impedância e testes em bancada.</p>
+                </div>
+                <div class="ref-box">
+                    <p><b>Handbook for Sound Engineers / Audio Transformers Chapter</b> (Bill Whitlock, Jensen Transformers) — Fundamentos de acoplamento magnético, rejeição de ruído comum (CMRR) e blindagens eletrostáticas/magnéticas.</p>
+                </div>
             </div>
         </div>
     </div>
@@ -193,52 +212,58 @@
                 back: "← Voltar para Ferramentas",
                 title: "Calculadora de Transformadores Pro",
                 subtitle: "Dimensionamento profissional com especificações de materiais e manuais clássicos de áudio/força.",
-                tab1: "Linear (Força)", tab2: "Áudio / Linha", tab3: "Saída Valvulada", tab4: "Guia Construtivo & Dicas",
+                tab1: "Linear (Força)", tab2: "Áudio / Linha", tab3: "Saída Valvulada", tab4: "Guia & Referências",
                 lbl_area: "Área do Núcleo Central - A (cm²)", lbl_vpri: "Tensão Primária (V)", lbl_vsec: "Tensão Secundária (V)",
                 lbl_freq: "Frequência da Rede (Hz)", lbl_core_mat: "Material do Núcleo", lbl_aud_area: "Área do Núcleo (cm²)",
                 lbl_z1: "Impedância Primária - Z1 (Ω)", lbl_z2: "Impedância Secundária - Z2 (Ω)", lbl_minf: "Frequência Mínima de Resposta (Hz)",
                 lbl_tub_area: "Área do Núcleo (cm²)", lbl_r_pp: "Impedância de Placa a Placa (Ω - Zaa)", lbl_spk: "Impedância do Alto-falante (Ω)",
                 btn_calc: "Calcular Espiras e Fios", res_title: "Especificações de Construção",
                 r_np: "Espiras Primário:", r_ns: "Espiras Secundário:", r_ratio: "Relação de Espiras:", r_lp: "Indutância Primária Mínima:",
-                r_awgp: "Bitola Sugerida (AWG):",
-                th_title1: "1. Fator de Empacotamento (Stacking Factor)", th_desc1: "Lâminas de aço silício possuem micro-rebarbas e camadas de óxido. O fator real de ocupação oscila entre 0.87 e 0.94[span_7](start_span)[span_7](end_span)[span_8](start_span)[span_8](end_span), exigindo correção na seção útil do ferro.",
-                th_title2: "2. Técnicas de Bobinagem: Bifilar e Seccionamento", th_desc2: "Para eliminar distorções em push-pull e obter simetria perfeita no centro-tap, use enrolamento bifilar[span_9](start_span)[span_9](end_span). Para minimizar indutância de fuga, adote o seccionamento intercalado (sandwiching)[span_10](start_span)[span_10](end_span).",
-                th_title3: "3. Cuidados contra Saturação DC (Air-Gaps)", th_desc3: "Circuitos Single-Ended geram forte polarização DC, exigindo entreferros (air-gaps) calculados para evitar a saturação precoce do núcleo[span_11](start_span)[span_11](end_span)[span_12](start_span)[span_12](end_span).",
-                th_title4: "4. Teste Prático em Bancada (Guia Ed Francis)", th_desc4: "Certifique o transformador montado utilizando gerador de áudio, potenciômetro de referência e multímetro AC para validar a impedância refletida antes do uso final[span_13](start_span)[span_13](end_span)."
+                r_awgp: "Bitola Sugerida:",
+                g_title: "Guia de Montagem e Boas Práticas",
+                th_title1: "1. Fator de Empacotamento (Stacking Factor)", th_desc1: "Lâminas de aço silício possuem micro-rebarbas e camadas de óxido isolante. O fator real de ocupação do núcleo oscila tipicamente entre 0.87 e 0.94, exigindo correção na seção transversal útil do ferro.",
+                th_title2: "2. Técnicas de Bobinagem: Bifilar e Seccionamento", th_desc2: "Para eliminar distorções em push-pull de áudio e garantir simetria exata no centro-tap (CT), utilize o método de enrolamento bifilar. Para minimizar a indutância de fuga e estender a resposta em altas frequências, adote o seccionamento intercalado (sandwiching).",
+                th_title3: "3. Cuidados contra Saturação DC (Air-Gaps)", th_desc3: "Circuitos Single-Ended geram forte polarização DC no primário, o que satura o núcleo rapidamente se não houver um entreferro (air-gap) calculado.",
+                th_title4: "4. Teste Prático em Bancada", th_desc4: "Utilize um gerador de áudio a 1000 Hz com um potenciômetro de referência e multímetro AC para validar a impedância refletida antes de integrar o componente ao circuito final.",
+                ref_title: "Referências Bibliográficas e Manuais Clássicos"
             },
             en: {
                 back: "← Back to Tools",
-                title: "Transformer Calculator",
+                title: "Transformer Calculator Pro",
                 subtitle: "Professional sizing with material specifications and classic audio/power engineering guides.",
-                tab1: "Linear (Power)", tab2: "Audio / Line", tab3: "Tube Output", tab4: "Construction Guide & Tips",
+                tab1: "Linear (Power)", tab2: "Audio / Line", tab3: "Tube Output", tab4: "Guide & References",
                 lbl_area: "Core Center Area - A (cm²)", lbl_vpri: "Primary Voltage (V)", lbl_vsec: "Secondary Voltage (V)",
                 lbl_freq: "Line Frequency (Hz)", lbl_core_mat: "Core Material", lbl_aud_area: "Core Area (cm²)",
                 lbl_z1: "Primary Impedance - Z1 (Ω)", lbl_z2: "Secondary Impedance - Z2 (Ω)", lbl_minf: "Min Frequency Response (Hz)",
                 lbl_tub_area: "Core Area (cm²)", lbl_r_pp: "Plate-to-Plate Impedance (Ω - Zaa)", lbl_spk: "Speaker Impedance (Ω)",
                 btn_calc: "Calculate Turns & Wires", res_title: "Manufacturing Specifications",
                 r_np: "Primary Turns:", r_ns: "Secondary Turns:", r_ratio: "Turns Ratio:", r_lp: "Min Primary Inductance:",
-                r_awgp: "Suggested Wire Gauge (AWG):",
-                th_title1: "1. Stacking Factor", th_desc1: "Silicon steel laminations feature burrs and oxide insulation, giving a real stacking factor between 0.87 and 0.94[span_14](start_span)[span_14](end_span)[span_15](start_span)[span_15](end_span).",
-                th_title2: "2. Winding Techniques: Bifilar & Sectionalizing", th_desc2: "Use bifilar winding for perfect push-pull symmetry[span_16](start_span)[span_16](end_span) and sandwiching to minimize leakage inductance[span_17](start_span)[span_17](end_span).",
-                th_title3: "3. DC Saturation & Air-Gaps", th_desc3: "Single-ended circuits require calculated air-gaps to prevent core saturation from unbalanced DC currents[span_18](start_span)[span_18](end_span)[span_19](start_span)[span_19](end_span).",
-                th_title4: "4. Bench Testing (Ed Francis Guide)", th_desc4: "Verify finished transformers using an audio generator and AC meters to check reflected impedance prior to final installation[span_20](start_span)[span_20](end_span)."
+                r_awgp: "Suggested Wire Gauge:",
+                g_title: "Assembly Guide & Best Practices",
+                th_title1: "1. Stacking Factor", th_desc1: "Silicon steel laminations feature burrs and oxide insulation, giving a real stacking factor between 0.87 and 0.94.",
+                th_title2: "2. Winding Techniques: Bifilar & Sectionalizing", th_desc2: "Use bifilar winding for perfect push-pull symmetry and sandwiching to minimize leakage inductance.",
+                th_title3: "3. DC Saturation & Air-Gaps", th_desc3: "Single-ended circuits require calculated air-gaps to prevent core saturation from unbalanced DC currents.",
+                th_title4: "4. Bench Testing", th_desc4: "Verify finished transformers using an audio generator and AC meters to check reflected impedance prior to final installation.",
+                ref_title: "Bibliographic References and Classic Manuals"
             },
             es: {
                 back: "← Volver a Herramientas",
                 title: "Calculadora de Transformadores Pro",
                 subtitle: "Dimensionamiento profesional con especificaciones de materiales y guías clásicas de ingeniería.",
-                tab1: "Lineal (Potencia)", tab2: "Audio / Línea", tab3: "Salida a Válvulas", tab4: "Guía Constructiva y Tips",
+                tab1: "Lineal (Potencia)", tab2: "Audio / Línea", tab3: "Salida a Válvulas", tab4: "Guía y Referencias",
                 lbl_area: "Área del Núcleo Central - A (cm²)", lbl_vpri: "Tensión Primaria (V)", lbl_vsec: "Tensión Secundaria (V)",
                 lbl_freq: "Frecuencia de Red (Hz)", lbl_core_mat: "Material del Núcleo", lbl_aud_area: "Área del Núcleo (cm²)",
                 lbl_z1: "Impedancia Primaria - Z1 (Ω)", lbl_z2: "Impedancia Secundaria - Z2 (Ω)", lbl_minf: "Frecuencia Mínima de Respuesta (Hz)",
                 lbl_tub_area: "Área del Núcleo (cm²)", lbl_r_pp: "Impedancia de Placa a Placa (Ω - Zaa)", lbl_spk: "Impedancia del Altavoz (Ω)",
                 btn_calc: "Calcular Espiras y Alambres", res_title: "Especificaciones de Fabricación",
                 r_np: "Espiras Primarias:", r_ns: "Espiras Secundarias:", r_ratio: "Relación de Espiras:", r_lp: "Inductancia Primaria Mínima:",
-                r_awgp: "Calibre de Alambre Sugerido (AWG):",
-                th_title1: "1. Factor de Empacamiento", th_desc1: "Las láminas de acero al silicio poseen rebabas y óxido, resultando en un factor de apilamiento real entre 0.87 y 0.94[span_21](start_span)[span_21](end_span)[span_22](start_span)[span_22](end_span).",
-                th_title2: "2. Técnicas de Bobinado: Bifilar y Seccionamiento", th_desc2: "Utilice bobinado bifilar para simetría perfecta en push-pull[span_23](start_span)[span_23](end_span) y seccionamiento intercalado para reducir inductancia de fuga[span_24](start_span)[span_24](end_span).",
-                th_title3: "3. Saturación DC y Entrehierros (Air-Gaps)", th_desc3: "Los circuitos Single-Ended generan corriente DC desbalanceada, requiriendo entrehierros calculados para evitar la saturación del núcleo[span_25](start_span)[span_25](end_span)[span_26](start_span)[span_26](end_span).",
-                th_title4: "4. Pruebas de Banco (Guía Ed Francis)", th_desc4: "Valide el transformador terminado utilizando un generador de audio y multímetros AC para comprobar la impedancia reflejada[span_27](start_span)[span_27](end_span)."
+                r_awgp: "Calibre Sugerido:",
+                g_title: "Guía de Montaje y Buenas Prácticas",
+                th_title1: "1. Factor de Empacamiento", th_desc1: "Las láminas de acero al silicio poseen rebabas y óxido, resultando en un factor de apilamiento real entre 0.87 y 0.94.",
+                th_title2: "2. Técnicas de Bobinado: Bifilar y Seccionamiento", th_desc2: "Utilice bobinado bifilar para simetría perfecta en push-pull y seccionamiento intercalado para reducir inductancia de fuga.",
+                th_title3: "3. Saturación DC y Entrehierros (Air-Gaps)", th_desc3: "Los circuitos Single-Ended generan corriente DC desbalanceada, requiriendo entrehierros calculados para evitar la saturación del núcleo.",
+                th_title4: "4. Pruebas de Banco", th_desc4: "Valide el transformador terminado utilizando un generador de audio y multímetros AC para comprobar la impedancia reflejada.",
+                ref_title: "Referencias Bibliográficas y Manuales Clásicos"
             }
         };
 
@@ -259,7 +284,7 @@
 
             document.getElementById('r_lin_np').innerText = np;
             document.getElementById('r_lin_ns').innerText = ns;
-            document.getElementById('r_lin_awg').innerText = "AWG 22 / 24 (Primário / Secundário)";
+            document.getElementById('r_lin_awg').innerText = "AWG 22 / 24";
             document.getElementById('res-0').style.display = 'block';
         }
 
