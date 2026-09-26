@@ -7,7 +7,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="../js/global.js"></script>
     <style>
-        /* TEMA PROFISSIONAL (CHAMA VIOLETA) */
         :root {
             --bg-main: #13111c; 
             --bg-card: #1c1a27; 
@@ -18,7 +17,6 @@
             --accent-glow: rgba(167, 139, 250, 0.25);
             --border: #35314d;
             
-            /* Cores específicas por IA (Suaves) */
             --gemini: #a78bfa;
             --claude: #f59e0b;
             --grok: #ef4444;
@@ -60,13 +58,11 @@
         .actions { display: flex; gap: 10px; width: 100%; flex-wrap: wrap; }
         .btn { flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 12px; border: none; border-radius: 8px; font-weight: 600; font-size: 0.85rem; cursor: pointer; transition: 0.2s; }
         
-        /* Botões de Ação Principais */
         .btn-copy { background: rgba(255,255,255,0.05); color: var(--text-primary); border: 1px solid var(--border); }
         .btn-copy:hover { background: rgba(255,255,255,0.1); border-color: var(--text-secondary); }
         .btn-send { background: var(--accent); color: #13111c; }
         .btn-send:hover { background: #bba2ff; transform: scale(1.02); }
         
-        /* Botões de Exportação (Agentes) */
         .btn-export { background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); color: #10b981; flex: 1 1 45%; }
         .btn-export:hover { background: rgba(16, 185, 129, 0.2); }
 
@@ -211,7 +207,6 @@
                 const card = document.createElement('div');
                 card.className = 'card';
                 
-                // Se a tradução do título for idêntica ao PT (falha no importador) ou não existir, usa o Code
                 const displayTitle = (p[titleKey] && p[titleKey] !== p.Code_pt) ? p[titleKey] : (p.Code_pt || p.Code || "");
                 const descText = p[descKey] || "";
                 const fullText = `${displayTitle}\\n\\n${descText}`;
@@ -222,17 +217,14 @@
                 
                 const aiBadgeHTML = p.AI_Tool ? `<span class="badge ${getAiBadgeClass(p.AI_Tool)}">${p.AI_Tool}</span>` : '';
 
-                // Verifica se é um Agente Autônomo para injetar os botões de Exportação
                 let agentExports = '';
                 if (p.AI_Tool && p.AI_Tool.toLowerCase().includes('agente')) {
                     agentExports = `
                         <div class="actions" style="margin-top: 10px;">
                             <button class="btn btn-export" onclick="exportFile('${safeTitle}', '${safeDesc}', 'md')">
-                                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
                                 Export .MD
                             </button>
                             <button class="btn btn-export" onclick="exportFile('${safeTitle}', '${safeDesc}', 'skill')">
-                                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
                                 Export Skill
                             </button>
                         </div>
@@ -248,11 +240,9 @@
                     <div class="prompt-desc">${descText}</div>
                     <div class="actions">
                         <button class="btn btn-copy" onclick="copyAction('${safeText}')">
-                            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
                             ${uiTexts[currentLang].copy}
                         </button>
                         <button class="btn btn-send" onclick="sendToTool('${safeText}')">
-                            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                             ${uiTexts[currentLang].send}
                         </button>
                     </div>
@@ -276,6 +266,7 @@
             const text = decodeURIComponent(encodedText);
             const platform = document.getElementById('platformSelect').value;
             const isAndroid = /Android/i.test(navigator.userAgent);
+            const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
             
             try { await navigator.clipboard.writeText(text); } catch(e) {}
             showToast();
@@ -286,9 +277,11 @@
                 case 'gemini': url = 'https://gemini.google.com/app'; break;
                 case 'claude': url = 'https://claude.ai/new'; break;
                 case 'deepseek': 
-                    // Protocolo nativo agressivo para forçar abertura do App no Android
                     if (isAndroid) {
-                        url = 'intent://#Intent;package=com.deepseek.chat;scheme=https;S.browser_fallback_url=https://chat.deepseek.com/;end';
+                        // Deep link otimizado para DeepSeek no Android, com fallback seguro
+                        url = 'intent://chat/#Intent;scheme=deepseek;package=com.deepseek.chat;S.browser_fallback_url=https://chat.deepseek.com;end';
+                    } else if (isIOS) {
+                        url = 'deepseek://';
                     } else {
                         url = 'https://chat.deepseek.com/';
                     }
@@ -297,8 +290,13 @@
             }
             
             setTimeout(() => {
-                if (platform === 'deepseek' && isAndroid) {
+                if (platform === 'deepseek' && (isAndroid || isIOS)) {
+                    // Tenta abrir o aplicativo nativamente
                     window.location.href = url;
+                    // Fallback para o navegador se o aplicativo não abrir após 2 segundos
+                    setTimeout(() => {
+                        window.location.href = 'https://chat.deepseek.com/';
+                    }, 2000);
                 } else {
                     window.open(url, '_blank');
                 }
