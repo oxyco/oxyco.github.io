@@ -9,8 +9,8 @@
     "Description_pt": "Atue como o Revisor nº 2 de uma revista científica qualis A1. Leia a metodologia anexa e faça uma crítica severa focando em: 1) Falhas na validade interna; 2) Limitações da amostragem; 3) Conclusões que ultrapassam os dados.",
     "Description_es": "Actuar como Revisor #2 de una revista científica calificada A1. Lea la metodología adjunta y haga una crítica severa centrándose en: 1) Defectos en la validez interna; 2) limitaciones de muestreo; 3) Conclusiones que van más allá de los datos.",
     "Code_pt": "Revisão por Pares Simulada (Peer Review)",
-    "Code_en": "Revisão por Pares Simulada (Peer Review)",
-    "Code_es": "Revisão por Pares Simulada (Peer Review)"
+    "Code_en": "Simulated Peer Review",
+    "Code_es": "Revisión por pares simulada"
   },
   {
     "cat_pt": "Ciência e Pesquisa",
@@ -22,8 +22,8 @@
     "Description_pt": "Analise o output bruto de um teste [ANOVA / T-Test] com P-values, R-quadrado e intervalos de confiança. Escreva um parágrafo interpretativo afirmando se há significância estatística, tamanho do efeito e conclusões práticas.",
     "Description_es": "Analice el resultado bruto de una prueba [ANOVA/T-Test] con valores P, R-cuadrado e intervalos de confianza. Escriba un párrafo interpretativo que indique si existe significancia estadística, tamaño del efecto y conclusiones prácticas.",
     "Code_pt": "Interpretação de Testes Estatísticos",
-    "Code_en": "Interpretação de Testes Estatísticos",
-    "Code_es": "Interpretação de Testes Estatísticos"
+    "Code_en": "Interpretation of Statistical Tests",
+    "Code_es": "Interpretación de pruebas estadísticas"
   },
   {
     "cat_pt": "Ciência e Pesquisa",
@@ -35,8 +35,8 @@
     "Description_pt": "Crie a estrutura de um desenho experimental 2x2 para testar os efeitos de [Variável 1] e [Variável 2] sobre [Variável Dependente]. Defina como isolar controles e como garantir a randomização cega (blindness).",
     "Description_es": "Cree la estructura de un diseño experimental 2x2 para probar los efectos de [Variable 1] y [Variable 2] en [Variable dependiente]. Definir cómo aislar los controles y cómo garantizar una aleatorización ciega.",
     "Code_pt": "Desenho Experimental Fatorial",
-    "Code_en": "Desenho Experimental Fatorial",
-    "Code_es": "Desenho Experimental Fatorial"
+    "Code_en": "Factorial Experimental Design",
+    "Code_es": "Diseño experimental factorial"
   },
   {
     "cat_pt": "Ciência e Pesquisa",
@@ -48,8 +48,8 @@
     "Description_pt": "Estou conduzindo um estudo sobre [Tema e Variáveis]. Formule de maneira rigorosa a Hipótese Nula (H0) e a Hipótese Alternativa (H1). Indique também quais seriam os erros do Tipo I e Tipo II contextualizados.",
     "Description_es": "Estoy realizando un estudio sobre [Tema y Variables]. Formule rigurosamente la Hipótesis Nula (H0) y la Hipótesis Alternativa (H1). Indique también cuáles serían los errores de Tipo I y Tipo II en contexto.",
     "Code_pt": "Elaboração de Hipótese Nula e Alternativa",
-    "Code_en": "Elaboração de Hipótese Nula e Alternativa",
-    "Code_es": "Elaboração de Hipótese Nula e Alternativa"
+    "Code_en": "Preparation of Null and Alternative Hypothesis",
+    "Code_es": "Preparación de hipótesis nula y alternativa"
   },
   {
     "cat_pt": "Ciência e Pesquisa",
@@ -61,8 +61,8 @@
     "Description_pt": "Atue como Assistente Acadêmico. Faça um fichamento estruturado do texto anexo. Extraia: Citação APA, Objetivo, Questão de Pesquisa, Metodologia Utilizada, Principais Achados, Limitações e Lacunas para Pesquisas Futuras.",
     "Description_es": "Actuar como Asistente Académico. Realizar un resumen estructurado del texto adjunto. Extracto: cita APA, objetivo, pregunta de investigación, metodología utilizada, principales hallazgos, limitaciones y lagunas para futuras investigaciones.",
     "Code_pt": "Fichamento de Artigo Científico",
-    "Code_en": "Fichamento de Artigo Científico",
-    "Code_es": "Fichamento de Artigo Científico"
+    "Code_en": "Scientific Article Registration",
+    "Code_es": "Registro de artículos científicos"
   },
   {
     "cat_pt": "Negócios e Estratégia",
@@ -74,8 +74,8 @@
     "Description_pt": "Nossa assinatura B2B está com churn de 8% ao mês. Atue como Analista de Retenção e liste uma metodologia de auditoria de cohort passo a passo para identificar onde os clientes abandonam e formule uma campanha win-back.",
     "Description_es": "Nuestra suscripción B2B tiene una tasa de abandono del 8% mensual. Actúe como analista de retención y enumere una metodología de auditoría de cohortes paso a paso para identificar dónde abandonan los clientes y formular una campaña de recuperación.",
     "Code_pt": "Diagnóstico de Churn e Retenção",
-    "Code_en": "Diagnóstico de Churn e Retenção",
-    "Code_es": "Diagnóstico de Churn e Retenção"
+    "Code_en": "Churn and Retention Diagnosis",
+    "Code_es": "Diagnóstico de abandono y retención"
   },
   {
     "cat_pt": "Negócios e Estratégia",
@@ -87,8 +87,8 @@
     "Description_pt": "Elabore um roteiro executivo de Go-To-Market para o lançamento de [Produto] voltado ao mercado [Público-Alvo]. Inclua: 1) Definição de ICP; 2) Posicionamento; 3) Canais prioritários; 4) Métricas (CAC, LTV, Payback).",
     "Description_es": "Crear una hoja de ruta ejecutiva de Go-To-Market para el lanzamiento de [Producto] dirigido al mercado de [Público Objetivo]. Incluir: 1) Definición de PIC; 2) Posicionamiento; 3) Canales prioritarios; 4) Métricas (CAC, LTV, Payback).",
     "Code_pt": "Plano de Go-To-Market (GTM)",
-    "Code_en": "Plano de Go-To-Market (GTM)",
-    "Code_es": "Plano de Go-To-Market (GTM)"
+    "Code_en": "Go-To-Market (GTM) Plan",
+    "Code_es": "Plan de comercialización (GTM)"
   },
   {
     "cat_pt": "Negócios e Estratégia",
@@ -100,8 +100,8 @@
     "Description_pt": "Atue como Consultor de Pricing. Para um serviço vendido por [Valor], apresente 3 estratégias: Value-Based Pricing, Preço Psicológico e Tiered (Freemium/Premium). Liste os prós e contras de cada modelo para a receita.",
     "Description_es": "Actuar como Asesor de Precios. Para un servicio vendido a [Valor], presente 3 estrategias: precios basados ​​en el valor, precios psicológicos y escalonados (Freemium/Premium). Enumere los pros y los contras de cada modelo para la receta.",
     "Code_pt": "Modelagem de Preços e Elasticidade",
-    "Code_en": "Modelagem de Preços e Elasticidade",
-    "Code_es": "Modelagem de Preços e Elasticidade"
+    "Code_en": "Price Modeling and Elasticity",
+    "Code_es": "Modelado de precios y elasticidad"
   },
   {
     "cat_pt": "Negócios e Estratégia",
@@ -113,8 +113,8 @@
     "Description_pt": "A meta de nível estratégico (Objective) é [Descrever Meta]. Defina 4 Key Results (Resultados-Chave) quantitativos e agressivos. Desdobre esses OKRs em 2 iniciativas operacionais práticas para a equipe de linha de frente.",
     "Description_es": "La meta a nivel estratégico (Objetivo) es [Describir Meta]. Defina 4 resultados clave cuantitativos y agresivos. Despliegue estos OKR en 2 iniciativas operativas viables para su equipo de primera línea.",
     "Code_pt": "Desdobramento de OKRs",
-    "Code_en": "Desdobramento de OKRs",
-    "Code_es": "Desdobramento de OKRs"
+    "Code_en": "Breakdown of OKRs",
+    "Code_es": "Desglose de los OKR"
   },
   {
     "cat_pt": "Negócios e Estratégia",
@@ -126,8 +126,8 @@
     "Description_pt": "Realize uma análise SWOT profunda para uma empresa no mercado de [Indústria]. Vá além dos itens genéricos: crie o cruzamento de estratégias TOWS (usar Forças para minimizar Ameaças e Oportunidades para corrigir Fraquezas).",
     "Description_es": "Realizar un análisis FODA en profundidad para una empresa en el mercado [Industria]. Vaya más allá de los elementos genéricos: cree un cruce de estrategias TOWS (usando las Fortalezas para minimizar las Amenazas y las Oportunidades para corregir las Debilidades).",
     "Code_pt": "Análise SWOT Avançada (TOWS)",
-    "Code_en": "Análise SWOT Avançada (TOWS)",
-    "Code_es": "Análise SWOT Avançada (TOWS)"
+    "Code_en": "Advanced SWOT Analysis (TOWS)",
+    "Code_es": "Análisis FODA avanzado (TOWS)"
   },
   {
     "cat_pt": "Vendas e Negociação",
@@ -139,8 +139,8 @@
     "Description_pt": "Escreva uma Landing Page focada em conversão utilizando a estrutura PAS (Problem, Agitate, Solve). Descreva a dor de [Público], agite os sintomas emocionalmente e apresente o [Produto] como alívio definitivo.",
     "Description_es": "Escriba una página de destino centrada en la conversión utilizando el marco PAS (Problem, Agitate, Solve). Describa el dolor de [Público], avive los síntomas emocionalmente y presente [Producto] como el máximo alivio.",
     "Code_pt": "Copywriting com Framework PAS",
-    "Code_en": "Copywriting com Framework PAS",
-    "Code_es": "Copywriting com Framework PAS"
+    "Code_en": "Copywriting with PAS Framework",
+    "Code_es": "Redacción publicitaria con PAS Framework"
   },
   {
     "cat_pt": "Vendas e Negociação",
@@ -152,8 +152,8 @@
     "Description_pt": "Estruture uma checklist de perguntas abertas para qualificar um lead Inbound usando o método BANT (Budget, Authority, Need, Timeline). As perguntas devem ser conversacionais. Adicione os red flags de desqualificação.",
     "Description_es": "Estructura una lista de verificación de preguntas abiertas para calificar un cliente potencial Inbound utilizando el método BANT (Presupuesto, Autoridad, Necesidad, Cronograma). Las preguntas deben ser conversacionales. Agregue señales de alerta de descalificación.",
     "Code_pt": "Qualificação BANT",
-    "Code_en": "Qualificação BANT",
-    "Code_es": "Qualificação BANT"
+    "Code_en": "BANT Qualification",
+    "Code_es": "Calificación BANT"
   },
   {
     "cat_pt": "Vendas e Negociação",
@@ -165,8 +165,8 @@
     "Description_pt": "Como Closer de Vendas, construa respostas diretas, empáticas e orientadas a dados para as objeções: 1) 'Está muito caro', 2) 'Preciso falar com meu sócio', 3) 'Já usamos o concorrente', 4) 'Me mande um e-mail'.",
     "Description_es": "Como cerrador de ventas, construya respuestas directas, empáticas y basadas en datos a las objeciones: 1) \"Es demasiado caro\", 2) \"Necesito hablar con mi socio\", 3) \"Ya utilizamos al competidor\", 4) \"Envíame un correo electrónico\".",
     "Code_pt": "Contorno de Objeções Clássicas",
-    "Code_en": "Contorno de Objeções Clássicas",
-    "Code_es": "Contorno de Objeções Clássicas"
+    "Code_en": "Outline of Classical Objections",
+    "Code_es": "Esquema de las objeciones clásicas"
   },
   {
     "cat_pt": "Vendas e Negociação",
@@ -178,8 +178,8 @@
     "Description_pt": "Escreva uma sequência de 4 e-mails frios para vender [Produto] para [Cargo]. Regras: Assuntos curtos, foco imediato na dor do lead, personalização na primeira linha, CTA claro. Cada e-mail não deve passar de 100 palavras.",
     "Description_es": "Escribe una secuencia de 4 correos electrónicos fríos para vender [Producto] a [Trabajo]. Reglas: temas breves, enfoque inmediato en el dolor del cliente potencial, personalización en la primera línea, CTA clara. Cada correo electrónico no debe exceder las 100 palabras.",
     "Code_pt": "Sequência de Cold Email",
-    "Code_en": "Sequência de Cold Email",
-    "Code_es": "Sequência de Cold Email"
+    "Code_en": "Cold Email Sequence",
+    "Code_es": "Secuencia de correo electrónico frío"
   },
   {
     "cat_pt": "Vendas e Negociação",
@@ -191,8 +191,8 @@
     "Description_pt": "Atue como Executivo de Contas B2B. Escreva um roteiro de qualificação de 8 perguntas baseadas no framework SPIN (Situação, Problema, Implicação, Necessidade de Solução) para guiar o prospect a verbalizar a urgência de compra.",
     "Description_es": "Actuar como Ejecutivo de Cuentas B2B. Escriba un guión de calificación de 8 preguntas basado en el marco SPIN (Situación, Problema, Implicación, Necesidad de solución) para guiar al cliente potencial a verbalizar la urgencia de comprar.",
     "Code_pt": "Framework SPIN Selling",
-    "Code_en": "Framework SPIN Selling",
-    "Code_es": "Framework SPIN Selling"
+    "Code_en": "SPIN Selling Framework",
+    "Code_es": "Marco de venta SPIN"
   },
   {
     "cat_pt": "Programação",
@@ -204,8 +204,8 @@
     "Description_pt": "Escreva um Dockerfile otimizado de múltiplos estágios (multi-stage) para uma aplicação escrita em [Linguagem]. O objetivo é reduzir o tamanho da imagem de produção ao máximo e garantir que não rode como root.",
     "Description_es": "Escriba un Dockerfile de varias etapas optimizado para una aplicación escrita en [Idioma]. El objetivo es reducir el tamaño de la imagen de producción tanto como sea posible y garantizar que no se ejecute como root.",
     "Code_pt": "Criação de Dockerfile Otimizado",
-    "Code_en": "Criação de Dockerfile Otimizado",
-    "Code_es": "Criação de Dockerfile Otimizado"
+    "Code_en": "Optimized Dockerfile Creation",
+    "Code_es": "Creación optimizada de Dockerfile"
   },
   {
     "cat_pt": "Programação",
@@ -217,8 +217,8 @@
     "Description_pt": "Traduza o script anexo de [Linguagem Origem] para [Linguagem Destino]. Mantenha a mesma lógica de negócio, mas adapte estritamente para a sintaxe idiomática da nova linguagem utilizando os paradigmas corretos.",
     "Description_es": "Traduzca el guión adjunto del [Idioma de origen] al [Idioma de destino]. Mantenga la misma lógica de negocios, pero adáptese estrictamente a la sintaxis idiomática del nuevo lenguaje utilizando los paradigmas correctos.",
     "Code_pt": "Tradução de Código Idiomática",
-    "Code_en": "Tradução de Código Idiomática",
-    "Code_es": "Tradução de Código Idiomática"
+    "Code_en": "Idiomatic Code Translation",
+    "Code_es": "Traducción de códigos idiomáticos"
   },
   {
     "cat_pt": "Programação",
@@ -230,8 +230,8 @@
     "Description_pt": "Estou projetando um sistema web que sofre com picos de tráfego de leitura. Elabore uma estratégia de cache distribuído em 3 camadas utilizando Redis, CDN e memória local. Explique as políticas de invalidação (TTL, LRU).",
     "Description_es": "Estoy diseñando un sistema web que sufre picos en el tráfico de lectura. Diseñe una estrategia de almacenamiento en caché distribuido de 3 niveles utilizando Redis, CDN y memoria local. Explicar las políticas de invalidación (TTL, LRU).",
     "Code_pt": "Estratégia de Cache e Escalabilidade",
-    "Code_en": "Estratégia de Cache e Escalabilidade",
-    "Code_es": "Estratégia de Cache e Escalabilidade"
+    "Code_en": "Cache and Scalability Strategy",
+    "Code_es": "Estrategia de caché y escalabilidad"
   },
   {
     "cat_pt": "Programação",
@@ -243,8 +243,8 @@
     "Description_pt": "Crie um Regex em [Sabor do Regex] que valide rigorosamente a seguinte estrutura: [Formato desejado]. Explique cada parte do Regex e forneça 3 strings de teste que passam e 3 que falham.",
     "Description_es": "Cree una expresión regular en [Tipo de expresión regular] que valide estrictamente la siguiente estructura: [Formato deseado]. Explique cada parte de Regex y proporcione 3 cadenas de prueba que pasen y 3 que fallen.",
     "Code_pt": "Geração de Regex Rigoroso",
-    "Code_en": "Geração de Regex Rigoroso",
-    "Code_es": "Geração de Regex Rigoroso"
+    "Code_en": "Strict Regex Generation",
+    "Code_es": "Generación estricta de expresiones regulares"
   },
   {
     "cat_pt": "Programação",
@@ -256,8 +256,8 @@
     "Description_pt": "Analise a função a seguir. Calcule sua complexidade de tempo e espaço (Big-O). Refatore o código utilizando estruturas de dados mais eficientes para reduzir a complexidade temporal para O(N) ou O(1).",
     "Description_es": "Analice la siguiente función. Calcule su complejidad temporal y espacial (Big-O). Refactorice el código utilizando estructuras de datos más eficientes para reducir la complejidad del tiempo a O(N) u O(1).",
     "Code_pt": "Otimização de Complexidade Algorítmica",
-    "Code_en": "Otimização de Complexidade Algorítmica",
-    "Code_es": "Otimização de Complexidade Algorítmica"
+    "Code_en": "Algorithmic Complexity Optimization",
+    "Code_es": "Optimización de la complejidad algorítmica"
   },
   {
     "cat_pt": "Música e Áudio",
@@ -269,8 +269,8 @@
     "Description_pt": "Vou fornecer a melodia principal. Atue como Arranjador Orquestral e divida o papel dessa melodia entre os naipes de Cordas, Madeiras e Metais para construir um clímax épico. Dê instruções de articulação para cada seção.",
     "Description_es": "Yo proporcionaré la melodía principal. Actúa como arreglista orquestal y divide el papel de esta melodía entre las secciones de cuerdas, instrumentos de viento y metales para crear un clímax épico. Dé instrucciones de articulación para cada sección.",
     "Code_pt": "Estruturação de Arranjo Orquestral",
-    "Code_en": "Estruturação de Arranjo Orquestral",
-    "Code_es": "Estruturação de Arranjo Orquestral"
+    "Code_en": "Orchestral Arrangement Structuring",
+    "Code_es": "Estructuración de arreglos orquestales"
   },
   {
     "cat_pt": "Música e Áudio",
@@ -282,8 +282,8 @@
     "Description_pt": "Atue como Engenheiro de Masterização. Liste os níveis alvo de LUFS exigidos pelo Spotify, Apple Music e YouTube. Forneça uma cadeia de plugins sugerida na ordem correta para atingir essa sonoridade sem destruir a dinâmica.",
     "Description_es": "Actuar como Ingeniero de Masterización. Enumere los niveles LUFS objetivo requeridos por Spotify, Apple Music y YouTube. Proporcione una cadena de complementos sugerida en el orden correcto para lograr este sonido sin destruir la dinámica.",
     "Code_pt": "Masterização para Streaming",
-    "Code_en": "Masterização para Streaming",
-    "Code_es": "Masterização para Streaming"
+    "Code_en": "Mastering for Streaming",
+    "Code_es": "Masterización para transmisión"
   },
   {
     "cat_pt": "Música e Áudio",
@@ -295,8 +295,8 @@
     "Description_pt": "Forneça as configurações exatas de um sintetizador subtrativo (Osciladores, Filtro, Envelope ADSR e LFO) para recriar o timbre clássico de [Tipo de Som]. Explique a rotação harmônica esperada em cada etapa.",
     "Description_es": "Proporcione la configuración exacta de un sintetizador sustractivo (osciladores, filtro, envolvente ADSR y LFO) para recrear el tono clásico de [Tipo de sonido]. Explique la rotación armónica esperada en cada paso.",
     "Code_pt": "Design de Som Subtrativo",
-    "Code_en": "Design de Som Subtrativo",
-    "Code_es": "Design de Som Subtrativo"
+    "Code_en": "Subtractive Sound Design",
+    "Code_es": "Diseño de sonido sustractivo"
   },
   {
     "cat_pt": "Música e Áudio",
@@ -308,8 +308,8 @@
     "Description_pt": "Estou mixando uma faixa onde o baixo e o bumbo (kick) estão mascarando um ao outro. Liste um processo passo a passo de equalização subtrativa, compressão sidechain e pan para separar as frequências e criar clareza.",
     "Description_es": "Estoy mezclando una pista donde el bajo y el bombo se enmascaran entre sí. Enumere un proceso paso a paso de ecualización sustractiva, compresión de cadena lateral y panorámica para separar frecuencias y crear claridad.",
     "Code_pt": "Dicas de Mixagem (EQ Subtrativa)",
-    "Code_en": "Dicas de Mixagem (EQ Subtrativa)",
-    "Code_es": "Dicas de Mixagem (EQ Subtrativa)"
+    "Code_en": "Mixing Tips (Subtractive EQ)",
+    "Code_es": "Consejos para mezclar (ecualizador sustractivo)"
   },
   {
     "cat_pt": "Música e Áudio",
@@ -321,8 +321,8 @@
     "Description_pt": "Atue como um Teórico Musical. Crie 4 progressões de acordes distintas para uma música no estilo [Gênero] no tom de [Tom]. Utilize acordes de empréstimo modal, dominantes secundários e extensões, explicando suas funções.",
     "Description_es": "Actuar como teórico de la música. Crea 4 progresiones de acordes distintas para una canción de estilo [Género] en la clave de [Clave]. Utilizar acordes de préstamo modales, dominantes secundarias y extensiones, explicando sus funciones.",
     "Code_pt": "Progressão Harmônica Avançada",
-    "Code_en": "Progressão Harmônica Avançada",
-    "Code_es": "Progressão Harmônica Avançada"
+    "Code_en": "Advanced Harmonic Progression",
+    "Code_es": "Progresión armónica avanzada"
   },
   {
     "cat_pt": "Artes e Design",
@@ -334,8 +334,8 @@
     "Description_pt": "Converta o seguinte roteiro de texto em uma descrição de storyboard cena a cena. Para cada painel, defina: 1) Enquadramento da Câmera; 2) Ângulo de visão; 3) Ação na cena; 4) Efeitos de iluminação/transição.",
     "Description_es": "Convierta el siguiente guión de texto en una descripción de guión gráfico escena por escena. Para cada panel, defina: 1) Encuadre de la cámara; 2) Ángulo de visión; 3) Acción en la escena; 4) Efectos de iluminación/transición.",
     "Code_pt": "Roteiro Visual de Storyboard",
-    "Code_en": "Roteiro Visual de Storyboard",
-    "Code_es": "Roteiro Visual de Storyboard"
+    "Code_en": "Visual Storyboard Script",
+    "Code_es": "Guión gráfico visual"
   },
   {
     "cat_pt": "Artes e Design",
@@ -347,8 +347,8 @@
     "Description_pt": "Crie uma paleta de cores completa (Primária, Secundária, Acento, Sucesso, Erro, Fundo, Texto) para um aplicativo de [Tema]. Forneça os códigos HEX. Garanta que a taxa de contraste passe nas diretrizes WCAG AAA (7:1).",
     "Description_es": "Cree una paleta de colores completa (Primario, Secundario, Acento, Éxito, Error, Fondo, Texto) para una aplicación [Tema]. Proporcionar códigos HEX. Asegúrese de que la relación de contraste cumpla con las pautas WCAG AAA (7:1).",
     "Code_pt": "Construção de Paleta WCAG",
-    "Code_en": "Construção de Paleta WCAG",
-    "Code_es": "Construção de Paleta WCAG"
+    "Code_en": "WCAG Palette Construction",
+    "Code_es": "Construcción de paleta WCAG"
   },
   {
     "cat_pt": "Artes e Design",
@@ -360,8 +360,8 @@
     "Description_pt": "Atue como Diretor Criativo. O cliente é uma marca de [Nicho] lançando um produto para [Público-alvo]. Gere 3 conceitos de direção de arte contendo: Paleta de cores, tipografia, estilo fotográfico e mood emocional.",
     "Description_es": "Servir como Director Creativo. El cliente es una marca [Nicho] que lanza un producto para [Público objetivo]. Genera 3 conceptos de dirección de arte que contengan: Paleta de colores, tipografía, estilo fotográfico y estado de ánimo emocional.",
     "Code_pt": "Brainstorming de Direção de Arte",
-    "Code_en": "Brainstorming de Direção de Arte",
-    "Code_es": "Brainstorming de Direção de Arte"
+    "Code_en": "Art Direction Brainstorming",
+    "Code_es": "Lluvia de ideas sobre dirección de arte"
   },
   {
     "cat_pt": "Artes e Design",
@@ -373,8 +373,8 @@
     "Description_pt": "Analise a descrição desta obra visual: [Descrever cena]. Faça uma crítica construtiva focada na Regra dos Terços, peso visual, contraste de saturação e psicologia das cores. Proponha 3 ajustes de impacto.",
     "Description_es": "Analice la descripción de esta obra visual: [Describir escena]. Brinde críticas constructivas centradas en la regla de los tercios, el peso visual, el contraste de saturación y la psicología del color. Proponer 3 ajustes de impacto.",
     "Code_pt": "Crítica de Composição Visual",
-    "Code_en": "Crítica de Composição Visual",
-    "Code_es": "Crítica de Composição Visual"
+    "Code_en": "Visual Composition Criticism",
+    "Code_es": "Crítica de composición visual"
   },
   {
     "cat_pt": "Artes e Design",
@@ -386,8 +386,8 @@
     "Description_pt": "Atue como Diretor de Arte. Crie 3 prompts extremamente detalhados em inglês. Estrutura obrigatória: [Tema] + [Ação] + [Cenário] + [Estilo Artístico] + [Esquema de Cores] + [Iluminação] + [Renderização] + --ar [proporção].",
     "Description_es": "Actuar como Director de Arte. Crea 3 indicaciones extremadamente detalladas en inglés. Estructura obligatoria: [Tema] + [Acción] + [Escenario] + [Estilo artístico] + [Esquema de colores] + [Iluminación] + [Renderizado] + --ar [proporción].",
     "Code_pt": "Prompt Mestre para Geração de Imagem",
-    "Code_en": "Prompt Mestre para Geração de Imagem",
-    "Code_es": "Prompt Mestre para Geração de Imagem"
+    "Code_en": "Master Prompt for Image Generation",
+    "Code_es": "Mensaje maestro para la generación de imágenes"
   },
   {
     "cat_pt": "Eletrônica e Hardware",
@@ -399,8 +399,8 @@
     "Description_pt": "Escreva um código em C (bare-metal) para inicializar o periférico [I2C/SPI/UART] no microcontrolador [Modelo do MCU]. Comente cada linha de manipulação de registrador, explicando o baud rate e ativação do clock.",
     "Description_es": "Escriba código en C (bare-metal) para inicializar el periférico [I2C/SPI/UART] en el microcontrolador [Modelo MCU]. Comente cada línea de manipulación de registros, explicando la velocidad en baudios y la activación del reloj.",
     "Code_pt": "Código de Inicialização de MCU",
-    "Code_en": "Código de Inicialização de MCU",
-    "Code_es": "Código de Inicialização de MCU"
+    "Code_en": "MCU Initialization Code",
+    "Code_es": "Código de inicialización de MCU"
   },
   {
     "cat_pt": "Eletrônica e Hardware",
@@ -412,8 +412,8 @@
     "Description_pt": "Atue como Revisor de Layout IPC. Liste um checklist de 10 passos críticos de validação de Design for Manufacturing (DFM) e integridade de sinal antes de enviar uma placa de 4 camadas para a fábrica.",
     "Description_es": "Actuar como revisor de diseño de IPC. Enumere una lista de verificación de 10 pasos críticos de validación del Diseño para Fabricación (DFM) e integridad de la señal antes de enviar una placa de 4 capas a la fábrica.",
     "Code_pt": "Revisão de Layout de PCB",
-    "Code_en": "Revisão de Layout de PCB",
-    "Code_es": "Revisão de Layout de PCB"
+    "Code_en": "PCB Layout Review",
+    "Code_es": "Revisión del diseño de PCB"
   },
   {
     "cat_pt": "Eletrônica e Hardware",
@@ -425,8 +425,8 @@
     "Description_pt": "Preciso projetar um filtro ativo passa-baixa [Butterworth/Chebyshev] de [X] ordem com frequência de corte em [Y Hz]. Gere as equações teóricas e sugira valores padrão (E12/E24) para resistores e capacitores.",
     "Description_es": "Necesito diseñar un filtro de paso bajo activo [Butterworth/Chebyshev] de orden [X] con frecuencia de corte en [Y Hz]. Generar ecuaciones teóricas y sugerir valores estándar (E12/E24) para resistencias y capacitores.",
     "Code_pt": "Design de Filtro Analógico",
-    "Code_en": "Design de Filtro Analógico",
-    "Code_es": "Design de Filtro Analógico"
+    "Code_en": "Analog Filter Design",
+    "Code_es": "Diseño de filtro analógico"
   },
   {
     "cat_pt": "Eletrônica e Hardware",
@@ -438,8 +438,8 @@
     "Description_pt": "Estou projetando um circuito misto e enfrentando ruído de alta frequência na linha do ADC. Liste 5 estratégias progressivas de mitigação de ruído de hardware (ex: capacitores de bypass, isolamento), com cálculos.",
     "Description_es": "Estoy diseñando un circuito mixto y me enfrento a ruido de alta frecuencia en la línea ADC. Enumere cinco estrategias progresivas de mitigación de ruido por hardware (por ejemplo, condensadores de derivación, aislamiento), con cálculos.",
     "Code_pt": "Troubleshooting de Ruído em Sinais",
-    "Code_en": "Troubleshooting de Ruído em Sinais",
-    "Code_es": "Troubleshooting de Ruído em Sinais"
+    "Code_en": "Signal Noise Troubleshooting",
+    "Code_es": "Solución de problemas de ruido de señal"
   },
   {
     "cat_pt": "Eletrônica e Hardware",
@@ -451,8 +451,8 @@
     "Description_pt": "Atue como um Engenheiro de Hardware. Extraia as seguintes informações do texto do datasheet anexo: 1) Tensão e Corrente Máxima Absoluta; 2) Consumo típico em modo sleep; 3) Pinagem I2C/SPI; 4) Tolerâncias térmicas.",
     "Description_es": "Actuar como Ingeniero de Hardware. Extraiga la siguiente información del texto de la hoja de datos adjunta: 1) Tensión y Corriente Máximas Absolutas; 2) Consumo típico en modo de suspensión; 3) Configuración de pines I2C/SPI; 4) Tolerancias térmicas.",
     "Code_pt": "Análise e Extração de Datasheet",
-    "Code_en": "Análise e Extração de Datasheet",
-    "Code_es": "Análise e Extração de Datasheet"
+    "Code_en": "Datasheet Analysis and Extraction",
+    "Code_es": "Análisis y extracción de hojas de datos"
   },
   {
     "cat_pt": "Medicina e Saúde",
@@ -464,8 +464,8 @@
     "Description_pt": "Crie um fluxograma de decisão em texto (árvore lógica) para a triagem de emergência de pacientes apresentando [Sintoma]. Classifique os caminhos por gravidade utilizando o sistema de cores de Manchester.",
     "Description_es": "Cree un diagrama de flujo de decisión de texto (árbol lógico) para la clasificación de emergencia de pacientes que presentan [Síntoma]. Clasifica caminos por gravedad usando el sistema de colores de Manchester.",
     "Code_pt": "Protocolo de Triagem Rápida",
-    "Code_en": "Protocolo de Triagem Rápida",
-    "Code_es": "Protocolo de Triagem Rápida"
+    "Code_en": "Rapid Screening Protocol",
+    "Code_es": "Protocolo de detección rápida"
   },
   {
     "cat_pt": "Medicina e Saúde",
@@ -477,8 +477,8 @@
     "Description_pt": "Atue como um Pesquisador Sênior. Forneça um esboço estruturado (outline) para um artigo de revisão sistemática sobre [Tópico]. Inclua seções para Introdução, Metodologia (PRISMA), Resultados Esperados e Discussão.",
     "Description_es": "Actuar como Investigador Titular. Proporcione un esquema estructurado (esquema) para un artículo de revisión sistemática sobre [Tema]. Incluya secciones de Introducción, Metodología (PRISMA), Resultados Esperados y Discusión.",
     "Code_pt": "Estruturação de Artigo Científico",
-    "Code_en": "Estruturação de Artigo Científico",
-    "Code_es": "Estruturação de Artigo Científico"
+    "Code_en": "Scientific Article Structuring",
+    "Code_es": "Estructuración de artículos científicos"
   },
   {
     "cat_pt": "Medicina e Saúde",
@@ -490,8 +490,8 @@
     "Description_pt": "Atue como um Tutor de Medicina. Vou apresentar o caso clínico de um paciente fictício com seus sintomas e sinais vitais. Gere uma lista de diagnósticos diferenciais organizados do mais provável ao menos provável.",
     "Description_es": "Actuar como Tutor de Medicina. Presentaré el caso clínico de un paciente ficticio con sus síntomas y signos vitales. Generar una lista de diagnósticos diferenciales organizados de más probable a menos probable.",
     "Code_pt": "Análise Diferencial Simulada",
-    "Code_en": "Análise Diferencial Simulada",
-    "Code_es": "Análise Diferencial Simulada"
+    "Code_en": "Simulated Differential Analysis",
+    "Code_es": "Análisis diferencial simulado"
   },
   {
     "cat_pt": "Medicina e Saúde",
@@ -503,8 +503,8 @@
     "Description_pt": "Atue como um Médico Educador. Traduza o seguinte laudo de exame para uma linguagem clara, empática e acessível a um paciente leigo. Explique o que cada métrica anormal significa de forma prática.",
     "Description_es": "Actuar como Médico Educador. Traduzca el siguiente informe del examen a un lenguaje claro y empático que sea accesible para un paciente no especializado. Explique qué significa cada métrica anormal de una manera práctica.",
     "Code_pt": "Tradução de Jargão Médico",
-    "Code_en": "Tradução de Jargão Médico",
-    "Code_es": "Tradução de Jargão Médico"
+    "Code_en": "Medical Jargon Translation",
+    "Code_es": "Traducción de jerga médica"
   },
   {
     "cat_pt": "Medicina e Saúde",
@@ -516,8 +516,8 @@
     "Description_pt": "Atue como um Especialista Clínico. Sintetize as diretrizes mais recentes (guidelines) sobre o tratamento de [Doença/Condição]. Separe o resumo em: 1) Critérios de Diagnóstico; 2) Tratamento farmacológico; 3) Contraindicações; 4) Modificações de estilo de vida.",
     "Description_es": "Actuar como Especialista Clínico. Sintetizar las pautas más recientes sobre el tratamiento de [Enfermedad/Afección]. Separar el resumen en: 1) Criterios Diagnósticos; 2) tratamiento farmacológico; 3) Contraindicaciones; 4) Modificaciones del estilo de vida.",
     "Code_pt": "Resumo de Diretrizes Clínicas",
-    "Code_en": "Resumo de Diretrizes Clínicas",
-    "Code_es": "Resumo de Diretrizes Clínicas"
+    "Code_en": "Summary of Clinical Guidelines",
+    "Code_es": "Resumen de guías clínicas"
   },
   {
     "cat_pt": "Orquestração",
@@ -529,8 +529,8 @@
     "Description_pt": "Você opera em loop fechado de qualidade. Execute a tarefa, valide contra restrições rígidas, corrija internamente caso ocorra inconsistência e emita apenas o resultado auditado.",
     "Description_es": "Opera en un circuito cerrado de calidad. Ejecute la tarea, valide según restricciones estrictas, corrija internamente si se producen inconsistencias y genere solo el resultado auditado.",
     "Code_pt": "Agente de Validação e Autocorreção",
-    "Code_en": "Agente de Validação e Autocorreção",
-    "Code_es": "Agente de Validação e Autocorreção"
+    "Code_en": "Validation and Self-Healing Agent",
+    "Code_es": "Agente de validación y autocuración"
   },
   {
     "cat_pt": "Orquestração",
@@ -542,8 +542,8 @@
     "Description_pt": "Você é o Agente de Consenso. Analise relatórios analíticos divergentes sobre o mesmo problema e construa uma solução unificada equilibrando os argumentos de maior validade.",
     "Description_es": "Usted es el agente de consenso. Analice informes analíticos divergentes sobre el mismo problema y construya una solución unificada equilibrando los argumentos más válidos.",
     "Code_pt": "Motor de Consenso entre Modelos",
-    "Code_en": "Motor de Consenso entre Modelos",
-    "Code_es": "Motor de Consenso entre Modelos"
+    "Code_en": "Consensus Engine between Models",
+    "Code_es": "Motor de consenso entre modelos"
   },
   {
     "cat_pt": "Orquestração",
@@ -555,8 +555,8 @@
     "Description_pt": "Você é o Agente Avaliador Neutro. Julgue duas respostas submetidas com base em precisão, alinhamento e raciocínio lógico, atribuindo notas de 1 a 10 e apontando a melhor.",
     "Description_es": "Usted es el Agente de Tasación Neutral. Juzgue dos respuestas enviadas en función de la precisión, la alineación y el razonamiento lógico, asignando calificaciones del 1 al 10 y eligiendo la mejor.",
     "Code_pt": "Juiz e Validador de LLMs",
-    "Code_en": "Juiz e Validador de LLMs",
-    "Code_es": "Juiz e Validador de LLMs"
+    "Code_en": "LLM Judge and Validator",
+    "Code_es": "Juez y validador de LLM"
   },
   {
     "cat_pt": "Orquestração",
@@ -568,8 +568,8 @@
     "Description_pt": "Você é o Agente Engenheiro de Prompts. Converta prompts brutos em instruções estruturadas de alto desempenho com Chain-of-Thought, delimitações estritas e validação de schema.",
     "Description_es": "Usted es el agente ingeniero rápido. Convierta indicaciones sin procesar en declaraciones estructuradas de alto rendimiento con cadena de pensamiento, límites estrictos y validación de esquema.",
     "Code_pt": "Engenheiro Otimizador de Prompts",
-    "Code_en": "Engenheiro Otimizador de Prompts",
-    "Code_es": "Engenheiro Otimizador de Prompts"
+    "Code_en": "Prompt Optimizer Engineer",
+    "Code_es": "Ingeniero optimizador rápido"
   },
   {
     "cat_pt": "Orquestração",
@@ -581,8 +581,8 @@
     "Description_pt": "Você é o Agente Maestro. Decomponha a meta global em 3 subtarefas isoladas para agentes especializados, definindo contratos de entrada, saída e validação de entregas.",
     "Description_es": "Eres el Agente Maestro. Descomponer el objetivo global en 3 subtareas aisladas para agentes especializados, definiendo contratos de validación de entrada, salida y entrega.",
     "Code_pt": "Maestro Orquestrador Multi-Agente",
-    "Code_en": "Maestro Orquestrador Multi-Agente",
-    "Code_es": "Maestro Orquestrador Multi-Agente"
+    "Code_en": "Multi-Agent Orchestrator Conductor",
+    "Code_es": "Director orquestador multiagente"
   },
   {
     "cat_pt": "Negócios e Ágil",
@@ -594,8 +594,8 @@
     "Description_pt": "Você é o Agente Financeiro. Analise entradas e saídas programadas, aponte a melhor ordem de liquidação para minimizar custos financeiros e alerte para riscos de liquidez.",
     "Description_es": "Eres el Agente Financiero. Analice las entradas y salidas programadas, identifique el mejor orden de liquidación para minimizar los costos financieros y le alerte sobre los riesgos de liquidez.",
     "Code_pt": "Otimizador de Fluxo de Caixa Diário",
-    "Code_en": "Otimizador de Fluxo de Caixa Diário",
-    "Code_es": "Otimizador de Fluxo de Caixa Diário"
+    "Code_en": "Daily Cash Flow Optimizer",
+    "Code_es": "Optimizador de flujo de caja diario"
   },
   {
     "cat_pt": "Negócios e Ágil",
@@ -607,8 +607,8 @@
     "Description_pt": "Você é o Agente DPO. Identifique dados pessoais e sensíveis no processo fornecido, determine as bases legais aplicáveis e monte a matriz de governança e retenção.",
     "Description_es": "Usted es el Agente DPO. Identificar datos personales y sensibles en el proceso proporcionado, determinar las bases legales aplicables y establecer la matriz de gobernanza y retención.",
     "Code_pt": "Auditor de Conformidade LGPD/GDPR",
-    "Code_en": "Auditor de Conformidade LGPD/GDPR",
-    "Code_es": "Auditor de Conformidade LGPD/GDPR"
+    "Code_en": "LGPD/GDPR Compliance Auditor",
+    "Code_es": "Auditor de Cumplimiento LGPD/GDPR"
   },
   {
     "cat_pt": "Negócios e Ágil",
@@ -620,8 +620,8 @@
     "Description_pt": "Você é o Agente de Customer Success. Desenvolva o plano de ativação do cliente para os primeiros 14 dias com checklists diários, alertas de risco de churn e gatilhos de suporte.",
     "Description_es": "Usted es el Agente de Éxito del Cliente. Desarrolle un plan de activación de clientes durante los primeros 14 días con listas de verificación diarias, alertas de riesgo de abandono y activadores de soporte.",
     "Code_pt": "Coordenador de Onboarding",
-    "Code_en": "Coordenador de Onboarding",
-    "Code_es": "Coordenador de Onboarding"
+    "Code_en": "Onboarding Coordinator",
+    "Code_es": "Coordinador de incorporación"
   },
   {
     "cat_pt": "Negócios e Ágil",
@@ -633,8 +633,8 @@
     "Description_pt": "Você é o Agente de Suprimentos. Confronte orçamentos de fornecedores com referências de mercado e gere minutas de contraproposta exigindo revisões de taxas e penalidades por SLA.",
     "Description_es": "Eres el agente de suministros. Compare los presupuestos de los proveedores con las referencias del mercado y genere borradores de contrapropuestas que requieran revisiones de tarifas y penalizaciones según SLA.",
     "Code_pt": "Negociador de Contratos",
-    "Code_en": "Negociador de Contratos",
-    "Code_es": "Negociador de Contratos"
+    "Code_en": "Contract Negotiator",
+    "Code_es": "Negociador de contratos"
   },
   {
     "cat_pt": "Negócios e Ágil",
@@ -646,8 +646,8 @@
     "Description_pt": "Você é o Scrum Master Bot. Converta a especificação da feature em 3 Histórias de Usuário completas com Critérios de Aceitação em sintaxe Gherkin e estimativas de pontuação.",
     "Description_es": "Eres el Scrum Master Bot. Convierta la especificación de funciones en 3 historias de usuarios completas con criterios de aceptación en sintaxis Gherkin y estimaciones de puntuación.",
     "Code_pt": "Scrum Master e Decomposição de Histórias",
-    "Code_en": "Scrum Master e Decomposição de Histórias",
-    "Code_es": "Scrum Master e Decomposição de Histórias"
+    "Code_en": "Scrum Master and Story Decomposition",
+    "Code_es": "Scrum Master y descomposición de la historia"
   },
   {
     "cat_pt": "DevOps e CI/CD",
@@ -659,8 +659,8 @@
     "Description_pt": "Você é o Agente Terraform. Converta a arquitetura descrita em arquivos de configuração declarativos com variáveis parametrizadas e bloqueio de estado seguro.",
     "Description_es": "Eres el agente Terraform. Convierta la arquitectura descrita en archivos de configuración declarativos con variables parametrizadas y bloqueo de estado seguro.",
     "Code_pt": "Engenheiro de Infraestrutura (IaC)",
-    "Code_en": "Engenheiro de Infraestrutura (IaC)",
-    "Code_es": "Engenheiro de Infraestrutura (IaC)"
+    "Code_en": "Infrastructure Engineer (IaC)",
+    "Code_es": "Ingeniero de Infraestructura (IaC)"
   },
   {
     "cat_pt": "DevOps e CI/CD",
@@ -672,8 +672,8 @@
     "Description_pt": "Você é o Agente de Segurança Cloud. Avalie as políticas de acesso fornecidas, remova privilégios excessivos e gere um template corrigido sob o princípio do menor privilégio.",
     "Description_es": "Eres el agente de seguridad en la nube. Evalúe las políticas de acceso proporcionadas, elimine los privilegios excesivos y genere una plantilla corregida bajo el principio de privilegio mínimo.",
     "Code_pt": "Auditor de Permissões e Segurança IAM",
-    "Code_en": "Auditor de Permissões e Segurança IAM",
-    "Code_es": "Auditor de Permissões e Segurança IAM"
+    "Code_en": "IAM Security and Permissions Auditor",
+    "Code_es": "Auditor de Permisos y Seguridad de IAM"
   },
   {
     "cat_pt": "DevOps e CI/CD",
@@ -685,8 +685,8 @@
     "Description_pt": "Você é o Agente DevOps. Crie o pipeline de automação completo para [Stack], cobrindo linters, suítes de testes paralelos, escaneamento de segurança e deploy em container.",
     "Description_es": "Usted es el agente de DevOps. Cree el proceso de automatización completo para [Stack], que abarque linters, conjuntos de pruebas paralelas, escaneo de seguridad e implementación de contenedores.",
     "Code_pt": "Arquiteto de Pipeline CI/CD",
-    "Code_en": "Arquiteto de Pipeline CI/CD",
-    "Code_es": "Arquiteto de Pipeline CI/CD"
+    "Code_en": "CI/CD Pipeline Architect",
+    "Code_es": "Arquitecto de canalización de CI/CD"
   },
   {
     "cat_pt": "DevOps e CI/CD",
@@ -698,8 +698,8 @@
     "Description_pt": "Você é o Agente de Confiabilidade (SRE). Analise os logs do sistema, isole o evento gatilho inicial, liste serviços afetados e gere comandos para restauração emergencial.",
     "Description_es": "Usted es el Agente de Confiabilidad (SRE). Analice los registros del sistema, aísle el evento desencadenante inicial, enumere los servicios afectados y genere comandos para la restauración de emergencia.",
     "Code_pt": "SRE Diagnóstico de Logs",
-    "Code_en": "SRE Diagnóstico de Logs",
-    "Code_es": "SRE Diagnóstico de Logs"
+    "Code_en": "SRE Log Diagnostics",
+    "Code_es": "Diagnóstico de registro SRE"
   },
   {
     "cat_pt": "DevOps e CI/CD",
@@ -711,8 +711,8 @@
     "Description_pt": "Você é o Agente de QA. Analise o código fornecido, gere testes de integração cobrindo fluxos críticos e falhas simuladas, entregando código limpo pronto para o framework de testes.",
     "Description_es": "Usted es el agente de control de calidad. Analice el código proporcionado, genere pruebas de integración que cubran flujos críticos y fallas simuladas, entregando código limpio listo para el marco de pruebas.",
     "Code_pt": "Gerador de Testes Automatizados",
-    "Code_en": "Gerador de Testes Automatizados",
-    "Code_es": "Gerador de Testes Automatizados"
+    "Code_en": "Automated Test Generator",
+    "Code_es": "Generador de pruebas automatizado"
   },
   {
     "cat_pt": "Agentes Autônomos",
@@ -724,8 +724,8 @@
     "Description_pt": "Você é o Agente Classificador de Comunicações. Classifique as mensagens em categorias funcionais e retorne JSON com categoria, prioridade, resumo e departamento de destino.",
     "Description_es": "Eres el Agente de Clasificación de Comunicaciones. Ordene los mensajes en categorías funcionales y devuelva JSON con categoría de destino, prioridad, resumen y departamento.",
     "Code_pt": "Triador e Roteador de E-mails",
-    "Code_en": "Triador e Roteador de E-mails",
-    "Code_es": "Triador e Roteador de E-mails"
+    "Code_en": "Email Sorter and Router",
+    "Code_es": "Clasificador y enrutador de correo electrónico"
   },
   {
     "cat_pt": "Agentes Autônomos",
@@ -737,8 +737,8 @@
     "Description_pt": "Você é o Agente Documentador de Código. Percorra os arquivos, documente classes, parâmetros e dependências, gerando um diagrama em Mermaid das interações de componentes.",
     "Description_es": "Usted es el Agente que documenta el código. Revise los archivos, clases de documentos, parámetros y dependencias, generando un diagrama de sirena de las interacciones de los componentes.",
     "Code_pt": "Sintetizador de Repositórios de Código",
-    "Code_en": "Sintetizador de Repositórios de Código",
-    "Code_es": "Sintetizador de Repositórios de Código"
+    "Code_en": "Code Repository Synthesizer",
+    "Code_es": "Sintetizador de repositorio de código"
   },
   {
     "cat_pt": "Agentes Autônomos",
@@ -750,8 +750,8 @@
     "Description_pt": "Você é o Agente de Compliance. Verifique teto de gastos, alíquotas de impostos e notas fiscais duplicadas. Emita parecer JSON: {status, motivos, valor_total}.",
     "Description_es": "Usted es el Agente de Cumplimiento. Verifique límites de gasto, tasas impositivas y facturas duplicadas. Emitir opinión JSON: {estado, motivos, valor_total}.",
     "Code_pt": "Auditor de Despesas e Faturas",
-    "Code_en": "Auditor de Despesas e Faturas",
-    "Code_es": "Auditor de Despesas e Faturas"
+    "Code_en": "Expense and Invoice Auditor",
+    "Code_es": "Auditor de Gastos y Facturas"
   },
   {
     "cat_pt": "Agentes Autônomos",
@@ -763,8 +763,8 @@
     "Description_pt": "Você é um Extrator de Dados. Leia o texto e extraia as entidades no formato JSON estrito: {'pessoas': [], 'empresas': [], 'valores_monetarios': [], 'datas_iso8601': [], 'localidades': []}.",
     "Description_es": "Eres un extractor de datos. Leer el texto y extraer las entidades en estricto formato JSON: {'people': [], 'companies': [], 'valores_monetarios': [], 'datas_iso8601': [], 'localidades': []}.",
     "Code_pt": "NER Engine (Extração Estruturada)",
-    "Code_en": "NER Engine (Extração Estruturada)",
-    "Code_es": "NER Engine (Extração Estruturada)"
+    "Code_en": "NER Engine (Structured Extraction)",
+    "Code_es": "Motor NER (Extracción Estructurada)"
   },
   {
     "cat_pt": "Agentes Autônomos",
@@ -776,8 +776,8 @@
     "Description_pt": "Você é um Agente de Pesquisa. Formule 5 hipóteses, busque referências empíricas, confronte contradições e emita dossiê Markdown com metodologia, evidências e ações sugeridas.",
     "Description_es": "Eres un agente de investigación. Formular 5 hipótesis, buscar referentes empíricos, confrontar contradicciones y emitir un dossier de Markdown con metodología, evidencia y acciones sugeridas.",
     "Code_pt": "Deep Researcher Autônomo",
-    "Code_en": "Deep Researcher Autônomo",
-    "Code_es": "Deep Researcher Autônomo"
+    "Code_en": "Autonomous Deep Researcher",
+    "Code_es": "Investigador profundo autónomo"
   },
   {
     "cat_pt": "Dinâmica Financeira",
@@ -789,8 +789,8 @@
     "Description_pt": "Explique [Conceito Técnico Recente] em termos estritamente matemáticos e funcionais, removendo analogias populares e apontando as limitações reais atuais.",
     "Description_es": "Explique [Concepto técnico reciente] en términos estrictamente matemáticos y funcionales, eliminando analogías populares y señalando las limitaciones actuales reales.",
     "Code_pt": "Desmistificação de Novas Tecnologias",
-    "Code_en": "Desmistificação de Novas Tecnologias",
-    "Code_es": "Desmistificação de Novas Tecnologias"
+    "Code_en": "Demystification of New Technologies",
+    "Code_es": "Desmitificación de las nuevas tecnologías"
   },
   {
     "cat_pt": "Dinâmica Financeira",
@@ -802,8 +802,8 @@
     "Description_pt": "Crie um briefing executivo de 10 tópicos rápidos sobre os eventos econômicos e geopolíticos desta manhã que afetam a cadeia de suprimentos e tecnologia.",
     "Description_es": "Cree una breve sesión informativa ejecutiva de 10 puntos sobre los eventos económicos y geopolíticos de esta mañana que afectan la cadena de suministro y la tecnología.",
     "Code_pt": "Briefing Matinal em Bullet Points",
-    "Code_en": "Briefing Matinal em Bullet Points",
-    "Code_es": "Briefing Matinal em Bullet Points"
+    "Code_en": "Morning Briefing in Bullet Points",
+    "Code_es": "Reunión informativa matutina en viñetas"
   },
   {
     "cat_pt": "Dinâmica Financeira",
@@ -815,8 +815,8 @@
     "Description_pt": "Analise como agentes autônomos de IA impactarão diretamente as operações das empresas de [Setor] até o próximo ciclo anual, apontando onde haverá desintermediação.",
     "Description_es": "Analizar cómo los agentes autónomos de IA impactarán directamente en las operaciones de las empresas del [Sector] hasta el próximo ciclo anual, señalando dónde habrá desintermediación.",
     "Code_pt": "Disrupção por Agentes no Negócio",
-    "Code_en": "Disrupção por Agentes no Negócio",
-    "Code_es": "Disrupção por Agentes no Negócio"
+    "Code_en": "Disruption by Agents in Business",
+    "Code_es": "Disrupción por parte de los agentes en los negocios"
   },
   {
     "cat_pt": "Dinâmica Financeira",
@@ -828,8 +828,8 @@
     "Description_pt": "Avalie o modelo de preços do SaaS a seguir. Identifique desalinhamentos em relação ao mercado, risco de churn e recomende faixas baseadas em valor de uso real.",
     "Description_es": "Evalúe el modelo de precios de SaaS a continuación. Identifique desajustes en el mercado, riesgo de abandono y recomiende rangos basados ​​en el valor de uso real.",
     "Code_pt": "Auditoria Rápida de Pricing Power",
-    "Code_en": "Auditoria Rápida de Pricing Power",
-    "Code_es": "Auditoria Rápida de Pricing Power"
+    "Code_en": "Power Pricing Quick Audit",
+    "Code_es": "Auditoría rápida de precios de energía"
   },
   {
     "cat_pt": "Dinâmica Financeira",
@@ -841,8 +841,8 @@
     "Description_pt": "Qual é o impacto direto da recente decisão de juros/câmbio sobre [Setor]? Aponte quem ganha, quem perde e quais contratos operacionais devem ser renegociados.",
     "Description_es": "¿Cuál es el impacto directo de la reciente decisión sobre el tipo de interés/cambio en [Sector]? Señale quién gana, quién pierde y qué contratos operativos deberían renegociarse.",
     "Code_pt": "Impacto Macroeconômico Setorial",
-    "Code_en": "Impacto Macroeconômico Setorial",
-    "Code_es": "Impacto Macroeconômico Setorial"
+    "Code_en": "Sectoral Macroeconomic Impact",
+    "Code_es": "Impacto macroeconómico sectorial"
   },
   {
     "cat_pt": "Gestão Operacional",
@@ -854,8 +854,8 @@
     "Description_pt": "Forneça uma rotina sequencial em 7 passos no terminal para diagnosticar perda intermitente de pacotes e latência em rede corporativa com a interpretação de cada comando.",
     "Description_es": "Proporcionar una rutina secuencial de 7 pasos en el terminal para diagnosticar pérdida intermitente de paquetes y latencia en una red corporativa con la interpretación de cada comando.",
     "Code_pt": "Troubleshooting de Redes no Terminal",
-    "Code_en": "Troubleshooting de Redes no Terminal",
-    "Code_es": "Troubleshooting de Redes no Terminal"
+    "Code_en": "Network Troubleshooting in the Terminal",
+    "Code_es": "Solución de problemas de red en la terminal"
   },
   {
     "cat_pt": "Gestão Operacional",
@@ -867,8 +867,8 @@
     "Description_pt": "Resuma as 3 horas do debate recente entre [Pessoa A] e [Pessoa B]. Extraia os 5 pontos de divergência centrais, as concessões feitas e os dados empíricos citados.",
     "Description_es": "Resuma el debate reciente de 3 horas entre [Persona A] y [Persona B]. Extraiga los 5 puntos centrales de desacuerdo, las concesiones hechas y los datos empíricos citados.",
     "Code_pt": "Resumo de Debates Longos",
-    "Code_en": "Resumo de Debates Longos",
-    "Code_es": "Resumo de Debates Longos"
+    "Code_en": "Summary of Long Debates",
+    "Code_es": "Resumen de largos debates"
   },
   {
     "cat_pt": "Gestão Operacional",
@@ -880,8 +880,8 @@
     "Description_pt": "Crie um roteiro de 5 passos para implementar [Ferramenta] em equipe resistente. Foque em ações de baixo atrito, incentivos claros e vitórias rápidas no início do uso.",
     "Description_es": "Cree una hoja de ruta de 5 pasos para implementar [Herramienta] en un equipo resiliente. Concéntrese en acciones de baja fricción, incentivos claros y ganancias rápidas al inicio del uso.",
     "Code_pt": "Roteiro de Implementação sem Atrito",
-    "Code_en": "Roteiro de Implementação sem Atrito",
-    "Code_es": "Roteiro de Implementação sem Atrito"
+    "Code_en": "Frictionless Implementation Roadmap",
+    "Code_es": "Hoja de ruta de implementación sin fricciones"
   },
   {
     "cat_pt": "Gestão Operacional",
@@ -893,8 +893,8 @@
     "Description_pt": "Converta este portfólio de serviços em um pitch de 45 segundos. Elimine adjetivos abstratos e foque estritamente em retorno de investimento, redução de tempo e garantias.",
     "Description_es": "Convierta esta cartera de servicios en un discurso de 45 segundos. Elimina adjetivos abstractos y céntrate estrictamente en el retorno de la inversión, la reducción de tiempos y las garantías.",
     "Code_pt": "Pitch de Vendas Direto e Enxuto",
-    "Code_en": "Pitch de Vendas Direto e Enxuto",
-    "Code_es": "Pitch de Vendas Direto e Enxuto"
+    "Code_en": "Direct and Lean Sales Pitch",
+    "Code_es": "Argumento de venta directo y eficiente"
   },
   {
     "cat_pt": "Gestão Operacional",
@@ -906,8 +906,8 @@
     "Description_pt": "Escreva um comunicado de crise sobre [Incidente]. Assuma a responsabilidade diretamente, exponha os fatos verificáveis em linha do tempo e detalhe as mitigações sem tentar suavizar.",
     "Description_es": "Escriba una declaración de crisis sobre [Incidente]. Asumir la responsabilidad directamente, indicar hechos verificables en un cronograma y detallar las mitigaciones sin tratar de endulzar.",
     "Code_pt": "Comunicação de Crise Transparente",
-    "Code_en": "Comunicação de Crise Transparente",
-    "Code_es": "Comunicação de Crise Transparente"
+    "Code_en": "Transparent Crisis Communication",
+    "Code_es": "Comunicación transparente de crisis"
   },
   {
     "cat_pt": "Resolução de Problemas",
@@ -919,8 +919,8 @@
     "Description_pt": "Compare [Opção A] contra [Opção B] para [Tipo de Carga]. Apresente custo/desempenho bruto, eficiência energética, gargalos de expansão e veredito sem hesitação.",
     "Description_es": "Compare [Opción A] versus [Opción B] para [Tipo de carga]. Presente el costo/rendimiento bruto, la eficiencia energética, los obstáculos a la expansión y el veredicto sin dudarlo.",
     "Code_pt": "Comparativo Radical de Hardware",
-    "Code_en": "Comparativo Radical de Hardware",
-    "Code_es": "Comparativo Radical de Hardware"
+    "Code_en": "Radical Hardware Comparison",
+    "Code_es": "Comparación radical de hardware"
   },
   {
     "cat_pt": "Resolução de Problemas",
@@ -932,8 +932,8 @@
     "Description_pt": "Explique os dois lados da polêmica envolvendo [Empresa/Regulador]. Exponha os argumentos técnicos e econômicos de cada parte sem viés e aponte o desfecho mais provável.",
     "Description_es": "Explique los dos lados de la controversia que involucra a [Empresa/Regulador]. Presentar los argumentos técnicos y económicos de cada parte sin sesgos y señalar el resultado más probable.",
     "Code_pt": "Desconstrução de Controvérsias",
-    "Code_en": "Desconstrução de Controvérsias",
-    "Code_es": "Desconstrução de Controvérsias"
+    "Code_en": "Deconstruction of Controversies",
+    "Code_es": "Deconstrucción de controversias"
   },
   {
     "cat_pt": "Resolução de Problemas",
@@ -945,8 +945,8 @@
     "Description_pt": "Explique a vulnerabilidade [Nome do Incidente/CVE] em 3 parágrafos diretos: mecanismo de exploração, sistemas impactados e o procedimento exato de remediação.",
     "Description_es": "Explique la vulnerabilidad de [Nombre del incidente/CVE] en 3 párrafos sencillos: mecanismo de explotación, sistemas afectados y procedimiento de reparación exacto.",
     "Code_pt": "Diagnóstico Técnico Direto",
-    "Code_en": "Diagnóstico Técnico Direto",
-    "Code_es": "Diagnóstico Técnico Direto"
+    "Code_en": "Direct Technical Diagnosis",
+    "Code_es": "Diagnóstico Técnico Directo"
   },
   {
     "cat_pt": "Resolução de Problemas",
@@ -958,8 +958,8 @@
     "Description_pt": "Analise a página de vendas abaixo. Aponte termos vazios, promessas infladas e reescreva o texto com clareza factual, mostrando o que o produto realmente entrega.",
     "Description_es": "Revise la página de ventas a continuación. Señale términos vacíos, promesas infladas y reescriba el texto con claridad fáctica, mostrando lo que realmente ofrece el producto.",
     "Code_pt": "Detecção de Jargão Vazio em Vendas",
-    "Code_en": "Detecção de Jargão Vazio em Vendas",
-    "Code_es": "Detecção de Jargão Vazio em Vendas"
+    "Code_en": "Empty Jargon Detection in Sales",
+    "Code_es": "Detección de jerga vacía en ventas"
   },
   {
     "cat_pt": "Resolução de Problemas",
@@ -971,8 +971,8 @@
     "Description_pt": "Apresento a ideia: [Ideia]. Aponte sem filtros por que ela falharia nos primeiros 12 meses, avaliando barreiras de entrada, atrito de adoção e custos operacionais.",
     "Description_es": "Les presento la idea: [Idea]. Señalar sin filtros por qué fracasaría en los primeros 12 meses, evaluando barreras de entrada, fricciones de adopción y costos operativos.",
     "Code_pt": "Reality Check de Ideia de Negócio",
-    "Code_en": "Reality Check de Ideia de Negócio",
-    "Code_es": "Reality Check de Ideia de Negócio"
+    "Code_en": "Business Idea Reality Check",
+    "Code_es": "Verificación de la realidad de la idea de negocio"
   },
   {
     "cat_pt": "Inteligência de Mercado",
@@ -984,8 +984,8 @@
     "Description_pt": "Disseque a narrativa viral recente sobre [Tópico]. Quais contas deram origem ao debate, quais os interesses comerciais associados e qual a repercussão prática no setor?",
     "Description_es": "Analice la narrativa viral reciente sobre [Tema]. ¿Qué relatos dieron lugar al debate, cuáles son los intereses comerciales asociados y cuáles son las repercusiones prácticas en el sector?",
     "Code_pt": "Desconstrução de Tendências Virais",
-    "Code_en": "Desconstrução de Tendências Virais",
-    "Code_es": "Desconstrução de Tendências Virais"
+    "Code_en": "Deconstruction of Viral Trends",
+    "Code_es": "Deconstrucción de tendencias virales"
   },
   {
     "cat_pt": "Inteligência de Mercado",
@@ -997,8 +997,8 @@
     "Description_pt": "Monitore os desenvolvimentos em [Área] nesta semana. Descarte opiniões e resuma apenas mudanças regulatórias, quebras de protocolos de segurança e repositórios open-source reais.",
     "Description_es": "Supervise los acontecimientos en [Área] esta semana. Descarta opiniones y resume solo cambios regulatorios, violaciones de protocolos de seguridad y repositorios reales de código abierto.",
     "Code_pt": "Curadoria Técnica sem Sensacionalismo",
-    "Code_en": "Curadoria Técnica sem Sensacionalismo",
-    "Code_es": "Curadoria Técnica sem Sensacionalismo"
+    "Code_en": "Technical Curation without Sensationalism",
+    "Code_es": "Curación técnica sin sensacionalismo"
   },
   {
     "cat_pt": "Inteligência de Mercado",
@@ -1010,8 +1010,8 @@
     "Description_pt": "Quais foram os movimentos, lançamentos e polêmicas envolvendo [Concorrente A] e [Concorrente B] nos últimos 30 dias? Apresente um comparativo direto sem rodeios.",
     "Description_es": "¿Cuáles fueron los movimientos, lanzamientos y controversias que involucraron al [Competidor A] y al [Competidor B] en los últimos 30 días? Presente una comparación directa sin andarse con rodeos.",
     "Code_pt": "Rastreamento Concorrencial",
-    "Code_en": "Rastreamento Concorrencial",
-    "Code_es": "Rastreamento Concorrencial"
+    "Code_en": "Competitor Tracking",
+    "Code_es": "Seguimiento de la competencia"
   },
   {
     "cat_pt": "Inteligência de Mercado",
@@ -1023,8 +1023,8 @@
     "Description_pt": "Avalie o estágio real de adoção da tecnologia [Nome]. Aponte se está restrita ao hype ou se tem uso consolidado em produção, indicando métricas e evidências tangíveis.",
     "Description_es": "Evaluar la etapa actual de adopción de la tecnología de [Nombre]. Indique si se limita a la exageración o si tiene un uso consolidado en producción, indicando métricas y evidencia tangible.",
     "Code_pt": "Análise de Tração e Hype",
-    "Code_en": "Análise de Tração e Hype",
-    "Code_es": "Análise de Tração e Hype"
+    "Code_en": "Traction and Hype Analysis",
+    "Code_es": "Análisis de tracción y exageración"
   },
   {
     "cat_pt": "Inteligência de Mercado",
@@ -1036,8 +1036,8 @@
     "Description_pt": "Analise o sentimento público e as principais discussões sobre [Tópico] nas últimas 48 horas. Separe o ruído promocional das críticas técnicas e posicionamentos consistentes.",
     "Description_es": "Analice el sentimiento del público y las principales discusiones sobre [Tema] durante las últimas 48 horas. Separe el ruido promocional de la crítica técnica y del posicionamiento consistente.",
     "Code_pt": "Monitoramento de Sentimento Real-Time",
-    "Code_en": "Monitoramento de Sentimento Real-Time",
-    "Code_es": "Monitoramento de Sentimento Real-Time"
+    "Code_en": "Real-Time Sentiment Monitoring",
+    "Code_es": "Monitoreo de sentimiento en tiempo real"
   },
   {
     "cat_pt": "Pesquisa Hermenêutica",
@@ -1049,8 +1049,8 @@
     "Description_pt": "Desenvolva o guia de integração para um novo [Função Técnica]. Estruture a trilha de 30, 60 e 90 dias com ferramentas, acessos necessários e critérios objetivos de autonomia.",
     "Description_es": "Desarrollar la guía de incorporación para un nuevo [Rol Técnico]. Estructurar el recorrido de 30, 60 y 90 días con herramientas, accesos necesarios y criterios objetivos de autonomía.",
     "Code_pt": "Manual de Onboarding Operacional",
-    "Code_en": "Manual de Onboarding Operacional",
-    "Code_es": "Manual de Onboarding Operacional"
+    "Code_en": "Operational Onboarding Manual",
+    "Code_es": "Manual de incorporación operativa"
   },
   {
     "cat_pt": "Pesquisa Hermenêutica",
@@ -1062,8 +1062,8 @@
     "Description_pt": "Desenvolva uma tese a favor e uma antítese contra a premissa: [Premissa]. Construa uma síntese integradora que preserve os pontos fortes de ambos os lados e elimine suas fraquezas.",
     "Description_es": "Desarrollar una tesis a favor y una antítesis en contra de la premisa: [Premisa]. Construir una síntesis integradora que preserve las fortalezas de ambas partes y elimine sus debilidades.",
     "Code_pt": "Argumentação Dialética e Síntese",
-    "Code_en": "Argumentação Dialética e Síntese",
-    "Code_es": "Argumentação Dialética e Síntese"
+    "Code_en": "Dialectical Argumentation and Synthesis",
+    "Code_es": "Argumentación y síntesis dialéctica"
   },
   {
     "cat_pt": "Pesquisa Hermenêutica",
@@ -1075,8 +1075,8 @@
     "Description_pt": "Construa uma matriz de riscos para a iniciativa [Iniciativa]. Defina probabilidade, impacto, gatilhos de alerta precoce e planos de contingência detalhados para cada risco identificado.",
     "Description_es": "Construir una matriz de riesgos para la iniciativa [Iniciativa]. Definir probabilidad, impacto, desencadenantes de alerta temprana y planes de contingencia detallados para cada riesgo identificado.",
     "Code_pt": "Matriz de Riscos Operacionais",
-    "Code_en": "Matriz de Riscos Operacionais",
-    "Code_es": "Matriz de Riscos Operacionais"
+    "Code_en": "Operational Risk Matrix",
+    "Code_es": "Matriz de Riesgo Operacional"
   },
   {
     "cat_pt": "Pesquisa Hermenêutica",
@@ -1088,8 +1088,8 @@
     "Description_pt": "Traduza o artigo acadêmico anexo para um texto compreensível por tomadores de decisão não técnicos, mantendo a precisão dos conceitos sem banalizá-los com analogias infantis.",
     "Description_es": "Traducir el artículo académico adjunto a un texto comprensible para tomadores de decisiones no técnicos, manteniendo la precisión de los conceptos sin trivializarlos con analogías infantiles.",
     "Code_pt": "Desconstrução de Jargão Técnico",
-    "Code_en": "Desconstrução de Jargão Técnico",
-    "Code_es": "Desconstrução de Jargão Técnico"
+    "Code_en": "Deconstruction of Technical Jargon",
+    "Code_es": "Deconstrucción de la jerga técnica"
   },
   {
     "cat_pt": "Pesquisa Hermenêutica",
@@ -1101,8 +1101,8 @@
     "Description_pt": "Sintetize as abordagens teóricas descritas nos textos anexos. Isole convergências, divergências metodológicas e avalie a aplicabilidade prática em ambientes de alta volatilidade.",
     "Description_es": "Sintetizar los enfoques teóricos descritos en los textos adjuntos. Aislar convergencias, divergencias metodológicas y evaluar la aplicabilidad práctica en entornos de alta volatilidad.",
     "Code_pt": "Análise Comparativa de Literatura",
-    "Code_en": "Análise Comparativa de Literatura",
-    "Code_es": "Análise Comparativa de Literatura"
+    "Code_en": "Comparative Literature Analysis",
+    "Code_es": "Análisis comparativo de la literatura"
   },
   {
     "cat_pt": "Redação Estratégica",
@@ -1114,8 +1114,8 @@
     "Description_pt": "Elabore uma proposta comercial técnica formal para [Serviço]. Estruture em: diagnóstico atual, escopo detalhado, cronograma em marcos, modelo de investimento e premissas.",
     "Description_es": "Desarrollar una propuesta comercial técnica formal para [Servicio]. Estructurar en: diagnóstico actual, alcance detallado, cronograma de hitos, modelo de inversión y supuestos.",
     "Code_pt": "Proposta Comercial Técnica B2B",
-    "Code_en": "Proposta Comercial Técnica B2B",
-    "Code_es": "Proposta Comercial Técnica B2B"
+    "Code_en": "B2B Technical Commercial Proposal",
+    "Code_es": "Propuesta Técnico Comercial B2B"
   },
   {
     "cat_pt": "Redação Estratégica",
@@ -1127,8 +1127,8 @@
     "Description_pt": "Construa um relatório post-mortem sem culpa para o incidente descrito. Estruture em: linha do tempo, impacto no usuário, gatilho, fatores contribuintes e ações preventivas.",
     "Description_es": "Elaborar un informe post-mortem exento de culpa sobre el incidente descrito. Estructurar en: cronograma, impacto en el usuario, desencadenante, factores contribuyentes y acciones preventivas.",
     "Code_pt": "Relatório Pós-Incidente Blameless",
-    "Code_en": "Relatório Pós-Incidente Blameless",
-    "Code_es": "Relatório Pós-Incidente Blameless"
+    "Code_en": "Blameless Post-Incident Report",
+    "Code_es": "Informe posterior al incidente sin culpa"
   },
   {
     "cat_pt": "Redação Estratégica",
@@ -1140,8 +1140,8 @@
     "Description_pt": "Escreva um e-mail de negociação para [Situação]. O tom deve ser colaborativo, transparente, firme em relação aos limites operacionais e focado em valor mútuo.",
     "Description_es": "Escriba un correo electrónico de negociación a [Situación]. El tono debe ser colaborativo, transparente, firme en los límites operativos y centrado en el valor mutuo.",
     "Code_pt": "Carta de Negociação de Alto Impacto",
-    "Code_en": "Carta de Negociação de Alto Impacto",
-    "Code_es": "Carta de Negociação de Alto Impacto"
+    "Code_en": "High Impact Negotiation Charter",
+    "Code_es": "Carta de negociación de alto impacto"
   },
   {
     "cat_pt": "Redação Estratégica",
@@ -1153,8 +1153,8 @@
     "Description_pt": "Redija uma política corporativa sobre [Tema]. Use linguagem formal e inequívoca, incluindo escopo, comportamentos proibidos, custódia de dados, auditoria e sanções disciplinares.",
     "Description_es": "Escriba una política corporativa sobre [Tema]. Utilice un lenguaje formal e inequívoco, incluido el alcance, las conductas prohibidas, la custodia de datos, la auditoría y las sanciones disciplinarias.",
     "Code_pt": "Política de Compliance e Governança",
-    "Code_en": "Política de Compliance e Governança",
-    "Code_es": "Política de Compliance e Governança"
+    "Code_en": "Compliance and Governance Policy",
+    "Code_es": "Política de cumplimiento y gobernanza"
   },
   {
     "cat_pt": "Redação Estratégica",
@@ -1167,7 +1167,7 @@
     "Description_es": "Prepare un ADR formal para [Decisión Técnica]. A continuación: título, contexto, factores que impulsan la decisión, opciones consideradas, decisión elegida y consecuencias.",
     "Code_pt": "Architecture Decision Record (ADR)",
     "Code_en": "Architecture Decision Record (ADR)",
-    "Code_es": "Architecture Decision Record (ADR)"
+    "Code_es": "Registro de decisiones de arquitectura (ADR)"
   },
   {
     "cat_pt": "Arquitetura de Software",
@@ -1179,8 +1179,8 @@
     "Description_pt": "Analise o diff do Git fornecido. Avalie legibilidade, desempenho, retrocompatibilidade e testes. Forneça comentários no padrão de revisão sênior categorizados por criticidade.",
     "Description_es": "Analice la diferencia de Git proporcionada. Evalúe la legibilidad, el rendimiento, la compatibilidad con versiones anteriores y las pruebas. Proporcione comentarios sobre el estándar de revisión senior clasificados por criticidad.",
     "Code_pt": "Revisão de Pull Request Crítica",
-    "Code_en": "Revisão de Pull Request Crítica",
-    "Code_es": "Revisão de Pull Request Crítica"
+    "Code_en": "Critical Pull Request Review",
+    "Code_es": "Revisión de solicitud de extracción crítica"
   },
   {
     "cat_pt": "Arquitetura de Software",
@@ -1192,8 +1192,8 @@
     "Description_pt": "Migre o script procedural de [Linguagem A] para uma arquitetura modular concorrente e assíncrona em [Linguagem B], garantindo gerenciamento correto de conexões.",
     "Description_es": "Migrar secuencias de comandos de procedimientos desde [Idioma A] a una arquitectura modular concurrente y asincrónica en [Idioma B], asegurando una correcta gestión de la conexión.",
     "Code_pt": "Migração de Paradigmas de Código",
-    "Code_en": "Migração de Paradigmas de Código",
-    "Code_es": "Migração de Paradigmas de Código"
+    "Code_en": "Code Paradigm Migration",
+    "Code_es": "Migración de paradigma de código"
   },
   {
     "cat_pt": "Arquitetura de Software",
@@ -1205,8 +1205,8 @@
     "Description_pt": "Execute uma revisão de segurança focada nas vulnerabilidades OWASP Top 10 no snippet a seguir. Identifique pontos de injeção, falhas de sanitização e forneça o código remediado.",
     "Description_es": "Realice una revisión de seguridad centrada en las 10 vulnerabilidades principales de OWASP en el siguiente fragmento. Identifique puntos de inyección, fallas de desinfección y proporcione código solucionado.",
     "Code_pt": "Auditoria de Segurança (SAST)",
-    "Code_en": "Auditoria de Segurança (SAST)",
-    "Code_es": "Auditoria de Segurança (SAST)"
+    "Code_en": "Security Audit (SAST)",
+    "Code_es": "Auditoría de seguridad (SAST)"
   },
   {
     "cat_pt": "Arquitetura de Software",
@@ -1218,8 +1218,8 @@
     "Description_pt": "Escreva uma suíte exaustiva de testes unitários para a função abaixo. Cubra: caminho feliz, casos nulos, inputs malformados, condições de corrida e limites extremos.",
     "Description_es": "Escriba un conjunto exhaustivo de pruebas unitarias para la siguiente función. Portada: camino feliz, casos nulos, entradas mal formadas, condiciones de carrera y límites extremos.",
     "Code_pt": "Geração de Testes Unitários (TDD)",
-    "Code_en": "Geração de Testes Unitários (TDD)",
-    "Code_es": "Geração de Testes Unitários (TDD)"
+    "Code_en": "Unit Test Generation (TDD)",
+    "Code_es": "Generación de pruebas unitarias (TDD)"
   },
   {
     "cat_pt": "Arquitetura de Software",
@@ -1231,8 +1231,8 @@
     "Description_pt": "Atue como Arquiteto de Software Principal. Analise a base de código abaixo. Reescreva-a desacoplando responsabilidades, aplicando os princípios SOLID e documente as escolhas arquiteturais.",
     "Description_es": "Servir como arquitecto principal de software. Revise el código base a continuación. Reescríbalo desacoplando responsabilidades, aplicando principios SÓLIDOS y documentando opciones arquitectónicas.",
     "Code_pt": "Refatoração Arquitetural SOLID",
-    "Code_en": "Refatoração Arquitetural SOLID",
-    "Code_es": "Refatoração Arquitetural SOLID"
+    "Code_en": "SOLID Architectural Refactoring",
+    "Code_es": "Refactorización arquitectónica SOLID"
   },
   {
     "cat_pt": "Raciocínio Analítico",
@@ -1244,8 +1244,8 @@
     "Description_pt": "Aplique o método dos 5 Porquês para o incidente [Falha]. Em cada iteração, valide se o encadeamento causal é necessário e suficiente antes de passar ao próximo nível.",
     "Description_es": "Aplique el método de los 5 porqués al incidente [Fallo]. En cada iteración, valide que la cadena causal sea necesaria y suficiente antes de pasar al siguiente nivel.",
     "Code_pt": "Causa Raiz pelos 5 Porquês",
-    "Code_en": "Causa Raiz pelos 5 Porquês",
-    "Code_es": "Causa Raiz pelos 5 Porquês"
+    "Code_en": "Root Cause by 5 Whys",
+    "Code_es": "Causa raíz por 5 porqués"
   },
   {
     "cat_pt": "Raciocínio Analítico",
@@ -1257,8 +1257,8 @@
     "Description_pt": "Examine a proposta anexa. Identifique instâncias de viés de confirmação, falácia de custos irrecuperáveis e excesso de confiança no cronograma, sugerindo modificações de contenção.",
     "Description_es": "Por favor revise la propuesta adjunta. Identifique casos de sesgo de confirmación, falacia de costos hundidos y exceso de confianza en el cronograma y sugiera modificaciones de contención.",
     "Code_pt": "Auditoria de Viés Cognitivo",
-    "Code_en": "Auditoria de Viés Cognitivo",
-    "Code_es": "Auditoria de Viés Cognitivo"
+    "Code_en": "Cognitive Bias Audit",
+    "Code_es": "Auditoría de sesgo cognitivo"
   },
   {
     "cat_pt": "Raciocínio Analítico",
@@ -1270,8 +1270,8 @@
     "Description_pt": "Compare as opções técnicas [Opção A vs Opção B]. Estruture uma matriz de decisão ponderando: custo inicial, débito técnico futuro, facilidade de manutenção e risco de lock-in.",
     "Description_es": "Compare las opciones técnicas [Opción A vs Opción B]. Estructurar una matriz de decisiones considerando: costo inicial, deuda técnica futura, facilidad de mantenimiento y riesgo de bloqueo.",
     "Code_pt": "Avaliação de Trade-offs com Decisão",
-    "Code_en": "Avaliação de Trade-offs com Decisão",
-    "Code_es": "Avaliação de Trade-offs com Decisão"
+    "Code_en": "Evaluation of Trade-offs with Decision",
+    "Code_es": "Evaluación de compensaciones con decisión"
   },
   {
     "cat_pt": "Raciocínio Analítico",
@@ -1283,8 +1283,8 @@
     "Description_pt": "Assuma a postura de um avaliador cético para a estratégia [Estratégia]. Aponte falhas lógicas, vulnerabilidades operacionais, riscos de execução e premissas orçamentárias frágeis.",
     "Description_es": "Asumir la postura de un evaluador escéptico ante la estrategia [Estrategia]. Señale fallas lógicas, vulnerabilidades operativas, riesgos de ejecución y supuestos presupuestarios débiles.",
     "Code_pt": "Advogado do Diabo Estratégico",
-    "Code_en": "Advogado do Diabo Estratégico",
-    "Code_es": "Advogado do Diabo Estratégico"
+    "Code_en": "Strategic Devil's Advocate",
+    "Code_es": "Abogado del diablo estratégico"
   },
   {
     "cat_pt": "Raciocínio Analítico",
@@ -1296,8 +1296,8 @@
     "Description_pt": "Desmonte o seguinte dilema de negócio aos seus primeiros princípios fundamentais: [Problema]. Isole premissas herdadas de fatos irredutíveis e proponha 3 abordagens reconstruídas dessas bases.",
     "Description_es": "Desglose el siguiente dilema empresarial hasta sus primeros principios fundamentales: [Problema]. Aislar premisas heredadas de hechos irreductibles y proponer 3 enfoques reconstruidos a partir de estas bases.",
     "Code_pt": "Análise por Primeiros Princípios",
-    "Code_en": "Análise por Primeiros Princípios",
-    "Code_es": "Análise por Primeiros Princípios"
+    "Code_en": "First Principles Analysis",
+    "Code_es": "Análisis de los primeros principios"
   },
   {
     "cat_pt": "Engenharia de Software",
@@ -1309,8 +1309,8 @@
     "Description_pt": "Com base nas rotas e payloads descritos, gere a especificação completa em formato OpenAPI 3.0 (YAML) com autenticação, parâmetros de rota, payloads e códigos HTTP.",
     "Description_es": "Con base en las rutas y cargas útiles descritas, genere la especificación completa en formato OpenAPI 3.0 (YAML) con autenticación, parámetros de ruta, cargas útiles y códigos HTTP.",
     "Code_pt": "Documentação OpenAPI/Swagger",
-    "Code_en": "Documentação OpenAPI/Swagger",
-    "Code_es": "Documentação OpenAPI/Swagger"
+    "Code_en": "OpenAPI/Swagger Documentation",
+    "Code_es": "Documentación de OpenAPI/Swagger"
   },
   {
     "cat_pt": "Engenharia de Software",
@@ -1322,8 +1322,8 @@
     "Description_pt": "Otimize a consulta SQL complexa a seguir. Avalie planos de execução, elimine subconsultas redundantes através de CTEs e sugira índices recomendados para as tabelas.",
     "Description_es": "Optimice la siguiente consulta SQL compleja. Evalúe planes de ejecución, elimine subconsultas redundantes a través de CTE y sugiera índices recomendados para tablas.",
     "Code_pt": "Conversão e Otimização de SQL",
-    "Code_en": "Conversão e Otimização de SQL",
-    "Code_es": "Conversão e Otimização de SQL"
+    "Code_en": "SQL Conversion and Optimization",
+    "Code_es": "Conversión y optimización de SQL"
   },
   {
     "cat_pt": "Engenharia de Software",
@@ -1335,8 +1335,8 @@
     "Description_pt": "Crie uma expressão regular robusta para capturar e validar [Formato de Dado]. Forneça exemplos de correspondência positiva, casos de borda e explicação de cada token.",
     "Description_es": "Cree una expresión regular sólida para capturar y validar [Formato de datos]. Proporcione ejemplos de coincidencias positivas, casos extremos y explicaciones de cada token.",
     "Code_pt": "Regex Complexo com Explicação",
-    "Code_en": "Regex Complexo com Explicação",
-    "Code_es": "Regex Complexo com Explicação"
+    "Code_en": "Complex Regex with Explanation",
+    "Code_es": "Regex compleja con explicación"
   },
   {
     "cat_pt": "Engenharia de Software",
@@ -1348,8 +1348,8 @@
     "Description_pt": "Escreva um script Google Apps Script que leia o Google Sheets, filtre linhas com status Pendente, gere um documento formatado e envie e-mail de alerta via Gmail.",
     "Description_es": "Escriba una secuencia de comandos de Google Apps Script que lea Google Sheets, filtre filas con estado Pendiente, genere un documento formateado y envíe alertas por correo electrónico a través de Gmail.",
     "Code_pt": "Scripts em Google Apps Script",
-    "Code_en": "Scripts em Google Apps Script",
-    "Code_es": "Scripts em Google Apps Script"
+    "Code_en": "Scripts in Google Apps Script",
+    "Code_es": "Secuencias de comandos en Google Apps Script"
   },
   {
     "cat_pt": "Engenharia de Software",
@@ -1361,8 +1361,8 @@
     "Description_pt": "Analise o script Python abaixo. Identifique complexidade ciclomática e gargalos de memória. Refatore aplicando boas práticas (PEP 8, type hints, tratamento robusto de erros) e Big-O.",
     "Description_es": "Revise el script de Python a continuación. Identificar la complejidad ciclomática y los cuellos de botella de la memoria. Refactorizar aplicando buenas prácticas (PEP 8, sugerencias de tipo, manejo robusto de errores) y Big-O.",
     "Code_pt": "Refatoração com Foco em Performance",
-    "Code_en": "Refatoração com Foco em Performance",
-    "Code_es": "Refatoração com Foco em Performance"
+    "Code_en": "Performance-Focused Refactoring",
+    "Code_es": "Refactorización centrada en el rendimiento"
   },
   {
     "cat_pt": "Pesquisa e Conteúdo",
@@ -1374,8 +1374,8 @@
     "Description_pt": "Desenvolva um módulo de treinamento de 30 minutos sobre [Tecnologia]. Inclua: roteiro do instrutor, analogias funcionais, pontos de parada para perguntas e quiz prático com gabarito.",
     "Description_es": "Desarrollar un módulo de capacitación de 30 minutos sobre [Tecnología]. Incluye: guión del instructor, analogías funcionales, puntos de parada para preguntas y cuestionario práctico con clave de respuestas.",
     "Code_pt": "Roteirização de Treinamento Técnico",
-    "Code_en": "Roteirização de Treinamento Técnico",
-    "Code_es": "Roteirização de Treinamento Técnico"
+    "Code_en": "Technical Training Routing",
+    "Code_es": "Enrutamiento de capacitación técnica"
   },
   {
     "cat_pt": "Pesquisa e Conteúdo",
@@ -1387,8 +1387,8 @@
     "Description_pt": "Construa um briefing detalhado para campanha técnica em [Segmento] contendo: personas de compra, dores operacionais primárias, propostas de valor diferenciadas e métricas-chave.",
     "Description_es": "Cree un resumen detallado para una campaña técnica en [Segmento] que contenga: personas compradoras, principales puntos débiles operativos, propuestas de valor diferenciadas y métricas clave.",
     "Code_pt": "Briefing de Criação Orientado a Dados",
-    "Code_en": "Briefing de Criação Orientado a Dados",
-    "Code_es": "Briefing de Criação Orientado a Dados"
+    "Code_en": "Data-Driven Creative Briefing",
+    "Code_es": "Informe creativo basado en datos"
   },
   {
     "cat_pt": "Pesquisa e Conteúdo",
@@ -1400,8 +1400,8 @@
     "Description_pt": "Com base na documentação técnica do produto [Nome], construa uma base de conhecimento em formato FAQ dividida em níveis de complexidade (L1, L2, L3).",
     "Description_es": "A partir de la documentación técnica del producto [Nombre], construir una base de conocimiento en formato FAQ dividida en niveles de complejidad (L1, L2, L3).",
     "Code_pt": "FAQ Dinâmica para Suporte",
-    "Code_en": "FAQ Dinâmica para Suporte",
-    "Code_es": "FAQ Dinâmica para Suporte"
+    "Code_en": "Dynamic FAQ for Support",
+    "Code_es": "Preguntas frecuentes dinámicas sobre soporte"
   },
   {
     "cat_pt": "Pesquisa e Conteúdo",
@@ -1413,8 +1413,8 @@
     "Description_pt": "Transforme o estudo de caso anexo em 3 ativos: 1) Um memorando técnico para liderança; 2) Um artigo de lições aprendidas interno; 3) Um roteiro em tópicos para apresentação.",
     "Description_es": "Transforme el estudio de caso adjunto en 3 activos: 1) Una nota técnica para el liderazgo; 2) Un artículo interno sobre lecciones aprendidas; 3) Un guión temático para la presentación.",
     "Code_pt": "Adaptação Multicanal de Conteúdo",
-    "Code_en": "Adaptação Multicanal de Conteúdo",
-    "Code_es": "Adaptação Multicanal de Conteúdo"
+    "Code_en": "Multichannel Content Adaptation",
+    "Code_es": "Adaptación de contenidos multicanal"
   },
   {
     "cat_pt": "Pesquisa e Conteúdo",
@@ -1426,8 +1426,8 @@
     "Description_pt": "Faça uma varredura de mercado exaustiva sobre [Setor]. Liste os 5 principais players, seus diferenciais competitivos, modelo de precificação e lacunas deixadas em aberto.",
     "Description_es": "Realice un análisis exhaustivo del mercado en [Sector]. Enumere los cinco principales actores, sus diferenciadores competitivos, el modelo de precios y las brechas que quedan abiertas.",
     "Code_pt": "Análise de Panorama Competitivo",
-    "Code_en": "Análise de Panorama Competitivo",
-    "Code_es": "Análise de Panorama Competitivo"
+    "Code_en": "Competitive Landscape Analysis",
+    "Code_es": "Análisis del panorama competitivo"
   },
   {
     "cat_pt": "Análise de Dados",
@@ -1439,7 +1439,7 @@
     "Description_pt": "Realize uma verificação factual exaustiva deste artigo técnico. Destaque afirmações sem evidências empíricas, premissas desatualizadas e reescreva os trechos problemáticos.",
     "Description_es": "Realice una verificación exhaustiva de los hechos de este artículo técnico. Resalte afirmaciones sin evidencia empírica, premisas obsoletas y reescriba pasajes problemáticos.",
     "Code_pt": "Varredura Factual e Validação Cruzada",
-    "Code_en": "Varredura Factual e Validação Cruzada",
+    "Code_en": "Factual Scanning and Cross Validation",
     "Code_es": "Escaneo fáctico y validación cruzada"
   },
   {
