@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-PT">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="../js/global.js"></script>
     <style>
+        /* TEMA PROFISSIONAL (CHAMA VIOLETA) */
         :root {
             --bg-main: #13111c; 
             --bg-card: #1c1a27; 
@@ -17,6 +18,7 @@
             --accent-glow: rgba(167, 139, 250, 0.25);
             --border: #35314d;
             
+            /* Cores específicas por IA (Suaves) */
             --gemini: #a78bfa;
             --claude: #f59e0b;
             --grok: #ef4444;
@@ -25,9 +27,14 @@
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
-        body { background-color: var(--bg-main); color: var(--text-primary); padding-bottom: 60px; }
+        body { background-color: var(--bg-main); color: var(--text-primary); padding-bottom: 60px; position: relative; }
 
-        header { text-align: center; padding: 50px 20px 30px; }
+        /* BOTÃO VOLTAR */
+        .back-btn { position: absolute; top: 24px; left: 24px; display: flex; align-items: center; gap: 8px; color: var(--text-secondary); text-decoration: none; font-weight: 600; font-size: 0.95rem; transition: color 0.2s ease; z-index: 100; }
+        .back-btn:hover { color: var(--accent); }
+        .back-btn svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+
+        header { text-align: center; padding: 60px 20px 30px; }
         h1 { font-size: 2.6rem; font-weight: 800; background: linear-gradient(180deg, #ffffff 0%, var(--text-secondary) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: -1px; margin-bottom: 8px; }
         p.subtitle { color: var(--text-secondary); font-size: 1.05rem; }
 
@@ -68,9 +75,19 @@
 
         .toast { position: fixed; bottom: 24px; right: 24px; background: var(--accent); color: #13111c; padding: 14px 24px; border-radius: 8px; font-weight: 600; transform: translateY(100px); opacity: 0; transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55); z-index: 1000; box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
         .toast.show { transform: translateY(0); opacity: 1; }
+
+        @media (max-width: 768px) {
+            .back-btn { top: 16px; left: 16px; }
+            header { padding: 60px 20px 20px; }
+        }
     </style>
 </head>
 <body>
+
+    <a href="../index.html" class="back-btn" id="ui-back">
+        <svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Voltar
+    </a>
 
     <header>
         <h1>MEGA PROMPTS</h1>
@@ -117,16 +134,16 @@
     </div>
 
     <div class="grid" id="gridContainer"></div>
-    <div id="toast" class="toast">Copiado! Pressione Ctrl+V na IA.</div>
+    <div id="toast" class="toast">Copiado! Cole no seu ecrã da IA.</div>
 
     <script>
         let promptsDB = [];
         let currentLang = (typeof getGlobalLang === 'function') ? getGlobalLang() : 'pt';
 
         const uiTexts = {
-            pt: { subtitle: "Biblioteca Avançada de Comandos", search: "Pesquisar prompt ou palavra-chave...", allCats: "Todas as Áreas", copy: "Copiar", send: "Enviar à IA", lblSearch: "Pesquisa", lblCat: "Categoria", lblAi: "Filtrar por IA", lblSend: "Enviar para" },
-            en: { subtitle: "Advanced Command Library", search: "Search prompt or keyword...", allCats: "All Areas", copy: "Copy", send: "Send to AI", lblSearch: "Search", lblCat: "Category", lblAi: "Filter by AI", lblSend: "Send to" },
-            es: { subtitle: "Biblioteca Avanzada de Comandos", search: "Buscar prompt o palabra clave...", allCats: "Todas las Áreas", copy: "Copiar", send: "Enviar a la IA", lblSearch: "Búsqueda", lblCat: "Categoría", lblAi: "Filtrar por IA", lblSend: "Enviar a" }
+            pt: { subtitle: "Biblioteca Avançada de Comandos", search: "Pesquisar prompt ou palavra-chave...", allCats: "Todas as Áreas", copy: "Copiar", send: "Enviar à IA", lblSearch: "Pesquisa", lblCat: "Categoria", lblAi: "Filtrar por IA", lblSend: "Enviar para", back: "Voltar" },
+            en: { subtitle: "Advanced Command Library", search: "Search prompt or keyword...", allCats: "All Areas", copy: "Copy", send: "Send to AI", lblSearch: "Search", lblCat: "Category", lblAi: "Filter by AI", lblSend: "Send to", back: "Back" },
+            es: { subtitle: "Biblioteca Avanzada de Comandos", search: "Buscar prompt o palabra clave...", allCats: "Todas las Áreas", copy: "Copiar", send: "Enviar a la IA", lblSearch: "Búsqueda", lblCat: "Categoría", lblAi: "Filtrar por IA", lblSend: "Enviar a", back: "Volver" }
         };
 
         async function loadPrompts() {
@@ -159,6 +176,9 @@
             document.getElementById('lbl-cat').innerText = uiTexts[currentLang].lblCat;
             document.getElementById('lbl-ai').innerText = uiTexts[currentLang].lblAi;
             document.getElementById('lbl-send').innerText = uiTexts[currentLang].lblSend;
+            
+            // Tradução do botão voltar
+            document.getElementById('ui-back').innerHTML = `<svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg> ${uiTexts[currentLang].back}`;
             
             populateCategories();
             renderGrid();
@@ -266,7 +286,6 @@
             const text = decodeURIComponent(encodedText);
             const platform = document.getElementById('platformSelect').value;
             const isAndroid = /Android/i.test(navigator.userAgent);
-            const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
             
             try { await navigator.clipboard.writeText(text); } catch(e) {}
             showToast();
@@ -277,26 +296,26 @@
                 case 'gemini': url = 'https://gemini.google.com/app'; break;
                 case 'claude': url = 'https://claude.ai/new'; break;
                 case 'deepseek': 
+                    // Correção estrita do Intent para o pacote nativo do DeepSeek no Android
                     if (isAndroid) {
-                        // Deep link otimizado para DeepSeek no Android, com fallback seguro
-                        url = 'intent://chat/#Intent;scheme=deepseek;package=com.deepseek.chat;S.browser_fallback_url=https://chat.deepseek.com;end';
-                    } else if (isIOS) {
-                        url = 'deepseek://';
+                        url = 'intent://chat.deepseek.com/#Intent;scheme=https;package=com.deepseek.chat;end';
                     } else {
                         url = 'https://chat.deepseek.com/';
                     }
                     break;
-                case 'grok': url = 'https://x.com/i/grok'; break;
+                case 'grok': 
+                    // Correção estrita do Intent para o aplicativo nativo X (antigo Twitter) no Android
+                    if (isAndroid) {
+                        url = 'intent://x.com/i/grok#Intent;scheme=https;package=com.twitter.android;end';
+                    } else {
+                        url = 'https://x.com/i/grok';
+                    }
+                    break;
             }
             
             setTimeout(() => {
-                if (platform === 'deepseek' && (isAndroid || isIOS)) {
-                    // Tenta abrir o aplicativo nativamente
+                if ((platform === 'deepseek' || platform === 'grok') && isAndroid) {
                     window.location.href = url;
-                    // Fallback para o navegador se o aplicativo não abrir após 2 segundos
-                    setTimeout(() => {
-                        window.location.href = 'https://chat.deepseek.com/';
-                    }, 2000);
                 } else {
                     window.open(url, '_blank');
                 }
