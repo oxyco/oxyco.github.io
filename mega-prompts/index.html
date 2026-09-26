@@ -284,7 +284,6 @@
         async function sendToTool(encodedText) {
             const text = decodeURIComponent(encodedText);
             const platform = document.getElementById('platformSelect').value;
-            const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
             
             try { await navigator.clipboard.writeText(text); } catch(e) {}
             showToast();
@@ -298,13 +297,8 @@
                 case 'grok': url = 'https://grok.com/'; break;
             }
             
-            setTimeout(() => {
-                if (isMobile) {
-                    window.location.href = url;
-                } else {
-                    window.open(url, '_blank');
-                }
-            }, 300);
+            // Abre sempre num novo separador
+            window.open(url, '_blank');
         }
 
         function exportFile(encTitle, encDesc, type) {
