@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="../js/global.js"></script>
     <style>
-        /* TEMA PROFISSIONAL (OXYLABZ) */
+        /* TEMA OXYLABZ */
         :root {
             --bg-main: #13111c; 
             --bg-card: #1c1a27; 
@@ -177,7 +177,6 @@
             document.getElementById('lbl-ai').innerText = uiTexts[currentLang].lblAi;
             document.getElementById('lbl-send').innerText = uiTexts[currentLang].lblSend;
             
-            // Tradução do botão voltar
             document.getElementById('ui-back').innerHTML = `<svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg> ${uiTexts[currentLang].back}`;
             
             populateCategories();
@@ -300,9 +299,6 @@
             }
             
             setTimeout(() => {
-                // Ao usar location.href em vez de window.open no mobile, 
-                // delegamos ao sistema operacional o acionamento dos "App Links" oficiais.
-                // Se o App estiver instalado e configurado, o OS abre-o; caso contrário, abre o browser.
                 if (isMobile) {
                     window.location.href = url;
                 } else {
