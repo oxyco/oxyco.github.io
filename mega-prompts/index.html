@@ -7,62 +7,70 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="../js/global.js"></script>
     <style>
+        /* TEMA PROFISSIONAL (CHAMA VIOLETA) */
         :root {
-            --bg-main: #0b0914; 
-            --bg-card: #151124; 
-            --bg-card-hover: #1e1735;
+            --bg-main: #13111c; 
+            --bg-card: #1c1a27; 
+            --bg-card-hover: #242136;
             --text-primary: #f8fafc; 
             --text-secondary: #a39eb5;
-            --accent: #9d4edd; 
-            --border: #2d2442;
+            --accent: #a78bfa; 
+            --accent-glow: rgba(167, 139, 250, 0.25);
+            --border: #35314d;
             
-            --gemini: #8b5cf6;
-            --claude: #d97706;
+            /* Cores específicas por IA (Suaves) */
+            --gemini: #a78bfa;
+            --claude: #f59e0b;
             --grok: #ef4444;
             --deepseek: #0ea5e9;
             --agentes: #10b981;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
-        body { background-color: var(--bg-main); color: var(--text-primary); padding-bottom: 40px; }
+        body { background-color: var(--bg-main); color: var(--text-primary); padding-bottom: 60px; }
 
-        header { text-align: center; padding: 40px 20px 20px; }
-        h1 { font-size: 2.5rem; font-weight: 800; background: linear-gradient(135deg, #e0aaff, #9d4edd); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        p.subtitle { color: var(--text-secondary); margin-top: 8px; font-size: 1rem; }
+        header { text-align: center; padding: 50px 20px 30px; }
+        h1 { font-size: 2.6rem; font-weight: 800; background: linear-gradient(180deg, #ffffff 0%, var(--text-secondary) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: -1px; margin-bottom: 8px; }
+        p.subtitle { color: var(--text-secondary); font-size: 1.05rem; }
 
         .controls-container { max-width: 1200px; margin: 0 auto 30px; padding: 0 20px; }
-        .controls { display: flex; flex-wrap: wrap; gap: 12px; background: var(--bg-card); padding: 16px; border-radius: 12px; border: 1px solid var(--border); }
-        .controls > input, .controls > select { flex: 1 1 200px; background: var(--bg-main); border: 1px solid var(--border); color: var(--text-primary); padding: 10px 14px; border-radius: 8px; font-size: 0.95rem; outline: none; }
-        .controls > input:focus, .controls > select:focus { border-color: var(--accent); }
+        .controls { display: flex; flex-wrap: wrap; gap: 16px; background: var(--bg-card); padding: 20px; border-radius: 12px; border: 1px solid var(--border); box-shadow: 0 4px 20px rgba(0,0,0,0.2); }
+        .control-item { display: flex; flex-direction: column; gap: 6px; flex: 1 1 200px; }
+        .control-item label { font-size: 0.75rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px; }
+        .controls input, .controls select { background: var(--bg-main); border: 1px solid var(--border); color: var(--text-primary); padding: 12px 14px; border-radius: 8px; font-size: 0.95rem; outline: none; transition: 0.2s; }
+        .controls input:focus, .controls select:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-glow); }
 
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-        .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; display: flex; flex-direction: column; transition: all 0.2s; }
-        .card:hover { transform: translateY(-3px); border-color: var(--accent); box-shadow: 0 8px 24px rgba(157, 78, 221, 0.15); }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px; max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 24px; display: flex; flex-direction: column; transition: all 0.2s; position: relative; }
+        .card:hover { transform: translateY(-4px); border-color: var(--accent); box-shadow: 0 12px 24px rgba(0,0,0, 0.3); }
         
-        .card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; flex-wrap: wrap; gap: 8px; }
-        .badge { font-size: 0.7rem; font-weight: 700; padding: 4px 8px; border-radius: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
-        .badge-cat { background: rgba(157, 78, 221, 0.15); color: #e0aaff; border: 1px solid rgba(157, 78, 221, 0.3); }
+        .card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; flex-wrap: wrap; gap: 8px; }
+        .badge { font-size: 0.7rem; font-weight: 700; padding: 4px 10px; border-radius: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .badge-cat { background: rgba(167, 139, 250, 0.15); color: var(--accent); border: 1px solid rgba(167, 139, 250, 0.25); }
         
-        .badge-gemini { background: rgba(139, 92, 246, 0.15); color: var(--gemini); border: 1px solid rgba(139, 92, 246, 0.3); }
-        .badge-claude { background: rgba(217, 119, 6, 0.15); color: var(--claude); border: 1px solid rgba(217, 119, 6, 0.3); }
-        .badge-grok { background: rgba(239, 68, 68, 0.15); color: var(--grok); border: 1px solid rgba(239, 68, 68, 0.3); }
-        .badge-deepseek { background: rgba(14, 165, 233, 0.15); color: var(--deepseek); border: 1px solid rgba(14, 165, 233, 0.3); }
-        .badge-generic { background: rgba(16, 185, 129, 0.15); color: var(--agentes); border: 1px solid rgba(16, 185, 129, 0.3); }
+        .badge-gemini { background: rgba(167, 139, 250, 0.1); color: var(--gemini); border: 1px solid rgba(167, 139, 250, 0.3); }
+        .badge-claude { background: rgba(245, 158, 11, 0.1); color: var(--claude); border: 1px solid rgba(245, 158, 11, 0.3); }
+        .badge-grok { background: rgba(239, 68, 68, 0.1); color: var(--grok); border: 1px solid rgba(239, 68, 68, 0.3); }
+        .badge-deepseek { background: rgba(14, 165, 233, 0.1); color: var(--deepseek); border: 1px solid rgba(14, 165, 233, 0.3); }
+        .badge-generic { background: rgba(16, 185, 129, 0.1); color: var(--agentes); border: 1px solid rgba(16, 185, 129, 0.3); }
 
-        .prompt-title { font-family: monospace; font-size: 1.1rem; color: #fff; font-weight: 600; margin-bottom: 8px; word-break: break-word; }
-        .prompt-desc { color: var(--text-secondary); font-size: 0.9rem; line-height: 1.5; flex-grow: 1; margin-bottom: 16px; }
+        .prompt-title { font-size: 1.15rem; color: #ffffff; font-weight: 600; margin-bottom: 10px; word-break: break-word; line-height: 1.3; }
+        .prompt-desc { color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6; flex-grow: 1; margin-bottom: 20px; }
 
-        .actions { display: flex; gap: 8px; width: 100%; }
-        .btn { flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px; padding: 10px; border: none; border-radius: 8px; font-weight: 600; font-size: 0.85rem; cursor: pointer; transition: 0.2s; }
-        .btn-copy { background: var(--bg-main); color: var(--text-primary); border: 1px solid var(--border); }
-        .btn-copy:hover { background: #2d2442; }
-        .btn-send { background: var(--accent); color: #fff; }
-        .btn-send:hover { background: #7b2cbf; }
+        .actions { display: flex; gap: 10px; width: 100%; flex-wrap: wrap; }
+        .btn { flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 12px; border: none; border-radius: 8px; font-weight: 600; font-size: 0.85rem; cursor: pointer; transition: 0.2s; }
         
-        .btn-export { background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); color: #10b981; }
+        /* Botões de Ação Principais */
+        .btn-copy { background: rgba(255,255,255,0.05); color: var(--text-primary); border: 1px solid var(--border); }
+        .btn-copy:hover { background: rgba(255,255,255,0.1); border-color: var(--text-secondary); }
+        .btn-send { background: var(--accent); color: #13111c; }
+        .btn-send:hover { background: #bba2ff; transform: scale(1.02); }
+        
+        /* Botões de Exportação (Agentes) */
+        .btn-export { background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); color: #10b981; flex: 1 1 45%; }
         .btn-export:hover { background: rgba(16, 185, 129, 0.2); }
 
-        .toast { position: fixed; bottom: 20px; right: 20px; background: #3c096c; color: white; padding: 12px 24px; border-radius: 8px; font-weight: 600; transform: translateY(100px); opacity: 0; transition: all 0.3s; z-index: 1000; }
+        .toast { position: fixed; bottom: 24px; right: 24px; background: var(--accent); color: #13111c; padding: 14px 24px; border-radius: 8px; font-weight: 600; transform: translateY(100px); opacity: 0; transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55); z-index: 1000; box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
         .toast.show { transform: translateY(0); opacity: 1; }
     </style>
 </head>
@@ -75,42 +83,54 @@
 
     <div class="controls-container">
         <div class="controls">
-            <input type="text" id="searchInput" placeholder="Pesquisar prompt..." onkeyup="renderGrid()">
+            <div class="control-item">
+                <label id="lbl-search">Pesquisa</label>
+                <input type="text" id="searchInput" placeholder="Pesquisar prompt..." onkeyup="renderGrid()">
+            </div>
             
-            <select id="categoryFilter" onchange="renderGrid()">
-                <option value="" id="ui-cat-all">Todas as Áreas</option>
-            </select>
+            <div class="control-item">
+                <label id="lbl-cat">Categoria</label>
+                <select id="categoryFilter" onchange="renderGrid()">
+                    <option value="" id="ui-cat-all">Todas as Áreas</option>
+                </select>
+            </div>
 
-            <select id="aiFilter" onchange="renderGrid()">
-                <option value="">Todas as IAs</option>
-                <option value="gemini">Gemini</option>
-                <option value="claude">Claude</option>
-                <option value="deepseek">DeepSeek</option>
-                <option value="grok">Grok</option>
-                <option value="agentes">Agentes Autônomos</option>
-            </select>
+            <div class="control-item">
+                <label id="lbl-ai">Filtrar por IA</label>
+                <select id="aiFilter" onchange="renderGrid()">
+                    <option value="">Todas as IAs</option>
+                    <option value="gemini">Gemini</option>
+                    <option value="claude">Claude</option>
+                    <option value="deepseek">DeepSeek</option>
+                    <option value="grok">Grok</option>
+                    <option value="agentes">Agentes Autônomos</option>
+                </select>
+            </div>
 
-            <select id="platformSelect">
-                <option value="chatgpt">ChatGPT (Abre Direto)</option>
-                <option value="gemini">Google Gemini</option>
-                <option value="claude">Claude</option>
-                <option value="deepseek">DeepSeek App</option>
-                <option value="grok">Grok (X)</option>
-            </select>
+            <div class="control-item">
+                <label id="lbl-send">Enviar para</label>
+                <select id="platformSelect">
+                    <option value="chatgpt">ChatGPT (Abre Direto)</option>
+                    <option value="gemini">Google Gemini</option>
+                    <option value="claude">Claude</option>
+                    <option value="deepseek">DeepSeek App</option>
+                    <option value="grok">Grok (X)</option>
+                </select>
+            </div>
         </div>
     </div>
 
     <div class="grid" id="gridContainer"></div>
-    <div id="toast" class="toast">✔️ Copiado! (Pressione Ctrl+V na IA)</div>
+    <div id="toast" class="toast">Copiado! Pressione Ctrl+V na IA.</div>
 
     <script>
         let promptsDB = [];
         let currentLang = (typeof getGlobalLang === 'function') ? getGlobalLang() : 'pt';
 
         const uiTexts = {
-            pt: { subtitle: "Biblioteca Avançada de Comandos", search: "Pesquisar prompt ou palavra-chave...", allCats: "Todas as Áreas", copy: "Copiar", send: "Enviar" },
-            en: { subtitle: "Advanced Command Library", search: "Search prompt or keyword...", allCats: "All Areas", copy: "Copy", send: "Send" },
-            es: { subtitle: "Biblioteca Avanzada de Comandos", search: "Buscar prompt o palabra clave...", allCats: "Todas las Áreas", copy: "Copiar", send: "Enviar" }
+            pt: { subtitle: "Biblioteca Avançada de Comandos", search: "Pesquisar prompt ou palavra-chave...", allCats: "Todas as Áreas", copy: "Copiar", send: "Enviar à IA", lblSearch: "Pesquisa", lblCat: "Categoria", lblAi: "Filtrar por IA", lblSend: "Enviar para" },
+            en: { subtitle: "Advanced Command Library", search: "Search prompt or keyword...", allCats: "All Areas", copy: "Copy", send: "Send to AI", lblSearch: "Search", lblCat: "Category", lblAi: "Filter by AI", lblSend: "Send to" },
+            es: { subtitle: "Biblioteca Avanzada de Comandos", search: "Buscar prompt o palabra clave...", allCats: "Todas las Áreas", copy: "Copiar", send: "Enviar a la IA", lblSearch: "Búsqueda", lblCat: "Categoría", lblAi: "Filtrar por IA", lblSend: "Enviar a" }
         };
 
         async function loadPrompts() {
@@ -138,6 +158,12 @@
             document.getElementById('ui-subtitle').innerText = uiTexts[currentLang].subtitle;
             document.getElementById('searchInput').placeholder = uiTexts[currentLang].search;
             document.getElementById('ui-cat-all').innerText = uiTexts[currentLang].allCats;
+            
+            document.getElementById('lbl-search').innerText = uiTexts[currentLang].lblSearch;
+            document.getElementById('lbl-cat').innerText = uiTexts[currentLang].lblCat;
+            document.getElementById('lbl-ai').innerText = uiTexts[currentLang].lblAi;
+            document.getElementById('lbl-send').innerText = uiTexts[currentLang].lblSend;
+            
             populateCategories();
             renderGrid();
         }
@@ -164,7 +190,6 @@
             
             const catKey = 'cat_' + currentLang;
             const descKey = 'Description_' + currentLang;
-            // Busca o título no idioma atual, se não existir, usa o original
             const titleKey = 'Code_' + currentLang;
 
             container.innerHTML = '';
@@ -186,7 +211,8 @@
                 const card = document.createElement('div');
                 card.className = 'card';
                 
-                const displayTitle = p[titleKey] || p.Code || "";
+                // Se a tradução do título for idêntica ao PT (falha no importador) ou não existir, usa o Code
+                const displayTitle = (p[titleKey] && p[titleKey] !== p.Code_pt) ? p[titleKey] : (p.Code_pt || p.Code || "");
                 const descText = p[descKey] || "";
                 const fullText = `${displayTitle}\\n\\n${descText}`;
                 
@@ -196,13 +222,19 @@
                 
                 const aiBadgeHTML = p.AI_Tool ? `<span class="badge ${getAiBadgeClass(p.AI_Tool)}">${p.AI_Tool}</span>` : '';
 
-                // Botões de Exportação aparecem apenas se for Agente
+                // Verifica se é um Agente Autônomo para injetar os botões de Exportação
                 let agentExports = '';
                 if (p.AI_Tool && p.AI_Tool.toLowerCase().includes('agente')) {
                     agentExports = `
-                        <div class="actions" style="margin-top: 8px;">
-                            <button class="btn btn-export" onclick="exportFile('${safeTitle}', '${safeDesc}', 'md')">📄 .MD</button>
-                            <button class="btn btn-export" onclick="exportFile('${safeTitle}', '${safeDesc}', 'skill')">⚙️ Skill</button>
+                        <div class="actions" style="margin-top: 10px;">
+                            <button class="btn btn-export" onclick="exportFile('${safeTitle}', '${safeDesc}', 'md')">
+                                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                                Export .MD
+                            </button>
+                            <button class="btn btn-export" onclick="exportFile('${safeTitle}', '${safeDesc}', 'skill')">
+                                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                                Export Skill
+                            </button>
                         </div>
                     `;
                 }
@@ -216,10 +248,12 @@
                     <div class="prompt-desc">${descText}</div>
                     <div class="actions">
                         <button class="btn btn-copy" onclick="copyAction('${safeText}')">
-                            📋 ${uiTexts[currentLang].copy}
+                            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                            ${uiTexts[currentLang].copy}
                         </button>
                         <button class="btn btn-send" onclick="sendToTool('${safeText}')">
-                            🚀 ${uiTexts[currentLang].send}
+                            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                            ${uiTexts[currentLang].send}
                         </button>
                     </div>
                     ${agentExports}
@@ -252,22 +286,25 @@
                 case 'gemini': url = 'https://gemini.google.com/app'; break;
                 case 'claude': url = 'https://claude.ai/new'; break;
                 case 'deepseek': 
-                    // No Android, o "intent" força a abertura do app nativo. 
-                    url = isAndroid ? 'intent://chat.deepseek.com/#Intent;scheme=https;package=com.deepseek.chat;end' : 'https://chat.deepseek.com/';
+                    // Protocolo nativo agressivo para forçar abertura do App no Android
+                    if (isAndroid) {
+                        url = 'intent://#Intent;package=com.deepseek.chat;scheme=https;S.browser_fallback_url=https://chat.deepseek.com/;end';
+                    } else {
+                        url = 'https://chat.deepseek.com/';
+                    }
                     break;
                 case 'grok': url = 'https://x.com/i/grok'; break;
             }
             
             setTimeout(() => {
                 if (platform === 'deepseek' && isAndroid) {
-                    window.location.href = url; // No mobile, redireciona a própria página para invocar o app
+                    window.location.href = url;
                 } else {
-                    window.open(url, '_blank'); // Abre nova aba nos demais
+                    window.open(url, '_blank');
                 }
             }, 300);
         }
 
-        // Função de Exportação de Agentes
         function exportFile(encTitle, encDesc, type) {
             const title = decodeURIComponent(encTitle);
             const desc = decodeURIComponent(encDesc);
