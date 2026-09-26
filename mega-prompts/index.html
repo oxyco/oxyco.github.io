@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-PT">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="../js/global.js"></script>
     <style>
-        /* TEMA PROFISSIONAL (CHAMA VIOLETA) */
+        /* TEMA PROFISSIONAL (OXYLABZ) */
         :root {
             --bg-main: #13111c; 
             --bg-card: #1c1a27; 
@@ -285,7 +285,7 @@
         async function sendToTool(encodedText) {
             const text = decodeURIComponent(encodedText);
             const platform = document.getElementById('platformSelect').value;
-            const isAndroid = /Android/i.test(navigator.userAgent);
+            const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
             
             try { await navigator.clipboard.writeText(text); } catch(e) {}
             showToast();
@@ -295,26 +295,15 @@
                 case 'chatgpt': url = `https://chatgpt.com/?q=${encodeURIComponent(text)}`; break;
                 case 'gemini': url = 'https://gemini.google.com/app'; break;
                 case 'claude': url = 'https://claude.ai/new'; break;
-                case 'deepseek': 
-                    // Correção estrita do Intent para o pacote nativo do DeepSeek no Android
-                    if (isAndroid) {
-                        url = 'intent://chat.deepseek.com/#Intent;scheme=https;package=com.deepseek.chat;end';
-                    } else {
-                        url = 'https://chat.deepseek.com/';
-                    }
-                    break;
-                case 'grok': 
-                    // Correção estrita do Intent para o aplicativo nativo X (antigo Twitter) no Android
-                    if (isAndroid) {
-                        url = 'intent://x.com/i/grok#Intent;scheme=https;package=com.twitter.android;end';
-                    } else {
-                        url = 'https://x.com/i/grok';
-                    }
-                    break;
+                case 'deepseek': url = 'https://chat.deepseek.com/'; break;
+                case 'grok': url = 'https://x.com/i/grok'; break;
             }
             
             setTimeout(() => {
-                if ((platform === 'deepseek' || platform === 'grok') && isAndroid) {
+                // Ao usar location.href em vez de window.open no mobile, 
+                // delegamos ao sistema operacional o acionamento dos "App Links" oficiais.
+                // Se o App estiver instalado e configurado, o OS abre-o; caso contrário, abre o browser.
+                if (isMobile) {
                     window.location.href = url;
                 } else {
                     window.open(url, '_blank');
