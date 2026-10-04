@@ -245,14 +245,34 @@ const State = {
 const INSTRUMENTS = ['kick','snare','hat','crash','bass','keys','vocal','pad'];
 
 /* ---------- Init (mesmo padrão do synth) ---------- */
+
+/* ---------- Init — motor lo-fi ---------- */
 async function startAudio(){
   if (State.ready) return;
 
   await Tone.start();
 
-  // Master
-  State.master = new Tone.Gain(0.75);
+  // ---------- Master chain (lo-fi: quente, comprimido, tape-ish) ----------
+  State.master = new Tone.Gain(0.85);
   State.limiter = new Tone.Limiter(-1);
+
+  // Compressão de bus (cola tudo)
+  const busComp = new Tone.Compressor({
+    threshold: -18, ratio: 3, attack: 0.01, release: 0.25
+  });
+
+  // Filtro lo-fi global (abafa agudos, remove harsh)
+  const lofiFilter = new Tone.Filter({
+    type: 'lowpass', frequency: 12000, rolloff: -12, Q: 0.5
+  });
+
+  // Saturation leve (calor de fita)
+  const tape = new Tone.Chebyshev({ order: 2, wet: 0.15 });
+
+  // Reverb curto compartilhado
+  const reverb = new Tone.Reverb({ decay: 1.4, wet: 0.18 });
+  await reverb.generate();
+
   State.analyserMaster = new Tone.Analyser('fft', 1024);
   State.analyserLow  = new Tone.Analyser('fft', 512);
   State.analyserMid  = new Tone.Analyser('fft', 512);
@@ -262,14 +282,21 @@ async function startAudio(){
   const splitMid  = new Tone.Filter({ type:'bandpass', frequency:1200, Q:0.5 });
   const splitHigh = new Tone.Filter(4000, 'highpass');
 
-  State.master.connect(State.limiter);
+  // Roteamento: master → comp → filtro → tape → limiter → destination
+  State.master.connect(busComp);
+  busComp.connect(lofiFilter);
+  lofiFilter.connect(tape);
+  tape.connect(State.limiter);
   State.limiter.connect(State.analyserMaster);
   State.limiter.toDestination();
   State.limiter.connect(splitLow);  splitLow.connect(State.analyserLow);
   State.limiter.connect(splitMid);  splitMid.connect(State.analyserMid);
   State.limiter.connect(splitHigh); splitHigh.connect(State.analyserHigh);
 
-  // Canais
+  // Reverb manda pro master
+  reverb.connect(State.master);
+
+  // ---------- Canais ----------
   INSTRUMENTS.forEach(name=>{
     const hp = new Tone.Filter({ type:'highpass', frequency:20, Q:0.7 });
     const eq = new Tone.Filter({ type:'peaking', frequency:1000, Q:1.2, gain:0 });
@@ -283,7 +310,7 @@ async function startAudio(){
     State.channels[name] = { hp, eq, duck, gain, pan, meter };
   });
 
-  // Sidechain (ducking real)
+  // ---------- Sidechain ----------
   State.sidechain.trigger = (t)=>{
     if (State.sidechain.bypass) return;
     const ch = State.channels.bass; if (!ch) return;
@@ -296,92 +323,253 @@ async function startAudio(){
     g.linearRampToValueAtTime(1, t+0.03+State.sidechain.release);
   };
 
-  /* ---------- Instrumentos via Tone ---------- */
+  /* ============================================================
+     INSTRUMENTOS LO-FI
+     ============================================================ */
 
-  // Kick: MembraneSynth (Tone) — soa como kick
+  // ---- KICK: síntese com pitch envelope + click ----
+  // Usa MembraneSynth com pitchDecay longo + um click de transient
   const kick = new Tone.MembraneSynth({
-    pitchDecay:0.05, octaves:6, volume:-4,
-    envelope:{ attack:0.001, decay:0.35, sustain:0 }
+    pitchDecay: 0.08,
+    octaves: 8,
+    volume: -6,
+    oscillator: { type: 'sine' },
+    envelope: { attack: 0.001, decay: 0.42, sustain: 0, release: 0.1 }
   }).connect(State.channels.kick.hp);
+  // Adiciona um pouco de click via noise burst curto
+  const kickClick = new Tone.NoiseSynth({
+    noise: { type: 'brown' },
+    volume: -22,
+    envelope: { attack: 0.001, decay: 0.012, sustain: 0 }
+  }).connect(State.channels.kick.hp);
+  function playKick(time){
+    kick.triggerAttackRelease('C1', '8n', time);
+    kickClick.triggerAttackRelease('32n', time);
+    State.sidechain.trigger(time);
+  }
 
-  // Snare: NoiseSynth + corpo tonal
-  const snareNoise = new Tone.NoiseSynth({
-    noise:{ type:'white' }, volume:-12,
-    envelope:{ attack:0.001, decay:0.15, sustain:0 }
+  // ---- SNARE: corpo tonal + ruído filtrado ----
+  const snareBody = new Tone.MembraneSynth({
+    pitchDecay: 0.02, octaves: 3, volume: -14,
+    envelope: { attack: 0.001, decay: 0.12, sustain: 0 }
   }).connect(State.channels.snare.hp);
+  const snareNoise = new Tone.NoiseSynth({
+    noise: { type: 'white' },
+    volume: -16,
+    envelope: { attack: 0.001, decay: 0.16, sustain: 0 }
+  });
+  // Filtro pra tirar harsh do ruído
+  const snareFilter = new Tone.Filter(3200, 'bandpass');
+  snareFilter.Q.value = 0.8;
+  snareNoise.connect(snareFilter);
+  snareFilter.connect(State.channels.snare.hp);
+  // Reverb no snare
+  snareFilter.connect(reverb);
+  function playSnare(time, vel=1){
+    snareBody.triggerAttackRelease('G2', '16n', time, vel);
+    snareNoise.triggerAttackRelease('16n', time, vel);
+  }
 
-  // Hat: NoiseSynth curto
+  // ---- HAT: ruído HPF, decay curto, som fino ----
   const hat = new Tone.NoiseSynth({
-    noise:{ type:'white' }, volume:-20,
-    envelope:{ attack:0.001, decay:0.04, sustain:0 }
-  }).connect(State.channels.hat.hp);
+    noise: { type: 'white' },
+    volume: -22,
+    envelope: { attack: 0.001, decay: 0.03, sustain: 0 }
+  });
+  const hatFilter = new Tone.Filter(8500, 'highpass');
+  hat.connect(hatFilter);
+  hatFilter.connect(State.channels.hat.hp);
+  const hatOpen = new Tone.NoiseSynth({
+    noise: { type: 'white' },
+    volume: -26,
+    envelope: { attack: 0.001, decay: 0.22, sustain: 0 }
+  });
+  hatOpen.connect(hatFilter);
 
-  // Crash: NoiseSynth longo
+  // ---- CRASH (abre o loop) ----
   const crash = new Tone.NoiseSynth({
-    noise:{ type:'white' }, volume:-24,
-    envelope:{ attack:0.001, decay:1.2, sustain:0 }
-  }).connect(State.channels.crash.hp);
+    noise: { type: 'white' },
+    volume: -28,
+    envelope: { attack: 0.001, decay: 1.8, sustain: 0 }
+  });
+  const crashFilter = new Tone.Filter(5500, 'highpass');
+  crash.connect(crashFilter);
+  crashFilter.connect(State.channels.crash.hp);
+  crashFilter.connect(reverb);
 
-  // Bass: MonoSynth
+  // ---- BASS: MonoSynth com filtro ressonante (o "bwoom") ----
   const bass = new Tone.MonoSynth({
-    volume:-6,
-    oscillator:{ type:'sawtooth' },
-    filter:{ Q:2, type:'lowpass', rolloff:-24 },
-    envelope:{ attack:0.005, decay:0.25, sustain:0.7, release:0.3 },
-    filterEnvelope:{ attack:0.005, decay:0.15, sustain:0.3, release:0.3, baseFrequency:80, octaves:3 }
+    volume: -12,
+    oscillator: { type: 'sawtooth' },
+    filter: { Q: 3, type: 'lowpass', rolloff: -24 },
+    envelope: { attack: 0.008, decay: 0.3, sustain: 0.5, release: 0.4 },
+    filterEnvelope: {
+      attack: 0.005, decay: 0.15, sustain: 0.2, release: 0.3,
+      baseFrequency: 60, octaves: 3.5
+    }
   }).connect(State.channels.bass.hp);
 
-  // Keys: PolySynth triangle
-  const keys = new Tone.PolySynth(Tone.Synth, {
-    volume:-14, oscillator:{ type:'triangle' },
-    envelope:{ attack:0.005, decay:0.4, sustain:0.3, release:0.6 }
+  // ---- KEYS: Rhodes-like via FMSynth (sino + corpo quente) ----
+  const keys = new Tone.PolySynth(Tone.FMSynth, {
+    volume: -18,
+    harmonicity: 2.01,
+    modulationIndex: 8,
+    oscillator: { type: 'sine' },
+    modulation: { type: 'sine' },
+    envelope: { attack: 0.004, decay: 0.9, sustain: 0.15, release: 0.7 },
+    modulationEnvelope: { attack: 0.004, decay: 0.4, sustain: 0.1, release: 0.5 }
   }).connect(State.channels.keys.hp);
+  // Delay ping-pong leve no keys
+  const keysDelay = new Tone.PingPongDelay({
+    delayTime: '8n.', feedback: 0.22, wet: 0.14
+  });
+  keys.connect(keysDelay);
+  keysDelay.connect(State.master);
 
-  // Voice: PolySynth triangle + envelope vocal
+  // ---- VOZ: PolySynth triangle + filtro formante pra soar "vocal" ----
   const voice = new Tone.PolySynth(Tone.Synth, {
-    volume:-18, oscillator:{ type:'triangle' },
-    envelope:{ attack:0.05, decay:0.3, sustain:0.6, release:0.4 }
-  }).connect(State.channels.vocal.hp);
+    volume: -22,
+    oscillator: { type: 'triangle' },
+    envelope: { attack: 0.08, decay: 0.4, sustain: 0.55, release: 0.5 }
+  });
+  const voiceFormant = new Tone.Filter(900, 'bandpass');
+  voiceFormant.Q.value = 4;
+  voice.connect(voiceFormant);
+  voiceFormant.connect(State.channels.vocal.hp);
+  voiceFormant.connect(reverb);
 
-  // Pad: PolySynth fatsaw
+  // ---- PAD: PolySynth fatsaw + lowpass (atmosfera) ----
   const pad = new Tone.PolySynth(Tone.Synth, {
-    volume:-24, oscillator:{ type:'fatsawtooth', count:2, spread:18 },
-    envelope:{ attack:0.6, decay:1, sustain:0.7, release:1.5 }
-  }).connect(State.channels.pad.hp);
+    volume: -28,
+    oscillator: { type: 'fatsawtooth', count: 3, spread: 30 },
+    envelope: { attack: 1.2, decay: 1.5, sustain: 0.7, release: 2 }
+  });
+  const padFilter = new Tone.Filter(2200, 'lowpass');
+  pad.connect(padFilter);
+  padFilter.connect(State.channels.pad.hp);
+  padFilter.connect(reverb);
 
-  /* ---------- Sequência Am–F–C–G ---------- */
-  const bassSeq = [45,45, 41,41, 48,48, 43,43, 45,45, 41,41, 48,48, 43,43];
-  const chordSeq = [
-    ['A3','C4','E4'],['A3','C4','E4'],
-    ['F3','A3','C4'],['F3','A3','C4'],
-    ['C4','E4','G4'],['C4','E4','G4'],
-    ['G3','B3','D4'],['G3','B3','D4'],
-    ['A3','C4','E4'],['A3','C4','E4'],
-    ['F3','A3','C4'],['F3','A3','C4'],
-    ['C4','E4','G4'],['C4','E4','G4'],
-    ['G3','B3','D4'],['G3','B3','D4']
+  /* ============================================================
+     SEQUÊNCIA — 32 compassos com variação lo-fi
+     ============================================================ */
+
+  // Progressão: Am7 – Fmaj7 – Cmaj7 – G7 (4 acordes x 8 compassos)
+  const chordMidis = [
+    [57,60,64,67], // Am7
+    [53,57,60,64], // Fmaj7
+    [48,52,55,59], // Cmaj7
+    [55,59,62,65]  // G7
   ];
-  const melody = [76,72,74,76,81,79,76,74, 76,72,74,76,81,79,76,74];
+  const bassMidis = [45, 41, 48, 43]; // A2, F2, C3, G2
 
-  const loop = new Tone.Sequence((time, i)=>{
-    if (i % 4 === 0 || i % 4 === 2){
-      kick.triggerAttackRelease('C1', '8n', time);
-      State.sidechain.trigger(time);
+  // Melodia lo-fi simples (notas do Am pentatônica)
+  const melody = [
+    76, null, 74, 72, null, 69, 72, null,
+    76, null, 74, 76, null, 79, 76, null,
+    72, null, 74, 76, null, 72, 69, null,
+    67, null, 69, 71, null, 74, 72, null
+  ];
+
+  const TICKS = 32; // 2 compassos de 16th
+  let bar = 0;
+
+  const loop = new Tone.Sequence((time, step)=>{
+    const barIdx = Math.floor(step / 16);
+    const pos = step % 16;
+    const chordIdx = (bar + barIdx) % 4;
+
+    // --- ESTRUTURA POR COMPASSO (8 compassos x 4 acordes = 32) ---
+    // 0-7  : intro (kick + hat + bass)
+    // 8-15 : corpo (+ snare + keys)
+    // 16-23: clímax (+ voz + pad)
+    // 24-31: breakdown (pad + voz só)
+    const section = Math.floor((bar + barIdx) / 8);
+    const intro    = section === 0;
+    const corpo    = section === 1;
+    const clímax   = section === 2;
+    const breakdown= section === 3;
+
+    const playDrums = !breakdown;
+    const playBass  = !breakdown;
+    const playSnare = corpo || clímax;
+    const playKeys  = corpo || clímax;
+    const playVoice = clímax || breakdown;
+    const playPad   = section >= 1;
+
+    // ---- KICK: padrão lo-fi boom-bap ----
+    // 1 e 3 fortes, ghost no "e" do 3
+    if (playDrums){
+      if (pos === 0)  playKick(time);
+      if (pos === 6)  playKick(time);
+      if (pos === 10) playKick(time + 0.01, 0.6); // ghost
+      if (pos === 12) playKick(time);
     }
-    if (i % 4 === 1 || i % 4 === 3) snareNoise.triggerAttackRelease('8n', time);
-    hat.triggerAttackRelease('32n', time);
-    if (i === 0) crash.triggerAttackRelease('2n', time);
 
-    bass.triggerAttackRelease(Tone.Frequency(bassSeq[i], 'midi').toFrequency(), '4n', time);
-    keys.triggerAttackRelease(chordSeq[i].slice(0,3), '4n', time + 0.01);
-    if (i % 8 === 0) pad.triggerAttackRelease(chordSeq[i], '2n', time);
-    voice.triggerAttackRelease(Tone.Frequency(melody[i], 'midi').toNote(), '8n', time + 0.03);
-  }, Array.from({length:16},(_,i)=>i), '4n');
+    // ---- SNARE: 2 e 4 + ghost notes ----
+    if (playSnare){
+      if (pos === 4 || pos === 12) playSnare(time, 1.0);
+      if (pos === 7) playSnare(time, 0.35);   // ghost
+      if (pos === 14) playSnare(time, 0.45);  // ghost
+    }
+
+    // ---- HAT: 8th com swing e acento variável ----
+    if (playDrums){
+      // swing: hat no offbeat levemente atrasado
+      const swingOffset = (pos % 2 === 1) ? 0.02 : 0;
+      if (pos % 2 === 0) hat.triggerAttackRelease('32n', time + swingOffset);
+      if (pos % 2 === 1) hat.triggerAttackRelease('32n', time + swingOffset, 0.7);
+      // hat aberto no "e" do 4 às vezes
+      if (pos === 14 && (bar + barIdx) % 2 === 0) hatOpen.triggerAttackRelease('16n', time);
+    }
+
+    // ---- CRASH no início de cada seção ----
+    if (pos === 0 && (barIdx === 0) && section > 0){
+      crash.triggerAttackRelease('2n', time);
+    }
+
+    // ---- BASS: raiz no 1 + nota offbeat ----
+    if (playBass){
+      const root = bassMidis[chordIdx];
+      if (pos === 0)  bass.triggerAttackRelease(Tone.Frequency(root, 'midi').toFrequency(), '8n', time);
+      if (pos === 6)  bass.triggerAttackRelease(Tone.Frequency(root + 7, 'midi').toFrequency(), '16n', time); // quinta
+      if (pos === 10) bass.triggerAttackRelease(Tone.Frequency(root, 'midi').toFrequency(), '16n', time);
+    }
+
+    // ---- KEYS: acorde no 1 e reforço no 3 ----
+    if (playKeys){
+      if (pos === 0){
+        const chord = chordMidis[chordIdx].map(m => Tone.Frequency(m, 'midi').toNote());
+        keys.triggerAttackRelease(chord, '2n', time);
+      }
+      if (pos === 8){
+        const chord = chordMidis[chordIdx].map(m => Tone.Frequency(m, 'midi').toNote());
+        keys.triggerAttackRelease(chord.slice(0, 3), '4n', time);
+      }
+    }
+
+    // ---- VOZ: melodia com notas longas ----
+    if (playVoice){
+      const note = melody[(bar + barIdx) * 2 + (pos % 2)] ?? melody[pos];
+      if (pos % 2 === 0 && note != null){
+        voice.triggerAttackRelease(Tone.Frequency(note, 'midi').toNote(), '4n', time + 0.02);
+      }
+    }
+
+    // ---- PAD: acorde longo no início de cada 2 compassos ----
+    if (playPad && pos === 0 && barIdx === 0){
+      const chord = chordMidis[chordIdx].map(m => Tone.Frequency(m + 12, 'midi').toNote());
+      pad.triggerAttackRelease(chord, '2m', time);
+    }
+
+    // Avança o compasso a cada 16 steps
+    if (pos === 15 && barIdx === 1) bar = (bar + 2) % 32;
+  }, Array.from({length:32},(_,i)=>i), '16n');
   loop.loop = true;
 
   State.loop = loop;
   State.ready = true;
 }
+
 
 /* ---------- Play / Pause / Stop ---------- */
 function play(){
