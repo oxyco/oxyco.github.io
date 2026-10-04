@@ -1183,44 +1183,104 @@ async function boot(){
   render();
 
   let starting = false;
-  async function onStart(e){
-    if (e) e.preventDefault();
-    if (starting) return;
-    starting = true;
+  
+  
+  /* ============================================================
+   BOOTSTRAP — versão blindada pra mobile
+   ============================================================ */
+function boot(){
+  const ov = $('ov');
+  const startBtn = $('startBtn');
+
+  if (typeof getGlobalLang === 'function'){
+    try { LANG = getGlobalLang(); } catch(_){}
+  }
+  window.addEventListener('idiomaMudou', ()=>{
+    if (typeof getGlobalLang === 'function') LANG = getGlobalLang();
+    render();
+  });
+
+  $('ovHint').textContent = t('overlay_hint');
+  startBtn.textContent = t('start');
+
+  render();
+
+  let done = false;
+
+  async function onStart(){
+    if (done) return;
+    done = true;
+
+    // feedback IMEDIATO no botão
     startBtn.disabled = true;
-    ov.classList.add('loading');
+    startBtn.textContent = 'INICIANDO…';
     $('ovHint').textContent = t('loading');
 
+    // 1) Cria o AudioContext DENTRO do gesto do usuário
     try {
       initAudio();
+    } catch(err){
+      console.error('initAudio falhou:', err);
+      startBtn.disabled = false;
+      startBtn.textContent = t('start');
+      $('ovHint').textContent = '⚠ ' + err.message;
+      done = false;
+      return;
+    }
+
+    // 2) Resume com timeout curto — sem esperar pra sempre
+    try {
       await Promise.race([
         Audio.ctx.resume(),
-        new Promise((_, rej)=>setTimeout(()=>rej(new Error('Timeout ao iniciar áudio. Toque de novo.')), 4000))
+        new Promise((_, rej)=>setTimeout(()=>rej(new Error('Navegador bloqueou o áudio. Toque de novo ou verifique o volume.')), 2500))
       ]);
+    } catch(err){
+      console.error('resume falhou:', err);
+      startBtn.disabled = false;
+      startBtn.textContent = 'TENTAR DE NOVO';
+      $('ovHint').textContent = '⚠ ' + err.message;
+      done = false;
+      return;
+    }
 
-      await new Promise(r=>setTimeout(r, 200));
+    // 3) Toca um beep curto pra confirmar que saiu som
+    try {
+      const o = Audio.ctx.createOscillator();
+      const g = Audio.ctx.createGain();
+      o.connect(g); g.connect(Audio.ctx.destination);
+      o.frequency.value = 660;
+      g.gain.setValueAtTime(0.08, Audio.ctx.currentTime);
+      g.gain.exponentialRampToValueAtTime(0.0001, Audio.ctx.currentTime + 0.15);
+      o.start(); o.stop(Audio.ctx.currentTime + 0.16);
+    } catch(_){}
 
-      ov.classList.add('hide');
-      setTimeout(()=>{ ov.style.display = 'none'; }, 350);
+    // 4) Fecha o overlay e liga o masterclass
+    ov.classList.add('hide');
+    setTimeout(()=>{ ov.style.display = 'none'; }, 350);
 
+    try {
       await startAudio();
       $('playBtn').textContent = '❚❚';
       $('playBtn').classList.add('on');
       UI.playing = true;
     } catch(err){
-      console.error('Start falhou:', err);
-      starting = false;
-      startBtn.disabled = false;
-      ov.classList.remove('loading');
-      $('ovHint').textContent = '⚠ ' + err.message;
-      startBtn.textContent = t('start');
+      console.error('startAudio falhou:', err);
+      // não trava o tutorial — só avisa
+      setTimeout(()=>alert('Áudio iniciou mas o loop falhou: ' + err.message), 400);
     }
   }
 
-  startBtn.addEventListener('click', onStart);
-  startBtn.addEventListener('touchend', (e)=>{ onStart(e); }, { passive:false });
+  // Handler único — só pointerup, sem click duplicado
+  startBtn.addEventListener('pointerup', onStart, { once:true });
+
+  // Fallback pra navegadores antigos sem PointerEvent
+  if (!window.PointerEvent){
+    startBtn.addEventListener('touchend', onStart, { once:true });
+    startBtn.addEventListener('click', onStart, { once:true });
+  }
 }
 boot();
+
 </script>
 </body>
 </html>
