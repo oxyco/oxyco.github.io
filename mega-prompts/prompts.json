@@ -8,9 +8,10 @@
     "Code_pt": "Document Skills",
     "Code_en": "Document Skills",
     "Code_es": "Document Skills",
-    "Description_pt": "Pacote amplo para criar e manipular PDF, DOCX, XLSX e PPTX. (URL: https://github.com/anthropics/skills)",
-    "Description_en": "Pacote amplo para criar e manipular PDF, DOCX, XLSX e PPTX. (URL: https://github.com/anthropics/skills)",
-    "Description_es": "Pacote amplo para criar e manipular PDF, DOCX, XLSX e PPTX. (URL: https://github.com/anthropics/skills)"
+    "Description_pt": "Pacote amplo para criar e manipular PDF, DOCX, XLSX e PPTX.",
+    "Description_en": "Pacote amplo para criar e manipular PDF, DOCX, XLSX e PPTX.",
+    "Description_es": "Pacote amplo para criar e manipular PDF, DOCX, XLSX e PPTX.",
+    "URL": "https://github.com/anthropics/skills"
   },
   {
     "cat_pt": "Pesquisa, conteúdo e automação",
@@ -21,9 +22,10 @@
     "Code_pt": "Data Analysis",
     "Code_en": "Data Analysis",
     "Code_es": "Data Analysis",
-    "Description_pt": "Fluxos para análise de dados, tabelas e exploração orientada. (URL: https://github.com/anthropics/skills/tree/main/skills/xlsx)",
-    "Description_en": "Fluxos para análise de dados, tabelas e exploração orientada. (URL: https://github.com/anthropics/skills/tree/main/skills/xlsx)",
-    "Description_es": "Fluxos para análise de dados, tabelas e exploração orientada. (URL: https://github.com/anthropics/skills/tree/main/skills/xlsx)"
+    "Description_pt": "Fluxos para análise de dados, tabelas e exploração orientada.",
+    "Description_en": "Fluxos para análise de dados, tabelas e exploração orientada.",
+    "Description_es": "Fluxos para análise de dados, tabelas e exploração orientada.",
+    "URL": "https://github.com/anthropics/skills/tree/main/skills/xlsx"
   },
   {
     "cat_pt": "Pesquisa, conteúdo e automação",
@@ -34,9 +36,10 @@
     "Code_pt": "Deckset Presentation Expert",
     "Code_en": "Deckset Presentation Expert",
     "Code_es": "Deckset Presentation Expert",
-    "Description_pt": "Ajuda a transformar conteúdo em apresentações estruturadas com markdown/Deckset. (URL: https://github.com/doudou1337/deckset-claude-skill/tree/main/skills/deckset-presentation-expert)",
-    "Description_en": "Ajuda a transformar conteúdo em apresentações estruturadas com markdown/Deckset. (URL: https://github.com/doudou1337/deckset-claude-skill/tree/main/skills/deckset-presentation-expert)",
-    "Description_es": "Ajuda a transformar conteúdo em apresentações estruturadas com markdown/Deckset. (URL: https://github.com/doudou1337/deckset-claude-skill/tree/main/skills/deckset-presentation-expert)"
+    "Description_pt": "Ajuda a transformar conteúdo em apresentações estruturadas com markdown/Deckset.",
+    "Description_en": "Ajuda a transformar conteúdo em apresentações estruturadas com markdown/Deckset.",
+    "Description_es": "Ajuda a transformar conteúdo em apresentações estruturadas com markdown/Deckset.",
+    "URL": "https://github.com/doudou1337/deckset-claude-skill/tree/main/skills/deckset-presentation-expert"
   },
   {
     "cat_pt": "Pesquisa, conteúdo e automação",
@@ -47,9 +50,10 @@
     "Code_pt": "Claude Art Skill",
     "Code_en": "Claude Art Skill",
     "Code_es": "Claude Art Skill",
-    "Description_pt": "Criação e direção visual com estética, marca e workflows de imagem. (URL: https://github.com/apiaceforallmystufft/claude-art-skill/tree/main/skills/art)",
-    "Description_en": "Criação e direção visual com estética, marca e workflows de imagem. (URL: https://github.com/apiaceforallmystufft/claude-art-skill/tree/main/skills/art)",
-    "Description_es": "Criação e direção visual com estética, marca e workflows de imagem. (URL: https://github.com/apiaceforallmystufft/claude-art-skill/tree/main/skills/art)"
+    "Description_pt": "Criação e direção visual com estética, marca e workflows de imagem.",
+    "Description_en": "Criação e direção visual com estética, marca e workflows de imagem.",
+    "Description_es": "Criação e direção visual com estética, marca e workflows de imagem.",
+    "URL": "https://github.com/apiaceforallmystufft/claude-art-skill/tree/main/skills/art"
   },
   {
     "cat_pt": "Pesquisa, conteúdo e automação",
@@ -60,9 +64,10 @@
     "Code_pt": "Music Creation",
     "Code_en": "Music Creation",
     "Code_es": "Music Creation",
-    "Description_pt": "Criação musical/áudio em workflows criativos. (URL: https://github.com/b/wize-music-studio/claude-al-music-skills)",
-    "Description_en": "Criação musical/áudio em workflows criativos. (URL: https://github.com/b/wize-music-studio/claude-al-music-skills)",
-    "Description_es": "Criação musical/áudio em workflows criativos. (URL: https://github.com/b/wize-music-studio/claude-al-music-skills)"
+    "Description_pt": "Criação musical/áudio em workflows criativos.",
+    "Description_en": "Criação musical/áudio em workflows criativos.",
+    "Description_es": "Criação musical/áudio em workflows criativos.",
+    "URL": "https://github.com/b/wize-music-studio/claude-al-music-skills"
   },
   {
     "cat_pt": "Pesquisa, conteúdo e automação",
@@ -73,9 +78,10 @@
     "Code_pt": "Algorithmic Art",
     "Code_en": "Algorithmic Art",
     "Code_es": "Algorithmic Art",
-    "Description_pt": "Cria arte algorítmica e experimentos visuais. (URL: https://github.com/anthropics/skills/tree/main/skills/algorithmic-art)",
-    "Description_en": "Cria arte algorítmica e experimentos visuais. (URL: https://github.com/anthropics/skills/tree/main/skills/algorithmic-art)",
-    "Description_es": "Cria arte algorítmica e experimentos visuais. (URL: https://github.com/anthropics/skills/tree/main/skills/algorithmic-art)"
+    "Description_pt": "Cria arte algorítmica e experimentos visuais.",
+    "Description_en": "Cria arte algorítmica e experimentos visuais.",
+    "Description_es": "Cria arte algorítmica e experimentos visuais.",
+    "URL": "https://github.com/anthropics/skills/tree/main/skills/algorithmic-art"
   },
   {
     "cat_pt": "Pesquisa, conteúdo e automação",
@@ -86,9 +92,10 @@
     "Code_pt": "Remotion Best Practices",
     "Code_en": "Remotion Best Practices",
     "Code_es": "Remotion Best Practices",
-    "Description_pt": "Ajuda a criar vídeos programáticos com React/Remotion. (URL: https://github.com/remotion-dev/skills/tree/main/skills/remotion-best-practices)",
-    "Description_en": "Ajuda a criar vídeos programáticos com React/Remotion. (URL: https://github.com/remotion-dev/skills/tree/main/skills/remotion-best-practices)",
-    "Description_es": "Ajuda a criar vídeos programáticos com React/Remotion. (URL: https://github.com/remotion-dev/skills/tree/main/skills/remotion-best-practices)"
+    "Description_pt": "Ajuda a criar vídeos programáticos com React/Remotion.",
+    "Description_en": "Ajuda a criar vídeos programáticos com React/Remotion.",
+    "Description_es": "Ajuda a criar vídeos programáticos com React/Remotion.",
+    "URL": "https://github.com/remotion-dev/skills/tree/main/skills/remotion-best-practices"
   },
   {
     "cat_pt": "Pesquisa, conteúdo e automação",
@@ -99,9 +106,10 @@
     "Code_pt": "Corey Haines Marketing Skills",
     "Code_en": "Corey Haines Marketing Skills",
     "Code_es": "Corey Haines Marketing Skills",
-    "Description_pt": "Stack de marketing: CRO, SEO, copywriting, lifecycle, analytics, growth e RevOps. (URL: https://github.com/coreyhaines31/marketingskills)",
-    "Description_en": "Stack de marketing: CRO, SEO, copywriting, lifecycle, analytics, growth e RevOps. (URL: https://github.com/coreyhaines31/marketingskills)",
-    "Description_es": "Stack de marketing: CRO, SEO, copywriting, lifecycle, analytics, growth e RevOps. (URL: https://github.com/coreyhaines31/marketingskills)"
+    "Description_pt": "Stack de marketing: CRO, SEO, copywriting, lifecycle, analytics, growth e RevOps.",
+    "Description_en": "Stack de marketing: CRO, SEO, copywriting, lifecycle, analytics, growth e RevOps.",
+    "Description_es": "Stack de marketing: CRO, SEO, copywriting, lifecycle, analytics, growth e RevOps.",
+    "URL": "https://github.com/coreyhaines31/marketingskills"
   },
   {
     "cat_pt": "Pesquisa, conteúdo e automação",
@@ -112,9 +120,10 @@
     "Code_pt": "Printing Press",
     "Code_en": "Printing Press",
     "Code_es": "Printing Press",
-    "Description_pt": "Transforma sites/APIs em interfaces ou CLIs mais fáceis para agentes. (URL: https://github.com/mvanhorn/cli-printing-press/tree/main/skills/printing-press)",
-    "Description_en": "Transforma sites/APIs em interfaces ou CLIs mais fáceis para agentes. (URL: https://github.com/mvanhorn/cli-printing-press/tree/main/skills/printing-press)",
-    "Description_es": "Transforma sites/APIs em interfaces ou CLIs mais fáceis para agentes. (URL: https://github.com/mvanhorn/cli-printing-press/tree/main/skills/printing-press)"
+    "Description_pt": "Transforma sites/APIs em interfaces ou CLIs mais fáceis para agentes.",
+    "Description_en": "Transforma sites/APIs em interfaces ou CLIs mais fáceis para agentes.",
+    "Description_es": "Transforma sites/APIs em interfaces ou CLIs mais fáceis para agentes.",
+    "URL": "https://github.com/mvanhorn/cli-printing-press/tree/main/skills/printing-press"
   },
   {
     "cat_pt": "Pesquisa, conteúdo e automação",
@@ -125,9 +134,10 @@
     "Code_pt": "Firecrawl",
     "Code_en": "Firecrawl",
     "Code_es": "Firecrawl",
-    "Description_pt": "Scraping, pesquisa e browser automation com Firecrawl. (URL: https://github.com/firecrawticii/tree/main/skills/firecrawl-agent)",
-    "Description_en": "Scraping, pesquisa e browser automation com Firecrawl. (URL: https://github.com/firecrawticii/tree/main/skills/firecrawl-agent)",
-    "Description_es": "Scraping, pesquisa e browser automation com Firecrawl. (URL: https://github.com/firecrawticii/tree/main/skills/firecrawl-agent)"
+    "Description_pt": "Scraping, pesquisa e browser automation com Firecrawl.",
+    "Description_en": "Scraping, pesquisa e browser automation com Firecrawl.",
+    "Description_es": "Scraping, pesquisa e browser automation com Firecrawl.",
+    "URL": "https://github.com/firecrawticii/tree/main/skills/firecrawl-agent"
   },
   {
     "cat_pt": "Documentos e trabalho de escritório",
@@ -138,9 +148,10 @@
     "Code_pt": "Internal Comms",
     "Code_en": "Internal Comms",
     "Code_es": "Internal Comms",
-    "Description_pt": "Ajuda a criar anúncios internos, updates e comunicações de time. (URL: https://github.com/anthropics/skills/tree/main/skills/internal-comms)",
-    "Description_en": "Ajuda a criar anúncios internos, updates e comunicações de time. (URL: https://github.com/anthropics/skills/tree/main/skills/internal-comms)",
-    "Description_es": "Ajuda a criar anúncios internos, updates e comunicações de time. (URL: https://github.com/anthropics/skills/tree/main/skills/internal-comms)"
+    "Description_pt": "Ajuda a criar anúncios internos, updates e comunicações de time.",
+    "Description_en": "Ajuda a criar anúncios internos, updates e comunicações de time.",
+    "Description_es": "Ajuda a criar anúncios internos, updates e comunicações de time.",
+    "URL": "https://github.com/anthropics/skills/tree/main/skills/internal-comms"
   },
   {
     "cat_pt": "Documentos e trabalho de escritório",
@@ -151,9 +162,10 @@
     "Code_pt": "Brand Guidelines",
     "Code_en": "Brand Guidelines",
     "Code_es": "Brand Guidelines",
-    "Description_pt": "Aplica diretrizes de marca em documentos e materiais. (URL: https://github.com/anthropics/skills/tree/main/skills/brand-guidelines)",
-    "Description_en": "Aplica diretrizes de marca em documentos e materiais. (URL: https://github.com/anthropics/skills/tree/main/skills/brand-guidelines)",
-    "Description_es": "Aplica diretrizes de marca em documentos e materiais. (URL: https://github.com/anthropics/skills/tree/main/skills/brand-guidelines)"
+    "Description_pt": "Aplica diretrizes de marca em documentos e materiais.",
+    "Description_en": "Aplica diretrizes de marca em documentos e materiais.",
+    "Description_es": "Aplica diretrizes de marca em documentos e materiais.",
+    "URL": "https://github.com/anthropics/skills/tree/main/skills/brand-guidelines"
   },
   {
     "cat_pt": "Documentos e trabalho de escritório",
@@ -164,9 +176,10 @@
     "Code_pt": "Doc Coauthoring",
     "Code_en": "Doc Coauthoring",
     "Code_es": "Doc Coauthoring",
-    "Description_pt": "Coautoria, revisão e edição colaborativa de documentos. (URL: https://github.com/anthropics/skills/tree/main/skills/doc-coauthoring)",
-    "Description_en": "Coautoria, revisão e edição colaborativa de documentos. (URL: https://github.com/anthropics/skills/tree/main/skills/doc-coauthoring)",
-    "Description_es": "Coautoria, revisão e edição colaborativa de documentos. (URL: https://github.com/anthropics/skills/tree/main/skills/doc-coauthoring)"
+    "Description_pt": "Coautoria, revisão e edição colaborativa de documentos.",
+    "Description_en": "Coautoria, revisão e edição colaborativa de documentos.",
+    "Description_es": "Coautoria, revisão e edição colaborativa de documentos.",
+    "URL": "https://github.com/anthropics/skills/tree/main/skills/doc-coauthoring"
   },
   {
     "cat_pt": "Documentos e trabalho de escritório",
@@ -177,9 +190,10 @@
     "Code_pt": "XLSX",
     "Code_en": "XLSX",
     "Code_es": "XLSX",
-    "Description_pt": "Trabalha com planilhas Excel. (URL: https://github.com/anthropics/skills/tree/main/skills/xlsx)",
-    "Description_en": "Trabalha com planilhas Excel. (URL: https://github.com/anthropics/skills/tree/main/skills/xlsx)",
-    "Description_es": "Trabalha com planilhas Excel. (URL: https://github.com/anthropics/skills/tree/main/skills/xlsx)"
+    "Description_pt": "Trabalha com planilhas Excel.",
+    "Description_en": "Trabalha com planilhas Excel.",
+    "Description_es": "Trabalha com planilhas Excel.",
+    "URL": "https://github.com/anthropics/skills/tree/main/skills/xlsx"
   },
   {
     "cat_pt": "Documentos e trabalho de escritório",
@@ -190,9 +204,10 @@
     "Code_pt": "PPTX",
     "Code_en": "PPTX",
     "Code_es": "PPTX",
-    "Description_pt": "Cria e edita apresentações. (URL: https://github.com/anthropics/skills/tree/main/skills/pptx)",
-    "Description_en": "Cria e edita apresentações. (URL: https://github.com/anthropics/skills/tree/main/skills/pptx)",
-    "Description_es": "Cria e edita apresentações. (URL: https://github.com/anthropics/skills/tree/main/skills/pptx)"
+    "Description_pt": "Cria e edita apresentações.",
+    "Description_en": "Cria e edita apresentações.",
+    "Description_es": "Cria e edita apresentações.",
+    "URL": "https://github.com/anthropics/skills/tree/main/skills/pptx"
   },
   {
     "cat_pt": "Documentos e trabalho de escritório",
@@ -203,9 +218,10 @@
     "Code_pt": "PDF",
     "Code_en": "PDF",
     "Code_es": "PDF",
-    "Description_pt": "Extrai, analisa e trabalha com PDFs. (URL: https://github.com/anthropics/skills/tree/main/skills/pdf)",
-    "Description_en": "Extrai, analisa e trabalha com PDFs. (URL: https://github.com/anthropics/skills/tree/main/skills/pdf)",
-    "Description_es": "Extrai, analisa e trabalha com PDFs. (URL: https://github.com/anthropics/skills/tree/main/skills/pdf)"
+    "Description_pt": "Extrai, analisa e trabalha com PDFs.",
+    "Description_en": "Extrai, analisa e trabalha com PDFs.",
+    "Description_es": "Extrai, analisa e trabalha com PDFs.",
+    "URL": "https://github.com/anthropics/skills/tree/main/skills/pdf"
   },
   {
     "cat_pt": "Documentos e trabalho de escritório",
@@ -216,9 +232,10 @@
     "Code_pt": "DOCX",
     "Code_en": "DOCX",
     "Code_es": "DOCX",
-    "Description_pt": "Cria, edita e analisa documentos Word. (URL: https://github.com/anthropics/skills/tree/main/skills/dock)",
-    "Description_en": "Cria, edita e analisa documentos Word. (URL: https://github.com/anthropics/skills/tree/main/skills/dock)",
-    "Description_es": "Cria, edita e analisa documentos Word. (URL: https://github.com/anthropics/skills/tree/main/skills/dock)"
+    "Description_pt": "Cria, edita e analisa documentos Word.",
+    "Description_en": "Cria, edita e analisa documentos Word.",
+    "Description_es": "Cria, edita e analisa documentos Word.",
+    "URL": "https://github.com/anthropics/skills/tree/main/skills/dock"
   },
   {
     "cat_pt": "Testes, segurança e qualidade",
@@ -229,9 +246,10 @@
     "Code_pt": "Karpathy Guidelines",
     "Code_en": "Karpathy Guidelines",
     "Code_es": "Karpathy Guidelines",
-    "Description_pt": "Força simplicidade, mudanças cirúrgicas, checagem e raciocínio antes de sair codando. (URL: https://github.com/multica-al/andrej-karpatny skills/tree/main/skills/karpathy-guidelines)",
-    "Description_en": "Força simplicidade, mudanças cirúrgicas, checagem e raciocínio antes de sair codando. (URL: https://github.com/multica-al/andrej-karpatny skills/tree/main/skills/karpathy-guidelines)",
-    "Description_es": "Força simplicidade, mudanças cirúrgicas, checagem e raciocínio antes de sair codando. (URL: https://github.com/multica-al/andrej-karpatny skills/tree/main/skills/karpathy-guidelines)"
+    "Description_pt": "Força simplicidade, mudanças cirúrgicas, checagem e raciocínio antes de sair codando.",
+    "Description_en": "Força simplicidade, mudanças cirúrgicas, checagem e raciocínio antes de sair codando.",
+    "Description_es": "Força simplicidade, mudanças cirúrgicas, checagem e raciocínio antes de sair codando.",
+    "URL": "https://github.com/multica-al/andrej-karpatny skills/tree/main/skills/karpathy-guidelines"
   },
   {
     "cat_pt": "Testes, segurança e qualidade",
@@ -242,9 +260,10 @@
     "Code_pt": "Axiom",
     "Code_en": "Axiom",
     "Code_es": "Axiom",
-    "Description_pt": "Workflow para desenvolvimento Apple/iOS/macOS com Swift, SwiftUI, Xcode e debugging. (URL: https://github.com/Charles Witgen/Axiom)",
-    "Description_en": "Workflow para desenvolvimento Apple/iOS/macOS com Swift, SwiftUI, Xcode e debugging. (URL: https://github.com/Charles Witgen/Axiom)",
-    "Description_es": "Workflow para desenvolvimento Apple/iOS/macOS com Swift, SwiftUI, Xcode e debugging. (URL: https://github.com/Charles Witgen/Axiom)"
+    "Description_pt": "Workflow para desenvolvimento Apple/iOS/macOS com Swift, SwiftUI, Xcode e debugging.",
+    "Description_en": "Workflow para desenvolvimento Apple/iOS/macOS com Swift, SwiftUI, Xcode e debugging.",
+    "Description_es": "Workflow para desenvolvimento Apple/iOS/macOS com Swift, SwiftUI, Xcode e debugging.",
+    "URL": "https://github.com/Charles Witgen/Axiom"
   },
   {
     "cat_pt": "Testes, segurança e qualidade",
@@ -255,9 +274,10 @@
     "Code_pt": "Claude API",
     "Code_en": "Claude API",
     "Code_es": "Claude API",
-    "Description_pt": "Ajuda a trabalhar com API da Claude em integrações e produtos. (URL: https://github.com/anthropics/skills/tree/main/skills/claude-api)",
-    "Description_en": "Ajuda a trabalhar com API da Claude em integrações e produtos. (URL: https://github.com/anthropics/skills/tree/main/skills/claude-api)",
-    "Description_es": "Ajuda a trabalhar com API da Claude em integrações e produtos. (URL: https://github.com/anthropics/skills/tree/main/skills/claude-api)"
+    "Description_pt": "Ajuda a trabalhar com API da Claude em integrações e produtos.",
+    "Description_en": "Ajuda a trabalhar com API da Claude em integrações e produtos.",
+    "Description_es": "Ajuda a trabalhar com API da Claude em integrações e produtos.",
+    "URL": "https://github.com/anthropics/skills/tree/main/skills/claude-api"
   },
   {
     "cat_pt": "Testes, segurança e qualidade",
@@ -268,9 +288,10 @@
     "Code_pt": "MCP Builder",
     "Code_en": "MCP Builder",
     "Code_es": "MCP Builder",
-    "Description_pt": "Ajuda a criar servidores MCP para conectar agentes a ferramentas externas. (URL: https://github.com/anthropics/skills/tree/main/skills/mcp-builider)",
-    "Description_en": "Ajuda a criar servidores MCP para conectar agentes a ferramentas externas. (URL: https://github.com/anthropics/skills/tree/main/skills/mcp-builider)",
-    "Description_es": "Ajuda a criar servidores MCP para conectar agentes a ferramentas externas. (URL: https://github.com/anthropics/skills/tree/main/skills/mcp-builider)"
+    "Description_pt": "Ajuda a criar servidores MCP para conectar agentes a ferramentas externas.",
+    "Description_en": "Ajuda a criar servidores MCP para conectar agentes a ferramentas externas.",
+    "Description_es": "Ajuda a criar servidores MCP para conectar agentes a ferramentas externas.",
+    "URL": "https://github.com/anthropics/skills/tree/main/skills/mcp-builider"
   },
   {
     "cat_pt": "Testes, segurança e qualidade",
@@ -281,9 +302,10 @@
     "Code_pt": "Trail of Bits Security",
     "Code_en": "Trail of Bits Security",
     "Code_es": "Trail of Bits Security",
-    "Description_pt": "Skills de segurança com CodeQL, Semgrep e análise de vulnerabilidades. (URL: https://github.com/trailofbits/skills)",
-    "Description_en": "Skills de segurança com CodeQL, Semgrep e análise de vulnerabilidades. (URL: https://github.com/trailofbits/skills)",
-    "Description_es": "Skills de segurança com CodeQL, Semgrep e análise de vulnerabilidades. (URL: https://github.com/trailofbits/skills)"
+    "Description_pt": "Skills de segurança com CodeQL, Semgrep e análise de vulnerabilidades.",
+    "Description_en": "Skills de segurança com CodeQL, Semgrep e análise de vulnerabilidades.",
+    "Description_es": "Skills de segurança com CodeQL, Semgrep e análise de vulnerabilidades.",
+    "URL": "https://github.com/trailofbits/skills"
   },
   {
     "cat_pt": "Testes, segurança e qualidade",
@@ -294,9 +316,10 @@
     "Code_pt": "Playwright Skill",
     "Code_en": "Playwright Skill",
     "Code_es": "Playwright Skill",
-    "Description_pt": "Exploração e teste de apps usando Playwright de forma mais leve que MCPs grandes. (URL: https://github.com/lackeyjb/playwright-skill)",
-    "Description_en": "Exploração e teste de apps usando Playwright de forma mais leve que MCPs grandes. (URL: https://github.com/lackeyjb/playwright-skill)",
-    "Description_es": "Exploração e teste de apps usando Playwright de forma mais leve que MCPs grandes. (URL: https://github.com/lackeyjb/playwright-skill)"
+    "Description_pt": "Exploração e teste de apps usando Playwright de forma mais leve que MCPs grandes.",
+    "Description_en": "Exploração e teste de apps usando Playwright de forma mais leve que MCPs grandes.",
+    "Description_es": "Exploração e teste de apps usando Playwright de forma mais leve que MCPs grandes.",
+    "URL": "https://github.com/lackeyjb/playwright-skill"
   },
   {
     "cat_pt": "Testes, segurança e qualidade",
@@ -307,9 +330,10 @@
     "Code_pt": "Webapp Testing",
     "Code_en": "Webapp Testing",
     "Code_es": "Webapp Testing",
-    "Description_pt": "Skill oficial para testar apps web com navegador/Playwright. (URL: https://github.com/anthropics/skills/tree/main/skills/webapp-testing)",
-    "Description_en": "Skill oficial para testar apps web com navegador/Playwright. (URL: https://github.com/anthropics/skills/tree/main/skills/webapp-testing)",
-    "Description_es": "Skill oficial para testar apps web com navegador/Playwright. (URL: https://github.com/anthropics/skills/tree/main/skills/webapp-testing)"
+    "Description_pt": "Skill oficial para testar apps web com navegador/Playwright.",
+    "Description_en": "Skill oficial para testar apps web com navegador/Playwright.",
+    "Description_es": "Skill oficial para testar apps web com navegador/Playwright.",
+    "URL": "https://github.com/anthropics/skills/tree/main/skills/webapp-testing"
   },
   {
     "cat_pt": "Frontend, UI e design",
@@ -320,9 +344,10 @@
     "Code_pt": "Web Artifacts Builder",
     "Code_en": "Web Artifacts Builder",
     "Code_es": "Web Artifacts Builder",
-    "Description_pt": "Cria web artifacts e apps interativos. (URL: https://github.com/anthropics/skills/tree/main/skills/web-artifacts-builder)",
-    "Description_en": "Cria web artifacts e apps interativos. (URL: https://github.com/anthropics/skills/tree/main/skills/web-artifacts-builder)",
-    "Description_es": "Cria web artifacts e apps interativos. (URL: https://github.com/anthropics/skills/tree/main/skills/web-artifacts-builder)"
+    "Description_pt": "Cria web artifacts e apps interativos.",
+    "Description_en": "Cria web artifacts e apps interativos.",
+    "Description_es": "Cria web artifacts e apps interativos.",
+    "URL": "https://github.com/anthropics/skills/tree/main/skills/web-artifacts-builder"
   },
   {
     "cat_pt": "Frontend, UI e design",
@@ -333,9 +358,10 @@
     "Code_pt": "Canvas Design",
     "Code_en": "Canvas Design",
     "Code_es": "Canvas Design",
-    "Description_pt": "Ajuda em design visual/canvas e composições gráficas. (URL: https://github.com/anthropics/skills/tree/main/skills/canvas-design)",
-    "Description_en": "Ajuda em design visual/canvas e composições gráficas. (URL: https://github.com/anthropics/skills/tree/main/skills/canvas-design)",
-    "Description_es": "Ajuda em design visual/canvas e composições gráficas. (URL: https://github.com/anthropics/skills/tree/main/skills/canvas-design)"
+    "Description_pt": "Ajuda em design visual/canvas e composições gráficas.",
+    "Description_en": "Ajuda em design visual/canvas e composições gráficas.",
+    "Description_es": "Ajuda em design visual/canvas e composições gráficas.",
+    "URL": "https://github.com/anthropics/skills/tree/main/skills/canvas-design"
   },
   {
     "cat_pt": "Frontend, UI e design",
@@ -346,9 +372,10 @@
     "Code_pt": "Theme Factory",
     "Code_en": "Theme Factory",
     "Code_es": "Theme Factory",
-    "Description_pt": "Cria temas visuais consistentes para projetos. (URL: https://github.com/anthropics/skills/tree/main/skills/theme-factory)",
-    "Description_en": "Cria temas visuais consistentes para projetos. (URL: https://github.com/anthropics/skills/tree/main/skills/theme-factory)",
-    "Description_es": "Cria temas visuais consistentes para projetos. (URL: https://github.com/anthropics/skills/tree/main/skills/theme-factory)"
+    "Description_pt": "Cria temas visuais consistentes para projetos.",
+    "Description_en": "Cria temas visuais consistentes para projetos.",
+    "Description_es": "Cria temas visuais consistentes para projetos.",
+    "URL": "https://github.com/anthropics/skills/tree/main/skills/theme-factory"
   },
   {
     "cat_pt": "Frontend, UI e design",
@@ -359,9 +386,10 @@
     "Code_pt": "Impeccable",
     "Code_en": "Impeccable",
     "Code_es": "Impeccable",
-    "Description_pt": "Polimento e auditoria visual de interfaces e dashboards. (URL: https://impeccable style)",
-    "Description_en": "Polimento e auditoria visual de interfaces e dashboards. (URL: https://impeccable style)",
-    "Description_es": "Polimento e auditoria visual de interfaces e dashboards. (URL: https://impeccable style)"
+    "Description_pt": "Polimento e auditoria visual de interfaces e dashboards.",
+    "Description_en": "Polimento e auditoria visual de interfaces e dashboards.",
+    "Description_es": "Polimento e auditoria visual de interfaces e dashboards.",
+    "URL": "https://impeccable style"
   },
   {
     "cat_pt": "Frontend, UI e design",
@@ -372,9 +400,10 @@
     "Code_pt": "UI UX Pro Max",
     "Code_en": "UI UX Pro Max",
     "Code_es": "UI UX Pro Max",
-    "Description_pt": "Skill de design intelligence para layout, cores, tipografia e guidelines visuais. (URL: https://github.com/nextlevelbuilderful-ux-pro-max-skill)",
-    "Description_en": "Skill de design intelligence para layout, cores, tipografia e guidelines visuais. (URL: https://github.com/nextlevelbuilderful-ux-pro-max-skill)",
-    "Description_es": "Skill de design intelligence para layout, cores, tipografia e guidelines visuais. (URL: https://github.com/nextlevelbuilderful-ux-pro-max-skill)"
+    "Description_pt": "Skill de design intelligence para layout, cores, tipografia e guidelines visuais.",
+    "Description_en": "Skill de design intelligence para layout, cores, tipografia e guidelines visuais.",
+    "Description_es": "Skill de design intelligence para layout, cores, tipografia e guidelines visuais.",
+    "URL": "https://github.com/nextlevelbuilderful-ux-pro-max-skill"
   },
   {
     "cat_pt": "Frontend, UI e design",
@@ -385,9 +414,10 @@
     "Code_pt": "Vercel Composition Patterns",
     "Code_en": "Vercel Composition Patterns",
     "Code_es": "Vercel Composition Patterns",
-    "Description_pt": "Ajuda a fugir do \"boolean prop hell\" e usar padrões melhores de composição. (URL: https://github.com/vercel-labs/agent-skills/tree/main/skills/composition-pattem-s)",
-    "Description_en": "Ajuda a fugir do \"boolean prop hell\" e usar padrões melhores de composição. (URL: https://github.com/vercel-labs/agent-skills/tree/main/skills/composition-pattem-s)",
-    "Description_es": "Ajuda a fugir do \"boolean prop hell\" e usar padrões melhores de composição. (URL: https://github.com/vercel-labs/agent-skills/tree/main/skills/composition-pattem-s)"
+    "Description_pt": "Ajuda a fugir do \"boolean prop hell\" e usar padrões melhores de composição.",
+    "Description_en": "Ajuda a fugir do \"boolean prop hell\" e usar padrões melhores de composição.",
+    "Description_es": "Ajuda a fugir do \"boolean prop hell\" e usar padrões melhores de composição.",
+    "URL": "https://github.com/vercel-labs/agent-skills/tree/main/skills/composition-pattem-s"
   },
   {
     "cat_pt": "Frontend, UI e design",
@@ -398,9 +428,10 @@
     "Code_pt": "Vercel React Best Practices",
     "Code_en": "Vercel React Best Practices",
     "Code_es": "Vercel React Best Practices",
-    "Description_pt": "Aplica boas práticas de React/Next.js, performance e organização de componentes. (URL: https://github.com/vercel-labs/agent-skills/tree/main/skills/react-best-practices)",
-    "Description_en": "Aplica boas práticas de React/Next.js, performance e organização de componentes. (URL: https://github.com/vercel-labs/agent-skills/tree/main/skills/react-best-practices)",
-    "Description_es": "Aplica boas práticas de React/Next.js, performance e organização de componentes. (URL: https://github.com/vercel-labs/agent-skills/tree/main/skills/react-best-practices)"
+    "Description_pt": "Aplica boas práticas de React/Next.js, performance e organização de componentes.",
+    "Description_en": "Aplica boas práticas de React/Next.js, performance e organização de componentes.",
+    "Description_es": "Aplica boas práticas de React/Next.js, performance e organização de componentes.",
+    "URL": "https://github.com/vercel-labs/agent-skills/tree/main/skills/react-best-practices"
   },
   {
     "cat_pt": "Frontend, UI e design",
@@ -411,9 +442,10 @@
     "Code_pt": "Vercel Web Design Guidelines",
     "Code_en": "Vercel Web Design Guidelines",
     "Code_es": "Vercel Web Design Guidelines",
-    "Description_pt": "Audita UI contra boas práticas de acessibilidade, UX e design. (URL: https://github.com/vertel-labs/aged-skills/tree/main/skills/web-design-guidelin-es)",
-    "Description_en": "Audita UI contra boas práticas de acessibilidade, UX e design. (URL: https://github.com/vertel-labs/aged-skills/tree/main/skills/web-design-guidelin-es)",
-    "Description_es": "Audita UI contra boas práticas de acessibilidade, UX e design. (URL: https://github.com/vertel-labs/aged-skills/tree/main/skills/web-design-guidelin-es)"
+    "Description_pt": "Audita UI contra boas práticas de acessibilidade, UX e design.",
+    "Description_en": "Audita UI contra boas práticas de acessibilidade, UX e design.",
+    "Description_es": "Audita UI contra boas práticas de acessibilidade, UX e design.",
+    "URL": "https://github.com/vertel-labs/aged-skills/tree/main/skills/web-design-guidelin-es"
   },
   {
     "cat_pt": "Frontend, UI e design",
@@ -424,9 +456,10 @@
     "Code_pt": "Frontend Design",
     "Code_en": "Frontend Design",
     "Code_es": "Frontend Design",
-    "Description_pt": "Skill oficial da Anthropic para criar interfaces melhores e fugir do visual genérico de IA. (URL: https://github.com/anthropics/skills/tree/main/skills/frontend-design)",
-    "Description_en": "Skill oficial da Anthropic para criar interfaces melhores e fugir do visual genérico de IA. (URL: https://github.com/anthropics/skills/tree/main/skills/frontend-design)",
-    "Description_es": "Skill oficial da Anthropic para criar interfaces melhores e fugir do visual genérico de IA. (URL: https://github.com/anthropics/skills/tree/main/skills/frontend-design)"
+    "Description_pt": "Skill oficial da Anthropic para criar interfaces melhores e fugir do visual genérico de IA.",
+    "Description_en": "Skill oficial da Anthropic para criar interfaces melhores e fugir do visual genérico de IA.",
+    "Description_es": "Skill oficial da Anthropic para criar interfaces melhores e fugir do visual genérico de IA.",
+    "URL": "https://github.com/anthropics/skills/tree/main/skills/frontend-design"
   },
   {
     "cat_pt": "Para programar melhor",
@@ -437,9 +470,10 @@
     "Code_pt": "Improve Codebase Architecture",
     "Code_en": "Improve Codebase Architecture",
     "Code_es": "Improve Codebase Architecture",
-    "Description_pt": "Ajuda a pensar e executar refatorações arquiteturais com menos chute. (URL: https://github.com/mattpocock/skills/tree/main/skills/engineering/improve-codebase-architecture)",
-    "Description_en": "Ajuda a pensar e executar refatorações arquiteturais com menos chute. (URL: https://github.com/mattpocock/skills/tree/main/skills/engineering/improve-codebase-architecture)",
-    "Description_es": "Ajuda a pensar e executar refatorações arquiteturais com menos chute. (URL: https://github.com/mattpocock/skills/tree/main/skills/engineering/improve-codebase-architecture)"
+    "Description_pt": "Ajuda a pensar e executar refatorações arquiteturais com menos chute.",
+    "Description_en": "Ajuda a pensar e executar refatorações arquiteturais com menos chute.",
+    "Description_es": "Ajuda a pensar e executar refatorações arquiteturais com menos chute.",
+    "URL": "https://github.com/mattpocock/skills/tree/main/skills/engineering/improve-codebase-architecture"
   },
   {
     "cat_pt": "Para programar melhor",
@@ -450,9 +484,10 @@
     "Code_pt": "Jeff Allan Claude Skills",
     "Code_en": "Jeff Allan Claude Skills",
     "Code_es": "Jeff Allan Claude Skills",
-    "Description_pt": "Pacote de skills e comandos para full-stack development e workflows de engenharia com IA. (URL: https://github.com/jeffallan/claude-skills)",
-    "Description_en": "Pacote de skills e comandos para full-stack development e workflows de engenharia com IA. (URL: https://github.com/jeffallan/claude-skills)",
-    "Description_es": "Pacote de skills e comandos para full-stack development e workflows de engenharia com IA. (URL: https://github.com/jeffallan/claude-skills)"
+    "Description_pt": "Pacote de skills e comandos para full-stack development e workflows de engenharia com IA.",
+    "Description_en": "Pacote de skills e comandos para full-stack development e workflows de engenharia com IA.",
+    "Description_es": "Pacote de skills e comandos para full-stack development e workflows de engenharia com IA.",
+    "URL": "https://github.com/jeffallan/claude-skills"
   },
   {
     "cat_pt": "Para programar melhor",
@@ -463,9 +498,10 @@
     "Code_pt": "Claude Code Kit",
     "Code_en": "Claude Code Kit",
     "Code_es": "Claude Code Kit",
-    "Description_pt": "Coleções de skills para stacks como Next.js, React, Tailwind, Prisma e Express. (URL: https://github.com/biencorp/claude-code-kit)",
-    "Description_en": "Coleções de skills para stacks como Next.js, React, Tailwind, Prisma e Express. (URL: https://github.com/biencorp/claude-code-kit)",
-    "Description_es": "Coleções de skills para stacks como Next.js, React, Tailwind, Prisma e Express. (URL: https://github.com/biencorp/claude-code-kit)"
+    "Description_pt": "Coleções de skills para stacks como Next.js, React, Tailwind, Prisma e Express.",
+    "Description_en": "Coleções de skills para stacks como Next.js, React, Tailwind, Prisma e Express.",
+    "Description_es": "Coleções de skills para stacks como Next.js, React, Tailwind, Prisma e Express.",
+    "URL": "https://github.com/biencorp/claude-code-kit"
   },
   {
     "cat_pt": "Para programar melhor",
@@ -476,9 +512,10 @@
     "Code_pt": "BMAD Skills",
     "Code_en": "BMAD Skills",
     "Code_es": "BMAD Skills",
-    "Description_pt": "Adapta o método BMAD para Claude Code: histórias, épicos, planejamento e execução com agentes. (URL: https://github.com/aj-geodes/claude-code-omad-skills)",
-    "Description_en": "Adapta o método BMAD para Claude Code: histórias, épicos, planejamento e execução com agentes. (URL: https://github.com/aj-geodes/claude-code-omad-skills)",
-    "Description_es": "Adapta o método BMAD para Claude Code: histórias, épicos, planejamento e execução com agentes. (URL: https://github.com/aj-geodes/claude-code-omad-skills)"
+    "Description_pt": "Adapta o método BMAD para Claude Code: histórias, épicos, planejamento e execução com agentes.",
+    "Description_en": "Adapta o método BMAD para Claude Code: histórias, épicos, planejamento e execução com agentes.",
+    "Description_es": "Adapta o método BMAD para Claude Code: histórias, épicos, planejamento e execução com agentes.",
+    "URL": "https://github.com/aj-geodes/claude-code-omad-skills"
   },
   {
     "cat_pt": "Para programar melhor",
@@ -489,9 +526,10 @@
     "Code_pt": "PAUL",
     "Code_en": "PAUL",
     "Code_es": "PAUL",
-    "Description_pt": "Plan-Apply-Unify Loop: fluxo mais leve de planejamento e execução sem framework gigante. (URL: https://github.com/ChristopherKahleripaul)",
-    "Description_en": "Plan-Apply-Unify Loop: fluxo mais leve de planejamento e execução sem framework gigante. (URL: https://github.com/ChristopherKahleripaul)",
-    "Description_es": "Plan-Apply-Unify Loop: fluxo mais leve de planejamento e execução sem framework gigante. (URL: https://github.com/ChristopherKahleripaul)"
+    "Description_pt": "Plan-Apply-Unify Loop: fluxo mais leve de planejamento e execução sem framework gigante.",
+    "Description_en": "Plan-Apply-Unify Loop: fluxo mais leve de planejamento e execução sem framework gigante.",
+    "Description_es": "Plan-Apply-Unify Loop: fluxo mais leve de planejamento e execução sem framework gigante.",
+    "URL": "https://github.com/ChristopherKahleripaul"
   },
   {
     "cat_pt": "Para programar melhor",
@@ -502,9 +540,10 @@
     "Code_pt": "Allium",
     "Code_en": "Allium",
     "Code_es": "Allium",
-    "Description_pt": "Mantém especificações comportamentais junto do código. Bom para times que querem specs vivas. (URL: https://github.com/juxt/allium)",
-    "Description_en": "Mantém especificações comportamentais junto do código. Bom para times que querem specs vivas. (URL: https://github.com/juxt/allium)",
-    "Description_es": "Mantém especificações comportamentais junto do código. Bom para times que querem specs vivas. (URL: https://github.com/juxt/allium)"
+    "Description_pt": "Mantém especificações comportamentais junto do código. Bom para times que querem specs vivas.",
+    "Description_en": "Mantém especificações comportamentais junto do código. Bom para times que querem specs vivas.",
+    "Description_es": "Mantém especificações comportamentais junto do código. Bom para times que querem specs vivas.",
+    "URL": "https://github.com/juxt/allium"
   },
   {
     "cat_pt": "Para programar melhor",
@@ -515,9 +554,10 @@
     "Code_pt": "Spec-Driven Development",
     "Code_en": "Spec-Driven Development",
     "Code_es": "Spec-Driven Development",
-    "Description_pt": "Gera requirements.md, design.md, tasks.md e arquivos de configuração para agentes. (URL: https://github.com/FredAntB/Spec-Orven-Development)",
-    "Description_en": "Gera requirements.md, design.md, tasks.md e arquivos de configuração para agentes. (URL: https://github.com/FredAntB/Spec-Orven-Development)",
-    "Description_es": "Gera requirements.md, design.md, tasks.md e arquivos de configuração para agentes. (URL: https://github.com/FredAntB/Spec-Orven-Development)"
+    "Description_pt": "Gera requirements.md, design.md, tasks.md e arquivos de configuração para agentes.",
+    "Description_en": "Gera requirements.md, design.md, tasks.md e arquivos de configuração para agentes.",
+    "Description_es": "Gera requirements.md, design.md, tasks.md e arquivos de configuração para agentes.",
+    "URL": "https://github.com/FredAntB/Spec-Orven-Development"
   },
   {
     "cat_pt": "Para programar melhor",
@@ -528,9 +568,10 @@
     "Code_pt": "OpenSpec",
     "Code_en": "OpenSpec",
     "Code_es": "OpenSpec",
-    "Description_pt": "Workflow de spec-driven development: proposta, aplicação e arquivamento de mudanças. (URL: https://github.com/Fission-Al-OpenSpec)",
-    "Description_en": "Workflow de spec-driven development: proposta, aplicação e arquivamento de mudanças. (URL: https://github.com/Fission-Al-OpenSpec)",
-    "Description_es": "Workflow de spec-driven development: proposta, aplicação e arquivamento de mudanças. (URL: https://github.com/Fission-Al-OpenSpec)"
+    "Description_pt": "Workflow de spec-driven development: proposta, aplicação e arquivamento de mudanças.",
+    "Description_en": "Workflow de spec-driven development: proposta, aplicação e arquivamento de mudanças.",
+    "Description_es": "Workflow de spec-driven development: proposta, aplicação e arquivamento de mudanças.",
+    "URL": "https://github.com/Fission-Al-OpenSpec"
   },
   {
     "cat_pt": "Para programar melhor",
@@ -541,9 +582,10 @@
     "Code_pt": "Planning With Files",
     "Code_en": "Planning With Files",
     "Code_es": "Planning With Files",
-    "Description_pt": "Cria planos persistentes em arquivos para tarefas longas, evitando perda de contexto entre sessões. (URL: https://github.com/Othman Adi/planning-with-flies)",
-    "Description_en": "Cria planos persistentes em arquivos para tarefas longas, evitando perda de contexto entre sessões. (URL: https://github.com/Othman Adi/planning-with-flies)",
-    "Description_es": "Cria planos persistentes em arquivos para tarefas longas, evitando perda de contexto entre sessões. (URL: https://github.com/Othman Adi/planning-with-flies)"
+    "Description_pt": "Cria planos persistentes em arquivos para tarefas longas, evitando perda de contexto entre sessões.",
+    "Description_en": "Cria planos persistentes em arquivos para tarefas longas, evitando perda de contexto entre sessões.",
+    "Description_es": "Cria planos persistentes em arquivos para tarefas longas, evitando perda de contexto entre sessões.",
+    "URL": "https://github.com/Othman Adi/planning-with-flies"
   },
   {
     "cat_pt": "Para programar melhor",
@@ -554,9 +596,10 @@
     "Code_pt": "GSD/Get Shit Done",
     "Code_en": "GSD/Get Shit Done",
     "Code_es": "GSD/Get Shit Done",
-    "Description_pt": "Stack pesada de produtividade e engenharia, com comandos para planejar, revisar, debater requisitos e executar tarefas grandes. (URL: https://github.com/gsd-build/get-shit-done)",
-    "Description_en": "Stack pesada de produtividade e engenharia, com comandos para planejar, revisar, debater requisitos e executar tarefas grandes. (URL: https://github.com/gsd-build/get-shit-done)",
-    "Description_es": "Stack pesada de produtividade e engenharia, com comandos para planejar, revisar, debater requisitos e executar tarefas grandes. (URL: https://github.com/gsd-build/get-shit-done)"
+    "Description_pt": "Stack pesada de produtividade e engenharia, com comandos para planejar, revisar, debater requisitos e executar tarefas grandes.",
+    "Description_en": "Stack pesada de produtividade e engenharia, com comandos para planejar, revisar, debater requisitos e executar tarefas grandes.",
+    "Description_es": "Stack pesada de produtividade e engenharia, com comandos para planejar, revisar, debater requisitos e executar tarefas grandes.",
+    "URL": "https://github.com/gsd-build/get-shit-done"
   },
   {
     "cat_pt": "Comece por aqui",
@@ -567,9 +610,10 @@
     "Code_pt": "Last30Days",
     "Code_en": "Last30Days",
     "Code_es": "Last30Days",
-    "Description_pt": "Pesquisa discussões recentes em X, Reddit, HN, YouTube e web sobre um tema. (URL: https://github.com/mvanhorn/last30days-sk/i/free/main/skillsñast30days)",
-    "Description_en": "Pesquisa discussões recentes em X, Reddit, HN, YouTube e web sobre um tema. (URL: https://github.com/mvanhorn/last30days-sk/i/free/main/skillsñast30days)",
-    "Description_es": "Pesquisa discussões recentes em X, Reddit, HN, YouTube e web sobre um tema. (URL: https://github.com/mvanhorn/last30days-sk/i/free/main/skillsñast30days)"
+    "Description_pt": "Pesquisa discussões recentes em X, Reddit, HN, YouTube e web sobre um tema.",
+    "Description_en": "Pesquisa discussões recentes em X, Reddit, HN, YouTube e web sobre um tema.",
+    "Description_es": "Pesquisa discussões recentes em X, Reddit, HN, YouTube e web sobre um tema.",
+    "URL": "https://github.com/mvanhorn/last30days-sk/i/free/main/skillsñast30days"
   },
   {
     "cat_pt": "Comece por aqui",
@@ -580,9 +624,10 @@
     "Code_pt": "Caveman",
     "Code_en": "Caveman",
     "Code_es": "Caveman",
-    "Description_pt": "Corta a verbosidade do agente e força respostas técnicas, curtas e diretas. (URL: https://github.com/JuliusBrussee/caveman)",
-    "Description_en": "Corta a verbosidade do agente e força respostas técnicas, curtas e diretas. (URL: https://github.com/JuliusBrussee/caveman)",
-    "Description_es": "Corta a verbosidade do agente e força respostas técnicas, curtas e diretas. (URL: https://github.com/JuliusBrussee/caveman)"
+    "Description_pt": "Corta a verbosidade do agente e força respostas técnicas, curtas e diretas.",
+    "Description_en": "Corta a verbosidade do agente e força respostas técnicas, curtas e diretas.",
+    "Description_es": "Corta a verbosidade do agente e força respostas técnicas, curtas e diretas.",
+    "URL": "https://github.com/JuliusBrussee/caveman"
   },
   {
     "cat_pt": "Comece por aqui",
@@ -593,9 +638,10 @@
     "Code_pt": "Git Guardrails",
     "Code_en": "Git Guardrails",
     "Code_es": "Git Guardrails",
-    "Description_pt": "Evita ações perigosas no Git: push indevido, reset hard, clean, branch delete e outras aventuras radioativas. (URL: https://github.com/mattpocock/solis/tree/main/skilis/misc/git-guardrails-claude-code)",
-    "Description_en": "Evita ações perigosas no Git: push indevido, reset hard, clean, branch delete e outras aventuras radioativas. (URL: https://github.com/mattpocock/solis/tree/main/skilis/misc/git-guardrails-claude-code)",
-    "Description_es": "Evita ações perigosas no Git: push indevido, reset hard, clean, branch delete e outras aventuras radioativas. (URL: https://github.com/mattpocock/solis/tree/main/skilis/misc/git-guardrails-claude-code)"
+    "Description_pt": "Evita ações perigosas no Git: push indevido, reset hard, clean, branch delete e outras aventuras radioativas.",
+    "Description_en": "Evita ações perigosas no Git: push indevido, reset hard, clean, branch delete e outras aventuras radioativas.",
+    "Description_es": "Evita ações perigosas no Git: push indevido, reset hard, clean, branch delete e outras aventuras radioativas.",
+    "URL": "https://github.com/mattpocock/solis/tree/main/skilis/misc/git-guardrails-claude-code"
   },
   {
     "cat_pt": "Comece por aqui",
@@ -606,9 +652,10 @@
     "Code_pt": "Grill Me",
     "Code_en": "Grill Me",
     "Code_es": "Grill Me",
-    "Description_pt": "Faz o agente te entrevistar antes de implementar, reduzindo briefing ruim e retrabalho. (URL: https://github.com/mattpocock/skills/tree/main/skills/productivity-gill-me)",
-    "Description_en": "Faz o agente te entrevistar antes de implementar, reduzindo briefing ruim e retrabalho. (URL: https://github.com/mattpocock/skills/tree/main/skills/productivity-gill-me)",
-    "Description_es": "Faz o agente te entrevistar antes de implementar, reduzindo briefing ruim e retrabalho. (URL: https://github.com/mattpocock/skills/tree/main/skills/productivity-gill-me)"
+    "Description_pt": "Faz o agente te entrevistar antes de implementar, reduzindo briefing ruim e retrabalho.",
+    "Description_en": "Faz o agente te entrevistar antes de implementar, reduzindo briefing ruim e retrabalho.",
+    "Description_es": "Faz o agente te entrevistar antes de implementar, reduzindo briefing ruim e retrabalho.",
+    "URL": "https://github.com/mattpocock/skills/tree/main/skills/productivity-gill-me"
   },
   {
     "cat_pt": "Comece por aqui",
@@ -619,9 +666,10 @@
     "Code_pt": "Superpowers",
     "Code_en": "Superpowers",
     "Code_es": "Superpowers",
-    "Description_pt": "Transforma o agente em um fluxo de engenharia: brainstorm, spec, plano, TDD, subagentes, review e debug. (URL: https://github.com/obra/superpowers)",
-    "Description_en": "Transforma o agente em um fluxo de engenharia: brainstorm, spec, plano, TDD, subagentes, review e debug. (URL: https://github.com/obra/superpowers)",
-    "Description_es": "Transforma o agente em um fluxo de engenharia: brainstorm, spec, plano, TDD, subagentes, review e debug. (URL: https://github.com/obra/superpowers)"
+    "Description_pt": "Transforma o agente em um fluxo de engenharia: brainstorm, spec, plano, TDD, subagentes, review e debug.",
+    "Description_en": "Transforma o agente em um fluxo de engenharia: brainstorm, spec, plano, TDD, subagentes, review e debug.",
+    "Description_es": "Transforma o agente em um fluxo de engenharia: brainstorm, spec, plano, TDD, subagentes, review e debug.",
+    "URL": "https://github.com/obra/superpowers"
   },
   {
     "cat_pt": "Comece por aqui",
@@ -632,9 +680,10 @@
     "Code_pt": "Skill Creator",
     "Code_en": "Skill Creator",
     "Code_es": "Skill Creator",
-    "Description_pt": "Ajuda a criar novas skills personalizadas, com estrutura e instruções reutilizáveis. (URL: https://github.com/anthropics/skills/tree/main/skills/skill-creator)",
-    "Description_en": "Ajuda a criar novas skills personalizadas, com estrutura e instruções reutilizáveis. (URL: https://github.com/anthropics/skills/tree/main/skills/skill-creator)",
-    "Description_es": "Ajuda a criar novas skills personalizadas, com estrutura e instruções reutilizáveis. (URL: https://github.com/anthropics/skills/tree/main/skills/skill-creator)"
+    "Description_pt": "Ajuda a criar novas skills personalizadas, com estrutura e instruções reutilizáveis.",
+    "Description_en": "Ajuda a criar novas skills personalizadas, com estrutura e instruções reutilizáveis.",
+    "Description_es": "Ajuda a criar novas skills personalizadas, com estrutura e instruções reutilizáveis.",
+    "URL": "https://github.com/anthropics/skills/tree/main/skills/skill-creator"
   },
   {
     "cat_pt": "Comece por aqui",
@@ -645,9 +694,10 @@
     "Code_pt": "Find Skills",
     "Code_en": "Find Skills",
     "Code_es": "Find Skills",
-    "Description_pt": "Encontra skills relevantes para uma tarefa específica. A melhor isca do pacote: resolve o garimpo antes de qualquer outra coisa. (URL: https://github.com/vercel-labs/skills/tree/main/skills/find-skills)",
-    "Description_en": "Encontra skills relevantes para uma tarefa específica. A melhor isca do pacote: resolve o garimpo antes de qualquer outra coisa. (URL: https://github.com/vercel-labs/skills/tree/main/skills/find-skills)",
-    "Description_es": "Encontra skills relevantes para uma tarefa específica. A melhor isca do pacote: resolve o garimpo antes de qualquer outra coisa. (URL: https://github.com/vercel-labs/skills/tree/main/skills/find-skills)"
+    "Description_pt": "Encontra skills relevantes para uma tarefa específica. A melhor isca do pacote: resolve o garimpo antes de qualquer outra coisa.",
+    "Description_en": "Encontra skills relevantes para uma tarefa específica. A melhor isca do pacote: resolve o garimpo antes de qualquer outra coisa.",
+    "Description_es": "Encontra skills relevantes para uma tarefa específica. A melhor isca do pacote: resolve o garimpo antes de qualquer outra coisa.",
+    "URL": "https://github.com/vercel-labs/skills/tree/main/skills/find-skills"
   },
   {
     "cat_pt": "Ciência e Pesquisa",
@@ -660,7 +710,8 @@
     "Description_es": "Actuar como Revisor #2 de una revista científica calificada A1. Lea la metodología adjunta y haga una crítica severa centrándose en: 1) Defectos en la validez interna; 2) limitaciones de muestreo; 3) Conclusiones que van más allá de los datos.",
     "Code_pt": "Revisão por Pares Simulada (Peer Review)",
     "Code_en": "Simulated Peer Review",
-    "Code_es": "Revisión por pares simulada"
+    "Code_es": "Revisión por pares simulada",
+    "URL": ""
   },
   {
     "cat_pt": "Ciência e Pesquisa",
@@ -673,7 +724,8 @@
     "Description_es": "Analice el resultado bruto de una prueba [ANOVA/T-Test] con valores P, R-cuadrado e intervalos de confianza. Escriba un párrafo interpretativo que indique si existe significancia estadística, tamaño del efecto y conclusiones prácticas.",
     "Code_pt": "Interpretação de Testes Estatísticos",
     "Code_en": "Interpretation of Statistical Tests",
-    "Code_es": "Interpretación de pruebas estadísticas"
+    "Code_es": "Interpretación de pruebas estadísticas",
+    "URL": ""
   },
   {
     "cat_pt": "Ciência e Pesquisa",
@@ -686,7 +738,8 @@
     "Description_es": "Cree la estructura de un diseño experimental 2x2 para probar los efectos de [Variable 1] y [Variable 2] en [Variable dependiente]. Definir cómo aislar los controles y cómo garantizar una aleatorización ciega.",
     "Code_pt": "Desenho Experimental Fatorial",
     "Code_en": "Factorial Experimental Design",
-    "Code_es": "Diseño experimental factorial"
+    "Code_es": "Diseño experimental factorial",
+    "URL": ""
   },
   {
     "cat_pt": "Ciência e Pesquisa",
@@ -699,7 +752,8 @@
     "Description_es": "Estoy realizando un estudio sobre [Tema y Variables]. Formule rigurosamente la Hipótesis Nula (H0) y la Hipótesis Alternativa (H1). Indique también cuáles serían los errores de Tipo I y Tipo II en contexto.",
     "Code_pt": "Elaboração de Hipótese Nula e Alternativa",
     "Code_en": "Preparation of Null and Alternative Hypothesis",
-    "Code_es": "Preparación de hipótesis nula y alternativa"
+    "Code_es": "Preparación de hipótesis nula y alternativa",
+    "URL": ""
   },
   {
     "cat_pt": "Ciência e Pesquisa",
@@ -712,7 +766,8 @@
     "Description_es": "Actuar como Asistente Académico. Realizar un resumen estructurado del texto adjunto. Extracto: cita APA, objetivo, pregunta de investigación, metodología utilizada, principales hallazgos, limitaciones y lagunas para futuras investigaciones.",
     "Code_pt": "Fichamento de Artigo Científico",
     "Code_en": "Scientific Article Registration",
-    "Code_es": "Registro de artículos científicos"
+    "Code_es": "Registro de artículos científicos",
+    "URL": ""
   },
   {
     "cat_pt": "Negócios e Estratégia",
@@ -725,7 +780,8 @@
     "Description_es": "Nuestra suscripción B2B tiene una tasa de abandono del 8% mensual. Actúe como analista de retención y enumere una metodología de auditoría de cohortes paso a paso para identificar dónde abandonan los clientes y formular una campaña de recuperación.",
     "Code_pt": "Diagnóstico de Churn e Retenção",
     "Code_en": "Churn and Retention Diagnosis",
-    "Code_es": "Diagnóstico de abandono y retención"
+    "Code_es": "Diagnóstico de abandono y retención",
+    "URL": ""
   },
   {
     "cat_pt": "Negócios e Estratégia",
@@ -738,7 +794,8 @@
     "Description_es": "Crear una hoja de ruta ejecutiva de Go-To-Market para el lanzamiento de [Producto] dirigido al mercado de [Público Objetivo]. Incluir: 1) Definición de PIC; 2) Posicionamiento; 3) Canales prioritarios; 4) Métricas (CAC, LTV, Payback).",
     "Code_pt": "Plano de Go-To-Market (GTM)",
     "Code_en": "Go-To-Market (GTM) Plan",
-    "Code_es": "Plan de comercialización (GTM)"
+    "Code_es": "Plan de comercialización (GTM)",
+    "URL": ""
   },
   {
     "cat_pt": "Negócios e Estratégia",
@@ -751,7 +808,8 @@
     "Description_es": "Actuar como Asesor de Precios. Para un servicio vendido a [Valor], presente 3 estrategias: precios basados ​​en el valor, precios psicológicos y escalonados (Freemium/Premium). Enumere los pros y los contras de cada modelo para la receta.",
     "Code_pt": "Modelagem de Preços e Elasticidade",
     "Code_en": "Price Modeling and Elasticity",
-    "Code_es": "Modelado de precios y elasticidad"
+    "Code_es": "Modelado de precios y elasticidad",
+    "URL": ""
   },
   {
     "cat_pt": "Negócios e Estratégia",
@@ -764,7 +822,8 @@
     "Description_es": "La meta a nivel estratégico (Objetivo) es [Describir Meta]. Defina 4 resultados clave cuantitativos y agresivos. Despliegue estos OKR en 2 iniciativas operativas viables para su equipo de primera línea.",
     "Code_pt": "Desdobramento de OKRs",
     "Code_en": "Breakdown of OKRs",
-    "Code_es": "Desglose de los OKR"
+    "Code_es": "Desglose de los OKR",
+    "URL": ""
   },
   {
     "cat_pt": "Negócios e Estratégia",
@@ -777,7 +836,8 @@
     "Description_es": "Realizar un análisis FODA en profundidad para una empresa en el mercado [Industria]. Vaya más allá de los elementos genéricos: cree un cruce de estrategias TOWS (usando las Fortalezas para minimizar las Amenazas y las Oportunidades para corregir las Debilidades).",
     "Code_pt": "Análise SWOT Avançada (TOWS)",
     "Code_en": "Advanced SWOT Analysis (TOWS)",
-    "Code_es": "Análisis FODA avanzado (TOWS)"
+    "Code_es": "Análisis FODA avanzado (TOWS)",
+    "URL": ""
   },
   {
     "cat_pt": "Vendas e Negociação",
@@ -790,7 +850,8 @@
     "Description_es": "Escriba una página de destino centrada en la conversión utilizando el marco PAS (Problem, Agitate, Solve). Describa el dolor de [Público], avive los síntomas emocionalmente y presente [Producto] como el máximo alivio.",
     "Code_pt": "Copywriting com Framework PAS",
     "Code_en": "Copywriting with PAS Framework",
-    "Code_es": "Redacción publicitaria con PAS Framework"
+    "Code_es": "Redacción publicitaria con PAS Framework",
+    "URL": ""
   },
   {
     "cat_pt": "Vendas e Negociação",
@@ -803,7 +864,8 @@
     "Description_es": "Estructura una lista de verificación de preguntas abiertas para calificar un cliente potencial Inbound utilizando el método BANT (Presupuesto, Autoridad, Necesidad, Cronograma). Las preguntas deben ser conversacionales. Agregue señales de alerta de descalificación.",
     "Code_pt": "Qualificação BANT",
     "Code_en": "BANT Qualification",
-    "Code_es": "Calificación BANT"
+    "Code_es": "Calificación BANT",
+    "URL": ""
   },
   {
     "cat_pt": "Vendas e Negociação",
@@ -816,7 +878,8 @@
     "Description_es": "Como cerrador de ventas, construya respuestas directas, empáticas y basadas en datos a las objeciones: 1) \"Es demasiado caro\", 2) \"Necesito hablar con mi socio\", 3) \"Ya utilizamos al competidor\", 4) \"Envíame un correo electrónico\".",
     "Code_pt": "Contorno de Objeções Clássicas",
     "Code_en": "Outline of Classical Objections",
-    "Code_es": "Esquema de las objeciones clásicas"
+    "Code_es": "Esquema de las objeciones clásicas",
+    "URL": ""
   },
   {
     "cat_pt": "Vendas e Negociação",
@@ -829,7 +892,8 @@
     "Description_es": "Escribe una secuencia de 4 correos electrónicos fríos para vender [Producto] a [Trabajo]. Reglas: temas breves, enfoque inmediato en el dolor del cliente potencial, personalización en la primera línea, CTA clara. Cada correo electrónico no debe exceder las 100 palabras.",
     "Code_pt": "Sequência de Cold Email",
     "Code_en": "Cold Email Sequence",
-    "Code_es": "Secuencia de correo electrónico frío"
+    "Code_es": "Secuencia de correo electrónico frío",
+    "URL": ""
   },
   {
     "cat_pt": "Vendas e Negociação",
@@ -842,7 +906,8 @@
     "Description_es": "Actuar como Ejecutivo de Cuentas B2B. Escriba un guión de calificación de 8 preguntas basado en el marco SPIN (Situación, Problema, Implicación, Necesidad de solución) para guiar al cliente potencial a verbalizar la urgencia de comprar.",
     "Code_pt": "Framework SPIN Selling",
     "Code_en": "SPIN Selling Framework",
-    "Code_es": "Marco de venta SPIN"
+    "Code_es": "Marco de venta SPIN",
+    "URL": ""
   },
   {
     "cat_pt": "Programação",
@@ -855,7 +920,8 @@
     "Description_es": "Escriba un Dockerfile de varias etapas optimizado para una aplicación escrita en [Idioma]. El objetivo es reducir el tamaño de la imagen de producción tanto como sea posible y garantizar que no se ejecute como root.",
     "Code_pt": "Criação de Dockerfile Otimizado",
     "Code_en": "Optimized Dockerfile Creation",
-    "Code_es": "Creación optimizada de Dockerfile"
+    "Code_es": "Creación optimizada de Dockerfile",
+    "URL": ""
   },
   {
     "cat_pt": "Programação",
@@ -868,7 +934,8 @@
     "Description_es": "Traduzca el guión adjunto del [Idioma de origen] al [Idioma de destino]. Mantenga la misma lógica de negocios, pero adáptese estrictamente a la sintaxis idiomática del nuevo lenguaje utilizando los paradigmas correctos.",
     "Code_pt": "Tradução de Código Idiomática",
     "Code_en": "Idiomatic Code Translation",
-    "Code_es": "Traducción de códigos idiomáticos"
+    "Code_es": "Traducción de códigos idiomáticos",
+    "URL": ""
   },
   {
     "cat_pt": "Programação",
@@ -881,7 +948,8 @@
     "Description_es": "Estoy diseñando un sistema web que sufre picos en el tráfico de lectura. Diseñe una estrategia de almacenamiento en caché distribuido de 3 niveles utilizando Redis, CDN y memoria local. Explicar las políticas de invalidación (TTL, LRU).",
     "Code_pt": "Estratégia de Cache e Escalabilidade",
     "Code_en": "Cache and Scalability Strategy",
-    "Code_es": "Estrategia de caché y escalabilidad"
+    "Code_es": "Estrategia de caché y escalabilidad",
+    "URL": ""
   },
   {
     "cat_pt": "Programação",
@@ -894,7 +962,8 @@
     "Description_es": "Cree una expresión regular en [Tipo de expresión regular] que valide estrictamente la siguiente estructura: [Formato deseado]. Explique cada parte de Regex y proporcione 3 cadenas de prueba que pasen y 3 que fallen.",
     "Code_pt": "Geração de Regex Rigoroso",
     "Code_en": "Strict Regex Generation",
-    "Code_es": "Generación estricta de expresiones regulares"
+    "Code_es": "Generación estricta de expresiones regulares",
+    "URL": ""
   },
   {
     "cat_pt": "Programação",
@@ -907,7 +976,8 @@
     "Description_es": "Analice la siguiente función. Calcule su complejidad temporal y espacial (Big-O). Refactorice el código utilizando estructuras de datos más eficientes para reducir la complejidad del tiempo a O(N) u O(1).",
     "Code_pt": "Otimização de Complexidade Algorítmica",
     "Code_en": "Algorithmic Complexity Optimization",
-    "Code_es": "Optimización de la complejidad algorítmica"
+    "Code_es": "Optimización de la complejidad algorítmica",
+    "URL": ""
   },
   {
     "cat_pt": "Música e Áudio",
@@ -920,7 +990,8 @@
     "Description_es": "Yo proporcionaré la melodía principal. Actúa como arreglista orquestal y divide el papel de esta melodía entre las secciones de cuerdas, instrumentos de viento y metales para crear un clímax épico. Dé instrucciones de articulación para cada sección.",
     "Code_pt": "Estruturação de Arranjo Orquestral",
     "Code_en": "Orchestral Arrangement Structuring",
-    "Code_es": "Estructuración de arreglos orquestales"
+    "Code_es": "Estructuración de arreglos orquestales",
+    "URL": ""
   },
   {
     "cat_pt": "Música e Áudio",
@@ -933,7 +1004,8 @@
     "Description_es": "Actuar como Ingeniero de Masterización. Enumere los niveles LUFS objetivo requeridos por Spotify, Apple Music y YouTube. Proporcione una cadena de complementos sugerida en el orden correcto para lograr este sonido sin destruir la dinámica.",
     "Code_pt": "Masterização para Streaming",
     "Code_en": "Mastering for Streaming",
-    "Code_es": "Masterización para transmisión"
+    "Code_es": "Masterización para transmisión",
+    "URL": ""
   },
   {
     "cat_pt": "Música e Áudio",
@@ -946,7 +1018,8 @@
     "Description_es": "Proporcione la configuración exacta de un sintetizador sustractivo (osciladores, filtro, envolvente ADSR y LFO) para recrear el tono clásico de [Tipo de sonido]. Explique la rotación armónica esperada en cada paso.",
     "Code_pt": "Design de Som Subtrativo",
     "Code_en": "Subtractive Sound Design",
-    "Code_es": "Diseño de sonido sustractivo"
+    "Code_es": "Diseño de sonido sustractivo",
+    "URL": ""
   },
   {
     "cat_pt": "Música e Áudio",
@@ -959,7 +1032,8 @@
     "Description_es": "Estoy mezclando una pista donde el bajo y el bombo se enmascaran entre sí. Enumere un proceso paso a paso de ecualización sustractiva, compresión de cadena lateral y panorámica para separar frecuencias y crear claridad.",
     "Code_pt": "Dicas de Mixagem (EQ Subtrativa)",
     "Code_en": "Mixing Tips (Subtractive EQ)",
-    "Code_es": "Consejos para mezclar (ecualizador sustractivo)"
+    "Code_es": "Consejos para mezclar (ecualizador sustractivo)",
+    "URL": ""
   },
   {
     "cat_pt": "Música e Áudio",
@@ -972,7 +1046,8 @@
     "Description_es": "Actuar como teórico de la música. Crea 4 progresiones de acordes distintas para una canción de estilo [Género] en la clave de [Clave]. Utilizar acordes de préstamo modales, dominantes secundarias y extensiones, explicando sus funciones.",
     "Code_pt": "Progressão Harmônica Avançada",
     "Code_en": "Advanced Harmonic Progression",
-    "Code_es": "Progresión armónica avanzada"
+    "Code_es": "Progresión armónica avanzada",
+    "URL": ""
   },
   {
     "cat_pt": "Artes e Design",
@@ -985,7 +1060,8 @@
     "Description_es": "Convierta el siguiente guión de texto en una descripción de guión gráfico escena por escena. Para cada panel, defina: 1) Encuadre de la cámara; 2) Ángulo de visión; 3) Acción en la escena; 4) Efectos de iluminación/transición.",
     "Code_pt": "Roteiro Visual de Storyboard",
     "Code_en": "Visual Storyboard Script",
-    "Code_es": "Guión gráfico visual"
+    "Code_es": "Guión gráfico visual",
+    "URL": ""
   },
   {
     "cat_pt": "Artes e Design",
@@ -998,7 +1074,8 @@
     "Description_es": "Cree una paleta de colores completa (Primario, Secundario, Acento, Éxito, Error, Fondo, Texto) para una aplicación [Tema]. Proporcionar códigos HEX. Asegúrese de que la relación de contraste cumpla con las pautas WCAG AAA (7:1).",
     "Code_pt": "Construção de Paleta WCAG",
     "Code_en": "WCAG Palette Construction",
-    "Code_es": "Construcción de paleta WCAG"
+    "Code_es": "Construcción de paleta WCAG",
+    "URL": ""
   },
   {
     "cat_pt": "Artes e Design",
@@ -1011,7 +1088,8 @@
     "Description_es": "Servir como Director Creativo. El cliente es una marca [Nicho] que lanza un producto para [Público objetivo]. Genera 3 conceptos de dirección de arte que contengan: Paleta de colores, tipografía, estilo fotográfico y estado de ánimo emocional.",
     "Code_pt": "Brainstorming de Direção de Arte",
     "Code_en": "Art Direction Brainstorming",
-    "Code_es": "Lluvia de ideas sobre dirección de arte"
+    "Code_es": "Lluvia de ideas sobre dirección de arte",
+    "URL": ""
   },
   {
     "cat_pt": "Artes e Design",
@@ -1024,7 +1102,8 @@
     "Description_es": "Analice la descripción de esta obra visual: [Describir escena]. Brinde críticas constructivas centradas en la regla de los tercios, el peso visual, el contraste de saturación y la psicología del color. Proponer 3 ajustes de impacto.",
     "Code_pt": "Crítica de Composição Visual",
     "Code_en": "Visual Composition Criticism",
-    "Code_es": "Crítica de composición visual"
+    "Code_es": "Crítica de composición visual",
+    "URL": ""
   },
   {
     "cat_pt": "Artes e Design",
@@ -1037,7 +1116,8 @@
     "Description_es": "Actuar como Director de Arte. Crea 3 indicaciones extremadamente detalladas en inglés. Estructura obligatoria: [Tema] + [Acción] + [Escenario] + [Estilo artístico] + [Esquema de colores] + [Iluminación] + [Renderizado] + --ar [proporción].",
     "Code_pt": "Prompt Mestre para Geração de Imagem",
     "Code_en": "Master Prompt for Image Generation",
-    "Code_es": "Mensaje maestro para la generación de imágenes"
+    "Code_es": "Mensaje maestro para la generación de imágenes",
+    "URL": ""
   },
   {
     "cat_pt": "Eletrônica e Hardware",
@@ -1050,7 +1130,8 @@
     "Description_es": "Escriba código en C (bare-metal) para inicializar el periférico [I2C/SPI/UART] en el microcontrolador [Modelo MCU]. Comente cada línea de manipulación de registros, explicando la velocidad en baudios y la activación del reloj.",
     "Code_pt": "Código de Inicialização de MCU",
     "Code_en": "MCU Initialization Code",
-    "Code_es": "Código de inicialización de MCU"
+    "Code_es": "Código de inicialización de MCU",
+    "URL": ""
   },
   {
     "cat_pt": "Eletrônica e Hardware",
@@ -1063,7 +1144,8 @@
     "Description_es": "Actuar como revisor de diseño de IPC. Enumere una lista de verificación de 10 pasos críticos de validación del Diseño para Fabricación (DFM) e integridad de la señal antes de enviar una placa de 4 capas a la fábrica.",
     "Code_pt": "Revisão de Layout de PCB",
     "Code_en": "PCB Layout Review",
-    "Code_es": "Revisión del diseño de PCB"
+    "Code_es": "Revisión del diseño de PCB",
+    "URL": ""
   },
   {
     "cat_pt": "Eletrônica e Hardware",
@@ -1076,7 +1158,8 @@
     "Description_es": "Necesito diseñar un filtro de paso bajo activo [Butterworth/Chebyshev] de orden [X] con frecuencia de corte en [Y Hz]. Generar ecuaciones teóricas y sugerir valores estándar (E12/E24) para resistencias y capacitores.",
     "Code_pt": "Design de Filtro Analógico",
     "Code_en": "Analog Filter Design",
-    "Code_es": "Diseño de filtro analógico"
+    "Code_es": "Diseño de filtro analógico",
+    "URL": ""
   },
   {
     "cat_pt": "Eletrônica e Hardware",
@@ -1089,7 +1172,8 @@
     "Description_es": "Estoy diseñando un circuito mixto y me enfrento a ruido de alta frecuencia en la línea ADC. Enumere cinco estrategias progresivas de mitigación de ruido por hardware (por ejemplo, condensadores de derivación, aislamiento), con cálculos.",
     "Code_pt": "Troubleshooting de Ruído em Sinais",
     "Code_en": "Signal Noise Troubleshooting",
-    "Code_es": "Solución de problemas de ruido de señal"
+    "Code_es": "Solución de problemas de ruido de señal",
+    "URL": ""
   },
   {
     "cat_pt": "Eletrônica e Hardware",
@@ -1102,7 +1186,8 @@
     "Description_es": "Actuar como Ingeniero de Hardware. Extraiga la siguiente información del texto de la hoja de datos adjunta: 1) Tensión y Corriente Máximas Absolutas; 2) Consumo típico en modo de suspensión; 3) Configuración de pines I2C/SPI; 4) Tolerancias térmicas.",
     "Code_pt": "Análise e Extração de Datasheet",
     "Code_en": "Datasheet Analysis and Extraction",
-    "Code_es": "Análisis y extracción de hojas de datos"
+    "Code_es": "Análisis y extracción de hojas de datos",
+    "URL": ""
   },
   {
     "cat_pt": "Medicina e Saúde",
@@ -1115,7 +1200,8 @@
     "Description_es": "Cree un diagrama de flujo de decisión de texto (árbol lógico) para la clasificación de emergencia de pacientes que presentan [Síntoma]. Clasifica caminos por gravedad usando el sistema de colores de Manchester.",
     "Code_pt": "Protocolo de Triagem Rápida",
     "Code_en": "Rapid Screening Protocol",
-    "Code_es": "Protocolo de detección rápida"
+    "Code_es": "Protocolo de detección rápida",
+    "URL": ""
   },
   {
     "cat_pt": "Medicina e Saúde",
@@ -1128,7 +1214,8 @@
     "Description_es": "Actuar como Investigador Titular. Proporcione un esquema estructurado (esquema) para un artículo de revisión sistemática sobre [Tema]. Incluya secciones de Introducción, Metodología (PRISMA), Resultados Esperados y Discusión.",
     "Code_pt": "Estruturação de Artigo Científico",
     "Code_en": "Scientific Article Structuring",
-    "Code_es": "Estructuración de artículos científicos"
+    "Code_es": "Estructuración de artículos científicos",
+    "URL": ""
   },
   {
     "cat_pt": "Medicina e Saúde",
@@ -1141,7 +1228,8 @@
     "Description_es": "Actuar como Tutor de Medicina. Presentaré el caso clínico de un paciente ficticio con sus síntomas y signos vitales. Generar una lista de diagnósticos diferenciales organizados de más probable a menos probable.",
     "Code_pt": "Análise Diferencial Simulada",
     "Code_en": "Simulated Differential Analysis",
-    "Code_es": "Análisis diferencial simulado"
+    "Code_es": "Análisis diferencial simulado",
+    "URL": ""
   },
   {
     "cat_pt": "Medicina e Saúde",
@@ -1154,7 +1242,8 @@
     "Description_es": "Actuar como Médico Educador. Traduzca el siguiente informe del examen a un lenguaje claro y empático que sea accesible para un paciente no especializado. Explique qué significa cada métrica anormal de una manera práctica.",
     "Code_pt": "Tradução de Jargão Médico",
     "Code_en": "Medical Jargon Translation",
-    "Code_es": "Traducción de jerga médica"
+    "Code_es": "Traducción de jerga médica",
+    "URL": ""
   },
   {
     "cat_pt": "Medicina e Saúde",
@@ -1167,7 +1256,8 @@
     "Description_es": "Actuar como Especialista Clínico. Sintetizar las pautas más recientes sobre el tratamiento de [Enfermedad/Afección]. Separar el resumen en: 1) Criterios Diagnósticos; 2) tratamiento farmacológico; 3) Contraindicaciones; 4) Modificaciones del estilo de vida.",
     "Code_pt": "Resumo de Diretrizes Clínicas",
     "Code_en": "Summary of Clinical Guidelines",
-    "Code_es": "Resumen de guías clínicas"
+    "Code_es": "Resumen de guías clínicas",
+    "URL": ""
   },
   {
     "cat_pt": "Orquestração",
@@ -1180,7 +1270,8 @@
     "Description_es": "Opera en un circuito cerrado de calidad. Ejecute la tarea, valide según restricciones estrictas, corrija internamente si se producen inconsistencias y genere solo el resultado auditado.",
     "Code_pt": "Agente de Validação e Autocorreção",
     "Code_en": "Validation and Self-Healing Agent",
-    "Code_es": "Agente de validación y autocuración"
+    "Code_es": "Agente de validación y autocuración",
+    "URL": ""
   },
   {
     "cat_pt": "Orquestração",
@@ -1193,7 +1284,8 @@
     "Description_es": "Usted es el agente de consenso. Analice informes analíticos divergentes sobre el mismo problema y construya una solución unificada equilibrando los argumentos más válidos.",
     "Code_pt": "Motor de Consenso entre Modelos",
     "Code_en": "Consensus Engine between Models",
-    "Code_es": "Motor de consenso entre modelos"
+    "Code_es": "Motor de consenso entre modelos",
+    "URL": ""
   },
   {
     "cat_pt": "Orquestração",
@@ -1206,7 +1298,8 @@
     "Description_es": "Usted es el Agente de Tasación Neutral. Juzgue dos respuestas enviadas en función de la precisión, la alineación y el razonamiento lógico, asignando calificaciones del 1 al 10 y eligiendo la mejor.",
     "Code_pt": "Juiz e Validador de LLMs",
     "Code_en": "LLM Judge and Validator",
-    "Code_es": "Juez y validador de LLM"
+    "Code_es": "Juez y validador de LLM",
+    "URL": ""
   },
   {
     "cat_pt": "Orquestração",
@@ -1219,7 +1312,8 @@
     "Description_es": "Usted es el agente ingeniero rápido. Convierta indicaciones sin procesar en declaraciones estructuradas de alto rendimiento con cadena de pensamiento, límites estrictos y validación de esquema.",
     "Code_pt": "Engenheiro Otimizador de Prompts",
     "Code_en": "Prompt Optimizer Engineer",
-    "Code_es": "Ingeniero optimizador rápido"
+    "Code_es": "Ingeniero optimizador rápido",
+    "URL": ""
   },
   {
     "cat_pt": "Orquestração",
@@ -1232,7 +1326,8 @@
     "Description_es": "Eres el Agente Maestro. Descomponer el objetivo global en 3 subtareas aisladas para agentes especializados, definiendo contratos de validación de entrada, salida y entrega.",
     "Code_pt": "Maestro Orquestrador Multi-Agente",
     "Code_en": "Multi-Agent Orchestrator Conductor",
-    "Code_es": "Director orquestador multiagente"
+    "Code_es": "Director orquestador multiagente",
+    "URL": ""
   },
   {
     "cat_pt": "Negócios e Ágil",
@@ -1245,7 +1340,8 @@
     "Description_es": "Eres el Agente Financiero. Analice las entradas y salidas programadas, identifique el mejor orden de liquidación para minimizar los costos financieros y le alerte sobre los riesgos de liquidez.",
     "Code_pt": "Otimizador de Fluxo de Caixa Diário",
     "Code_en": "Daily Cash Flow Optimizer",
-    "Code_es": "Optimizador de flujo de caja diario"
+    "Code_es": "Optimizador de flujo de caja diario",
+    "URL": ""
   },
   {
     "cat_pt": "Negócios e Ágil",
@@ -1258,7 +1354,8 @@
     "Description_es": "Usted es el Agente DPO. Identificar datos personales y sensibles en el proceso proporcionado, determinar las bases legales aplicables y establecer la matriz de gobernanza y retención.",
     "Code_pt": "Auditor de Conformidade LGPD/GDPR",
     "Code_en": "LGPD/GDPR Compliance Auditor",
-    "Code_es": "Auditor de Cumplimiento LGPD/GDPR"
+    "Code_es": "Auditor de Cumplimiento LGPD/GDPR",
+    "URL": ""
   },
   {
     "cat_pt": "Negócios e Ágil",
@@ -1271,7 +1368,8 @@
     "Description_es": "Usted es el Agente de Éxito del Cliente. Desarrolle un plan de activación de clientes durante los primeros 14 días con listas de verificación diarias, alertas de riesgo de abandono y activadores de soporte.",
     "Code_pt": "Coordenador de Onboarding",
     "Code_en": "Onboarding Coordinator",
-    "Code_es": "Coordinador de incorporación"
+    "Code_es": "Coordinador de incorporación",
+    "URL": ""
   },
   {
     "cat_pt": "Negócios e Ágil",
@@ -1284,7 +1382,8 @@
     "Description_es": "Eres el agente de suministros. Compare los presupuestos de los proveedores con las referencias del mercado y genere borradores de contrapropuestas que requieran revisiones de tarifas y penalizaciones según SLA.",
     "Code_pt": "Negociador de Contratos",
     "Code_en": "Contract Negotiator",
-    "Code_es": "Negociador de contratos"
+    "Code_es": "Negociador de contratos",
+    "URL": ""
   },
   {
     "cat_pt": "Negócios e Ágil",
@@ -1297,7 +1396,8 @@
     "Description_es": "Eres el Scrum Master Bot. Convierta la especificación de funciones en 3 historias de usuarios completas con criterios de aceptación en sintaxis Gherkin y estimaciones de puntuación.",
     "Code_pt": "Scrum Master e Decomposição de Histórias",
     "Code_en": "Scrum Master and Story Decomposition",
-    "Code_es": "Scrum Master y descomposición de la historia"
+    "Code_es": "Scrum Master y descomposición de la historia",
+    "URL": ""
   },
   {
     "cat_pt": "DevOps e CI/CD",
@@ -1310,7 +1410,8 @@
     "Description_es": "Eres el agente Terraform. Convierta la arquitectura descrita en archivos de configuración declarativos con variables parametrizadas y bloqueo de estado seguro.",
     "Code_pt": "Engenheiro de Infraestrutura (IaC)",
     "Code_en": "Infrastructure Engineer (IaC)",
-    "Code_es": "Ingeniero de Infraestructura (IaC)"
+    "Code_es": "Ingeniero de Infraestructura (IaC)",
+    "URL": ""
   },
   {
     "cat_pt": "DevOps e CI/CD",
@@ -1323,7 +1424,8 @@
     "Description_es": "Eres el agente de seguridad en la nube. Evalúe las políticas de acceso proporcionadas, elimine los privilegios excesivos y genere una plantilla corregida bajo el principio de privilegio mínimo.",
     "Code_pt": "Auditor de Permissões e Segurança IAM",
     "Code_en": "IAM Security and Permissions Auditor",
-    "Code_es": "Auditor de Permisos y Seguridad de IAM"
+    "Code_es": "Auditor de Permisos y Seguridad de IAM",
+    "URL": ""
   },
   {
     "cat_pt": "DevOps e CI/CD",
@@ -1336,7 +1438,8 @@
     "Description_es": "Usted es el agente de DevOps. Cree el proceso de automatización completo para [Stack], que abarque linters, conjuntos de pruebas paralelas, escaneo de seguridad e implementación de contenedores.",
     "Code_pt": "Arquiteto de Pipeline CI/CD",
     "Code_en": "CI/CD Pipeline Architect",
-    "Code_es": "Arquitecto de canalización de CI/CD"
+    "Code_es": "Arquitecto de canalización de CI/CD",
+    "URL": ""
   },
   {
     "cat_pt": "DevOps e CI/CD",
@@ -1349,7 +1452,8 @@
     "Description_es": "Usted es el Agente de Confiabilidad (SRE). Analice los registros del sistema, aísle el evento desencadenante inicial, enumere los servicios afectados y genere comandos para la restauración de emergencia.",
     "Code_pt": "SRE Diagnóstico de Logs",
     "Code_en": "SRE Log Diagnostics",
-    "Code_es": "Diagnóstico de registro SRE"
+    "Code_es": "Diagnóstico de registro SRE",
+    "URL": ""
   },
   {
     "cat_pt": "DevOps e CI/CD",
@@ -1362,7 +1466,8 @@
     "Description_es": "Usted es el agente de control de calidad. Analice el código proporcionado, genere pruebas de integración que cubran flujos críticos y fallas simuladas, entregando código limpio listo para el marco de pruebas.",
     "Code_pt": "Gerador de Testes Automatizados",
     "Code_en": "Automated Test Generator",
-    "Code_es": "Generador de pruebas automatizado"
+    "Code_es": "Generador de pruebas automatizado",
+    "URL": ""
   },
   {
     "cat_pt": "Agentes Autônomos",
@@ -1375,7 +1480,8 @@
     "Description_es": "Eres el Agente de Clasificación de Comunicaciones. Ordene los mensajes en categorías funcionales y devuelva JSON con categoría de destino, prioridad, resumen y departamento.",
     "Code_pt": "Triador e Roteador de E-mails",
     "Code_en": "Email Sorter and Router",
-    "Code_es": "Clasificador y enrutador de correo electrónico"
+    "Code_es": "Clasificador y enrutador de correo electrónico",
+    "URL": ""
   },
   {
     "cat_pt": "Agentes Autônomos",
@@ -1388,7 +1494,8 @@
     "Description_es": "Usted es el Agente que documenta el código. Revise los archivos, clases de documentos, parámetros y dependencias, generando un diagrama de sirena de las interacciones de los componentes.",
     "Code_pt": "Sintetizador de Repositórios de Código",
     "Code_en": "Code Repository Synthesizer",
-    "Code_es": "Sintetizador de repositorio de código"
+    "Code_es": "Sintetizador de repositorio de código",
+    "URL": ""
   },
   {
     "cat_pt": "Agentes Autônomos",
@@ -1401,7 +1508,8 @@
     "Description_es": "Usted es el Agente de Cumplimiento. Verifique límites de gasto, tasas impositivas y facturas duplicadas. Emitir opinión JSON: {estado, motivos, valor_total}.",
     "Code_pt": "Auditor de Despesas e Faturas",
     "Code_en": "Expense and Invoice Auditor",
-    "Code_es": "Auditor de Gastos y Facturas"
+    "Code_es": "Auditor de Gastos y Facturas",
+    "URL": ""
   },
   {
     "cat_pt": "Agentes Autônomos",
@@ -1414,7 +1522,8 @@
     "Description_es": "Eres un extractor de datos. Leer el texto y extraer las entidades en estricto formato JSON: {'people': [], 'companies': [], 'valores_monetarios': [], 'datas_iso8601': [], 'localidades': []}.",
     "Code_pt": "NER Engine (Extração Estruturada)",
     "Code_en": "NER Engine (Structured Extraction)",
-    "Code_es": "Motor NER (Extracción Estructurada)"
+    "Code_es": "Motor NER (Extracción Estructurada)",
+    "URL": ""
   },
   {
     "cat_pt": "Agentes Autônomos",
@@ -1427,7 +1536,8 @@
     "Description_es": "Eres un agente de investigación. Formular 5 hipótesis, buscar referentes empíricos, confrontar contradicciones y emitir un dossier de Markdown con metodología, evidencia y acciones sugeridas.",
     "Code_pt": "Deep Researcher Autônomo",
     "Code_en": "Autonomous Deep Researcher",
-    "Code_es": "Investigador profundo autónomo"
+    "Code_es": "Investigador profundo autónomo",
+    "URL": ""
   },
   {
     "cat_pt": "Dinâmica Financeira",
@@ -1440,7 +1550,8 @@
     "Description_es": "Explique [Concepto técnico reciente] en términos estrictamente matemáticos y funcionales, eliminando analogías populares y señalando las limitaciones actuales reales.",
     "Code_pt": "Desmistificação de Novas Tecnologias",
     "Code_en": "Demystification of New Technologies",
-    "Code_es": "Desmitificación de las nuevas tecnologías"
+    "Code_es": "Desmitificación de las nuevas tecnologías",
+    "URL": ""
   },
   {
     "cat_pt": "Dinâmica Financeira",
@@ -1453,7 +1564,8 @@
     "Description_es": "Cree una breve sesión informativa ejecutiva de 10 puntos sobre los eventos económicos y geopolíticos de esta mañana que afectan la cadena de suministro y la tecnología.",
     "Code_pt": "Briefing Matinal em Bullet Points",
     "Code_en": "Morning Briefing in Bullet Points",
-    "Code_es": "Reunión informativa matutina en viñetas"
+    "Code_es": "Reunión informativa matutina en viñetas",
+    "URL": ""
   },
   {
     "cat_pt": "Dinâmica Financeira",
@@ -1466,7 +1578,8 @@
     "Description_es": "Analizar cómo los agentes autónomos de IA impactarán directamente en las operaciones de las empresas del [Sector] hasta el próximo ciclo anual, señalando dónde habrá desintermediación.",
     "Code_pt": "Disrupção por Agentes no Negócio",
     "Code_en": "Disruption by Agents in Business",
-    "Code_es": "Disrupción por parte de los agentes en los negocios"
+    "Code_es": "Disrupción por parte de los agentes en los negocios",
+    "URL": ""
   },
   {
     "cat_pt": "Dinâmica Financeira",
@@ -1479,7 +1592,8 @@
     "Description_es": "Evalúe el modelo de precios de SaaS a continuación. Identifique desajustes en el mercado, riesgo de abandono y recomiende rangos basados ​​en el valor de uso real.",
     "Code_pt": "Auditoria Rápida de Pricing Power",
     "Code_en": "Power Pricing Quick Audit",
-    "Code_es": "Auditoría rápida de precios de energía"
+    "Code_es": "Auditoría rápida de precios de energía",
+    "URL": ""
   },
   {
     "cat_pt": "Dinâmica Financeira",
@@ -1492,7 +1606,8 @@
     "Description_es": "¿Cuál es el impacto directo de la reciente decisión sobre el tipo de interés/cambio en [Sector]? Señale quién gana, quién pierde y qué contratos operativos deberían renegociarse.",
     "Code_pt": "Impacto Macroeconômico Setorial",
     "Code_en": "Sectoral Macroeconomic Impact",
-    "Code_es": "Impacto macroeconómico sectorial"
+    "Code_es": "Impacto macroeconómico sectorial",
+    "URL": ""
   },
   {
     "cat_pt": "Gestão Operacional",
@@ -1505,7 +1620,8 @@
     "Description_es": "Proporcionar una rutina secuencial de 7 pasos en el terminal para diagnosticar pérdida intermitente de paquetes y latencia en una red corporativa con la interpretación de cada comando.",
     "Code_pt": "Troubleshooting de Redes no Terminal",
     "Code_en": "Network Troubleshooting in the Terminal",
-    "Code_es": "Solución de problemas de red en la terminal"
+    "Code_es": "Solución de problemas de red en la terminal",
+    "URL": ""
   },
   {
     "cat_pt": "Gestão Operacional",
@@ -1518,7 +1634,8 @@
     "Description_es": "Resuma el debate reciente de 3 horas entre [Persona A] y [Persona B]. Extraiga los 5 puntos centrales de desacuerdo, las concesiones hechas y los datos empíricos citados.",
     "Code_pt": "Resumo de Debates Longos",
     "Code_en": "Summary of Long Debates",
-    "Code_es": "Resumen de largos debates"
+    "Code_es": "Resumen de largos debates",
+    "URL": ""
   },
   {
     "cat_pt": "Gestão Operacional",
@@ -1531,7 +1648,8 @@
     "Description_es": "Cree una hoja de ruta de 5 pasos para implementar [Herramienta] en un equipo resiliente. Concéntrese en acciones de baja fricción, incentivos claros y ganancias rápidas al inicio del uso.",
     "Code_pt": "Roteiro de Implementação sem Atrito",
     "Code_en": "Frictionless Implementation Roadmap",
-    "Code_es": "Hoja de ruta de implementación sin fricciones"
+    "Code_es": "Hoja de ruta de implementación sin fricciones",
+    "URL": ""
   },
   {
     "cat_pt": "Gestão Operacional",
@@ -1544,7 +1662,8 @@
     "Description_es": "Convierta esta cartera de servicios en un discurso de 45 segundos. Elimina adjetivos abstractos y céntrate estrictamente en el retorno de la inversión, la reducción de tiempos y las garantías.",
     "Code_pt": "Pitch de Vendas Direto e Enxuto",
     "Code_en": "Direct and Lean Sales Pitch",
-    "Code_es": "Argumento de venta directo y eficiente"
+    "Code_es": "Argumento de venta directo y eficiente",
+    "URL": ""
   },
   {
     "cat_pt": "Gestão Operacional",
@@ -1557,7 +1676,8 @@
     "Description_es": "Escriba una declaración de crisis sobre [Incidente]. Asumir la responsabilidad directamente, indicar hechos verificables en un cronograma y detallar las mitigaciones sin tratar de endulzar.",
     "Code_pt": "Comunicação de Crise Transparente",
     "Code_en": "Transparent Crisis Communication",
-    "Code_es": "Comunicación transparente de crisis"
+    "Code_es": "Comunicación transparente de crisis",
+    "URL": ""
   },
   {
     "cat_pt": "Resolução de Problemas",
@@ -1570,7 +1690,8 @@
     "Description_es": "Compare [Opción A] versus [Opción B] para [Tipo de carga]. Presente el costo/rendimiento bruto, la eficiencia energética, los obstáculos a la expansión y el veredicto sin dudarlo.",
     "Code_pt": "Comparativo Radical de Hardware",
     "Code_en": "Radical Hardware Comparison",
-    "Code_es": "Comparación radical de hardware"
+    "Code_es": "Comparación radical de hardware",
+    "URL": ""
   },
   {
     "cat_pt": "Resolução de Problemas",
@@ -1583,7 +1704,8 @@
     "Description_es": "Explique los dos lados de la controversia que involucra a [Empresa/Regulador]. Presentar los argumentos técnicos y económicos de cada parte sin sesgos y señalar el resultado más probable.",
     "Code_pt": "Desconstrução de Controvérsias",
     "Code_en": "Deconstruction of Controversies",
-    "Code_es": "Deconstrucción de controversias"
+    "Code_es": "Deconstrucción de controversias",
+    "URL": ""
   },
   {
     "cat_pt": "Resolução de Problemas",
@@ -1596,7 +1718,8 @@
     "Description_es": "Explique la vulnerabilidad de [Nombre del incidente/CVE] en 3 párrafos sencillos: mecanismo de explotación, sistemas afectados y procedimiento de reparación exacto.",
     "Code_pt": "Diagnóstico Técnico Direto",
     "Code_en": "Direct Technical Diagnosis",
-    "Code_es": "Diagnóstico Técnico Directo"
+    "Code_es": "Diagnóstico Técnico Directo",
+    "URL": ""
   },
   {
     "cat_pt": "Resolução de Problemas",
@@ -1609,7 +1732,8 @@
     "Description_es": "Revise la página de ventas a continuación. Señale términos vacíos, promesas infladas y reescriba el texto con claridad fáctica, mostrando lo que realmente ofrece el producto.",
     "Code_pt": "Detecção de Jargão Vazio em Vendas",
     "Code_en": "Empty Jargon Detection in Sales",
-    "Code_es": "Detección de jerga vacía en ventas"
+    "Code_es": "Detección de jerga vacía en ventas",
+    "URL": ""
   },
   {
     "cat_pt": "Resolução de Problemas",
@@ -1622,7 +1746,8 @@
     "Description_es": "Les presento la idea: [Idea]. Señalar sin filtros por qué fracasaría en los primeros 12 meses, evaluando barreras de entrada, fricciones de adopción y costos operativos.",
     "Code_pt": "Reality Check de Ideia de Negócio",
     "Code_en": "Business Idea Reality Check",
-    "Code_es": "Verificación de la realidad de la idea de negocio"
+    "Code_es": "Verificación de la realidad de la idea de negocio",
+    "URL": ""
   },
   {
     "cat_pt": "Inteligência de Mercado",
@@ -1635,7 +1760,8 @@
     "Description_es": "Analice la narrativa viral reciente sobre [Tema]. ¿Qué relatos dieron lugar al debate, cuáles son los intereses comerciales asociados y cuáles son las repercusiones prácticas en el sector?",
     "Code_pt": "Desconstrução de Tendências Virais",
     "Code_en": "Deconstruction of Viral Trends",
-    "Code_es": "Deconstrucción de tendencias virales"
+    "Code_es": "Deconstrucción de tendencias virales",
+    "URL": ""
   },
   {
     "cat_pt": "Inteligência de Mercado",
@@ -1648,7 +1774,8 @@
     "Description_es": "Supervise los acontecimientos en [Área] esta semana. Descarta opiniones y resume solo cambios regulatorios, violaciones de protocolos de seguridad y repositorios reales de código abierto.",
     "Code_pt": "Curadoria Técnica sem Sensacionalismo",
     "Code_en": "Technical Curation without Sensationalism",
-    "Code_es": "Curación técnica sin sensacionalismo"
+    "Code_es": "Curación técnica sin sensacionalismo",
+    "URL": ""
   },
   {
     "cat_pt": "Inteligência de Mercado",
@@ -1661,7 +1788,8 @@
     "Description_es": "¿Cuáles fueron los movimientos, lanzamientos y controversias que involucraron al [Competidor A] y al [Competidor B] en los últimos 30 días? Presente una comparación directa sin andarse con rodeos.",
     "Code_pt": "Rastreamento Concorrencial",
     "Code_en": "Competitor Tracking",
-    "Code_es": "Seguimiento de la competencia"
+    "Code_es": "Seguimiento de la competencia",
+    "URL": ""
   },
   {
     "cat_pt": "Inteligência de Mercado",
@@ -1674,7 +1802,8 @@
     "Description_es": "Evaluar la etapa actual de adopción de la tecnología de [Nombre]. Indique si se limita a la exageración o si tiene un uso consolidado en producción, indicando métricas y evidencia tangible.",
     "Code_pt": "Análise de Tração e Hype",
     "Code_en": "Traction and Hype Analysis",
-    "Code_es": "Análisis de tracción y exageración"
+    "Code_es": "Análisis de tracción y exageración",
+    "URL": ""
   },
   {
     "cat_pt": "Inteligência de Mercado",
@@ -1687,7 +1816,8 @@
     "Description_es": "Analice el sentimiento del público y las principales discusiones sobre [Tema] durante las últimas 48 horas. Separe el ruido promocional de la crítica técnica y del posicionamiento consistente.",
     "Code_pt": "Monitoramento de Sentimento Real-Time",
     "Code_en": "Real-Time Sentiment Monitoring",
-    "Code_es": "Monitoreo de sentimiento en tiempo real"
+    "Code_es": "Monitoreo de sentimiento en tiempo real",
+    "URL": ""
   },
   {
     "cat_pt": "Pesquisa Hermenêutica",
@@ -1700,7 +1830,8 @@
     "Description_es": "Desarrollar la guía de incorporación para un nuevo [Rol Técnico]. Estructurar el recorrido de 30, 60 y 90 días con herramientas, accesos necesarios y criterios objetivos de autonomía.",
     "Code_pt": "Manual de Onboarding Operacional",
     "Code_en": "Operational Onboarding Manual",
-    "Code_es": "Manual de incorporación operativa"
+    "Code_es": "Manual de incorporación operativa",
+    "URL": ""
   },
   {
     "cat_pt": "Pesquisa Hermenêutica",
@@ -1713,7 +1844,8 @@
     "Description_es": "Desarrollar una tesis a favor y una antítesis en contra de la premisa: [Premisa]. Construir una síntesis integradora que preserve las fortalezas de ambas partes y elimine sus debilidades.",
     "Code_pt": "Argumentação Dialética e Síntese",
     "Code_en": "Dialectical Argumentation and Synthesis",
-    "Code_es": "Argumentación y síntesis dialéctica"
+    "Code_es": "Argumentación y síntesis dialéctica",
+    "URL": ""
   },
   {
     "cat_pt": "Pesquisa Hermenêutica",
@@ -1726,7 +1858,8 @@
     "Description_es": "Construir una matriz de riesgos para la iniciativa [Iniciativa]. Definir probabilidad, impacto, desencadenantes de alerta temprana y planes de contingencia detallados para cada riesgo identificado.",
     "Code_pt": "Matriz de Riscos Operacionais",
     "Code_en": "Operational Risk Matrix",
-    "Code_es": "Matriz de Riesgo Operacional"
+    "Code_es": "Matriz de Riesgo Operacional",
+    "URL": ""
   },
   {
     "cat_pt": "Pesquisa Hermenêutica",
@@ -1739,7 +1872,8 @@
     "Description_es": "Traducir el artículo académico adjunto a un texto comprensible para tomadores de decisiones no técnicos, manteniendo la precisión de los conceptos sin trivializarlos con analogías infantiles.",
     "Code_pt": "Desconstrução de Jargão Técnico",
     "Code_en": "Deconstruction of Technical Jargon",
-    "Code_es": "Deconstrucción de la jerga técnica"
+    "Code_es": "Deconstrucción de la jerga técnica",
+    "URL": ""
   },
   {
     "cat_pt": "Pesquisa Hermenêutica",
@@ -1752,7 +1886,8 @@
     "Description_es": "Sintetizar los enfoques teóricos descritos en los textos adjuntos. Aislar convergencias, divergencias metodológicas y evaluar la aplicabilidad práctica en entornos de alta volatilidad.",
     "Code_pt": "Análise Comparativa de Literatura",
     "Code_en": "Comparative Literature Analysis",
-    "Code_es": "Análisis comparativo de la literatura"
+    "Code_es": "Análisis comparativo de la literatura",
+    "URL": ""
   },
   {
     "cat_pt": "Redação Estratégica",
@@ -1765,7 +1900,8 @@
     "Description_es": "Desarrollar una propuesta comercial técnica formal para [Servicio]. Estructurar en: diagnóstico actual, alcance detallado, cronograma de hitos, modelo de inversión y supuestos.",
     "Code_pt": "Proposta Comercial Técnica B2B",
     "Code_en": "B2B Technical Commercial Proposal",
-    "Code_es": "Propuesta Técnico Comercial B2B"
+    "Code_es": "Propuesta Técnico Comercial B2B",
+    "URL": ""
   },
   {
     "cat_pt": "Redação Estratégica",
@@ -1778,7 +1914,8 @@
     "Description_es": "Elaborar un informe post-mortem exento de culpa sobre el incidente descrito. Estructurar en: cronograma, impacto en el usuario, desencadenante, factores contribuyentes y acciones preventivas.",
     "Code_pt": "Relatório Pós-Incidente Blameless",
     "Code_en": "Blameless Post-Incident Report",
-    "Code_es": "Informe posterior al incidente sin culpa"
+    "Code_es": "Informe posterior al incidente sin culpa",
+    "URL": ""
   },
   {
     "cat_pt": "Redação Estratégica",
@@ -1791,7 +1928,8 @@
     "Description_es": "Escriba un correo electrónico de negociación a [Situación]. El tono debe ser colaborativo, transparente, firme en los límites operativos y centrado en el valor mutuo.",
     "Code_pt": "Carta de Negociação de Alto Impacto",
     "Code_en": "High Impact Negotiation Charter",
-    "Code_es": "Carta de negociación de alto impacto"
+    "Code_es": "Carta de negociación de alto impacto",
+    "URL": ""
   },
   {
     "cat_pt": "Redação Estratégica",
@@ -1804,7 +1942,8 @@
     "Description_es": "Escriba una política corporativa sobre [Tema]. Utilice un lenguaje formal e inequívoco, incluido el alcance, las conductas prohibidas, la custodia de datos, la auditoría y las sanciones disciplinarias.",
     "Code_pt": "Política de Compliance e Governança",
     "Code_en": "Compliance and Governance Policy",
-    "Code_es": "Política de cumplimiento y gobernanza"
+    "Code_es": "Política de cumplimiento y gobernanza",
+    "URL": ""
   },
   {
     "cat_pt": "Redação Estratégica",
@@ -1817,7 +1956,8 @@
     "Description_es": "Prepare un ADR formal para [Decisión Técnica]. A continuación: título, contexto, factores que impulsan la decisión, opciones consideradas, decisión elegida y consecuencias.",
     "Code_pt": "Architecture Decision Record (ADR)",
     "Code_en": "Architecture Decision Record (ADR)",
-    "Code_es": "Registro de decisiones de arquitectura (ADR)"
+    "Code_es": "Registro de decisiones de arquitectura (ADR)",
+    "URL": ""
   },
   {
     "cat_pt": "Arquitetura de Software",
@@ -1830,7 +1970,8 @@
     "Description_es": "Analice la diferencia de Git proporcionada. Evalúe la legibilidad, el rendimiento, la compatibilidad con versiones anteriores y las pruebas. Proporcione comentarios sobre el estándar de revisión senior clasificados por criticidad.",
     "Code_pt": "Revisão de Pull Request Crítica",
     "Code_en": "Critical Pull Request Review",
-    "Code_es": "Revisión de solicitud de extracción crítica"
+    "Code_es": "Revisión de solicitud de extracción crítica",
+    "URL": ""
   },
   {
     "cat_pt": "Arquitetura de Software",
@@ -1843,7 +1984,8 @@
     "Description_es": "Migrar secuencias de comandos de procedimientos desde [Idioma A] a una arquitectura modular concurrente y asincrónica en [Idioma B], asegurando una correcta gestión de la conexión.",
     "Code_pt": "Migração de Paradigmas de Código",
     "Code_en": "Code Paradigm Migration",
-    "Code_es": "Migración de paradigma de código"
+    "Code_es": "Migración de paradigma de código",
+    "URL": ""
   },
   {
     "cat_pt": "Arquitetura de Software",
@@ -1856,7 +1998,8 @@
     "Description_es": "Realice una revisión de seguridad centrada en las 10 vulnerabilidades principales de OWASP en el siguiente fragmento. Identifique puntos de inyección, fallas de desinfección y proporcione código solucionado.",
     "Code_pt": "Auditoria de Segurança (SAST)",
     "Code_en": "Security Audit (SAST)",
-    "Code_es": "Auditoría de seguridad (SAST)"
+    "Code_es": "Auditoría de seguridad (SAST)",
+    "URL": ""
   },
   {
     "cat_pt": "Arquitetura de Software",
@@ -1869,7 +2012,8 @@
     "Description_es": "Escriba un conjunto exhaustivo de pruebas unitarias para la siguiente función. Portada: camino feliz, casos nulos, entradas mal formadas, condiciones de carrera y límites extremos.",
     "Code_pt": "Geração de Testes Unitários (TDD)",
     "Code_en": "Unit Test Generation (TDD)",
-    "Code_es": "Generación de pruebas unitarias (TDD)"
+    "Code_es": "Generación de pruebas unitarias (TDD)",
+    "URL": ""
   },
   {
     "cat_pt": "Arquitetura de Software",
@@ -1882,7 +2026,8 @@
     "Description_es": "Servir como arquitecto principal de software. Revise el código base a continuación. Reescríbalo desacoplando responsabilidades, aplicando principios SÓLIDOS y documentando opciones arquitectónicas.",
     "Code_pt": "Refatoração Arquitetural SOLID",
     "Code_en": "SOLID Architectural Refactoring",
-    "Code_es": "Refactorización arquitectónica SOLID"
+    "Code_es": "Refactorización arquitectónica SOLID",
+    "URL": ""
   },
   {
     "cat_pt": "Raciocínio Analítico",
@@ -1895,7 +2040,8 @@
     "Description_es": "Aplique el método de los 5 porqués al incidente [Fallo]. En cada iteración, valide que la cadena causal sea necesaria y suficiente antes de pasar al siguiente nivel.",
     "Code_pt": "Causa Raiz pelos 5 Porquês",
     "Code_en": "Root Cause by 5 Whys",
-    "Code_es": "Causa raíz por 5 porqués"
+    "Code_es": "Causa raíz por 5 porqués",
+    "URL": ""
   },
   {
     "cat_pt": "Raciocínio Analítico",
@@ -1908,7 +2054,8 @@
     "Description_es": "Por favor revise la propuesta adjunta. Identifique casos de sesgo de confirmación, falacia de costos hundidos y exceso de confianza en el cronograma y sugiera modificaciones de contención.",
     "Code_pt": "Auditoria de Viés Cognitivo",
     "Code_en": "Cognitive Bias Audit",
-    "Code_es": "Auditoría de sesgo cognitivo"
+    "Code_es": "Auditoría de sesgo cognitivo",
+    "URL": ""
   },
   {
     "cat_pt": "Raciocínio Analítico",
@@ -1921,7 +2068,8 @@
     "Description_es": "Compare las opciones técnicas [Opción A vs Opción B]. Estructurar una matriz de decisiones considerando: costo inicial, deuda técnica futura, facilidad de mantenimiento y riesgo de bloqueo.",
     "Code_pt": "Avaliação de Trade-offs com Decisão",
     "Code_en": "Evaluation of Trade-offs with Decision",
-    "Code_es": "Evaluación de compensaciones con decisión"
+    "Code_es": "Evaluación de compensaciones con decisión",
+    "URL": ""
   },
   {
     "cat_pt": "Raciocínio Analítico",
@@ -1934,7 +2082,8 @@
     "Description_es": "Asumir la postura de un evaluador escéptico ante la estrategia [Estrategia]. Señale fallas lógicas, vulnerabilidades operativas, riesgos de ejecución y supuestos presupuestarios débiles.",
     "Code_pt": "Advogado do Diabo Estratégico",
     "Code_en": "Strategic Devil's Advocate",
-    "Code_es": "Abogado del diablo estratégico"
+    "Code_es": "Abogado del diablo estratégico",
+    "URL": ""
   },
   {
     "cat_pt": "Raciocínio Analítico",
@@ -1947,7 +2096,8 @@
     "Description_es": "Desglose el siguiente dilema empresarial hasta sus primeros principios fundamentales: [Problema]. Aislar premisas heredadas de hechos irreductibles y proponer 3 enfoques reconstruidos a partir de estas bases.",
     "Code_pt": "Análise por Primeiros Princípios",
     "Code_en": "First Principles Analysis",
-    "Code_es": "Análisis de los primeros principios"
+    "Code_es": "Análisis de los primeros principios",
+    "URL": ""
   },
   {
     "cat_pt": "Engenharia de Software",
@@ -1960,7 +2110,8 @@
     "Description_es": "Con base en las rutas y cargas útiles descritas, genere la especificación completa en formato OpenAPI 3.0 (YAML) con autenticación, parámetros de ruta, cargas útiles y códigos HTTP.",
     "Code_pt": "Documentação OpenAPI/Swagger",
     "Code_en": "OpenAPI/Swagger Documentation",
-    "Code_es": "Documentación de OpenAPI/Swagger"
+    "Code_es": "Documentación de OpenAPI/Swagger",
+    "URL": ""
   },
   {
     "cat_pt": "Engenharia de Software",
@@ -1973,7 +2124,8 @@
     "Description_es": "Optimice la siguiente consulta SQL compleja. Evalúe planes de ejecución, elimine subconsultas redundantes a través de CTE y sugiera índices recomendados para tablas.",
     "Code_pt": "Conversão e Otimização de SQL",
     "Code_en": "SQL Conversion and Optimization",
-    "Code_es": "Conversión y optimización de SQL"
+    "Code_es": "Conversión y optimización de SQL",
+    "URL": ""
   },
   {
     "cat_pt": "Engenharia de Software",
@@ -1986,7 +2138,8 @@
     "Description_es": "Cree una expresión regular sólida para capturar y validar [Formato de datos]. Proporcione ejemplos de coincidencias positivas, casos extremos y explicaciones de cada token.",
     "Code_pt": "Regex Complexo com Explicação",
     "Code_en": "Complex Regex with Explanation",
-    "Code_es": "Regex compleja con explicación"
+    "Code_es": "Regex compleja con explicación",
+    "URL": ""
   },
   {
     "cat_pt": "Engenharia de Software",
@@ -1999,7 +2152,8 @@
     "Description_es": "Escriba una secuencia de comandos de Google Apps Script que lea Google Sheets, filtre filas con estado Pendiente, genere un documento formateado y envíe alertas por correo electrónico a través de Gmail.",
     "Code_pt": "Scripts em Google Apps Script",
     "Code_en": "Scripts in Google Apps Script",
-    "Code_es": "Secuencias de comandos en Google Apps Script"
+    "Code_es": "Secuencias de comandos en Google Apps Script",
+    "URL": ""
   },
   {
     "cat_pt": "Engenharia de Software",
@@ -2012,7 +2166,8 @@
     "Description_es": "Revise el script de Python a continuación. Identificar la complejidad ciclomática y los cuellos de botella de la memoria. Refactorizar aplicando buenas prácticas (PEP 8, sugerencias de tipo, manejo robusto de errores) y Big-O.",
     "Code_pt": "Refatoração com Foco em Performance",
     "Code_en": "Performance-Focused Refactoring",
-    "Code_es": "Refactorización centrada en el rendimiento"
+    "Code_es": "Refactorización centrada en el rendimiento",
+    "URL": ""
   },
   {
     "cat_pt": "Pesquisa e Conteúdo",
@@ -2025,7 +2180,8 @@
     "Description_es": "Desarrollar un módulo de capacitación de 30 minutos sobre [Tecnología]. Incluye: guión del instructor, analogías funcionales, puntos de parada para preguntas y cuestionario práctico con clave de respuestas.",
     "Code_pt": "Roteirização de Treinamento Técnico",
     "Code_en": "Technical Training Routing",
-    "Code_es": "Enrutamiento de capacitación técnica"
+    "Code_es": "Enrutamiento de capacitación técnica",
+    "URL": ""
   },
   {
     "cat_pt": "Pesquisa e Conteúdo",
@@ -2038,7 +2194,8 @@
     "Description_es": "Cree un resumen detallado para una campaña técnica en [Segmento] que contenga: personas compradoras, principales puntos débiles operativos, propuestas de valor diferenciadas y métricas clave.",
     "Code_pt": "Briefing de Criação Orientado a Dados",
     "Code_en": "Data-Driven Creative Briefing",
-    "Code_es": "Informe creativo basado en datos"
+    "Code_es": "Informe creativo basado en datos",
+    "URL": ""
   },
   {
     "cat_pt": "Pesquisa e Conteúdo",
@@ -2051,7 +2208,8 @@
     "Description_es": "A partir de la documentación técnica del producto [Nombre], construir una base de conocimiento en formato FAQ dividida en niveles de complejidad (L1, L2, L3).",
     "Code_pt": "FAQ Dinâmica para Suporte",
     "Code_en": "Dynamic FAQ for Support",
-    "Code_es": "Preguntas frecuentes dinámicas sobre soporte"
+    "Code_es": "Preguntas frecuentes dinámicas sobre soporte",
+    "URL": ""
   },
   {
     "cat_pt": "Pesquisa e Conteúdo",
@@ -2064,7 +2222,8 @@
     "Description_es": "Transforme el estudio de caso adjunto en 3 activos: 1) Una nota técnica para el liderazgo; 2) Un artículo interno sobre lecciones aprendidas; 3) Un guión temático para la presentación.",
     "Code_pt": "Adaptação Multicanal de Conteúdo",
     "Code_en": "Multichannel Content Adaptation",
-    "Code_es": "Adaptación de contenidos multicanal"
+    "Code_es": "Adaptación de contenidos multicanal",
+    "URL": ""
   },
   {
     "cat_pt": "Pesquisa e Conteúdo",
@@ -2077,7 +2236,8 @@
     "Description_es": "Realice un análisis exhaustivo del mercado en [Sector]. Enumere los cinco principales actores, sus diferenciadores competitivos, el modelo de precios y las brechas que quedan abiertas.",
     "Code_pt": "Análise de Panorama Competitivo",
     "Code_en": "Competitive Landscape Analysis",
-    "Code_es": "Análisis del panorama competitivo"
+    "Code_es": "Análisis del panorama competitivo",
+    "URL": ""
   },
   {
     "cat_pt": "Análise de Dados",
@@ -2090,7 +2250,8 @@
     "Description_es": "Realice una verificación exhaustiva de los hechos de este artículo técnico. Resalte afirmaciones sin evidencia empírica, premisas obsoletas y reescriba pasajes problemáticos.",
     "Code_pt": "Varredura Factual e Validação Cruzada",
     "Code_en": "Factual Scanning and Cross Validation",
-    "Code_es": "Escaneo fáctico y validación cruzada"
+    "Code_es": "Escaneo fáctico y validación cruzada",
+    "URL": ""
   },
   {
     "cat_pt": "Análise de Dados",
@@ -2103,7 +2264,8 @@
     "Description_es": "Descomponga el DRE a continuación. Calcule el margen bruto, el margen operativo, el EBITDA estimado y comente sobre la salud de la liquidez operativa comparando los períodos X e Y.",
     "Code_pt": "Engenharia Reversa de DRE",
     "Code_en": "DRE Reverse Engineering",
-    "Code_es": "Ingeniería inversa DRE"
+    "Code_es": "Ingeniería inversa DRE",
+    "URL": ""
   },
   {
     "cat_pt": "Análise de Dados",
@@ -2116,7 +2278,8 @@
     "Description_es": "Analiza la imagen de este tablero operativo. Identificar la tendencia principal de los KPI, los 2 puntos de mayor desviación negativa y trazar 3 hipótesis causales de las anomalías.",
     "Code_pt": "Análise Multimodal de Dashboards",
     "Code_en": "Multimodal Dashboard Analysis",
-    "Code_es": "Análisis de panel multimodal"
+    "Code_es": "Análisis de panel multimodal",
+    "URL": ""
   },
   {
     "cat_pt": "Análise de Dados",
@@ -2129,7 +2292,8 @@
     "Description_es": "Actuar como auditor jurídico-operativo. Extracto del siguiente contrato: partes, vigencia, sanciones por rescisión, obligaciones de cumplimiento y cláusulas de ajuste financiero en un cuadro.",
     "Code_pt": "Extração e Estruturação de Contratos",
     "Code_en": "Extraction and Structuring of Contracts",
-    "Code_es": "Extracción y Estructuración de Contratos"
+    "Code_es": "Extracción y Estructuración de Contratos",
+    "URL": ""
   },
   {
     "cat_pt": "Análise de Dados",
@@ -2142,7 +2306,8 @@
     "Description_es": "Examina la tabla adjunta. Identifique valores nulos, registros duplicados, valores atípicos matemáticos y proponga fórmulas en Google Sheets/Excel para limpieza y modelado.",
     "Code_pt": "Auditoria de Planilhas e Inconsistências",
     "Code_en": "Spreadsheet Audit and Inconsistencies",
-    "Code_es": "Auditoría de hojas de cálculo e inconsistencias"
+    "Code_es": "Auditoría de hojas de cálculo e inconsistencias",
+    "URL": ""
   },
   {
     "cat_pt": "Gestão e Produtividade",
@@ -2155,7 +2320,8 @@
     "Description_es": "Escriba un POE detallado para [Proceso]. Incluye: objetivo, requisitos previos, paso a paso con puntos de control de calidad y árbol de decisión para errores.",
     "Code_pt": "Automação de POP",
     "Code_en": "POP automation",
-    "Code_es": "Automatización POP"
+    "Code_es": "Automatización POP",
+    "URL": ""
   },
   {
     "cat_pt": "Gestão e Produtividade",
@@ -2168,7 +2334,8 @@
     "Description_es": "Con base en las notas sin procesar de la reunión a continuación, genere una minuta operativa estructurada: contexto principal, tabla de decisiones, plan de acción con la persona responsable y fecha límite de entrega.",
     "Code_pt": "Otimização de Reuniões",
     "Code_en": "Meeting Optimization",
-    "Code_es": "Optimización de reuniones"
+    "Code_es": "Optimización de reuniones",
+    "URL": ""
   },
   {
     "cat_pt": "Gestão e Produtividade",
@@ -2181,7 +2348,8 @@
     "Description_es": "Sintetice los 3 informes adjuntos en un resumen ejecutivo de 1 página dirigido al nivel C. Resalte métricas financieras, cuellos de botella operativos y 3 decisiones estratégicas.",
     "Code_pt": "Resumo Executivo Multi-Fonte",
     "Code_en": "Multi-Source Executive Summary",
-    "Code_es": "Resumen ejecutivo de múltiples fuentes"
+    "Code_es": "Resumen ejecutivo de múltiples fuentes",
+    "URL": ""
   },
   {
     "cat_pt": "Gestão e Produtividade",
@@ -2194,7 +2362,8 @@
     "Description_es": "Cree una estructura de desglose del trabajo (WBS/WBS) completa para la entrega del proyecto [Nombre]. Dividir en 4 fases secuenciales con hitos, horas estimadas y riesgos técnicos.",
     "Code_pt": "Plano de Projeto Rápido (WBS)",
     "Code_en": "Quick Project Plan (WBS)",
-    "Code_es": "Plan rápido de proyecto (WBS)"
+    "Code_es": "Plan rápido de proyecto (WBS)",
+    "URL": ""
   },
   {
     "cat_pt": "Gestão e Produtividade",
@@ -2207,7 +2376,7 @@
     "Description_es": "Servir como Jefe de Gabinete Ejecutivo. Revise los mensajes y compromisos que se enumeran a continuación. Extracto: 1) Acciones que requieren mi decisión hoy; 2) Tareas que pueden ser delegadas; 3) Posibles conflictos de programación. Presente todo en una matriz estructurada de Eisenhower.",
     "Code_pt": "Auditoria de Caixa de Entrada e Agenda",
     "Code_en": "Inbox and Calendar Audit",
-    "Code_es": "Auditoría de bandeja de entrada y calendario"
+    "Code_es": "Auditoría de bandeja de entrada y calendario",
+    "URL": ""
   }
 ]
-
