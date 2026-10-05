@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>OXY SYNTH</title>
+<title>OXY-Synth Pro — Canvas 2D</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/midi-writer-js@2.1.4/build/browser.min.js"></script>
 <style>
@@ -24,7 +24,7 @@ h1{font-size:1.4rem;font-weight:800;letter-spacing:1px;}
 .btn-primary{background-color:var(--accent-neutral);color:#fff;border:none;padding:14px 28px;font-size:15px;font-weight:bold;}
 .btn:disabled{opacity:0.3;cursor:not-allowed;}
 .btn.eco-on{border-color:var(--eco-on);color:var(--eco-on);box-shadow:0 0 6px rgba(224,168,92,0.35);}
-.canvas-container{width:100%;height:110px;background-color:#08060a;border:1px solid var(--border-color);border-radius:6px;position:relative;box-shadow:inset 0 0 20px rgba(15,5,25,0.9),inset 0 0 40px rgba(80,20,120,0.15);overflow:hidden;}
+.canvas-container{width:100%;height:120px;background-color:#08060a;border:1px solid var(--border-color);border-radius:6px;position:relative;box-shadow:inset 0 0 20px rgba(15,5,25,0.9),inset 0 0 40px rgba(80,20,120,0.15);overflow:hidden;}
 canvas{width:100%;height:100%;display:block;}
 .audio-overlay{position:absolute;inset:0;background:rgba(18,20,24,0.9);display:flex;justify-content:center;align-items:center;z-index:10;border-radius:6px;}
 .keyboard-controls{display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;padding:0 5px;}
@@ -32,13 +32,13 @@ canvas{width:100%;height:100%;display:block;}
 .keyboard-scroll{width:100%;padding-bottom:5px;border-radius:6px;}
 .keyboard-scroll.scrollable{overflow-x:auto;-webkit-overflow-scrolling:touch;}
 .keyboard-scroll.locked{overflow-x:hidden;}
-.keyboard{display:flex;height:190px;min-width:1200px;position:relative;background:#050608;border:1px solid var(--border-color);border-radius:4px;overflow:hidden;box-shadow:inset 0 4px 10px rgba(0,0,0,0.7);}
+.keyboard{display:flex;height:180px;min-width:1200px;position:relative;background:#050608;border:1px solid var(--border-color);border-radius:4px;overflow:hidden;box-shadow:inset 0 4px 10px rgba(0,0,0,0.7);}
 .keyboard-scroll.locked .keyboard{touch-action:none;}
 .key{position:relative;cursor:pointer;user-select:none;}
-.white-key{background:linear-gradient(180deg,#ffffff 0%,#f7f8fa 60%,#e8eaee 100%);flex:1;border-right:1px solid #0a0a0a;border-bottom:2px solid #0a0a0a;z-index:1;box-shadow:inset -1px 0 1px rgba(0,0,0,0.06),inset 0 -4px 6px rgba(0,0,0,0.08),inset 0 2px 1px rgba(255,255,255,0.9);transition:background 0.06s ease-out,box-shadow 0.06s ease-out;}
+.white-key{background:linear-gradient(180deg,#ffffff 0%,#f7f8fa 60%,#e8eaee 100%);flex:1;border-right:1px solid rgba(0,0,0,0.18);border-bottom:2px solid #0a0a0a;z-index:1;box-shadow:inset -1px 0 1px rgba(0,0,0,0.06),inset 0 -4px 6px rgba(0,0,0,0.08),inset 0 2px 1px rgba(255,255,255,0.9);transition:background 0.06s ease-out,box-shadow 0.06s ease-out;}
 .white-key:last-child{border-right:none;}
 .white-key.active{background:linear-gradient(180deg,#cfd3da 0%,#b8bdc6 100%);box-shadow:inset 0 5px 8px rgba(0,0,0,0.32),inset 0 -1px 1px rgba(255,255,255,0.3);}
-.black-key{background:linear-gradient(180deg,#34373e 0%,#131418 55%,#050608 100%);width:1.65%;min-width:26px;height:62%;margin-left:-0.825%;margin-right:-0.825%;z-index:2;border:1px solid #000;border-top:none;border-radius:0 0 6px 6px;box-shadow:inset 0 -2px 3px rgba(255,255,255,0.08),inset -1px 0 2px rgba(255,255,255,0.05),2px 4px 8px rgba(0,0,0,0.8),0 1px 0 1px rgba(0,0,0,0.6);transition:background 0.06s ease-out,box-shadow 0.06s ease-out;}
+.black-key{background:linear-gradient(180deg,#34373e 0%,#131418 55%,#050608 100%);width:1.8%;height:62%;margin-left:-0.9%;margin-right:-0.9%;z-index:2;border:1px solid #000;border-top:none;border-radius:0 0 6px 6px;box-shadow:inset 0 -2px 3px rgba(255,255,255,0.08),inset -1px 0 2px rgba(255,255,255,0.05),2px 4px 8px rgba(0,0,0,0.8),0 1px 0 1px rgba(0,0,0,0.6);transition:background 0.06s ease-out,box-shadow 0.06s ease-out;}
 .black-key.active{background:linear-gradient(180deg,#5a626b 0%,#33373e 55%,#1a1c20 100%);box-shadow:inset 0 4px 7px rgba(0,0,0,0.7),1px 1px 2px rgba(0,0,0,0.5);}
 .grid-panels{display:grid;grid-template-columns:1fr;gap:12px;margin-top:5px;}
 @media(min-width:768px){.grid-panels{grid-template-columns:1fr 1fr;}}
@@ -74,6 +74,11 @@ input[type="range"]::-webkit-slider-runnable-track{width:100%;height:4px;backgro
 </style>
 </head>
 <body>
+<script>
+  window.isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+  window.LOOKAHEAD_NORMAL = window.isMobile ? 0.25 : 0.12;
+  window.LOOKAHEAD_ECO    = window.isMobile ? 0.4  : 0.25;
+</script>
 <div class="app-container">
 <header>
 <h1>OXY<span class="brand-dot">.</span>PRO</h1>
@@ -232,7 +237,7 @@ input[type="range"]::-webkit-slider-runnable-track{width:100%;height:4px;backgro
 </div>
 </div>
 <script>
-Tone.context.lookAhead = 0.12;
+Tone.context.lookAhead = window.LOOKAHEAD_NORMAL;
 Tone.context.latencyHint = "playback";
 
 const keyboardDiv = document.getElementById("keyboard");
@@ -347,7 +352,7 @@ const fxOrder = ['wah','dist','trem','chorus','pan','delay','phaser'];
 
 function buildInstruments() {
     const vol = -10;
-    const polyMax = isMobile ? 6 : 8;
+    const polyMax = window.isMobile ? 6 : 8;
     instruments.poly = new Tone.PolySynth(Tone.Synth, { maxPolyphony: polyMax, volume: vol, oscillator: { type: "sawtooth" }, envelope: { attack: 0.01, decay: 0.3, sustain: 0.4, release: 0.6 } });
     instruments.fm = new Tone.PolySynth(Tone.FMSynth, { maxPolyphony: polyMax, volume: vol, harmonicity: 3.01, modulationIndex: 14, oscillator: { type: "sine" }, modulation: { type: "sine" }, envelope: { attack: 0.005, decay: 0.6, sustain: 0.15, release: 1.2 }, modulationEnvelope: { attack: 0.005, decay: 0.3, sustain: 0.1, release: 0.8 } });
     instruments.mono = new Tone.PolySynth(Tone.MonoSynth, { maxPolyphony: polyMax, volume: vol, oscillator: { type: "sawtooth" }, filter: { Q: 2, type: "lowpass" }, envelope: { attack: 0.01, decay: 0.3, sustain: 0.4, release: 0.5 }, filterEnvelope: { attack: 0.01, decay: 0.2, sustain: 0.3, release: 0.5, baseFrequency: 200, octaves: 3 } });
@@ -501,7 +506,7 @@ function updateCustomVisibility() {
 function applyLowCpuMode() {
     if (!isAudioReady) return;
     if (lowCpuMode) {
-        Tone.context.lookAhead = 0.25;
+        Tone.context.lookAhead = window.LOOKAHEAD_ECO;
         try { instruments.poly.maxPolyphony = 2; } catch(_){}
         try { instruments.fm.maxPolyphony = 2; } catch(_){}
         try { instruments.mono.maxPolyphony = 2; } catch(_){}
@@ -512,10 +517,10 @@ function applyLowCpuMode() {
         }
         rebuildChain();
     } else {
-        Tone.context.lookAhead = 0.12;
-        try { instruments.poly.maxPolyphony = isMobile ? 6 : 8; } catch(_){}
-        try { instruments.fm.maxPolyphony = isMobile ? 6 : 8; } catch(_){}
-        try { instruments.mono.maxPolyphony = isMobile ? 6 : 8; } catch(_){}
+        Tone.context.lookAhead = window.LOOKAHEAD_NORMAL;
+        try { instruments.poly.maxPolyphony = window.isMobile ? 6 : 8; } catch(_){}
+        try { instruments.fm.maxPolyphony = window.isMobile ? 6 : 8; } catch(_){}
+        try { instruments.mono.maxPolyphony = window.isMobile ? 6 : 8; } catch(_){}
         try { analyserWave.size = 256; } catch(_){}
         document.getElementById("canvasContainer").style.display = "";
     }
@@ -544,6 +549,7 @@ document.getElementById("startAudioBtn").addEventListener("click", async () => {
         document.getElementById("recBtn").disabled = false;
         wrapper.scrollLeft = keyElements['C3'].offsetLeft - 20;
         updateCustomVisibility();
+        resizeCanvas();
         requestAnimationFrame(drawVisualizer);
     } catch (err) {
         console.error("Erro init:", err);
@@ -563,12 +569,7 @@ function playNote(note, el, velocity = 0.8) {
     if (el) el.classList.add('active');
     try { currentInstrument.triggerAttack(note, Tone.now(), velocity); } catch(e){}
     if (recordingMidi) midiActiveNotes[note] = { startTime: Tone.now() - midiRecordingStartTime, velocity };
-    // Atualiza a nota do sequenciador
-    if (typeof seqNote !== 'undefined') {
-        seqNote = note;
-        const sel = document.getElementById('seqNote');
-        if (sel) sel.value = note;
-    }
+    if (typeof window.__seqOnNote === 'function') window.__seqOnNote(note);
 }
 function stopNote(note, el) {
     if (!isAudioReady || !currentInstrument) return;
@@ -583,16 +584,16 @@ function stopNote(note, el) {
     }
 }
 
+/* ============ VISUALIZADOR CANVAS 2D ============ */
 const canvas = document.getElementById("visualizerCanvas");
 const ctx = canvas.getContext("2d");
 function resizeCanvas() { canvas.width = canvas.clientWidth; canvas.height = canvas.clientHeight; }
 window.addEventListener('resize', resizeCanvas);
-resizeCanvas();
 let lastDraw = 0, smoothReact = 0;
 function drawVisualizer(t) {
     requestAnimationFrame(drawVisualizer);
     if (!isAudioReady || lowCpuMode || document.hidden) return;
-    if (t - lastDraw < 50) return;
+    if (t - lastDraw < 33) return;
     lastDraw = t;
     const W = canvas.width, H = canvas.height, mid = H / 2;
     ctx.fillStyle = 'rgba(8, 6, 10, 0.22)';
@@ -734,6 +735,11 @@ const TR=[['kick','Kick'],['snare','Snare'],['hat','Hat'],['clap','Clap'],['syn'
 const pat={}, cells={};
 TR.forEach(t=>{pat[t[0]]=Array(16).fill(0);cells[t[0]]=[];});
 let seqNote = 'C3';
+window.__seqOnNote = (n) => {
+  seqNote = n;
+  const sel = document.getElementById('seqNote');
+  if (sel) sel.value = n;
+};
 const PRE={
 rock:{kick:'1000001010000010',snare:'0000100000001000',hat:'1010101010101010',clap:'',syn:'1000000010000000'},
 hiphop:{kick:'1000000110100000',snare:'0000100000001000',hat:'1011101110111011',clap:'',syn:'1000000000100000'},
@@ -786,7 +792,6 @@ function buildDrums(){
   Tone.Transport.bpm.value=parseFloat(document.getElementById('seqBpm').value);
   Tone.Transport.swingSubdivision='16n';
   Tone.Transport.swing=parseFloat(document.getElementById('seqSwing').value);
-  // Agenda o loop do sequenciador
   if (seqRepeatId) Tone.Transport.clear(seqRepeatId);
   seqStep = 0;
   seqRepeatId = Tone.Transport.scheduleRepeat((time) => {
@@ -855,17 +860,13 @@ load(PRE.rock);
 </script>
 <script>
 // Desbloqueio de áudio no mobile
-if (isMobile) {
+if (window.isMobile) {
   document.body.addEventListener('pointerdown', async () => {
     if (Tone.context.state !== 'running') {
-      try {
-        await Tone.start();
-        await Tone.context.resume();
-      } catch(e) {}
+      try { await Tone.start(); await Tone.context.resume(); } catch(e) {}
     }
   }, { once: true });
 }
 </script>
 </body>
 </html>
-
