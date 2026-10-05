@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>OXY-Synth Pro — Canvas 2D</title>
+<title>OXY SYNTH</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/midi-writer-js@2.1.4/build/browser.min.js"></script>
 <style>
@@ -32,7 +32,7 @@ canvas{width:100%;height:100%;display:block;}
 .keyboard-scroll{width:100%;padding-bottom:5px;border-radius:6px;}
 .keyboard-scroll.scrollable{overflow-x:auto;-webkit-overflow-scrolling:touch;}
 .keyboard-scroll.locked{overflow-x:hidden;}
-.keyboard{display:flex;height:190px;min-width:1700px;position:relative;background:#050608;border:1px solid var(--border-color);border-radius:4px;overflow:hidden;box-shadow:inset 0 4px 10px rgba(0,0,0,0.7);}
+.keyboard{display:flex;height:190px;min-width:1200px;position:relative;background:#050608;border:1px solid var(--border-color);border-radius:4px;overflow:hidden;box-shadow:inset 0 4px 10px rgba(0,0,0,0.7);}
 .keyboard-scroll.locked .keyboard{touch-action:none;}
 .key{position:relative;cursor:pointer;user-select:none;}
 .white-key{background:linear-gradient(180deg,#ffffff 0%,#f7f8fa 60%,#e8eaee 100%);flex:1;border-right:1px solid #0a0a0a;border-bottom:2px solid #0a0a0a;z-index:1;box-shadow:inset -1px 0 1px rgba(0,0,0,0.06),inset 0 -4px 6px rgba(0,0,0,0.08),inset 0 2px 1px rgba(255,255,255,0.9);transition:background 0.06s ease-out,box-shadow 0.06s ease-out;}
@@ -52,7 +52,6 @@ input[type="range"]::-webkit-slider-runnable-track{width:100%;height:4px;backgro
 .toggle-btn{background:var(--toggle-bg);border:1px solid var(--border-color);color:var(--text-muted);padding:4px 8px;border-radius:4px;font-size:0.7rem;font-weight:bold;cursor:pointer;}
 .toggle-btn.active{background:var(--accent-neutral);color:#fff;border-color:var(--accent-neutral);}
 .hidden{display:none !important;}
-
 .seq-panel{grid-column:1/-1;}
 .seq-top{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:12px;}
 .seq-play{padding:8px 18px;font-size:13px;border-radius:4px;cursor:pointer;min-width:90px;}
@@ -71,6 +70,7 @@ input[type="range"]::-webkit-slider-runnable-track{width:100%;height:4px;backgro
 .seq-step.now{outline:2px solid var(--text-main);outline-offset:-2px;}
 .seq-step:focus-visible{outline:2px solid var(--eco-on);}
 .seq-hint{font-size:0.7rem;color:var(--text-muted);margin-top:8px;}
+@media(max-width:500px){.seq-grid{min-width:100%;}.seq-steps{gap:2px;}.seq-step{height:28px;}}
 </style>
 </head>
 <body>
@@ -347,9 +347,10 @@ const fxOrder = ['wah','dist','trem','chorus','pan','delay','phaser'];
 
 function buildInstruments() {
     const vol = -10;
-    instruments.poly = new Tone.PolySynth(Tone.Synth, { maxPolyphony: 5, volume: vol, oscillator: { type: "sawtooth" }, envelope: { attack: 0.01, decay: 0.3, sustain: 0.4, release: 0.6 } });
-    instruments.fm = new Tone.PolySynth(Tone.FMSynth, { maxPolyphony: 4, volume: vol, harmonicity: 3.01, modulationIndex: 14, oscillator: { type: "sine" }, modulation: { type: "sine" }, envelope: { attack: 0.005, decay: 0.6, sustain: 0.15, release: 1.2 }, modulationEnvelope: { attack: 0.005, decay: 0.3, sustain: 0.1, release: 0.8 } });
-    instruments.mono = new Tone.PolySynth(Tone.MonoSynth, { maxPolyphony: 3, volume: vol, oscillator: { type: "sawtooth" }, filter: { Q: 2, type: "lowpass" }, envelope: { attack: 0.01, decay: 0.3, sustain: 0.4, release: 0.5 }, filterEnvelope: { attack: 0.01, decay: 0.2, sustain: 0.3, release: 0.5, baseFrequency: 200, octaves: 3 } });
+    const polyMax = isMobile ? 6 : 8;
+    instruments.poly = new Tone.PolySynth(Tone.Synth, { maxPolyphony: polyMax, volume: vol, oscillator: { type: "sawtooth" }, envelope: { attack: 0.01, decay: 0.3, sustain: 0.4, release: 0.6 } });
+    instruments.fm = new Tone.PolySynth(Tone.FMSynth, { maxPolyphony: polyMax, volume: vol, harmonicity: 3.01, modulationIndex: 14, oscillator: { type: "sine" }, modulation: { type: "sine" }, envelope: { attack: 0.005, decay: 0.6, sustain: 0.15, release: 1.2 }, modulationEnvelope: { attack: 0.005, decay: 0.3, sustain: 0.1, release: 0.8 } });
+    instruments.mono = new Tone.PolySynth(Tone.MonoSynth, { maxPolyphony: polyMax, volume: vol, oscillator: { type: "sawtooth" }, filter: { Q: 2, type: "lowpass" }, envelope: { attack: 0.01, decay: 0.3, sustain: 0.4, release: 0.5 }, filterEnvelope: { attack: 0.01, decay: 0.2, sustain: 0.3, release: 0.5, baseFrequency: 200, octaves: 3 } });
     try {
         const loadingTag = document.getElementById("loadingTag");
         loadingTag.classList.add("show");
@@ -512,9 +513,9 @@ function applyLowCpuMode() {
         rebuildChain();
     } else {
         Tone.context.lookAhead = 0.12;
-        try { instruments.poly.maxPolyphony = 5; } catch(_){}
-        try { instruments.fm.maxPolyphony = 4; } catch(_){}
-        try { instruments.mono.maxPolyphony = 3; } catch(_){}
+        try { instruments.poly.maxPolyphony = isMobile ? 6 : 8; } catch(_){}
+        try { instruments.fm.maxPolyphony = isMobile ? 6 : 8; } catch(_){}
+        try { instruments.mono.maxPolyphony = isMobile ? 6 : 8; } catch(_){}
         try { analyserWave.size = 256; } catch(_){}
         document.getElementById("canvasContainer").style.display = "";
     }
@@ -562,6 +563,12 @@ function playNote(note, el, velocity = 0.8) {
     if (el) el.classList.add('active');
     try { currentInstrument.triggerAttack(note, Tone.now(), velocity); } catch(e){}
     if (recordingMidi) midiActiveNotes[note] = { startTime: Tone.now() - midiRecordingStartTime, velocity };
+    // Atualiza a nota do sequenciador
+    if (typeof seqNote !== 'undefined') {
+        seqNote = note;
+        const sel = document.getElementById('seqNote');
+        if (sel) sel.value = note;
+    }
 }
 function stopNote(note, el) {
     if (!isAudioReady || !currentInstrument) return;
@@ -585,7 +592,7 @@ let lastDraw = 0, smoothReact = 0;
 function drawVisualizer(t) {
     requestAnimationFrame(drawVisualizer);
     if (!isAudioReady || lowCpuMode || document.hidden) return;
-    if (t - lastDraw < 33) return;
+    if (t - lastDraw < 50) return;
     lastDraw = t;
     const W = canvas.width, H = canvas.height, mid = H / 2;
     ctx.fillStyle = 'rgba(8, 6, 10, 0.22)';
@@ -726,7 +733,7 @@ document.getElementById("midiBtn").addEventListener("click", () => {
 const TR=[['kick','Kick'],['snare','Snare'],['hat','Hat'],['clap','Clap'],['syn','Synth']];
 const pat={}, cells={};
 TR.forEach(t=>{pat[t[0]]=Array(16).fill(0);cells[t[0]]=[];});
-const SEQ={note:'C3'};
+let seqNote = 'C3';
 const PRE={
 rock:{kick:'1000001010000010',snare:'0000100000001000',hat:'1010101010101010',clap:'',syn:'1000000010000000'},
 hiphop:{kick:'1000000110100000',snare:'0000100000001000',hat:'1011101110111011',clap:'',syn:'1000000000100000'},
@@ -758,11 +765,11 @@ document.getElementById('seqRandom').addEventListener('click',()=>{
 const noteSel=document.getElementById('seqNote');
 notes.forEach(n=>{const o=document.createElement('option');o.value=o.textContent=n.name;noteSel.appendChild(o);});
 noteSel.value='C3';
-noteSel.addEventListener('change',()=>{SEQ.note=noteSel.value;});
-const _pn=playNote;
-playNote=function(n,el,v){_pn(n,el,v);if(isAudioReady){SEQ.note=n;noteSel.value=n;}};
+noteSel.addEventListener('change',()=>{seqNote=noteSel.value;});
 
-let drums=null,bus=null,seq=null;
+let drums=null,bus=null;
+let seqStep = 0;
+let seqRepeatId = null;
 function noiseVoice(filterType,freq,decay,type,vol){
   const f=new Tone.Filter(freq,filterType).connect(bus);
   const n=new Tone.NoiseSynth({noise:{type:type},envelope:{attack:0.001,decay:decay,sustain:0},volume:vol}).connect(f);
@@ -779,26 +786,31 @@ function buildDrums(){
   Tone.Transport.bpm.value=parseFloat(document.getElementById('seqBpm').value);
   Tone.Transport.swingSubdivision='16n';
   Tone.Transport.swing=parseFloat(document.getElementById('seqSwing').value);
-  seq=new Tone.Sequence((time,i)=>{
-    if(pat.kick[i])drums.kick.triggerAttackRelease('C1','8n',time);
-    if(pat.snare[i])drums.snare.triggerAttackRelease('16n',time);
-    if(pat.hat[i])drums.hat.triggerAttackRelease('32n',time);
-    if(pat.clap[i])drums.clap.triggerAttackRelease('16n',time);
-    if(pat.syn[i]&&currentInstrument){try{currentInstrument.triggerAttackRelease(SEQ.note,'16n',time,0.8);}catch(e){}}
-    Tone.Draw.schedule(()=>mark(i),time);
-  },Array.from({length:16},(_,i)=>i),'16n').start(0);
+  // Agenda o loop do sequenciador
+  if (seqRepeatId) Tone.Transport.clear(seqRepeatId);
+  seqStep = 0;
+  seqRepeatId = Tone.Transport.scheduleRepeat((time) => {
+    const i = seqStep % 16;
+    if(pat.kick[i]) drums.kick.triggerAttackRelease('C1','8n',time);
+    if(pat.snare[i]) drums.snare.triggerAttackRelease('16n',time);
+    if(pat.hat[i]) drums.hat.triggerAttackRelease('32n',time);
+    if(pat.clap[i]) drums.clap.triggerAttackRelease('16n',time);
+    if(pat.syn[i] && currentInstrument) { try { currentInstrument.triggerAttackRelease(seqNote,'16n',time,0.8); } catch(e){} }
+    Tone.Draw.schedule(() => mark(i), time);
+    seqStep++;
+  }, '16n');
 }
 function mark(i){TR.forEach(([id])=>cells[id].forEach((c,j)=>c.classList.toggle('now',j===i)));}
 const playBtn=document.getElementById('seqPlay');
 playBtn.addEventListener('click',()=>{
   if(!isAudioReady){alert('Ligue o sintetizador primeiro.');return;}
-  if(!drums)buildDrums();
+  if(!drums) buildDrums();
   if(Tone.Transport.state==='started'){
-    Tone.Transport.stop();mark(-1);
-    playBtn.textContent='Tocar';playBtn.classList.remove('running');
+    Tone.Transport.stop(); mark(-1);
+    playBtn.textContent='Tocar'; playBtn.classList.remove('running');
   }else{
     Tone.Transport.start('+0.05');
-    playBtn.textContent='Parar';playBtn.classList.add('running');
+    playBtn.textContent='Parar'; playBtn.classList.add('running');
   }
 });
 document.getElementById('seqBpm').addEventListener('input',e=>{
@@ -828,7 +840,7 @@ document.getElementById('seqMidi').addEventListener('click',()=>{
   for(let r=0;r<4;r++)for(let i=0;i<16;i++){
     const t=(r*16+i)*32;
     Object.keys(MAP).forEach(k=>{if(pat[k][i])d.push({t:t,d:24,p:MAP[k]});});
-    if(pat.syn[i])s.push({t:t,d:28,p:SEQ.note});
+    if(pat.syn[i])s.push({t:t,d:28,p:seqNote});
   }
   if(!d.length&&!s.length){alert('Padrao vazio.');return;}
   const tracks=[];
@@ -841,5 +853,19 @@ document.getElementById('seqMidi').addEventListener('click',()=>{
 load(PRE.rock);
 })();
 </script>
+<script>
+// Desbloqueio de áudio no mobile
+if (isMobile) {
+  document.body.addEventListener('pointerdown', async () => {
+    if (Tone.context.state !== 'running') {
+      try {
+        await Tone.start();
+        await Tone.context.resume();
+      } catch(e) {}
+    }
+  }, { once: true });
+}
+</script>
 </body>
 </html>
+
