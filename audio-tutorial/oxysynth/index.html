@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>OXY-Synth Pro — Canvas 2D</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/midi-writer-js@2.1.4/build/browser.min.js"></script>
+<style>
+:root{--bg-color:#121418;--panel-bg:#1a1d24;--border-color:#2c313a;--text-main:#d7dae0;--text-muted:#7f848e;--accent-neutral:#5c8ce6;--toggle-bg:#0b0c0f;--fft-violet:#b072ff;--midi-off:#e05561;--midi-on:#5cc971;--eco-on:#e0a85c;}
+*{box-sizing:border-box;margin:0;padding:0;font-family:"Segoe UI",-apple-system,sans-serif;}
+body{background-color:var(--bg-color);color:var(--text-main);display:flex;flex-direction:column;align-items:center;min-height:100vh;padding:10px;overflow-x:hidden;user-select:none;-webkit-user-select:none;touch-action:pan-y;}
+.app-container{width:100%;max-width:1100px;display:flex;flex-direction:column;gap:12px;}
+header{display:flex;justify-content:space-between;align-items:center;padding-bottom:8px;border-bottom:1px solid var(--border-color);flex-wrap:wrap;gap:8px;}
+h1{font-size:1.4rem;font-weight:800;letter-spacing:1px;}
+.brand-dot{color:var(--accent-neutral);}
+.header-controls{display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
+.midi-status{font-size:0.7rem;font-weight:bold;padding:4px 6px;border-radius:4px;border:1px solid var(--midi-off);color:var(--midi-off);}
+.midi-status.connected{border-color:var(--midi-on);color:var(--midi-on);box-shadow:0 0 5px rgba(92,201,113,0.4);}
+.loading-tag{font-size:0.65rem;color:var(--fft-violet);padding:3px 6px;border:1px solid var(--fft-violet);border-radius:4px;display:none;}
+.loading-tag.show{display:inline-block;}
+.btn{background-color:var(--panel-bg);color:var(--text-main);border:1px solid var(--border-color);padding:6px 10px;border-radius:4px;font-size:11px;font-weight:bold;cursor:pointer;transition:all 0.2s;}
+.btn:hover:not(:disabled){border-color:var(--accent-neutral);color:var(--accent-neutral);}
+.btn-primary{background-color:var(--accent-neutral);color:#fff;border:none;padding:14px 28px;font-size:15px;font-weight:bold;}
+.btn:disabled{opacity:0.3;cursor:not-allowed;}
+.btn.eco-on{border-color:var(--eco-on);color:var(--eco-on);box-shadow:0 0 6px rgba(224,168,92,0.35);}
+.canvas-container{width:100%;height:110px;background-color:#08060a;border:1px solid var(--border-color);border-radius:6px;position:relative;box-shadow:inset 0 0 20px rgba(15,5,25,0.9),inset 0 0 40px rgba(80,20,120,0.15);overflow:hidden;}
+canvas{width:100%;height:100%;display:block;}
+.audio-overlay{position:absolute;inset:0;background:rgba(18,20,24,0.9);display:flex;justify-content:center;align-items:center;z-index:10;border-radius:6px;}
+.keyboard-controls{display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;padding:0 5px;}
+.scroll-status{font-size:0.75rem;color:var(--accent-neutral);font-weight:bold;}
+.keyboard-scroll{width:100%;padding-bottom:5px;border-radius:6px;}
+.keyboard-scroll.scrollable{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+.keyboard-scroll.locked{overflow-x:hidden;}
+.keyboard{display:flex;height:190px;min-width:1700px;position:relative;background:#050608;border:1px solid var(--border-color);border-radius:4px;overflow:hidden;box-shadow:inset 0 4px 10px rgba(0,0,0,0.7);}
